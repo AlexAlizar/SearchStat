@@ -1,0 +1,43 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Hello, world!</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+
+</head>
+<body>
+<div class="container-fluid row">
+    <nav class="navbar navbar-dark bg-light col-sm-3">
+        <ul class="nav flex-column">
+            <li class="nav-item nav-pills">
+                <a class="nav-link active" href="#">Справочник</a>
+            </li>
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                <a class="nav-link" href="#">Личности</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Ключевые слова</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Сайты</a>
+            </li>
+            </ul>
+        </ul>
+    </nav>
+    <div class="col-sm-6">
+        {% block content %}
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab dolor doloremque dolores eos facere facilis fugiat impedit, ipsam iste magni mollitia numquam perferendis praesentium quaerat reiciendis repudiandae saepe similique vitae!</p>
+        {% endblock %}
+    </div>
+</div>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+</body>
+</html>

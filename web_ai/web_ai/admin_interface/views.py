@@ -2,6 +2,7 @@ from django.shortcuts import render
 
 
 def admin_interface(request):
+
     context = {}
-    template = 'web_ai.html'
+    template = 'base.html'
     return render(request, template, context)

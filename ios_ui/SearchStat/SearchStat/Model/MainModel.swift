@@ -7,17 +7,23 @@
 //
 
 import Foundation
-//Модель:
-//1. Site
-//id : Int
-//name: String
-//personsArray: [Person]
-//2. Person
-//id: Int
-//name: String
-//total: Int
-//dayStatsArray: [DayStats]
-//3. DayStats
-//day: DateTime
-//total: Int
+
+struct Site {
+    var id: Int
+    var name: String
+    var personsArray: [Person]
+}
+
+struct Person {
+    var id: Int
+    var name: String
+    var total: Int
+    var dayStatsArray: [DayStats]
+}
+
+struct DayStats {
+    var day: Date
+    var total: Int
+}
+
 

@@ -1,3 +1,7 @@
 from django.shortcuts import render
 
-# Create your views here.
+
+def admin_interface(request):
+    context = {}
+    template = 'web_ai.html'
+    return render(request, template, context)

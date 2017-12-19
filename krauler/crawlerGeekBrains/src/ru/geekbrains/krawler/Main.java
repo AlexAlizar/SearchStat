@@ -5,6 +5,6 @@ public class Main {
         System.out.println("Start program");
         System.out.println("Проверка связи =)");
         //пример вызова метода download
-        System.out.println(Downloader.download("https://lenta.ru"));
+        System.out.println(Downloader.download("lenta.ru"));
     }
 }

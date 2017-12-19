@@ -16,16 +16,18 @@ public class Downloader {
 
     public static String download(String url) {
 
-        String content, defaultProtocol, alternativeProtocol;
+        String content;
 
         url = url.toLowerCase();
-        defaultProtocol = checkProtocolURL(url);
-        alternativeProtocol = getAlternativeProtocol(defaultProtocol);
-        content = getContent(defaultProtocol + url);
-        if (!checkContent(content)){
-            content = getContent(alternativeProtocol + url);
+        if (hasProtocol(url)) {
+            content = getContent(url);
+        } else {
+            content = getContent(DEFAULT_PROTOCOL + url);
             if (!checkContent(content)) {
-                return "Указан некорректный веб-адрес";
+                content = getContent(ALTERNATIVE_PROTOCOL + url);
+                if (!checkContent(content)) {
+                    return "Указан некорректный веб-адрес";
+                }
             }
         }
         return content;
@@ -42,6 +44,7 @@ public class Downloader {
             String line;
             while ((line = reader.readLine()) != null) {
                 result.append(line);
+                result.append(" ");
             }
         } catch (java.io.IOException e) {
             e.printStackTrace();
@@ -55,25 +58,23 @@ public class Downloader {
         return result.toString();
     }
 
-    private static String checkProtocolURL(String url) {
+    private static boolean hasProtocol(String url) {
 
         int index = url.indexOf("://");
         if (index < 0) {
-            return DEFAULT_PROTOCOL;
+            return false;
         } else {
-            return url.substring(0,index+3);
+            return true;
         }
     }
 
-    private static String getAlternativeProtocol(String Protocol) {
-        if (Protocol.equals(DEFAULT_PROTOCOL)) {
-            return ALTERNATIVE_PROTOCOL;
-        } else {
-            return DEFAULT_PROTOCOL;
-        }
-    }
 
-    private static boolean checkContent(String Content) {
-        return true;
+    private static boolean checkContent(String content) {
+        if (content.indexOf("<title>301 Moved Permanently</title></head>")>0) {
+            return false;
+        } else {
+            return true;
+        }
+
     }
 }

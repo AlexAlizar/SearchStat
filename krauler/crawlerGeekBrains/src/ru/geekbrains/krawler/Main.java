@@ -6,5 +6,7 @@ public class Main {
         System.out.println("Проверка связи =)");
         //пример вызова метода download
         System.out.println(Downloader.download("lenta.ru"));
+
+        System.out.println("Проверка от Алексей Грунтов =)");
     }
 }

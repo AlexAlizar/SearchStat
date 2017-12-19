@@ -1,32 +1,14 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <div class="col-md-6">
-
-     <form method="post">
-        {%  csrf_token %}
-        <div class="form-group">
-            <label for="url">Add site URL:</label>
-            {{ form.name }}
-            <button class="btn btn-light" name="action" value="save">Save</button>
-        </div>
-
-        <div class="form-group">
-            <label for="FormControlSelect">Delete site</label>
-            <select multiple class="form-control" id="FormControlSelect">
-                {% for field in form.sites_choice %}
-                    {{ field }}
-                {% endfor %}
-            </select>
-            <button class="btn btn-danger" name="action" value="delete">Delete</button>
-        </div>
-
+    <form action="" method="post">
+    <fieldset>
+    {% for site in sites %}
+        <option>
+            <p>{{site.name}}</p>
+        </option>
+    {% endfor %}
+    </fieldset>
     </form>
-
-
-    </div>
-
-
-
-
+    <a href="{% url 'add_site' %}">Добавить</a>
 {% endblock %}

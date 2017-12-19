@@ -1,23 +1,44 @@
-from django.shortcuts import render, HttpResponseRedirect
+from django.shortcuts import render, HttpResponseRedirect, get_object_or_404
 from .models import ModelSites
 from .forms import SitesManageForm
 
-def admin_interface(request):
+from urllib import request as urlrequest, error as urlerror
 
+
+def admin_interface(request):
     context = {}
     template = 'base.html'
     return render(request, template, context)
 
 
 def sites_view(request):
-    form = SitesManageForm()
-    context = {'form': form}
+    sites = ModelSites.objects.all()
+    context = {'sites': sites}
     template = 'sites_view.html'
-    if request.POST.get('action') == 'save':
-        form = SitesManageForm(request.POST)
-        if form.is_valid():
-            form.name = request.POST.get('name')
-            form.save()
-            return render(request, template, context)
-        return render(request, template, context)
     return render(request, template, context)
+
+
+def delete_site(request):
+    pass
+
+
+def edit_site(request):
+    pass
+
+
+def add_site(request):
+    if request.method == 'POST':
+        form = SitesManageForm(request.POST)
+        try:
+            url = urlrequest.urlopen(request.POST.get('name'))
+            if form.is_valid() and url.getcode() == 200:
+                form.save()
+                return HttpResponseRedirect('/sites')
+            else:
+                return render(request, 'sites_view.html', {'form': form})
+        except urlerror.URLError:
+            form = SitesManageForm()
+            return render(request, 'sites_add.html', {'form': form})
+    else:
+        form = SitesManageForm()
+        return render(request, 'sites_add.html', {'form': form})

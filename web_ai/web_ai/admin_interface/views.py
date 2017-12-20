@@ -18,8 +18,13 @@ def sites_view(request):
     return render(request, template, context)
 
 
-def delete_site(request):
-    pass
+def delete_site(request, id):
+    site = get_object_or_404(ModelSites, id=id)
+    if request.method == 'POST':
+        site.delete()
+        return HttpResponseRedirect('sites_view')
+    else:
+        pass
 
 
 def edit_site(request):
@@ -33,7 +38,7 @@ def add_site(request):
             url = urlrequest.urlopen(request.POST.get('name'))
             if form.is_valid() and url.getcode() == 200:
                 form.save()
-                return HttpResponseRedirect('/sites')
+                return HttpResponseRedirect('sites_view')
             else:
                 return render(request, 'sites_view.html', {'form': form})
         except urlerror.URLError:

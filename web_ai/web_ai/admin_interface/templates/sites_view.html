@@ -2,13 +2,17 @@
 
 {% block content %}
     <form action="" method="post">
-    <fieldset>
-    {% for site in sites %}
-        <option>
-            <p>{{site.name}}</p>
-        </option>
-    {% endfor %}
-    </fieldset>
+        {% csrf_token %}
+        <fieldset>
+            {% for site in sites %}
+            <li>
+                <span>{{ site.id }}</span>
+                <span>{{site.name}}</span>
+                <span><input type="checkbox" /></span>
+            </li>
+            {% endfor %}
+            <input class="btn btn-danger" type="button" value="delete selected">
+        </fieldset>
     </form>
-    <a href="{% url 'add_site' %}">Добавить</a>
+    <a class="btn btn-dark" href="{% url 'add_site' %}">Добавить</a>
 {% endblock %}

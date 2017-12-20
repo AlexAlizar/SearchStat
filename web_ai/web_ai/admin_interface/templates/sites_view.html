@@ -1,18 +1,12 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <form action="" method="post">
-        {% csrf_token %}
-        <fieldset>
-            {% for site in sites %}
-            <li>
-                <span>{{ site.id }}</span>
-                <span>{{site.name}}</span>
-                <span><input type="checkbox" /></span>
-            </li>
-            {% endfor %}
-            <input class="btn btn-danger" type="button" value="delete selected">
-        </fieldset>
-    </form>
+    <ol>
+    {% for site in sites %}
+        <li>{{ site }}</li>
+    {% endfor %}
+    </ol>
+    <br>
     <a class="btn btn-dark" href="{% url 'add_site' %}">Добавить</a>
+    <a class="btn btn-dark" href="{% url 'delete_site' %}">Удалить</a>
 {% endblock %}

@@ -8,9 +8,7 @@ class SitesManageForm(forms.ModelForm):
         model = ModelSites
         fields = '__all__'
 
-
-
-    # sites = tuple((site.id, site.name) for site in ModelSites.objects.all())
+    multiple_select = forms.ModelMultipleChoiceField(queryset=ModelSites.objects.all(), required=False)
     name = forms.CharField(required=False, widget=forms.URLInput(attrs={'id': 'url', 'value': 'http://'}))
     # sites_choice = forms.MultipleChoiceField(required=False, choices=sites, label='Delete site:')
     #

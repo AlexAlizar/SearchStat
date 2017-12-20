@@ -13,11 +13,17 @@ class SourceViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     
     let arr = ["rbc","rt","lenta"]
+    var sitesArray = [Site]()
     
     @IBOutlet weak var sourceTableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        MainService.instance.getSites { (result) in
+            if result {
+                sitesArray = MainService.instance.siteArray!
+            }
+        }
         
         
         view.setGradientBackground(colorOne: Colors.gradientColorOne, colorTwo: Colors.gradientColorTwo)
@@ -25,14 +31,15 @@ class SourceViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return arr.count
+        return sitesArray.count
     }
     
 
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = arr[indexPath.row]
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell  {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! SourceCell
+    
+        cell.setupCell(site: sitesArray[indexPath.row])
         return cell
     }
 }

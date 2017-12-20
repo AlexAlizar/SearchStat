@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 typealias CompletionHandler = (_ Success: Bool) -> ()
 
@@ -18,6 +19,13 @@ let URL_USER_ADD = "\(BASE_URL)user/add"
 
 //Colors
 //let redColor = #colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1)
+struct Colors {
+    
+    static let gradientColorOne = UIColor(red: 100.0/255.0, green: 143.0/255.0, blue: 203.0/255.0, alpha: 1.0)
+    static let gradientColorTwo = UIColor(red: 29.0/255.0, green: 64.0/255.0, blue: 100.0/255.0, alpha: 1.0)
+    
+    
+}
 
 //Notification Constants
 let NOTIF_USER_DID_CHANGED = Notification.Name("notifUserDataChanged")

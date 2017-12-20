@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.geekbrains.internship.ControllerUI">
+   <children>
+      <TabPane layoutX="63.0" layoutY="58.0" prefHeight="600.0" prefWidth="600.0" side="LEFT" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <tabs>
+          <Tab text="Общая статистика">
+               <content>
+                  <VBox prefHeight="200.0" prefWidth="591.0">
+                     <children>
+                      <AnchorPane prefHeight="73.0" prefWidth="571.0">
+                           <children>
+                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="8.0" text="Сайт" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="18.0" />
+                              <ChoiceBox fx:id="totalStatisticsSite" layoutX="75.0" layoutY="16.0" prefHeight="25.0" prefWidth="382.0" AnchorPane.topAnchor="14.0" />
+                              <Button fx:id="totalStatisticsUpdateButton" layoutX="470.0" layoutY="16.0" mnemonicParsing="false" onAction="#pressTotalStatisticsUpdateButton" text="Применить" AnchorPane.topAnchor="14.0" />
+                           </children>
+                        </AnchorPane>
+                      <AnchorPane prefHeight="461.0" prefWidth="571.0">
+                           <children>
+                              <TableView fx:id="totalStatisticsTable" editable="true" layoutY="53.0" prefHeight="461.0" prefWidth="571.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                  <columns>
+                                      <TableColumn fx:id="tstColumnName" prefWidth="190.0" text="Имя" />
+                                      <TableColumn fx:id="tstColumnQuantity" prefWidth="191.0" text="Количество упоминаний" />
+                                  </columns>
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
+                              </TableView>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                           <children>
+                              <PieChart fx:id="totalStatisticsChart" layoutX="-68.0" layoutY="-144.0" prefHeight="256.0" prefWidth="571.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </VBox>
+               </content>
+          </Tab>
+            <Tab text="Ежедневная статистика">
+               <content>
+                  <VBox prefHeight="286.0" prefWidth="591.0">
+                     <children>
+                      <AnchorPane prefHeight="45.0" prefWidth="571.0">
+                           <children>
+                                  <ChoiceBox fx:id="dailyStatisticsSite" layoutX="101.0" layoutY="10.0" prefHeight="25.0" prefWidth="198.0" AnchorPane.topAnchor="6.0" />
+                                  <Label layoutX="14.0" layoutY="10.0" text="Сайт" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="10.0" />
+                           </children></AnchorPane>
+                         <AnchorPane prefHeight="45.0" prefWidth="571.0">
+                             <children>
+                                   <ChoiceBox fx:id="dailyStatisticsName" layoutX="102.0" layoutY="2.0" prefHeight="25.0" prefWidth="196.0" AnchorPane.topAnchor="2.0" />
+                                   <Label layoutX="14.0" layoutY="6.0" text="Имя" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="6.0" />
+                             </children></AnchorPane>
+                         <AnchorPane prefHeight="45.0" prefWidth="571.0">
+                             <children>
+                                   <Label layoutX="14.0" layoutY="-2.0" text="Период с" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="6.0" />
+                                   <DatePicker fx:id="dailyStatisticsEndDate" layoutX="264.0" layoutY="-4.0" prefHeight="25.0" prefWidth="117.0" promptText="Конечная дата" AnchorPane.topAnchor="2.0" />
+                                   <DatePicker fx:id="dailyStatisticsBeginDate" layoutX="104.0" layoutY="-4.0" prefHeight="25.0" prefWidth="122.0" promptText="Начальная дата" AnchorPane.topAnchor="2.0" />
+                                   <Label layoutX="236.0" layoutY="-2.0" text="по" AnchorPane.topAnchor="6.0" />
+                                   <Button fx:id="dailyStatisticsUpdateButton" layoutX="410.0" layoutY="-4.0" mnemonicParsing="false" onAction="#pressDailyStatisticsUpdateButton" prefHeight="25.0" prefWidth="147.0" text="Применить" AnchorPane.topAnchor="2.0" />
+                             </children></AnchorPane>
+                          <AnchorPane prefHeight="461.0" prefWidth="571.0">
+                           <children>
+                                  <TableView fx:id="dailyStatisticsTable" editable="true" prefHeight="224.0" prefWidth="571.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                      <columns>
+                                          <TableColumn fx:id="dstColumnDate" prefWidth="137.0" text="Дата" />
+                                          <TableColumn fx:id="dstColumnQuantity" prefWidth="262.0" text="Количество новых страниц" />
+                                      </columns>
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
+                                  </TableView>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="46.0" prefWidth="571.0">
+                           <children>
+                                  <TextField fx:id="dailyStatisticsTotalQuantity" editable="false" layoutX="114.0" layoutY="6.0" prefHeight="25.0" prefWidth="186.0" text="---" AnchorPane.topAnchor="6.0">
+                                      <font>
+                                          <Font name="System Bold" size="12.0" />
+                                      </font>
+                                  </TextField>
+                                  <Label text="Всего за период" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
+                                      <font>
+                                          <Font name="System Bold" size="12.0" />
+                                      </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                           <children>
+                              <LineChart fx:id="dailyStatisticsChart" prefHeight="400.0" prefWidth="571.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <xAxis>
+                                  <CategoryAxis side="BOTTOM" />
+                                </xAxis>
+                                <yAxis>
+                                  <NumberAxis side="LEFT" />
+                                </yAxis>
+                              </LineChart>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </VBox>
+               </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>

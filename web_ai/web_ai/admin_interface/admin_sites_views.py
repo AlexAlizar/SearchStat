@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponseRedirect, get_object_or_404
+from django.shortcuts import render, HttpResponseRedirect, get_object_or_404, get_list_or_404
 from .models import ModelSites
 from .forms import SitesManageForm
 
@@ -12,7 +12,7 @@ def admin_interface(request):
 
 
 def sites_view(request):
-    sites = ModelSites.objects.all()
+    sites = get_list_or_404(ModelSites.objects.all())
     context = {'sites': sites}
     template = 'sites_view.html'
     return render(request, template, context)
@@ -31,10 +31,6 @@ def delete_site(request):
         return render(request, template, context)
 
 
-def edit_site(request):
-    pass
-
-
 def add_site(request):
     if request.method == 'POST':
         form = SitesManageForm(request.POST)
@@ -51,3 +47,7 @@ def add_site(request):
     else:
         form = SitesManageForm()
         return render(request, 'sites_add.html', {'form': form})
+
+
+def edit_site(request):
+    pass

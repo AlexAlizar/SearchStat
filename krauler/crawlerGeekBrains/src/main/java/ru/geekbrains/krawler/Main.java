@@ -1,5 +1,7 @@
 package ru.geekbrains.krawler;
 
+import org.hibernate.SessionFactory;
+
 public class Main {
     public static void main(String[] args) {
         System.out.println("Start program");
@@ -8,5 +10,7 @@ public class Main {
         System.out.println(Downloader.download("lenta.ru"));
 
         System.out.println("Проверка от Алексей Грунтов =)");
+        
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
     }
 }

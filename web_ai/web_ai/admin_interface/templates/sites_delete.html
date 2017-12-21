@@ -4,6 +4,7 @@
     <form action="" method="post">
         {% csrf_token %}
         {{ form.multiple_select }}
-        <input class="btn btn-dark" type="submit" value="Удалить">
+        <input class="btn btn-dark" type="submit" value="Удалить" name="delete">
+        <input class="btn btn-dark" type="submit" value="Edit" name="edit">
     </form>
 {% endblock %}

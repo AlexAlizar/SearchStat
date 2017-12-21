@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponseRedirect, get_object_or_404, get_list_or_404
+from django.shortcuts import render, HttpResponseRedirect, get_list_or_404
 from .models import ModelSites
 from .forms import SitesManageForm
 
@@ -18,17 +18,30 @@ def sites_view(request):
     return render(request, template, context)
 
 
-def delete_site(request):
+def manage_sites(request):
     form = SitesManageForm()
     context = {'form': form}
     template = 'sites_delete.html'
     if request.method == 'POST':
-        print(request.POST.getlist('multiple_select'))
         multiple_select = request.POST.getlist('multiple_select')
-        ModelSites.objects.filter(id__in=multiple_select).delete()
-        return HttpResponseRedirect('/sites')
+        if request.POST.getlist('delete'):
+            ModelSites.objects.filter(id__in=multiple_select).delete()
+            return HttpResponseRedirect('/sites')
+        else:
+            request.session['sites'] = multiple_select
+            return HttpResponseRedirect('/sites/edit', )
     else:
         return render(request, template, context)
+
+
+def sites_edit(request):
+    print(request.session.get('sites'))
+    sites = ModelSites.objects.filter(id__in=request.session.get('sites'))
+    context = {'sites':sites}
+    template = 'sites_edit.html'
+    return render(request, template, context)
+
+
 
 
 def add_site(request):
@@ -48,6 +61,3 @@ def add_site(request):
         form = SitesManageForm()
         return render(request, 'sites_add.html', {'form': form})
 
-
-def edit_site(request):
-    pass

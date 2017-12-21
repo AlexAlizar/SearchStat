@@ -1,16 +1,13 @@
 -- Merging decision tree log ---
 manifest
-ADDED from C:\_Scrypting\AS_Workspace\GitReps\SearchStat\android_ui\app\src\main\AndroidManifest.xml:2:1-26:12
-INJECTED from C:\_Scrypting\AS_Workspace\GitReps\SearchStat\android_ui\app\src\main\AndroidManifest.xml:2:1-26:12
-INJECTED from C:\_Scrypting\AS_Workspace\GitReps\SearchStat\android_ui\app\src\main\AndroidManifest.xml:2:1-26:12
-INJECTED from C:\_Scrypting\AS_Workspace\GitReps\SearchStat\android_ui\app\src\main\AndroidManifest.xml:2:1-26:12
-MERGED from [com.android.support:design:26.1.0] C:\Users\aoali\.gradle\caches\transforms-1\files-1.1\design-26.1.0.aar\1c104e334c5af142bcd6cba795691373\AndroidManifest.xml:17:1-31:12
+ADDED from C:\_Scrypting\AS_Workspace\GitReps\SearchStat\android_ui\app\src\main\AndroidManifest.xml:2:1-21:12
+INJECTED from C:\_Scrypting\AS_Workspace\GitReps\SearchStat\android_ui\app\src\main\AndroidManifest.xml:2:1-21:12
+INJECTED from C:\_Scrypting\AS_Workspace\GitReps\SearchStat\android_ui\app\src\main\AndroidManifest.xml:2:1-21:12
+INJECTED from C:\_Scrypting\AS_Workspace\GitReps\SearchStat\android_ui\app\src\main\AndroidManifest.xml:2:1-21:12
 MERGED from [com.android.support:appcompat-v7:26.1.0] C:\Users\aoali\.gradle\caches\transforms-1\files-1.1\appcompat-v7-26.1.0.aar\b52321720442205e1e623317420b8756\AndroidManifest.xml:17:1-31:12
 MERGED from [com.android.support.constraint:constraint-layout:1.0.2] C:\Users\aoali\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.0.2.aar\f177f43152df7640ff78327a3880694b\AndroidManifest.xml:2:1-11:12
 MERGED from [com.android.support:animated-vector-drawable:26.1.0] C:\Users\aoali\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-26.1.0.aar\7ed760749582f0fb34aaf410d6f4571b\AndroidManifest.xml:17:1-28:12
 MERGED from [com.android.support:support-vector-drawable:26.1.0] C:\Users\aoali\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-26.1.0.aar\312966669a1d1241d6d45f7221afdb25\AndroidManifest.xml:17:1-28:12
-MERGED from [com.android.support:recyclerview-v7:26.1.0] C:\Users\aoali\.gradle\caches\transforms-1\files-1.1\recyclerview-v7-26.1.0.aar\59e5f81df9ce8a55e21c13c3f6b310e1\AndroidManifest.xml:17:1-28:12
-MERGED from [com.android.support:transition:26.1.0] C:\Users\aoali\.gradle\caches\transforms-1\files-1.1\transition-26.1.0.aar\9e6be839842383cb4e6d81431f4d61d0\AndroidManifest.xml:17:1-28:12
 MERGED from [com.android.support:support-v4:26.1.0] C:\Users\aoali\.gradle\caches\transforms-1\files-1.1\support-v4-26.1.0.aar\05135faa47d215d392852175254d87f8\AndroidManifest.xml:17:1-31:12
 MERGED from [com.android.support:support-media-compat:26.1.0] C:\Users\aoali\.gradle\caches\transforms-1\files-1.1\support-media-compat-26.1.0.aar\e13b0c8e626dc4f9ef453f2681d1ae9c\AndroidManifest.xml:17:1-31:12
 MERGED from [com.android.support:support-fragment:26.1.0] C:\Users\aoali\.gradle\caches\transforms-1\files-1.1\support-fragment-26.1.0.aar\936253d60034bf8790a143806d390fe6\AndroidManifest.xml:17:1-31:12
@@ -18,27 +15,25 @@ MERGED from [com.android.support:support-core-utils:26.1.0] C:\Users\aoali\.grad
 MERGED from [com.android.support:support-core-ui:26.1.0] C:\Users\aoali\.gradle\caches\transforms-1\files-1.1\support-core-ui-26.1.0.aar\ed0c909fc71afaa59c9d9b9b7b5c0880\AndroidManifest.xml:17:1-31:12
 MERGED from [com.android.support:support-compat:26.1.0] C:\Users\aoali\.gradle\caches\transforms-1\files-1.1\support-compat-26.1.0.aar\1a715d4bd3444436754a43be29106015\AndroidManifest.xml:17:1-31:12
 MERGED from [android.arch.lifecycle:runtime:1.0.0] C:\Users\aoali\.gradle\caches\transforms-1\files-1.1\runtime-1.0.0.aar\24fefb64904011cb146b97d73bb88ad2\AndroidManifest.xml:17:1-30:12
-INJECTED from C:\_Scrypting\AS_Workspace\GitReps\SearchStat\android_ui\app\src\main\AndroidManifest.xml:2:1-26:12
-INJECTED from C:\_Scrypting\AS_Workspace\GitReps\SearchStat\android_ui\app\src\main\AndroidManifest.xml:2:1-26:12
-INJECTED from C:\_Scrypting\AS_Workspace\GitReps\SearchStat\android_ui\app\src\main\AndroidManifest.xml:2:1-26:12
+INJECTED from C:\_Scrypting\AS_Workspace\GitReps\SearchStat\android_ui\app\src\main\AndroidManifest.xml:2:1-21:12
+INJECTED from C:\_Scrypting\AS_Workspace\GitReps\SearchStat\android_ui\app\src\main\AndroidManifest.xml:2:1-21:12
+INJECTED from C:\_Scrypting\AS_Workspace\GitReps\SearchStat\android_ui\app\src\main\AndroidManifest.xml:2:1-21:12
 	package
 		ADDED from C:\_Scrypting\AS_Workspace\GitReps\SearchStat\android_ui\app\src\main\AndroidManifest.xml:3:11-47
 		INJECTED from C:\_Scrypting\AS_Workspace\GitReps\SearchStat\android_ui\app\src\main\AndroidManifest.xml
 		INJECTED from C:\_Scrypting\AS_Workspace\GitReps\SearchStat\android_ui\app\src\main\AndroidManifest.xml
 	android:versionName
 		INJECTED from C:\_Scrypting\AS_Workspace\GitReps\SearchStat\android_ui\app\src\main\AndroidManifest.xml
-		ADDED from C:\_Scrypting\AS_Workspace\GitReps\SearchStat\android_ui\app\src\main\AndroidManifest.xml:2:1-26:12
+		ADDED from C:\_Scrypting\AS_Workspace\GitReps\SearchStat\android_ui\app\src\main\AndroidManifest.xml:2:1-21:12
 		INJECTED from C:\_Scrypting\AS_Workspace\GitReps\SearchStat\android_ui\app\src\main\AndroidManifest.xml
 	android:versionCode
 		INJECTED from C:\_Scrypting\AS_Workspace\GitReps\SearchStat\android_ui\app\src\main\AndroidManifest.xml
-		ADDED from C:\_Scrypting\AS_Workspace\GitReps\SearchStat\android_ui\app\src\main\AndroidManifest.xml:2:1-26:12
+		ADDED from C:\_Scrypting\AS_Workspace\GitReps\SearchStat\android_ui\app\src\main\AndroidManifest.xml:2:1-21:12
 		INJECTED from C:\_Scrypting\AS_Workspace\GitReps\SearchStat\android_ui\app\src\main\AndroidManifest.xml
 	xmlns:android
 		ADDED from C:\_Scrypting\AS_Workspace\GitReps\SearchStat\android_ui\app\src\main\AndroidManifest.xml:2:11-69
 application
-ADDED from C:\_Scrypting\AS_Workspace\GitReps\SearchStat\android_ui\app\src\main\AndroidManifest.xml:5:5-24:19
-MERGED from [com.android.support:design:26.1.0] C:\Users\aoali\.gradle\caches\transforms-1\files-1.1\design-26.1.0.aar\1c104e334c5af142bcd6cba795691373\AndroidManifest.xml:25:5-29:19
-MERGED from [com.android.support:design:26.1.0] C:\Users\aoali\.gradle\caches\transforms-1\files-1.1\design-26.1.0.aar\1c104e334c5af142bcd6cba795691373\AndroidManifest.xml:25:5-29:19
+ADDED from C:\_Scrypting\AS_Workspace\GitReps\SearchStat\android_ui\app\src\main\AndroidManifest.xml:5:5-19:19
 MERGED from [com.android.support:appcompat-v7:26.1.0] C:\Users\aoali\.gradle\caches\transforms-1\files-1.1\appcompat-v7-26.1.0.aar\b52321720442205e1e623317420b8756\AndroidManifest.xml:25:5-29:19
 MERGED from [com.android.support:appcompat-v7:26.1.0] C:\Users\aoali\.gradle\caches\transforms-1\files-1.1\appcompat-v7-26.1.0.aar\b52321720442205e1e623317420b8756\AndroidManifest.xml:25:5-29:19
 MERGED from [com.android.support.constraint:constraint-layout:1.0.2] C:\Users\aoali\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.0.2.aar\f177f43152df7640ff78327a3880694b\AndroidManifest.xml:9:5-20
@@ -47,10 +42,6 @@ MERGED from [com.android.support:animated-vector-drawable:26.1.0] C:\Users\aoali
 MERGED from [com.android.support:animated-vector-drawable:26.1.0] C:\Users\aoali\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-26.1.0.aar\7ed760749582f0fb34aaf410d6f4571b\AndroidManifest.xml:22:5-26:19
 MERGED from [com.android.support:support-vector-drawable:26.1.0] C:\Users\aoali\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-26.1.0.aar\312966669a1d1241d6d45f7221afdb25\AndroidManifest.xml:22:5-26:19
 MERGED from [com.android.support:support-vector-drawable:26.1.0] C:\Users\aoali\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-26.1.0.aar\312966669a1d1241d6d45f7221afdb25\AndroidManifest.xml:22:5-26:19
-MERGED from [com.android.support:recyclerview-v7:26.1.0] C:\Users\aoali\.gradle\caches\transforms-1\files-1.1\recyclerview-v7-26.1.0.aar\59e5f81df9ce8a55e21c13c3f6b310e1\AndroidManifest.xml:22:5-26:19
-MERGED from [com.android.support:recyclerview-v7:26.1.0] C:\Users\aoali\.gradle\caches\transforms-1\files-1.1\recyclerview-v7-26.1.0.aar\59e5f81df9ce8a55e21c13c3f6b310e1\AndroidManifest.xml:22:5-26:19
-MERGED from [com.android.support:transition:26.1.0] C:\Users\aoali\.gradle\caches\transforms-1\files-1.1\transition-26.1.0.aar\9e6be839842383cb4e6d81431f4d61d0\AndroidManifest.xml:22:5-26:19
-MERGED from [com.android.support:transition:26.1.0] C:\Users\aoali\.gradle\caches\transforms-1\files-1.1\transition-26.1.0.aar\9e6be839842383cb4e6d81431f4d61d0\AndroidManifest.xml:22:5-26:19
 MERGED from [com.android.support:support-v4:26.1.0] C:\Users\aoali\.gradle\caches\transforms-1\files-1.1\support-v4-26.1.0.aar\05135faa47d215d392852175254d87f8\AndroidManifest.xml:25:5-29:19
 MERGED from [com.android.support:support-v4:26.1.0] C:\Users\aoali\.gradle\caches\transforms-1\files-1.1\support-v4-26.1.0.aar\05135faa47d215d392852175254d87f8\AndroidManifest.xml:25:5-29:19
 MERGED from [com.android.support:support-media-compat:26.1.0] C:\Users\aoali\.gradle\caches\transforms-1\files-1.1\support-media-compat-26.1.0.aar\e13b0c8e626dc4f9ef453f2681d1ae9c\AndroidManifest.xml:25:5-29:19
@@ -91,20 +82,10 @@ category#android.intent.category.LAUNCHER
 ADDED from C:\_Scrypting\AS_Workspace\GitReps\SearchStat\android_ui\app\src\main\AndroidManifest.xml:16:17-76
 	android:name
 		ADDED from C:\_Scrypting\AS_Workspace\GitReps\SearchStat\android_ui\app\src\main\AndroidManifest.xml:16:27-74
-activity#alizarchik.alex.searchstat.Model.MainActivity
-ADDED from C:\_Scrypting\AS_Workspace\GitReps\SearchStat\android_ui\app\src\main\AndroidManifest.xml:19:9-23:20
-	android:label
-		ADDED from C:\_Scrypting\AS_Workspace\GitReps\SearchStat\android_ui\app\src\main\AndroidManifest.xml:21:13-56
-	android:theme
-		ADDED from C:\_Scrypting\AS_Workspace\GitReps\SearchStat\android_ui\app\src\main\AndroidManifest.xml:22:13-56
-	android:name
-		ADDED from C:\_Scrypting\AS_Workspace\GitReps\SearchStat\android_ui\app\src\main\AndroidManifest.xml:20:13-47
 uses-sdk
 INJECTED from C:\_Scrypting\AS_Workspace\GitReps\SearchStat\android_ui\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from C:\_Scrypting\AS_Workspace\GitReps\SearchStat\android_ui\app\src\main\AndroidManifest.xml
 INJECTED from C:\_Scrypting\AS_Workspace\GitReps\SearchStat\android_ui\app\src\main\AndroidManifest.xml
-MERGED from [com.android.support:design:26.1.0] C:\Users\aoali\.gradle\caches\transforms-1\files-1.1\design-26.1.0.aar\1c104e334c5af142bcd6cba795691373\AndroidManifest.xml:21:5-23:62
-MERGED from [com.android.support:design:26.1.0] C:\Users\aoali\.gradle\caches\transforms-1\files-1.1\design-26.1.0.aar\1c104e334c5af142bcd6cba795691373\AndroidManifest.xml:21:5-23:62
 MERGED from [com.android.support:appcompat-v7:26.1.0] C:\Users\aoali\.gradle\caches\transforms-1\files-1.1\appcompat-v7-26.1.0.aar\b52321720442205e1e623317420b8756\AndroidManifest.xml:21:5-23:78
 MERGED from [com.android.support:appcompat-v7:26.1.0] C:\Users\aoali\.gradle\caches\transforms-1\files-1.1\appcompat-v7-26.1.0.aar\b52321720442205e1e623317420b8756\AndroidManifest.xml:21:5-23:78
 MERGED from [com.android.support.constraint:constraint-layout:1.0.2] C:\Users\aoali\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.0.2.aar\f177f43152df7640ff78327a3880694b\AndroidManifest.xml:5:5-7:41
@@ -113,10 +94,6 @@ MERGED from [com.android.support:animated-vector-drawable:26.1.0] C:\Users\aoali
 MERGED from [com.android.support:animated-vector-drawable:26.1.0] C:\Users\aoali\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-26.1.0.aar\7ed760749582f0fb34aaf410d6f4571b\AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:support-vector-drawable:26.1.0] C:\Users\aoali\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-26.1.0.aar\312966669a1d1241d6d45f7221afdb25\AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:support-vector-drawable:26.1.0] C:\Users\aoali\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-26.1.0.aar\312966669a1d1241d6d45f7221afdb25\AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:recyclerview-v7:26.1.0] C:\Users\aoali\.gradle\caches\transforms-1\files-1.1\recyclerview-v7-26.1.0.aar\59e5f81df9ce8a55e21c13c3f6b310e1\AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:recyclerview-v7:26.1.0] C:\Users\aoali\.gradle\caches\transforms-1\files-1.1\recyclerview-v7-26.1.0.aar\59e5f81df9ce8a55e21c13c3f6b310e1\AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:transition:26.1.0] C:\Users\aoali\.gradle\caches\transforms-1\files-1.1\transition-26.1.0.aar\9e6be839842383cb4e6d81431f4d61d0\AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:transition:26.1.0] C:\Users\aoali\.gradle\caches\transforms-1\files-1.1\transition-26.1.0.aar\9e6be839842383cb4e6d81431f4d61d0\AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:support-v4:26.1.0] C:\Users\aoali\.gradle\caches\transforms-1\files-1.1\support-v4-26.1.0.aar\05135faa47d215d392852175254d87f8\AndroidManifest.xml:21:5-23:54
 MERGED from [com.android.support:support-v4:26.1.0] C:\Users\aoali\.gradle\caches\transforms-1\files-1.1\support-v4-26.1.0.aar\05135faa47d215d392852175254d87f8\AndroidManifest.xml:21:5-23:54
 MERGED from [com.android.support:support-media-compat:26.1.0] C:\Users\aoali\.gradle\caches\transforms-1\files-1.1\support-media-compat-26.1.0.aar\e13b0c8e626dc4f9ef453f2681d1ae9c\AndroidManifest.xml:21:5-23:63
@@ -134,7 +111,7 @@ MERGED from [android.arch.lifecycle:runtime:1.0.0] C:\Users\aoali\.gradle\caches
 INJECTED from C:\_Scrypting\AS_Workspace\GitReps\SearchStat\android_ui\app\src\main\AndroidManifest.xml
 INJECTED from C:\_Scrypting\AS_Workspace\GitReps\SearchStat\android_ui\app\src\main\AndroidManifest.xml
 	tools:overrideLibrary
-		ADDED from [com.android.support:design:26.1.0] C:\Users\aoali\.gradle\caches\transforms-1\files-1.1\design-26.1.0.aar\1c104e334c5af142bcd6cba795691373\AndroidManifest.xml:23:9-59
+		ADDED from [com.android.support:appcompat-v7:26.1.0] C:\Users\aoali\.gradle\caches\transforms-1\files-1.1\appcompat-v7-26.1.0.aar\b52321720442205e1e623317420b8756\AndroidManifest.xml:23:9-75
 	android:targetSdkVersion
 		INJECTED from C:\_Scrypting\AS_Workspace\GitReps\SearchStat\android_ui\app\src\main\AndroidManifest.xml
 		ADDED from C:\_Scrypting\AS_Workspace\GitReps\SearchStat\android_ui\app\src\main\AndroidManifest.xml
@@ -144,17 +121,11 @@ INJECTED from C:\_Scrypting\AS_Workspace\GitReps\SearchStat\android_ui\app\src\m
 		ADDED from C:\_Scrypting\AS_Workspace\GitReps\SearchStat\android_ui\app\src\main\AndroidManifest.xml
 		INJECTED from C:\_Scrypting\AS_Workspace\GitReps\SearchStat\android_ui\app\src\main\AndroidManifest.xml
 meta-data#android.support.VERSION
-ADDED from [com.android.support:design:26.1.0] C:\Users\aoali\.gradle\caches\transforms-1\files-1.1\design-26.1.0.aar\1c104e334c5af142bcd6cba795691373\AndroidManifest.xml:26:9-28:38
-MERGED from [com.android.support:appcompat-v7:26.1.0] C:\Users\aoali\.gradle\caches\transforms-1\files-1.1\appcompat-v7-26.1.0.aar\b52321720442205e1e623317420b8756\AndroidManifest.xml:26:9-28:38
-MERGED from [com.android.support:appcompat-v7:26.1.0] C:\Users\aoali\.gradle\caches\transforms-1\files-1.1\appcompat-v7-26.1.0.aar\b52321720442205e1e623317420b8756\AndroidManifest.xml:26:9-28:38
+ADDED from [com.android.support:appcompat-v7:26.1.0] C:\Users\aoali\.gradle\caches\transforms-1\files-1.1\appcompat-v7-26.1.0.aar\b52321720442205e1e623317420b8756\AndroidManifest.xml:26:9-28:38
 MERGED from [com.android.support:animated-vector-drawable:26.1.0] C:\Users\aoali\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-26.1.0.aar\7ed760749582f0fb34aaf410d6f4571b\AndroidManifest.xml:23:9-25:38
 MERGED from [com.android.support:animated-vector-drawable:26.1.0] C:\Users\aoali\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-26.1.0.aar\7ed760749582f0fb34aaf410d6f4571b\AndroidManifest.xml:23:9-25:38
 MERGED from [com.android.support:support-vector-drawable:26.1.0] C:\Users\aoali\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-26.1.0.aar\312966669a1d1241d6d45f7221afdb25\AndroidManifest.xml:23:9-25:38
 MERGED from [com.android.support:support-vector-drawable:26.1.0] C:\Users\aoali\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-26.1.0.aar\312966669a1d1241d6d45f7221afdb25\AndroidManifest.xml:23:9-25:38
-MERGED from [com.android.support:recyclerview-v7:26.1.0] C:\Users\aoali\.gradle\caches\transforms-1\files-1.1\recyclerview-v7-26.1.0.aar\59e5f81df9ce8a55e21c13c3f6b310e1\AndroidManifest.xml:23:9-25:38
-MERGED from [com.android.support:recyclerview-v7:26.1.0] C:\Users\aoali\.gradle\caches\transforms-1\files-1.1\recyclerview-v7-26.1.0.aar\59e5f81df9ce8a55e21c13c3f6b310e1\AndroidManifest.xml:23:9-25:38
-MERGED from [com.android.support:transition:26.1.0] C:\Users\aoali\.gradle\caches\transforms-1\files-1.1\transition-26.1.0.aar\9e6be839842383cb4e6d81431f4d61d0\AndroidManifest.xml:23:9-25:38
-MERGED from [com.android.support:transition:26.1.0] C:\Users\aoali\.gradle\caches\transforms-1\files-1.1\transition-26.1.0.aar\9e6be839842383cb4e6d81431f4d61d0\AndroidManifest.xml:23:9-25:38
 MERGED from [com.android.support:support-v4:26.1.0] C:\Users\aoali\.gradle\caches\transforms-1\files-1.1\support-v4-26.1.0.aar\05135faa47d215d392852175254d87f8\AndroidManifest.xml:26:9-28:38
 MERGED from [com.android.support:support-v4:26.1.0] C:\Users\aoali\.gradle\caches\transforms-1\files-1.1\support-v4-26.1.0.aar\05135faa47d215d392852175254d87f8\AndroidManifest.xml:26:9-28:38
 MERGED from [com.android.support:support-media-compat:26.1.0] C:\Users\aoali\.gradle\caches\transforms-1\files-1.1\support-media-compat-26.1.0.aar\e13b0c8e626dc4f9ef453f2681d1ae9c\AndroidManifest.xml:26:9-28:38
@@ -168,9 +139,9 @@ MERGED from [com.android.support:support-core-ui:26.1.0] C:\Users\aoali\.gradle\
 MERGED from [com.android.support:support-compat:26.1.0] C:\Users\aoali\.gradle\caches\transforms-1\files-1.1\support-compat-26.1.0.aar\1a715d4bd3444436754a43be29106015\AndroidManifest.xml:26:9-28:38
 MERGED from [com.android.support:support-compat:26.1.0] C:\Users\aoali\.gradle\caches\transforms-1\files-1.1\support-compat-26.1.0.aar\1a715d4bd3444436754a43be29106015\AndroidManifest.xml:26:9-28:38
 	android:value
-		ADDED from [com.android.support:design:26.1.0] C:\Users\aoali\.gradle\caches\transforms-1\files-1.1\design-26.1.0.aar\1c104e334c5af142bcd6cba795691373\AndroidManifest.xml:28:13-35
+		ADDED from [com.android.support:appcompat-v7:26.1.0] C:\Users\aoali\.gradle\caches\transforms-1\files-1.1\appcompat-v7-26.1.0.aar\b52321720442205e1e623317420b8756\AndroidManifest.xml:28:13-35
 	android:name
-		ADDED from [com.android.support:design:26.1.0] C:\Users\aoali\.gradle\caches\transforms-1\files-1.1\design-26.1.0.aar\1c104e334c5af142bcd6cba795691373\AndroidManifest.xml:27:13-51
+		ADDED from [com.android.support:appcompat-v7:26.1.0] C:\Users\aoali\.gradle\caches\transforms-1\files-1.1\appcompat-v7-26.1.0.aar\b52321720442205e1e623317420b8756\AndroidManifest.xml:27:13-51
 meta-data#android.arch.lifecycle.VERSION
 ADDED from [android.arch.lifecycle:runtime:1.0.0] C:\Users\aoali\.gradle\caches\transforms-1\files-1.1\runtime-1.0.0.aar\24fefb64904011cb146b97d73bb88ad2\AndroidManifest.xml:25:9-27:47
 	android:value

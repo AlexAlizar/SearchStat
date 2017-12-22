@@ -12,7 +12,7 @@ public class Person {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name="name", length = 2048)
+    @Column(name="name", unique = true, length = 2048)
     private String name;
 
     public Person() {

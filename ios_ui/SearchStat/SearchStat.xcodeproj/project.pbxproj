@@ -16,6 +16,8 @@
 		E71FBDB21FE9680800B3A0B3 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71FBDB11FE9680800B3A0B3 /* LogInViewController.swift */; };
 		E72112D41FEA7106004093BA /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72112D31FEA7106004093BA /* RegistrationViewController.swift */; };
 		E72112D61FEA763C004093BA /* SourceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72112D51FEA763C004093BA /* SourceViewController.swift */; };
+		E75484E21FED203000546D61 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75484E11FED203000546D61 /* CustomTextField.swift */; };
+		E75484EA1FED3ABA00546D61 /* TotalStatisticCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75484E91FED3ABA00546D61 /* TotalStatisticCell.swift */; };
 		E78870E41FEA9713004E57C6 /* TotalStatisticViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78870E31FEA9713004E57C6 /* TotalStatisticViewController.swift */; };
 		E78870E61FEAA130004E57C6 /* DetailStatisticViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78870E51FEAA130004E57C6 /* DetailStatisticViewController.swift */; };
 		E7BB79101FE98F07004FFC83 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7BB790F1FE98F07004FFC83 /* CustomButton.swift */; };
@@ -37,6 +39,8 @@
 		E71FBDB11FE9680800B3A0B3 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		E72112D31FEA7106004093BA /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
 		E72112D51FEA763C004093BA /* SourceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceViewController.swift; sourceTree = "<group>"; };
+		E75484E11FED203000546D61 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
+		E75484E91FED3ABA00546D61 /* TotalStatisticCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalStatisticCell.swift; sourceTree = "<group>"; };
 		E78870E31FEA9713004E57C6 /* TotalStatisticViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalStatisticViewController.swift; sourceTree = "<group>"; };
 		E78870E51FEAA130004E57C6 /* DetailStatisticViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailStatisticViewController.swift; sourceTree = "<group>"; };
 		E7BB790F1FE98F07004FFC83 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
@@ -93,7 +97,9 @@
 				E71F0D551FE7E2DB001F311D /* LaunchScreen.storyboard */,
 				E71FBDAF1FE9445900B3A0B3 /* GradientView.swift */,
 				E7BB790F1FE98F07004FFC83 /* CustomButton.swift */,
+				E75484E11FED203000546D61 /* CustomTextField.swift */,
 				FF3B784F1FEB0A300096CD24 /* SourceCell.swift */,
+				E75484E91FED3ABA00546D61 /* TotalStatisticCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -217,9 +223,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E75484E21FED203000546D61 /* CustomTextField.swift in Sources */,
 				E78870E61FEAA130004E57C6 /* DetailStatisticViewController.swift in Sources */,
 				E71F0D4F1FE7E2DB001F311D /* MainViewController.swift in Sources */,
 				FF3B78501FEB0A300096CD24 /* SourceCell.swift in Sources */,
+				E75484EA1FED3ABA00546D61 /* TotalStatisticCell.swift in Sources */,
 				FF3B784E1FEAE94E0096CD24 /* MainService.swift in Sources */,
 				E71F0D4D1FE7E2DB001F311D /* AppDelegate.swift in Sources */,
 				E72112D41FEA7106004093BA /* RegistrationViewController.swift in Sources */,

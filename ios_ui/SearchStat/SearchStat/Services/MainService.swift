@@ -23,6 +23,16 @@ class MainService {
         completionHandler(true)
     }
     
+//___________________________________________________________________________
+    public private(set) var personArray: [Person]?
+    
+    func getPerson(completionHandler: CompletionHandler) {
+        
+        self.personArray = generateFakePersonArray()
+        completionHandler(true)
+    }
+//___________________________________________________________________________
+    
     //tempFakeFunc
     
     private func generateFakeSites() -> [Site] {

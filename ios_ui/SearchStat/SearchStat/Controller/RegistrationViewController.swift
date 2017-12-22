@@ -12,7 +12,7 @@ class RegistrationViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-       view.setGradientBackground(colorOne: Colors.gradientColorOne, colorTwo: Colors.gradientColorTwo)
+       
     }
 
 }

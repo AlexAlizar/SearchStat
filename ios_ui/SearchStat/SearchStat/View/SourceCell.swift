@@ -11,9 +11,16 @@ import UIKit
 class SourceCell: UITableViewCell {
 
     @IBOutlet weak var siteLbl: UILabel!
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        siteLbl.layer.borderColor = UIColor.lightGray.cgColor
+        siteLbl.layer.borderWidth = 1
+//            textLabel?.textAlignment = .center
+//            detailTextLabel?.textAlignment = .center
+//            textLabel?.textColor = UIColor.white
+        
     }
     func setupCell(site: Site) {
         siteLbl.text = site.name

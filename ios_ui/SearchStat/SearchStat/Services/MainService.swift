@@ -9,15 +9,30 @@
 import Foundation
 
 class MainService {
+    
     static let instance = MainService()
     
     public private(set) var siteArray: [Site]?
     
     func getSites(completionHandler: CompletionHandler) {
         
+        // Request
         
-        //HereWill be URLSEssion request
+        let urlString = BASE_URL
+        guard let url = URL(string: urlString) else {return}
         
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
+            guard let data = data else {return}
+            guard error == nil else {return}
+            
+            do {
+                let siteForSearch = try JSONDecoder().decode(SiteForSearch.self, from: data)
+                print(siteForSearch)
+               
+            } catch let error {
+                print(error)
+                }
+            } .resume()
         
         self.siteArray = generateFakeSites()
         completionHandler(true)
@@ -39,11 +54,12 @@ class MainService {
     
     private func generateFakePersonArray() -> [Person] {
         var personsArray = [Person]()
-        personsArray.append(Person(id: 0, name: "Person1", total: 229, dayStatsArray: generateFakeDayStatsArray()))
-        personsArray.append(Person(id: 0, name: "Person2", total: 399, dayStatsArray: generateFakeDayStatsArray()))
-        personsArray.append(Person(id: 0, name: "Person3", total: 11000, dayStatsArray: generateFakeDayStatsArray()))
+            personsArray.append(Person(id: 0, name: "Person1", total: 229, dayStatsArray: generateFakeDayStatsArray()))
+            personsArray.append(Person(id: 0, name: "Person2", total: 399, dayStatsArray: generateFakeDayStatsArray()))
+            personsArray.append(Person(id: 0, name: "Person3", total: 11000, dayStatsArray: generateFakeDayStatsArray()))
         return personsArray
     }
+    
     private func generateFakeDayStatsArray() -> [DayStats] {
         var dayStatsArray = [DayStats]()
         for i in 1...30 {

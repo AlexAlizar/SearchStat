@@ -6,9 +6,6 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
-/**
- * Created by alloyer on 22.12.2017.
- */
 public class PersonDAO {
 
     private Session session;

@@ -12,7 +12,7 @@ import java.util.Date;
 public class Page {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
 
@@ -32,6 +32,13 @@ public class Page {
     private Date lastScanDate;
 
     public Page() {
+    }
+
+    public Page(String url, Site site, Date foundDateTime, Date lastScanDate) {
+        this.url = url;
+        this.site = site;
+        this.foundDateTime = foundDateTime;
+        this.lastScanDate = lastScanDate;
     }
 
     public Page(int id) {

@@ -7,14 +7,18 @@ import javax.persistence.*;
 public class Site {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
 
     @Column(name="name", length = 256)
     private String name;
 
-    public Site() {
+    private Site() {
+    }
+
+    public Site(String name) {
+        this.name = name;
     }
 
     public Site(int id) {

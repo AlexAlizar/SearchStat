@@ -30,6 +30,9 @@ public class Main {
         try {
             //System.out.println(dbService.getPersonById(2).toString());
             System.out.println(dbService.getPersonByName("Petya").toString());
+            System.out.println(dbService.getPersonByName("Petya").toString());
+            System.out.println(dbService.getPersonByName("Vasya").toString());
+            System.out.println(dbService.getPersonByName("Vas").toString());
         } catch (NullPointerException e) {
             e.printStackTrace();
         }

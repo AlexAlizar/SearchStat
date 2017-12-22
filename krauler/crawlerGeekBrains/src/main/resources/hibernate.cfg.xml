@@ -26,6 +26,7 @@
         <mapping class="dbService.dataSets.Page"></mapping>
         <mapping class="dbService.dataSets.Keyword"></mapping>
         <mapping class="dbService.dataSets.PersonPageRank"></mapping>
+        <mapping class="dbService.dataSets.RankKey"></mapping>
 
     </session-factory>
 </hibernate-configuration>

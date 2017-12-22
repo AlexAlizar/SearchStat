@@ -1,30 +1,26 @@
 package dbService;
 
+import dbService.dao.PageDAO;
 import dbService.dao.PersonDAO;
 import dbService.dataSets.Person;
+import dbService.dataSets.Site;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
+import java.util.Date;
 
 public class DBService {
 
     private final SessionFactory sessionFactory;
+    private Session session;
+    private Transaction transaction;
 
     public DBService(SessionFactory sessionFactory)
     {
         this.sessionFactory = sessionFactory;
     }
-
-    //TODO: вынести операции
-    //TODO: Session session = sessionFactory.openSession();
-    //TODO: Transaction transaction = session.beginTransaction();
-    //TODO: а также
-    //TODO: transaction.commit();
-    //TODO: session.close();
-    //TODO: из методов add/insert+имя_класса
-    //TODO: в отдельные методы ОТКРЫТЬ() и ЗАКРЫТЬ() или что-то вроде того
 
     /**
      * добавление новой Персоны в БазуДанных
@@ -36,12 +32,10 @@ public class DBService {
         //TODO: иначе ошибка при вызове getPersonByName() - если в БД лежит несколько персон с одинаковыми именами
         int id = -1;
         try {
-            Session session = sessionFactory.openSession();
-            Transaction transaction = session.beginTransaction();
+            openSessionAndTransation();
             PersonDAO personDAO = new PersonDAO(session);
             id = personDAO.insertPerson(name);
-            transaction.commit();
-            session.close();
+            closeSessionAndTransation();
         } catch (HibernateException e) {
             System.err.println("!!!HIBERNATE ERROR APPEARED!!!");
         } finally {
@@ -49,15 +43,18 @@ public class DBService {
         }
     }
 
+    /**
+     * получение Person из БД по id
+     * @param id
+     * @return найденный экземпляр Person
+     */
     public Person getPersonById(int id) {
         Person person = null;
         try {
-            Session session = sessionFactory.openSession();
-            Transaction transaction = session.beginTransaction();
+            openSessionAndTransation();
             PersonDAO personDAO = new PersonDAO(session);
             person = personDAO.getPersonById(id);
-            transaction.commit();
-            session.close();
+            closeSessionAndTransation();
         } catch (HibernateException e) {
             System.err.println("!!!HIBERNATE ERROR APPEARED!!!");
         } finally {
@@ -72,15 +69,20 @@ public class DBService {
         }
     }
 
+    /**
+     * получение Person из БД по name
+     * @param name
+     * @return найденный экземпляр Person
+     * @warning если в БД два одинаковых name то падает...
+     * @warning надо обсепчечить уникальность name в таблице Persons
+     */
     public Person getPersonByName(String name) {
         Person person = null;
         try {
-            Session session = sessionFactory.openSession();
-            Transaction transaction = session.beginTransaction();
+            openSessionAndTransation();
             PersonDAO personDAO = new PersonDAO(session);
             person = personDAO.getPersonByName(name);
-            transaction.commit();
-            session.close();
+            closeSessionAndTransation();
         } catch (HibernateException e) {
             System.err.println("Попытка найти по имени Персону, которых в БД более одной(например два Vasya и его ищем => ошибка)");
         } finally {
@@ -90,10 +92,48 @@ public class DBService {
             }
             else
             {
-                System.out.println("Person  not found(null reference)");
-                throw new NullPointerException();
+                throw new NullPointerException("Person  not found(null reference)");
             }
         }
+    }
+
+    /**
+     * добавление новой Page в БД
+     * @param url
+     * @param site
+     * @param foundDateTime
+     * @param lastScanDate
+     * @return id добавленной Page или -1 если операция не удалась
+     */
+    public int addPage(String url, Site site, Date foundDateTime, Date lastScanDate){
+        int id = -1;
+        try {
+            openSessionAndTransation();
+            PageDAO pageDAO = new PageDAO(session);
+            id = pageDAO.insertPage(url, site, foundDateTime, lastScanDate);
+            closeSessionAndTransation();
+        } catch (HibernateException e) {
+            System.err.println("!!!HIBERNATE ERROR APPEARED!!!");
+        } finally {
+            return id;
+        }
+    }
+
+
+
+
+
+
+    private void openSessionAndTransation() {
+        this.session = this.sessionFactory.openSession();
+        this.transaction = session.beginTransaction();
+    }
+
+    private void closeSessionAndTransation() {
+        this.transaction.commit();
+        this.session.close();
+        this.transaction = null;
+        this.session = null;
     }
 
 }

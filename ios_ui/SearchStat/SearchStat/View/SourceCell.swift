@@ -22,6 +22,7 @@ class SourceCell: UITableViewCell {
 //            textLabel?.textColor = UIColor.white
         
     }
+    
     func setupCell(site: Site) {
         siteLbl.text = site.name
     }

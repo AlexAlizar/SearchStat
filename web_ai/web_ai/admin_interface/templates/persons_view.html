@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 
-{% block sites %}
-    <ol>
-    {% for site in sites %}
-        <li>{{ site }}</li>
+{% block content %}
+        <ol>
+    {% for person in persons %}
+        <li>{{ person }}</li>
     {% endfor %}
     </ol>
     <br>

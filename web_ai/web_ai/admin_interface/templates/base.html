@@ -20,7 +20,7 @@
             </li>
             <ul class="nav flex-column">
                 <li class="nav-item">
-                <a class="nav-link" href="#">Личности</a>
+                <a class="nav-link" href="{% url 'persons_view' %}">Личности</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Ключевые слова</a>
@@ -32,8 +32,11 @@
         </ul>
     </nav>
     <div class="col-sm-6">
-        {% block content %}
+        {% block sites %}
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab dolor doloremque dolores eos facere facilis fugiat impedit, ipsam iste magni mollitia numquam perferendis praesentium quaerat reiciendis repudiandae saepe similique vitae!</p>
+        {% endblock %}
+        {% block persons %}
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab blanditiis consequuntur cupiditate enim esse facere laborum nesciunt numquam, possimus quia quidem quos voluptas voluptates? Architecto at culpa ea est vitae.</p>
         {% endblock %}
     </div>
 </div>

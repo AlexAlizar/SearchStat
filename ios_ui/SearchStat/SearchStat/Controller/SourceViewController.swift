@@ -10,8 +10,6 @@ import UIKit
 
 class SourceViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    
-    
     let arr = ["rbc","rt","lenta"]
     var sitesArray = [Site]()
     
@@ -19,12 +17,12 @@ class SourceViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         MainService.instance.getSites { (result) in
             if result {
                 sitesArray = MainService.instance.siteArray!
             }
         }
-        
         
         view.setGradientBackground(colorOne: Colors.gradientColorOne, colorTwo: Colors.gradientColorTwo)
     }
@@ -34,7 +32,6 @@ class SourceViewController: UIViewController, UITableViewDelegate, UITableViewDa
         return sitesArray.count
     }
     
-
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell  {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! SourceCell

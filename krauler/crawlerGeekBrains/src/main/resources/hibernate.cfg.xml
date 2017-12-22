@@ -16,15 +16,16 @@
             jdbc:mysql://localhost:3306/test
         </property>
         <property name="connection.username">root</property>
-        <property name="connection.password">admin</property>
+        <!--У меня пароль 123456, изначально был admin, но с ним что-то не пошло-->
+        <property name="connection.password">123456</property>
         <property name="show_sql">true</property>
         <property name="hbm2ddl.auto">update</property>
 
-        <mapping class="ru.geekbrains.krawler.dao.Person"></mapping>
-        <mapping class="ru.geekbrains.krawler.dao.Site"></mapping>
-        <mapping class="ru.geekbrains.krawler.dao.Page"></mapping>
-        <mapping class="ru.geekbrains.krawler.dao.Keyword"></mapping>
-        <mapping class="ru.geekbrains.krawler.dao.PersonPageRank"></mapping>
+        <mapping class="dbService.dataSets.Person"></mapping>
+        <mapping class="dbService.dataSets.Site"></mapping>
+        <mapping class="dbService.dataSets.Page"></mapping>
+        <mapping class="dbService.dataSets.Keyword"></mapping>
+        <mapping class="dbService.dataSets.PersonPageRank"></mapping>
 
     </session-factory>
 </hibernate-configuration>

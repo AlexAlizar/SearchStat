@@ -1,5 +1,6 @@
 package ru.geekbrains.krawler;
 
+import dbService.DBService;
 import org.hibernate.SessionFactory;
 
 public class Main {
@@ -10,7 +11,11 @@ public class Main {
         System.out.println(Downloader.download("lenta.ru"));
 
         System.out.println("Проверка от Алексей Грунтов =)");
-        
+
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+
+        DBService dbService = new DBService(sessionFactory);
+        dbService.addPerson("Vasya");
+
     }
 }

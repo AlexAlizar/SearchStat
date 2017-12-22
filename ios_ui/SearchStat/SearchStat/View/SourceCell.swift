@@ -15,6 +15,7 @@ class SourceCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
     }
+    
     func setupCell(site: Site) {
         siteLbl.text = site.name
     }

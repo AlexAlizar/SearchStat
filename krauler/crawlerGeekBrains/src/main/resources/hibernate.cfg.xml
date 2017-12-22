@@ -13,13 +13,16 @@
 
         <!-- Assume test is the database name -->
         <property name="hibernate.connection.url">
-            jdbc:mysql://localhost:3306/searchstatdb
+            jdbc:mysql://localhost:3306/test
         </property>
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.connection.password">admin</property>
         <property name="hinernate.show_sql">true</property>
         <property name="hibernate.hbm2ddl.auto">update</property>
 
+        <mapping class="ru.geekbrains.krawler.dao.Person"></mapping>
+        <mapping class="ru.geekbrains.krawler.dao.Site"></mapping>
+        <mapping class="ru.geekbrains.krawler.dao.Page"></mapping>
 
     </session-factory>
 </hibernate-configuration>

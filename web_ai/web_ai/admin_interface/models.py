@@ -16,5 +16,5 @@ class ModelPerson(models.Model):
 
 
 class ModelKeyword(models.Model):
-    person_id = models.ForeignKey(ModelPerson, on_delete=None)
+    person_id = models.ForeignKey(ModelPerson, on_delete=models.CASCADE)
     keyword = models.CharField(max_length=2048, unique=True)

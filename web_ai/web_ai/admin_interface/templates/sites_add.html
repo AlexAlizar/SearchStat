@@ -1,8 +1,6 @@
 {% extends 'base.html' %}
 
-{% block sites %}
-
-
+{% block content %}
     <form action="" method="post">
         {% csrf_token %}
         {{ form.name }}

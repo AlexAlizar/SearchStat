@@ -1,5 +1,5 @@
 from django import forms
-from .models import ModelSite
+from .models import ModelSite, ModelPerson
 
 
 class SitesManageForm(forms.ModelForm):
@@ -11,5 +11,12 @@ class SitesManageForm(forms.ModelForm):
     multiple_select = forms.ModelMultipleChoiceField(queryset=ModelSite.objects.all(), required=False)
     name = forms.CharField(required=False, widget=forms.URLInput(attrs={'id': 'url', 'value': 'http://'}))
 
-    # sites_choice = forms.MultipleChoiceField(required=False, choices=sites, label='Delete site:')
-    #
+
+class PersonsManageForm(forms.ModelForm):
+
+    class Meta:
+        model = ModelPerson
+        fields = '__all__'
+
+    multiple_select = forms.ModelMultipleChoiceField(queryset=ModelPerson.objects.all(), required=False)
+    name = forms.CharField(required=False, widget=forms.TextInput(attrs={'id': 'person'}))

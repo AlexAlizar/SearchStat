@@ -31,7 +31,8 @@
             </ul>
         </ul>
     </nav>
-    {% block sites %}
+
+    {% block content %}
         <div class="col-sm-3">
             {% include 'included/sites_view.html' %}
         </div>
@@ -39,8 +40,8 @@
         <div class="col-sm-3">
             {% include 'included/persons_view.html' %}
         </div>
-
     {% endblock %}
+
 </div>
 <script src="{% static 'js/bootstrap.min.js' %}"></script>
 

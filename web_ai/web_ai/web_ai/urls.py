@@ -17,10 +17,10 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 
-#3rd party imports
+# 3rd party imports
 import debug_toolbar
 
-#local imports
+# local imports
 import admin_interface.urls
 
 urlpatterns = [

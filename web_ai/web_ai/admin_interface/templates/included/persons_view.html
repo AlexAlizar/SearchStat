@@ -1,0 +1,10 @@
+
+
+<ol>
+    {% for person in persons %}
+        <li>{{ person }}</li>
+    {% endfor %}
+</ol>
+<br>
+<a class="btn btn-dark" href="{% url 'add_person' %}">Добавить</a>
+<a class="btn btn-dark" href="{% url 'delete_person' %}">Удалить</a>

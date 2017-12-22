@@ -1,0 +1,10 @@
+
+<ol>
+    {% for site in sites %}
+        <li>{{ site }}</li>
+    {% endfor %}
+</ol>
+<br>
+<a class="btn btn-dark" href="{% url 'add_site' %}">Добавить</a>
+<a class="btn btn-dark" href="{% url 'delete_site' %}">Удалить</a>
+

@@ -16,29 +16,31 @@
     <nav class="navbar navbar-dark bg-light col-sm-3">
         <ul class="nav flex-column">
             <li class="nav-item nav-pills">
-                <a class="nav-link active" href="#">Справочник</a>
+                <a class="nav-link active" href="/">Справочник</a>
             </li>
             <ul class="nav flex-column">
                 <li class="nav-item">
-                <a class="nav-link" href="{% url 'persons_view' %}">Личности</a>
+                <a class="nav-link" href="#">Личности</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Ключевые слова</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'sites_view' %}">Сайты</a>
+                <a class="nav-link" href="#">Сайты</a>
             </li>
             </ul>
         </ul>
     </nav>
-    <div class="col-sm-6">
-        {% block sites %}
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab dolor doloremque dolores eos facere facilis fugiat impedit, ipsam iste magni mollitia numquam perferendis praesentium quaerat reiciendis repudiandae saepe similique vitae!</p>
-        {% endblock %}
-        {% block persons %}
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab blanditiis consequuntur cupiditate enim esse facere laborum nesciunt numquam, possimus quia quidem quos voluptas voluptates? Architecto at culpa ea est vitae.</p>
-        {% endblock %}
-    </div>
+    {% block sites %}
+        <div class="col-sm-3">
+            {% include 'included/sites_view.html' %}
+        </div>
+
+        <div class="col-sm-3">
+            {% include 'included/persons_view.html' %}
+        </div>
+
+    {% endblock %}
 </div>
 <script src="{% static 'js/bootstrap.min.js' %}"></script>
 

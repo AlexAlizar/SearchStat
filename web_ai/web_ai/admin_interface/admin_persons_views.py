@@ -13,7 +13,6 @@ def persons_delete(request):
             ModelPerson.objects.filter(id__in=multiple_select).delete()
             return HttpResponseRedirect('/')
     else:
-        print('here')
         return render(request, 'persons_delete.html', {'form': form})
 
 
@@ -27,7 +26,6 @@ def persons_add(request):
         else:
             return render(request, 'sites_add.html', {'form': form})
     else:
-        print('here')
         form = PersonsManageForm()
         return render(request, 'sites_add.html', {'form': form})
 

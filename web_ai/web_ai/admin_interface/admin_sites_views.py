@@ -33,7 +33,6 @@ def add_site(request):
             form = SitesManageForm()
             return render(request, 'sites_add.html', {'form': form})
     else:
-        print('here')
         form = SitesManageForm()
         return render(request, 'sites_add.html', {'form': form})
 

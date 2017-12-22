@@ -153,3 +153,7 @@ pyvenv.cfg
 Django2.0_venv
 pip-selfcheck.json
 
+
+\.idea/
+
+web_ai/web_ai/Django2_venv/

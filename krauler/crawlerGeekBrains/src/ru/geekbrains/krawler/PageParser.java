@@ -98,6 +98,11 @@ public class PageParser {
         return links;
     }
 
+    /**
+     * Принемает ссылку на файл и обробатывет его в зависимости от фйормата (xml или нет)
+     * @param urlset
+     * @return списо ссылок на страницы
+     */
     public static List<String> parseUrlSet (String urlset) {
         if (isXml(urlset)) {              // если файл имеет формат xml
             return parseSiteMap(urlset);
@@ -109,19 +114,36 @@ public class PageParser {
     /**
      * Поиск целевых строк в странице и подсчёт их количества
      * @param page
+     * @param searchString
+     * @return колличество найденных вхождений переданной строки
      */
     public static int parsePage(String page, String searchString) {
         int count = 0;
+
+/**/  // Текущая реализация
+        String preparedSearchString = searchString.trim().toLowerCase();
+        List<String> words = new ArrayList<>();
+
+        for (String s : page.split("[\\s,.;:!?« »<=>\"–\\-]")) {
+            if(s.trim().toLowerCase().equals(preparedSearchString)) count++;
+        }
+/**/
+
+/*/ //Предыдущая реализация метода
         //Pattern p = Pattern.compile("\\b" + searchString + "\\b", Pattern.UNICODE_CASE|Pattern.CASE_INSENSITIVE);
         Pattern p = Pattern.compile(searchString, Pattern.UNICODE_CASE|Pattern.CASE_INSENSITIVE);
         Matcher m = p.matcher(page);
         while(m.find()) count++;
+/**/
         return count;
     }
 
 
-
-
+    /**
+     * Проверка строки на соответствие формату xml
+     * @param urlStr
+     * @return true / false
+     */
     public static boolean isXml(String urlStr) {
 
         String adr= urlStr;
@@ -146,6 +168,11 @@ public class PageParser {
         return str.contains("<?xml");
     }
 
+    /**
+     * Скачивает, по переданной ссылке, построчно файл
+     * @param urlStr
+     * @return список строк
+     */
     public static List<String> getStringsByUrl(String urlStr) {
 
         String adr= urlStr;

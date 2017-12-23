@@ -2,6 +2,7 @@ package dbService;
 
 import dbService.dao.PageDAO;
 import dbService.dao.PersonDAO;
+import dbService.dao.SiteDAO;
 import dbService.dataSets.Person;
 import dbService.dataSets.Site;
 import org.hibernate.HibernateException;
@@ -28,20 +29,30 @@ public class DBService {
      * @return id добавленной персоны или -1 если операция не удалась
      */
     public int addPerson(String name){
-        //TODO: сделать так, чтобы в БД мог добавляться только один пользователь с уникальным именем
-        //TODO: иначе ошибка при вызове getPersonByName() - если в БД лежит несколько персон с одинаковыми именами
         int id = -1;
         try {
             openSessionAndTransation();
             PersonDAO personDAO = new PersonDAO(session);
+            Person person = personDAO.getPersonByName(name);
+            if(!(person==null))
+            {
+                System.out.println("Такой Person уже есть в БД!");
+                closeSessionAndTransation();
+                return id;
+            }
             id = personDAO.insertPerson(name);
             closeSessionAndTransation();
         } catch (HibernateException e) {
             System.err.println("!!!HIBERNATE ERROR APPEARED!!!");
-        } finally {
+        } catch (NullPointerException e) {
+            System.err.println("something wrong");
+        }
+        finally {
             return id;
         }
     }
+
+
 
     /**
      * получение Person из БД по id
@@ -69,12 +80,12 @@ public class DBService {
         }
     }
 
+
+
     /**
      * получение Person из БД по name
      * @param name
      * @return найденный экземпляр Person
-     * @warning если в БД два одинаковых name то падает...
-     * @warning надо обсепчечить уникальность name в таблице Persons
      */
     public Person getPersonByName(String name) {
         Person person = null;
@@ -86,16 +97,12 @@ public class DBService {
         } catch (HibernateException e) {
             System.err.println("Попытка найти по имени Персону, которых в БД более одной(например два Vasya и его ищем => ошибка)");
         } finally {
-            if(!person.equals(null))
-            {
-                return person;
-            }
-            else
-            {
-                throw new NullPointerException("Person  not found(null reference)");
-            }
+            if(person == null) System.out.println("Такого Person не найдено!");
+            return person;
         }
     }
+
+
 
     /**
      * добавление новой Page в БД
@@ -120,6 +127,25 @@ public class DBService {
     }
 
 
+
+    /**
+     * добавление нового Site в БД
+     * @param name
+     * @return id добавленного Site или -1 если операция не удалась
+     */
+    public int addSite(String name) {
+        int id = -1;
+        try {
+            openSessionAndTransation();
+            SiteDAO siteDAO = new SiteDAO(session);
+            id = siteDAO.insertSite(name);
+            closeSessionAndTransation();
+        } catch (HibernateException e) {
+            System.err.println("!!!HIBERNATE ERROR APPEARED!!!");
+        } finally {
+            return id;
+        }
+    }
 
 
 

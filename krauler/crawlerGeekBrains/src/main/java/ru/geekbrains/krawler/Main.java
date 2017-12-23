@@ -24,18 +24,24 @@ public class Main {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
         DBService dbService = new DBService(sessionFactory);
-        //НЕ ДОБАВЛЯЙТЕ ОДИНАКОВЫХ ПОЛЬЗОВАТЕЛЕЙ, Т.К. МЕТОД getPersonByName пока что ругается на это; надо сделать имена персон уникальными в БД, тогда всё будет ок
-        //dbService.addPerson("Petya");
+        dbService.addPerson("Peeeetya");
+        dbService.getPersonByName("Petya");
+        dbService.getPersonByName("Petttttya");
 
-        try {
-            //System.out.println(dbService.getPersonById(2).toString());
-            System.out.println(dbService.getPersonByName("Petya").toString());
-            System.out.println(dbService.getPersonByName("Petya").toString());
-            System.out.println(dbService.getPersonByName("Vasya").toString());
-            System.out.println(dbService.getPersonByName("Vas").toString());
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-        }
+//        Date dt = new Date();
+//
+//        SimpleDateFormat sdfDateTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//        SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd");
+//
+//        try {
+//            //System.out.println(dbService.getPersonById(2).toString());
+//            System.out.println(dbService.getPersonByName("Petya").toString());
+//            System.out.println(dbService.getPersonByName("Petya").toString());
+//            System.out.println(dbService.getPersonByName("Vasya").toString());
+//            System.out.println(dbService.getPersonByName("Vas").toString());
+//        } catch (NullPointerException e) {
+//            e.printStackTrace();
+//        }
 
     }
 }

@@ -18,4 +18,9 @@ public class PageDAO {
         return (Integer) session.save(new Page(url, site, foundDateTime, lastScanDate));
     }
 
+    public Page getPageById(int id) {
+        Page page = (Page) session.get(Page.class, id);
+        return page;
+    }
+
 }

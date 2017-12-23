@@ -3,6 +3,7 @@ package dbService;
 import dbService.dao.PageDAO;
 import dbService.dao.PersonDAO;
 import dbService.dao.SiteDAO;
+import dbService.dataSets.Page;
 import dbService.dataSets.Person;
 import dbService.dataSets.Site;
 import org.hibernate.HibernateException;
@@ -69,14 +70,8 @@ public class DBService {
         } catch (HibernateException e) {
             System.err.println("!!!HIBERNATE ERROR APPEARED!!!");
         } finally {
-            if(!person.equals(null))
-            {
-                return person;
-            }
-            else
-            {
-                throw new NullPointerException("Person  not found(null reference)");
-            }
+            if(person == null) System.out.println("Такого Person не найдено!");
+            return person;
         }
     }
 
@@ -127,6 +122,21 @@ public class DBService {
     }
 
 
+    public Page getPageById(int id) {
+        Page page = null;
+        try {
+            openSessionAndTransation();
+            PageDAO pageDAO = new PageDAO(session);
+            page = pageDAO.getPageById(id);
+            closeSessionAndTransation();
+        } catch (HibernateException e) {
+            System.err.println("!!!HIBERNATE ERROR APPEARED!!!");
+        } finally {
+            if(page == null) System.out.println("Такой Page не найдено!");
+            return page;
+        }
+    }
+
 
     /**
      * добавление нового Site в БД
@@ -147,6 +157,20 @@ public class DBService {
         }
     }
 
+    public Site getSiteByName(String name) {
+        Site site = null;
+        try {
+            openSessionAndTransation();
+            SiteDAO siteDAO = new SiteDAO(session);
+            site = siteDAO.getSiteByName(name);
+            closeSessionAndTransation();
+        } catch (HibernateException e) {
+            e.printStackTrace();
+        } finally {
+            if(site == null) System.out.println("Такого Site не найдено!");
+            return site;
+        }
+    }
 
 
 

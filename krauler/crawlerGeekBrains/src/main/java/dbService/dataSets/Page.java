@@ -1,6 +1,7 @@
 package dbService.dataSets;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
@@ -83,5 +84,19 @@ public class Page {
 
     public void setLastScanDate(Date lastScanDate) {
         this.lastScanDate = lastScanDate;
+    }
+
+    @Override
+    public String toString() {
+        SimpleDateFormat sdfDateTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd");
+
+        return "Page {" +
+                "id=" + id +
+                ", url='" + url + '\'' +
+                ", site='" + site.getName() + '\'' +
+                ", FoundDateTime='" + sdfDateTime.format(foundDateTime) + '\'' +
+                ", LastScanDate='" + sdfDate.format(lastScanDate) + '\'' +
+                "}";
     }
 }

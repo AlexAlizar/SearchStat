@@ -40,4 +40,12 @@ public class Site {
     public void setName(String name) {
         this.name = name;
     }
+
+    @Override
+    public String toString() {
+        return "Site {" +
+                "id=" + id +
+                ", name='" + name +'\'' +
+                "}";
+    }
 }

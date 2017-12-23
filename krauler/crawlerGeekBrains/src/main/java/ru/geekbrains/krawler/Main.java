@@ -24,17 +24,22 @@ public class Main {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
         DBService dbService = new DBService(sessionFactory);
-        dbService.addPerson("Peeeetya");
-        dbService.getPersonByName("Petya");
-        dbService.getPersonByName("Petttttya");
 
-//        Date dt = new Date();
-//
-//        SimpleDateFormat sdfDateTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//        SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd");
-//
-//        try {
-//            //System.out.println(dbService.getPersonById(2).toString());
+        //dbService.addPerson("Peeeetya");
+        //dbService.getPersonByName("Petya");
+
+        //dbService.addSite("somesite");
+        //System.out.println(dbService.getSiteByName("somesite"));
+
+        //Site site = dbService.getSiteByName("somesite");
+        //Date date1 = new Date();
+        //Date date2 = new Date(date1.getTime() + 86400000); //+1 сутки в миллисекундах
+        //dbService.addPage("somesite2/testurl.com", site, date1, date2);
+        //System.out.println(dbService.getPageById(1));
+        System.out.println(dbService.getPageById(22));
+
+
+//            System.out.println(dbService.getPersonById(2).toString());
 //            System.out.println(dbService.getPersonByName("Petya").toString());
 //            System.out.println(dbService.getPersonByName("Petya").toString());
 //            System.out.println(dbService.getPersonByName("Vasya").toString());

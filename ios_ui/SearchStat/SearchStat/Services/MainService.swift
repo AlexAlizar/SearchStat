@@ -47,7 +47,15 @@ class MainService {
         completionHandler(true)
     }
 //___________________________________________________________________________
+
+    public private(set) var dayStatArray: [DayStats]?
     
+    func getDayStat(completionHandler: CompletionHandler) {
+        
+        self.dayStatArray = generateFakeDayStatsArray()
+        completionHandler(true)
+    }
+//___________________________________________________________________________
     //tempFakeFunc
     
     private func generateFakeSites() -> [Site] {
@@ -58,15 +66,15 @@ class MainService {
         tempArr.append(tempSite)
         tempArr.append(tempSite1)
         tempArr.append(tempSite2)
-        
+
         return tempArr
     }
     
     private func generateFakePersonArray() -> [Person] {
         var personsArray = [Person]()
-            personsArray.append(Person(id: 0, name: "Person1", total: 229, dayStatsArray: generateFakeDayStatsArray()))
-            personsArray.append(Person(id: 0, name: "Person2", total: 399, dayStatsArray: generateFakeDayStatsArray()))
-            personsArray.append(Person(id: 0, name: "Person3", total: 11000, dayStatsArray: generateFakeDayStatsArray()))
+            personsArray.append(Person(id: 0, name: "Putin", total: 229, dayStatsArray: generateFakeDayStatsArray()))
+            personsArray.append(Person(id: 0, name: "Medvedev", total: 399, dayStatsArray: generateFakeDayStatsArray()))
+            personsArray.append(Person(id: 0, name: "Navalniy", total: 11000, dayStatsArray: generateFakeDayStatsArray()))
         return personsArray
     }
     
@@ -76,7 +84,7 @@ class MainService {
             let tempDate = Date(timeIntervalSince1970: TimeInterval((20 + i)*365*24*60*60))
             
             dayStatsArray.append(DayStats(day: tempDate, total: 1 + i * 100))
-
+            print(dayStatsArray)
         }
         return dayStatsArray
     }

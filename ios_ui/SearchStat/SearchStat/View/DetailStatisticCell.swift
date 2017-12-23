@@ -18,6 +18,11 @@ class DetailStatisticCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        dayStatlabel.layer.borderColor = UIColor.lightGray.cgColor
+        dayStatlabel.layer.borderWidth = 1
+        
+        nameLabel.layer.borderWidth = 1
+        nameLabel.layer.borderColor = UIColor.lightGray.cgColor
         
     }
     

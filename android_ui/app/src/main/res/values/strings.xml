@@ -15,4 +15,6 @@
     <string name="username">Username</string>
     <string name="general_stat">General stat</string>
     <string name="detailed_stat">Detailed stat</string>
+    <string name="general_stat">General stat</string>
+    <string name="detail_stat">Detail stat</string>
 </resources>

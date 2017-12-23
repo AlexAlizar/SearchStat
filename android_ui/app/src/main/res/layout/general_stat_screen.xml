@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:gravity="center"
+    tools:showIn="@layout/app_bar_main">
+
+<TextView
+    android:text="@string/general_stat"
+    android:textColor="#000"
+    android:gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:textSize="24sp"/>
+
+    <ListView
+        android:id="@+id/list_view_sources"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</LinearLayout>

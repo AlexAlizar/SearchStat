@@ -5,17 +5,28 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/general_stat"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="@string/general_stat"/>
+        <item
+            android:id="@+id/detailed_stat"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="@string/detailed_stat"/>
+    </group>
+
+    <group android:checkableBehavior="single">
+        <item
             android:id="@+id/account"
             android:icon="@drawable/ic_menu_camera"
-            android:title="My account"/>
+            android:title="@string/my_account"/>
         <item
             android:id="@+id/settings"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="Settings"/>
+            android:title="@string/settings"/>
         <item
             android:id="@+id/exit"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="Exit"/>
+            android:title="@string/exit"/>
     </group>
 
 </menu>

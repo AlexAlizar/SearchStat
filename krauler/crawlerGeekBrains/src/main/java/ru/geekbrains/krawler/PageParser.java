@@ -17,13 +17,11 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class PageParser {
-
     /**
      * Поиск Sitemap в robots.txt
+     *
      * @param robots
      * @return Список ссылок на sitemap'ы
      */
@@ -32,7 +30,7 @@ public class PageParser {
         String keyForSearch = "sitemap:";                   // ключ для поиска ссылки на saitmap
         String robotsLowerCase = robots.toLowerCase();      // приводим строку к нижнему регистру для упрощения поиска
         StringBuilder stringBuilder = new StringBuilder();  // стринг билдер для посимвольного построения найденной ссылки после keyForSearch
-        List<String> siteMapXmlLinks = new ArrayList<>();   // результирующий список для вывода из метода найденных ссылок
+        List<String> siteMapXmlLinks = new ArrayList<String>();   // результирующий список для вывода из метода найденных ссылок
 
         boolean keyFound = false;  // отметка о том что keyForSearch найден или нет
         char separator = ' ';      // разделитель строк в файле который был передан в этот метод в качестве одной строки
@@ -49,15 +47,15 @@ public class PageParser {
             }
 
             if (keyFound) { // если keyForSearch найден, берём ссылку и записываем её в список
-                for (;; i++) {
+                for (; ; i++) {
                     if (robots.charAt(i) == separator) continue;
 
                     System.out.println();
-                    for (;robots.charAt(i) != separator; i++) {
+                    for (; robots.charAt(i) != separator; i++) {
                         stringBuilder.append(robots.charAt(i));
                     }
                     siteMapXmlLinks.add(stringBuilder.toString());
-                    stringBuilder.delete(0,stringBuilder.length());
+                    stringBuilder.delete(0, stringBuilder.length());
                     break;
                 }
                 keyFound = false;
@@ -68,11 +66,12 @@ public class PageParser {
 
     /**
      * Поиск страниц в Sitemap
+     *
      * @param uriSiteMapXml
      * @return Список ссылок из входного sitemap
      */
     public static List<String> parseSiteMap(String uriSiteMapXml) {
-        List<String> links = new LinkedList<>();
+        List<String> links = new LinkedList<String>();
         try {
             DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
             Document document = documentBuilder.parse(uriSiteMapXml);     // Скачиваем страницу
@@ -94,16 +93,17 @@ public class PageParser {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        if(links.isEmpty()) System.out.println("Ссылок не найдено!");
+        if (links.isEmpty()) System.out.println("Ссылок не найдено!");
         return links;
     }
 
     /**
      * Принемает ссылку на файл и обробатывет его в зависимости от фйормата (xml или нет)
+     *
      * @param urlset
      * @return списо ссылок на страницы
      */
-    public static List<String> parseUrlSet (String urlset) {
+    public static List<String> parseUrlSet(String urlset) {
         if (isXml(urlset)) {              // если файл имеет формат xml
             return parseSiteMap(urlset);
         } else {                          // парсим как обычный текст
@@ -113,6 +113,7 @@ public class PageParser {
 
     /**
      * Поиск целевых строк в странице и подсчёт их количества
+     *
      * @param page
      * @param searchString
      * @return колличество найденных вхождений переданной строки
@@ -122,10 +123,10 @@ public class PageParser {
 
 /**/  // Текущая реализация
         String preparedSearchString = searchString.trim().toLowerCase();
-        List<String> words = new ArrayList<>();
+        List<String> words = new ArrayList<String>();
 
         for (String s : page.split("[\\s,.;:!?« »<=>\"–\\-]")) {
-            if(s.trim().toLowerCase().equals(preparedSearchString)) count++;
+            if (s.trim().toLowerCase().equals(preparedSearchString)) count++;
         }
 /**/
 
@@ -141,12 +142,13 @@ public class PageParser {
 
     /**
      * Проверка строки на соответствие формату xml
+     *
      * @param urlStr
      * @return true / false
      */
     public static boolean isXml(String urlStr) {
 
-        String adr= urlStr;
+        String adr = urlStr;
         StringBuilder stringBuilder = new StringBuilder();
         URL url = null; //создаем URL
         BufferedReader br;
@@ -154,7 +156,7 @@ public class PageParser {
 
         try {
             url = new URL(adr);
-            HttpURLConnection conn = (HttpURLConnection)url.openConnection(); //открываем соединение
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection(); //открываем соединение
             br = new BufferedReader(new InputStreamReader(conn.getInputStream())); // используем объект класса BufferedReader для работы со строками
             str = br.readLine();
 
@@ -170,23 +172,24 @@ public class PageParser {
 
     /**
      * Скачивает, по переданной ссылке, построчно файл
+     *
      * @param urlStr
      * @return список строк
      */
     public static List<String> getStringsByUrl(String urlStr) {
 
-        String adr= urlStr;
+        String adr = urlStr;
         BufferedReader br;
         String str;
         URL url = null; //создаем URL
-        List<String> resultList = new ArrayList<>();
+        List<String> resultList = new ArrayList<String>();
 
         try {
             url = new URL(adr);
-            HttpURLConnection conn = (HttpURLConnection)url.openConnection(); //открываем соединение
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection(); //открываем соединение
             br = new BufferedReader(new InputStreamReader(conn.getInputStream())); // используем объект класса BufferedReader для работы со строками
 
-            while((str = br.readLine()) != null){ // пока не достигнут конец, считываем страницу построчно
+            while ((str = br.readLine()) != null) { // пока не достигнут конец, считываем страницу построчно
                 resultList.add(str);
             }
             br.close(); //закрываем поток
@@ -201,3 +204,5 @@ public class PageParser {
     }
 
 }
+
+

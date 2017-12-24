@@ -1,13 +1,7 @@
 package dbService;
 
-import dbService.dao.KeywordDAO;
-import dbService.dao.PageDAO;
-import dbService.dao.PersonDAO;
-import dbService.dao.SiteDAO;
-import dbService.dataSets.Keyword;
-import dbService.dataSets.Page;
-import dbService.dataSets.Person;
-import dbService.dataSets.Site;
+import dbService.dao.*;
+import dbService.dataSets.*;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -58,7 +52,30 @@ public class DBService {
         }
     }
 
-
+    public int writeRank(Person person, Page page, int rank) {
+        int id = -1;
+        try {
+            openSessionAndTransation();
+            PersonPageRankDAO personPageRankDAO = new PersonPageRankDAO(session);
+            PersonPageRank personPageRank = personPageRankDAO.getPersonPageRank(person, page);
+            if(!(personPageRank==null))
+            {
+                personPageRankDAO.updateRank(person,page, rank);
+                closeSessionAndTransation("commit");
+                return id;
+            }
+            id = personPageRankDAO.insertRank(person, page, rank);
+            closeSessionAndTransation("commit");
+        } catch (HibernateException e) {
+            closeSessionAndTransation("rollback");
+            System.err.println("!!!HIBERNATE ERROR APPEARED!!!");
+        } catch (NullPointerException e) {
+            System.err.println("something wrong");
+        }
+        finally {
+            return id;
+        }
+    }
 
     /**
      * получение Person из БД по id

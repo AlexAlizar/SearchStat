@@ -32,6 +32,12 @@ public class PersonPageRank implements Serializable {
         this.page = page;
     }
 
+    public PersonPageRank(Person person, Page page, int rank) {
+        this.person = person;
+        this.page = page;
+        this.rank = rank;
+    }
+
     public Person getPerson() {
         return person;
     }

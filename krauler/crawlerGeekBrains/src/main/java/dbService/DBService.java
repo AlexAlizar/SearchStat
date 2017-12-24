@@ -1,8 +1,10 @@
 package dbService;
 
+import dbService.dao.KeywordDAO;
 import dbService.dao.PageDAO;
 import dbService.dao.PersonDAO;
 import dbService.dao.SiteDAO;
+import dbService.dataSets.Keyword;
 import dbService.dataSets.Page;
 import dbService.dataSets.Person;
 import dbService.dataSets.Site;
@@ -210,6 +212,22 @@ public class DBService {
             return sites;
         }
     }
+
+    public int addKeyword(Person person, String name) {
+        int id = -1;
+        try {
+            openSessionAndTransation();
+            KeywordDAO keywordDAO = new KeywordDAO(session);
+            id = keywordDAO.insertKeyword(person, name);
+            closeSessionAndTransation("commit");
+        } catch (HibernateException e) {
+            closeSessionAndTransation("rollback");
+            System.err.println("!!!HIBERNATE ERROR APPEARED!!!");
+        } finally {
+            return id;
+        }
+    }
+
     private void openSessionAndTransation() {
         this.session = this.sessionFactory.openSession();
         this.transaction = session.beginTransaction();

@@ -29,6 +29,11 @@ public class Keyword {
         this.id = id;
     }
 
+    public Keyword(Person person, String name) {
+        this.name = name;
+        this.person = person;
+    }
+
     public int getId() {
         return id;
     }

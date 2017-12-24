@@ -1,9 +1,12 @@
 package ru.geekbrains.krawler;
 
-        import java.io.BufferedReader;
-        import java.io.IOException;
-        import java.io.InputStreamReader;
-        import java.net.URL;
+/**
+ * Created by User on 21.12.2017.
+ */
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
 
 /**
  * Created by User on 16.12.2017.

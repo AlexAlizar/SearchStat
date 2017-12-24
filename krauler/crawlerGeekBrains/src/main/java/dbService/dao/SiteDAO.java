@@ -5,6 +5,8 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
+import java.util.List;
+
 /**
  * Created by alloyer on 23.12.2017.
  */
@@ -24,5 +26,10 @@ public class SiteDAO {
         Criteria criteria = session.createCriteria(Site.class);
         Site site = (Site) criteria.add(Restrictions.eq("name", name)).uniqueResult();
         return site;
+    }
+
+    public List<Site> getAllSite() {
+        Criteria criteria = session.createCriteria(Site.class);
+        return criteria.list();
     }
 }

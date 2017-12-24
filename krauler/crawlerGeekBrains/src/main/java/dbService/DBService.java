@@ -12,6 +12,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 import java.util.Date;
+import java.util.List;
 
 public class DBService {
 
@@ -23,6 +24,7 @@ public class DBService {
     {
         this.sessionFactory = sessionFactory;
     }
+
 
     /**
      * добавление новой Персоны в БазуДанных
@@ -179,6 +181,20 @@ public class DBService {
         }
     }
 
+    public List<Site> getAllSite() {
+        List<Site> sites = null;
+        try {
+            openSessionAndTransation();
+            SiteDAO siteDAO = new SiteDAO(session);
+            sites = siteDAO.getAllSite();
+            closeSessionAndTransation("commit");
+        } catch (HibernateException e) {
+            closeSessionAndTransation("rollback");
+            System.err.println("!!!HIBERNATE ERROR APPEARED!!!");
+        } finally {
+            return sites;
+        }
+    }
 
 
     private void openSessionAndTransation() {

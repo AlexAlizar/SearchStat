@@ -97,7 +97,6 @@ public class Page {
                 ", url='" + url + '\'' +
                 ", site='" + site.getName() + '\'' +
                 ", FoundDateTime='" + sdfDateTime.format(foundDateTime) + '\'' +
-                ", LastScanDate='" + sdfDate.format(lastScanDate) + '\'' +
                 "}";
     }
 }

@@ -1,16 +1,24 @@
 package ru.geekbrains.krawler;
 
 import dbService.DBService;
+import dbService.dataSets.Keyword;
+import dbService.dataSets.Page;
+import dbService.dataSets.Person;
+import dbService.dataSets.Site;
 import org.hibernate.SessionFactory;
+import org.hibernate.annotations.SourceType;
+
+import java.util.Date;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
         System.out.println("Start program");
         System.out.println("Проверка связи =)");
         //пример вызова метода download
-        System.out.println(Downloader.download("lenta.ru"));
+    //    System.out.println(Downloader.download("lenta.ru"));
 
-        System.out.println("Проверка от Алексей Грунтов =)");
+//        System.out.println("Проверка от Алексей Грунтов =)");
 
         /**
          * чтобы всё работало, надо:
@@ -25,18 +33,75 @@ public class Main {
 
         DBService dbService = new DBService(sessionFactory);
 
-        //dbService.addPerson("Peeeetya");
-        //dbService.getPersonByName("Petya");
 
-        //dbService.addSite("somesite");
-        //System.out.println(dbService.getSiteByName("somesite"));
+        // примеры использования методов
+
+        // добавление сайтов
+
+        //  dbService.addSite("lenta.ru");
+        //  dbService.addSite("bfm.ru");
+        //  dbService.addSite("infox.ru");
+
+        // добавление персон
+
+        //  dbService.addPerson("Путин");
+        //  dbService.addPerson("Медведев");
+        //  dbService.addPerson("Навальный");
+
+        // добавление страниц
+//        Site site = dbService.getSiteByName("lenta.ru");
+//        Date date1 = new Date();
+//        Date date2 = new Date(date1.getTime() + 86400000); //+1 сутки в миллисекундах
+//        dbService.addPage("lenta.ru/testurl.html", site, date1, date2);
+
+
+        // получение списка сайтов, у которых нет соответствия в pages
+//        List<Site> sites = null;
+//        sites = dbService.gettAllSiteWithoutPage();
+//
+//        for (Site site : sites ) {
+//            System.out.println(site.toString());
+//
+//        }
+
+        // добавление ключевых слов
+//        Person person = dbService.getPersonByName("Путин");
+//        dbService.addKeyword(person,"Путина");
+//        dbService.addKeyword(person,"Путину");
+
+        // получение ключевых слов
+//        List<Keyword> keywords = null;
+        //Person person = dbService.getPersonByName("Путин");
+//        keywords = dbService.getKeywordByPerson(person);
+//
+//        for ( Keyword kwd : keywords ) {
+//            System.out.println(kwd.toString());
+//        }
+
+        // вставка/обновление рейтинга
+
+//        Person person = dbService.getPersonByName("Путин");
+//        Page page = dbService.getPageById(1);
+//        dbService.writeRank(person, page, 200);
+
+
+        // получение списка неотсканенных страниц
+
+//                List<Page> pages = null;
+//                pages = dbService.gettNonScannedPages();
+//
+//               for ( Page pg : pages ) {
+//                   System.out.println(pg.toString());
+//               }
+
+        sessionFactory.close();
 
         //Site site = dbService.getSiteByName("somesite");
         //Date date1 = new Date();
         //Date date2 = new Date(date1.getTime() + 86400000); //+1 сутки в миллисекундах
         //dbService.addPage("somesite2/testurl.com", site, date1, date2);
         //System.out.println(dbService.getPageById(1));
-        System.out.println(dbService.getPageById(22));
+        //  System.out.println(dbService.getPageById(22));
 
 
 //            System.out.println(dbService.getPersonById(2).toString());

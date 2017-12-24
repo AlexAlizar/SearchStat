@@ -230,6 +230,21 @@ public class DBService {
         }
     }
 
+    public List<Page> gettNonScannedPages() {
+        List<Page> pages = null;
+        try {
+            openSessionAndTransation();
+            PageDAO pageDAO = new PageDAO(session);
+            pages = pageDAO.getNonScannedPages();
+            closeSessionAndTransation("commit");
+        } catch (HibernateException e) {
+            closeSessionAndTransation("rollback");
+            System.err.println("!!!HIBERNATE ERROR APPEARED!!!");
+        } finally {
+            return pages;
+        }
+    }
+
     public List<Keyword> getKeywordByPerson(Person person) {
         List<Keyword> keywords = null;
         try {

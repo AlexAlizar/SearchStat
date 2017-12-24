@@ -2,9 +2,11 @@ package dbService.dao;
 
 import dbService.dataSets.Page;
 import dbService.dataSets.Site;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 
 import java.util.Date;
+import java.util.List;
 
 public class PageDAO {
 
@@ -23,6 +25,12 @@ public class PageDAO {
         return page;
     }
 
+    public List<Page> getNonScannedPages() {
+
+        SQLQuery query = session.createSQLQuery("SELECT * FROM PAGES WHERE LastScanDate is null");
+        query.addEntity(Page.class);
+        return query.list();
+    }
 
 
 }

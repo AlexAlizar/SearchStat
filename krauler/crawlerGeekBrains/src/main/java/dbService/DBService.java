@@ -38,12 +38,13 @@ public class DBService {
             if(!(person==null))
             {
                 System.out.println("Такой Person уже есть в БД!");
-                closeSessionAndTransation();
+                closeSessionAndTransation("commit");
                 return id;
             }
             id = personDAO.insertPerson(name);
-            closeSessionAndTransation();
+            closeSessionAndTransation("commit");
         } catch (HibernateException e) {
+            closeSessionAndTransation("rollback");
             System.err.println("!!!HIBERNATE ERROR APPEARED!!!");
         } catch (NullPointerException e) {
             System.err.println("something wrong");
@@ -66,8 +67,9 @@ public class DBService {
             openSessionAndTransation();
             PersonDAO personDAO = new PersonDAO(session);
             person = personDAO.getPersonById(id);
-            closeSessionAndTransation();
+            closeSessionAndTransation("commit");
         } catch (HibernateException e) {
+            closeSessionAndTransation("rollback");
             System.err.println("!!!HIBERNATE ERROR APPEARED!!!");
         } finally {
             if(person == null) System.out.println("Такого Person не найдено!");
@@ -88,8 +90,9 @@ public class DBService {
             openSessionAndTransation();
             PersonDAO personDAO = new PersonDAO(session);
             person = personDAO.getPersonByName(name);
-            closeSessionAndTransation();
+            closeSessionAndTransation("commit");
         } catch (HibernateException e) {
+            closeSessionAndTransation("rollback");
             System.err.println("Попытка найти по имени Персону, которых в БД более одной(например два Vasya и его ищем => ошибка)");
         } finally {
             if(person == null) System.out.println("Такого Person не найдено!");
@@ -113,8 +116,9 @@ public class DBService {
             openSessionAndTransation();
             PageDAO pageDAO = new PageDAO(session);
             id = pageDAO.insertPage(url, site, foundDateTime, lastScanDate);
-            closeSessionAndTransation();
+            closeSessionAndTransation("commit");
         } catch (HibernateException e) {
+            closeSessionAndTransation("rollback");
             System.err.println("!!!HIBERNATE ERROR APPEARED!!!");
         } finally {
             return id;
@@ -128,8 +132,9 @@ public class DBService {
             openSessionAndTransation();
             PageDAO pageDAO = new PageDAO(session);
             page = pageDAO.getPageById(id);
-            closeSessionAndTransation();
+            closeSessionAndTransation("commit");
         } catch (HibernateException e) {
+            closeSessionAndTransation("rollback");
             System.err.println("!!!HIBERNATE ERROR APPEARED!!!");
         } finally {
             if(page == null) System.out.println("Такой Page не найдено!");
@@ -149,8 +154,9 @@ public class DBService {
             openSessionAndTransation();
             SiteDAO siteDAO = new SiteDAO(session);
             id = siteDAO.insertSite(name);
-            closeSessionAndTransation();
+            closeSessionAndTransation("commit");
         } catch (HibernateException e) {
+            closeSessionAndTransation("rollback");
             System.err.println("!!!HIBERNATE ERROR APPEARED!!!");
         } finally {
             return id;
@@ -163,8 +169,9 @@ public class DBService {
             openSessionAndTransation();
             SiteDAO siteDAO = new SiteDAO(session);
             site = siteDAO.getSiteByName(name);
-            closeSessionAndTransation();
+            closeSessionAndTransation("commit");
         } catch (HibernateException e) {
+            closeSessionAndTransation("rollback");
             e.printStackTrace();
         } finally {
             if(site == null) System.out.println("Такого Site не найдено!");
@@ -179,11 +186,17 @@ public class DBService {
         this.transaction = session.beginTransaction();
     }
 
-    private void closeSessionAndTransation() {
-        this.transaction.commit();
+    private void closeSessionAndTransation(String mode) {
+        if (mode.equals("commit")) {
+            this.transaction.commit();
+        } else {
+            this.transaction.rollback();
+        }
         this.session.close();
         this.transaction = null;
         this.session = null;
     }
+
+
 
 }

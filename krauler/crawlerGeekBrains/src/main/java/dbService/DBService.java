@@ -213,6 +213,22 @@ public class DBService {
         }
     }
 
+    public List<Keyword> getKeywordByPerson(Person person) {
+        List<Keyword> keywords = null;
+        try {
+            openSessionAndTransation();
+            KeywordDAO keyywordDAO = new KeywordDAO(session);
+            keywords = keyywordDAO.getKeywordByPerson(person);
+            closeSessionAndTransation("commit");
+        } catch (HibernateException e) {
+            closeSessionAndTransation("rollback");
+            System.err.println("!!!HIBERNATE ERROR APPEARED!!!");
+        } finally {
+            return keywords;
+        }
+    }
+
+
     public int addKeyword(Person person, String name) {
         int id = -1;
         try {

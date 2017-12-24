@@ -2,7 +2,10 @@ package dbService.dao;
 
 import dbService.dataSets.Keyword;
 import dbService.dataSets.Person;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
+
+import java.util.List;
 
 /**
  * Created by User on 24.12.2017.
@@ -22,5 +25,11 @@ public class KeywordDAO {
     public Keyword getKeywordById(int id) {
         Keyword keyword = (Keyword) session.get(Keyword.class, id);
         return keyword;
+    }
+
+    public List<Keyword> getKeywordByPerson(Person person) {
+        SQLQuery query = session.createSQLQuery("SELECT * FROM keywords where personID="+person.getId());
+        query.addEntity(Keyword.class);
+        return query.list();
     }
 }

@@ -57,4 +57,12 @@ public class Keyword {
     public void setPerson(Person person) {
         this.person = person;
     }
+
+    @Override
+    public String toString() {
+        return "Keyword {" +
+                "id=" + id +
+                ", name='" + name +'\'' +
+                "}";
+    }
 }

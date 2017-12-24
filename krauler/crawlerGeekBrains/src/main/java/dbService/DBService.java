@@ -196,7 +196,20 @@ public class DBService {
         }
     }
 
-
+    public List<Site> gettAllSiteWithoutPage() {
+        List<Site> sites = null;
+        try {
+            openSessionAndTransation();
+            SiteDAO siteDAO = new SiteDAO(session);
+            sites = siteDAO.getAllSiteWithoutPage();
+            closeSessionAndTransation("commit");
+        } catch (HibernateException e) {
+            closeSessionAndTransation("rollback");
+            System.err.println("!!!HIBERNATE ERROR APPEARED!!!");
+        } finally {
+            return sites;
+        }
+    }
     private void openSessionAndTransation() {
         this.session = this.sessionFactory.openSession();
         this.transaction = session.beginTransaction();

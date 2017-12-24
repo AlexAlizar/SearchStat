@@ -24,6 +24,7 @@ public class Page {
     @JoinColumn(name="SiteID")
     private Site site;
 
+
     @Column (name = "FoundDateTime")
     @Temporal(value=TemporalType.TIMESTAMP)
     private Date foundDateTime;

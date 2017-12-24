@@ -2,9 +2,12 @@ package dbService.dao;
 
 import dbService.dataSets.Page;
 import dbService.dataSets.Site;
+import org.hibernate.Criteria;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 
 import java.util.Date;
+import java.util.List;
 
 public class PageDAO {
 
@@ -22,5 +25,7 @@ public class PageDAO {
         Page page = (Page) session.get(Page.class, id);
         return page;
     }
+
+
 
 }

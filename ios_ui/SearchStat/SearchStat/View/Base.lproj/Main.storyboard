@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="IPT-hT-L9Z">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="IPT-hT-L9Z">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -473,7 +473,10 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iAL-Re-ZSk">
                                 <rect key="frame" x="74" y="94" width="243" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xaK-VB-wWJ">
                                 <rect key="frame" x="315" y="96" width="39" height="26"/>
@@ -517,7 +520,9 @@
                         <viewLayoutGuide key="safeArea" id="SmB-Yp-Ehy"/>
                     </view>
                     <connections>
+                        <outlet property="calendarButton" destination="iAL-Re-ZSk" id="rtw-Ss-qF8"/>
                         <outlet property="detailTableView" destination="zyx-Fd-uwf" id="cgQ-s6-j7k"/>
+                        <outlet property="nameSourceLabel" destination="eA5-Uf-3rX" id="1a4-BX-vtW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="m64-Yw-00a" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -535,7 +540,7 @@
         <image name="Иконка график" width="27" height="27"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="SY8-6n-aes"/>
+        <segue reference="IPk-Uq-5dr"/>
         <segue reference="bu2-I7-xZv"/>
     </inferredMetricsTieBreakers>
 </document>

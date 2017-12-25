@@ -11,21 +11,23 @@ import UIKit
 class TotalStatisticViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     var personArray = [Person]()
+
     
     @IBOutlet weak var nameSourceLabel: UILabel!
     @IBOutlet weak var totalStatTableView: UITableView!
     
-    var nameSourceLableString = " "
+    var nameSourceLabelString = " "
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        nameSourceLabel.text = nameSourceLableString
-       
+        nameSourceLabel.text = nameSourceLabelString
+//        nameSourceLabel.text = MainService.instance.lastUpdateDate!
+        
     }
     
     func initVC(_ site: Site) {
         personArray = site.personsArray
-        nameSourceLableString = site.name + "    " + DateFormatter.localizedString(from: Date(), dateStyle: .short, timeStyle: .short)
+        nameSourceLabelString = site.name + "    " + DateFormatter.localizedString(from: Date(), dateStyle: .short, timeStyle: .short)
     }
     
     

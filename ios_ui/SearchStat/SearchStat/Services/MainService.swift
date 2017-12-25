@@ -14,6 +14,11 @@ class MainService {
     
     public private(set) var siteArray: [Site]?
     
+    public private(set) var lastUpdateDate: String? 
+    
+
+    
+    
     func getSites(completionHandler: @escaping CompletionHandler) {
         
         // Request
@@ -43,8 +48,15 @@ class MainService {
                 }
             } .resume()
         
+        lastUpdateDate = DateFormatter.localizedString(from: Date(), dateStyle: .short, timeStyle: .none)
         
     }
+    
+
+    
+    
+    
+    
     private func generateSiteArrayFromJson (_ json: SiteForSearch ) -> [Site] {
         var siteArray = [Site]()
         for site in json.sites {

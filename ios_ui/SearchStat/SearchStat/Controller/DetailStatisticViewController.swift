@@ -14,15 +14,21 @@ class DetailStatisticViewController: UIViewController, UITableViewDelegate, UITa
     
     @IBOutlet weak var detailTableView: UITableView!
     
+    @IBOutlet weak var calendarButton: UIButton!
     
  
     var personArray = [Person]()
     var dayStatArray = [DayStats]()
     
+    @IBOutlet weak var nameSourceLabel: UILabel!
+    
+    
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        calendarButton.setTitle(MainService.instance.lastUpdateDate, for: .normal)
         
         MainService.instance.getPerson { (result) in
             if result {
@@ -37,7 +43,7 @@ class DetailStatisticViewController: UIViewController, UITableViewDelegate, UITa
         
     }
     
-    
+
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

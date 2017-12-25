@@ -27,6 +27,7 @@ class SourceViewController: UIViewController, UITableViewDelegate, UITableViewDa
                     //ошибка в сервисе используем фейковые данные
                     //выводим предупреждение
                     self.sitesArray = MainService.instance.siteArray!
+                    
                     DispatchQueue.main.async {
                         self.sourceTableView.reloadData()
                     }

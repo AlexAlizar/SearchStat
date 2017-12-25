@@ -10,35 +10,22 @@ import UIKit
 
 class TotalStatisticViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-    
-
     var personArray = [Person]()
-    
     
     @IBOutlet weak var nameSourceLabel: UILabel!
     @IBOutlet weak var totalStatTableView: UITableView!
     
-    var sourceName: String?
-    
+    var nameSourceLableString = " "
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-        if let nameTolabel = sourceName {
-            nameSourceLabel.text = nameTolabel
-        }
-     
-        
-        
-        MainService.instance.getPerson { (result) in
-            if result {
-                personArray = MainService.instance.personArray!
-            }
-        }
-        
-        
+        nameSourceLabel.text = nameSourceLableString
        
+    }
+    
+    func initVC(_ site: Site) {
+        personArray = site.personsArray
+        nameSourceLableString = site.name + "    " + DateFormatter.localizedString(from: Date(), dateStyle: .short, timeStyle: .short)
     }
     
     

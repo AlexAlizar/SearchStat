@@ -14,7 +14,7 @@ class MainService {
     
     public private(set) var siteArray: [Site]?
     
-    func getSites(completionHandler: CompletionHandler) {
+    func getSites(completionHandler: @escaping CompletionHandler) {
         
         // Request
         
@@ -22,22 +22,55 @@ class MainService {
         guard let url = URL(string: urlString) else {return}
         
         URLSession.shared.dataTask(with: url) { (data, response, error) in
-            guard let data = data else {return}
+            guard let data = data else {
+                print("No Internet Connection")
+                self.siteArray = self.generateFakeSites()
+                completionHandler(false)
+                return
+            }
             guard error == nil else {return}
             
             do {
                 let siteForSearch = try JSONDecoder().decode(SiteForSearch.self, from: data)
                 print(siteForSearch)
+                self.siteArray = self.generateSiteArrayFromJson(siteForSearch)
+                completionHandler(true)
                
             } catch let error {
                 print(error)
+                self.siteArray = self.generateFakeSites()
+                completionHandler(false)
                 }
             } .resume()
         
-        self.siteArray = generateFakeSites()
-        completionHandler(true)
+        
+    }
+    private func generateSiteArrayFromJson (_ json: SiteForSearch ) -> [Site] {
+        var siteArray = [Site]()
+        for site in json.sites {
+            
+            let personsArray = generatePersonsArrayFromJson(site.persons)
+            
+            let tempSite = Site(id: Int(site.SiteID)!, name: site.SiteName, personsArray: personsArray)
+            siteArray.append(tempSite)
+        }
+        return siteArray
     }
     
+    private func generatePersonsArrayFromJson(_ json: [PersonsDescription]) -> [Person] {
+        var personsArray = [Person]()
+        for item in json {
+            personsArray.append(generatePersonFromJson(item))
+        }
+        return personsArray
+        
+    }
+    
+    private func generatePersonFromJson (_ json: PersonsDescription) -> Person {
+        let person = Person(id: Int(json.PersonID)!, name: json.PersonName, total: Int(json.PersonRank)!, dayStatsArray: generateFakeDayStatsArray())
+        //FIX!! FAKE DATA!!
+        return person
+    }
 //___________________________________________________________________________
     public private(set) var personArray: [Person]?
     
@@ -59,9 +92,9 @@ class MainService {
     //tempFakeFunc
     
     private func generateFakeSites() -> [Site] {
-        let tempSite = Site(id: 0, name: "rbc", personsArray: generateFakePersonArray())
-        let tempSite1 = Site(id: 1, name: "rt", personsArray: generateFakePersonArray())
-        let tempSite2 = Site(id: 2, name: "lenta", personsArray: generateFakePersonArray())
+        let tempSite = Site(id: 0, name: "fakeSiteOne", personsArray: generateFakePersonArray())
+        let tempSite1 = Site(id: 1, name: "fakeSiteTwo", personsArray: generateFakePersonArray())
+        let tempSite2 = Site(id: 2, name: "fakeSiteTree", personsArray: generateFakePersonArray())
         var tempArr = [Site]()
         tempArr.append(tempSite)
         tempArr.append(tempSite1)
@@ -72,9 +105,9 @@ class MainService {
     
     private func generateFakePersonArray() -> [Person] {
         var personsArray = [Person]()
-            personsArray.append(Person(id: 0, name: "Putin", total: 229, dayStatsArray: generateFakeDayStatsArray()))
-            personsArray.append(Person(id: 0, name: "Medvedev", total: 399, dayStatsArray: generateFakeDayStatsArray()))
-            personsArray.append(Person(id: 0, name: "Navalniy", total: 11000, dayStatsArray: generateFakeDayStatsArray()))
+            personsArray.append(Person(id: 0, name: "FakePersonOne", total: 222, dayStatsArray: generateFakeDayStatsArray()))
+            personsArray.append(Person(id: 1, name: "FakePersonTwo", total: 3333, dayStatsArray: generateFakeDayStatsArray()))
+            personsArray.append(Person(id: 2, name: "FakePersonTree", total: 44444, dayStatsArray: generateFakeDayStatsArray()))
         return personsArray
     }
     

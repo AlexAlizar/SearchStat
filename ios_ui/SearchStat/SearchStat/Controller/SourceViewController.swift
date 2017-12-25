@@ -10,30 +10,33 @@ import UIKit
 
 class SourceViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-
-    
-    
-    
     var sitesArray: [Site] = []
 
-
-
-
-    
     @IBOutlet weak var sourceTableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-
-        
-
-        MainService.instance.getSites { (result) in
-            if result {
-                sitesArray = MainService.instance.siteArray!
-                
+        if MainService.instance.siteArray == nil {
+            MainService.instance.getSites { (result) in
+                if result {
+                    self.sitesArray = MainService.instance.siteArray!
+                    DispatchQueue.main.async {
+                        self.sourceTableView.reloadData()
+                    }
+                } else {
+                    //ошибка в сервисе используем фейковые данные
+                    //выводим предупреждение
+                    self.sitesArray = MainService.instance.siteArray!
+                    DispatchQueue.main.async {
+                        self.sourceTableView.reloadData()
+                    }
+                }
             }
+        } else {
+            self.sitesArray = MainService.instance.siteArray!
         }
+
+        
         
     }
     
@@ -60,7 +63,7 @@ class SourceViewController: UIViewController, UITableViewDelegate, UITableViewDa
         if segue.identifier == "toTotalStatistic" {
             if let indexPath = sourceTableView.indexPathForSelectedRow {
                 let destVC: TotalStatisticViewController = segue.destination as! TotalStatisticViewController
-                destVC.sourceName = sitesArray[indexPath.row].name + "    " + DateFormatter.localizedString(from: Date(), dateStyle: .short, timeStyle: .short)
+                destVC.initVC(sitesArray[indexPath.row])
             }
         }
     }

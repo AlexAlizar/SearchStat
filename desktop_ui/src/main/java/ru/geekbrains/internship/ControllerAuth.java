@@ -6,7 +6,7 @@ import javafx.scene.control.TextField;
 public class ControllerAuth {
 
     private StartWindow mainApp;
-    private ConnectionDB connDB;
+    private RequestDB connDB;
 
     @FXML
     private TextField login;
@@ -17,7 +17,7 @@ public class ControllerAuth {
         this.mainApp = mainApp;
     }
 
-    public void setDBApp(ConnectionDB connDB) {
+    public void setDBApp(RequestDB connDB) {
         this.connDB = connDB;
     }
 

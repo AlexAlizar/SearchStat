@@ -5,7 +5,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public class DailyStatistics {
+public class DailyStatistics implements Statistics {
     private StringProperty date;
     private IntegerProperty quantity;
 

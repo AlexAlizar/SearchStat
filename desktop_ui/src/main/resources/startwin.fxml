@@ -3,28 +3,36 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Sphere?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="353.0" prefWidth="324.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.geekbrains.internship.ControllerStart">
+<AnchorPane prefHeight="353.0" prefWidth="324.0" styleClass="background_blue" stylesheets="@hdteam.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.geekbrains.internship.ControllerStart">
    <children>
       <VBox prefHeight="353.0" prefWidth="359.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <AnchorPane prefHeight="296.0" prefWidth="326.0">
                <children>
-                  <Sphere layoutX="160.0" layoutY="148.0" radius="50" />
-                  <Text fill="WHITE" layoutX="118.0" layoutY="150.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SearchStat">
+                  <Circle fill="DODGERBLUE" layoutX="160.0" layoutY="143.0" radius="64.0" stroke="BLACK" strokeType="INSIDE" styleClass="circle" />
+                  <Text fill="WHITE" layoutX="121.0" layoutY="134.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label_white" text="Search">
                      <font>
-                        <Font size="18.0" />
+                        <Font size="28.0" />
                      </font>
                   </Text>
-                  <Text layoutX="131.0" layoutY="235.0" strokeType="OUTSIDE" strokeWidth="0.0" text="HardDevTeam" />
+                  <Text fill="WHITE" layoutX="103.0" layoutY="235.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label_white" text="HardDevTeam">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Text>
+                  <Text fill="WHITE" layoutX="135.0" layoutY="173.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label-bright" text="Stat">
+                     <font>
+                        <Font size="28.0" />
+                     </font>
+                  </Text>
                </children>
             </AnchorPane>
             <AnchorPane prefHeight="97.0" prefWidth="359.0">
                <children>
-                  <Button fx:id="startButton" layoutX="125.0" layoutY="14.0" mnemonicParsing="false" onAction="#pressStartButton" text="Начать работу" />
+                  <Button fx:id="startButton" layoutX="98.0" layoutY="14.0" mnemonicParsing="false" onAction="#pressStartButton" stylesheets="@hdteam.css" text="Начать работу" />
                </children>
             </AnchorPane>
          </children>

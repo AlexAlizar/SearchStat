@@ -2,7 +2,6 @@ package ru.geekbrains.internship;
 
 import javafx.fxml.*;
 import javafx.geometry.Side;
-import javafx.scene.chart.BarChart;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
@@ -14,7 +13,7 @@ import java.util.ResourceBundle;
 public class ControllerUI implements Initializable {
 
     private StartWindow mainApp;
-    private ConnectionDB connDB;
+    private RequestDB connDB;
 
     @FXML
     private ChoiceBox<String> totalStatisticsSite;
@@ -53,7 +52,7 @@ public class ControllerUI implements Initializable {
         this.mainApp = mainApp;
     }
 
-    public void setDBApp(ConnectionDB connDB) {
+    public void setDBApp(RequestDB connDB) {
         this.connDB = connDB;
     }
 
@@ -77,7 +76,7 @@ public class ControllerUI implements Initializable {
                                 dailyStatisticsSite.getValue(), dailyStatisticsName.getValue(),
                                 beginDate, endDate));
                 dailyStatisticsTotalQuantity.setText(Integer.toString(connDB.getDailyStatisticsTotal()));
-                dailyStatisticsChart.getData().add(connDB.getDailyStatisticsChartData());
+                dailyStatisticsChart.getData().add(connDB.getDailyStatisticsChartData(dailyStatisticsName.getValue()));
                 dailyStatisticsChart.setTitle("");
             }
         }

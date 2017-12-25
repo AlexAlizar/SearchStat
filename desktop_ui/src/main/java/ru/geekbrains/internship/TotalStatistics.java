@@ -5,7 +5,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public class TotalStatistics {
+public class TotalStatistics implements Statistics {
     private StringProperty name;
     private IntegerProperty quantity;
 

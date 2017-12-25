@@ -7,27 +7,27 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="200.0" prefWidth="451.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.geekbrains.internship.ControllerAuth">
+<AnchorPane prefHeight="200.0" prefWidth="451.0" stylesheets="@hdteam.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.geekbrains.internship.ControllerAuth">
    <children>
       <VBox prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="background_blue">
                <children>
-                  <Label layoutX="73.0" layoutY="45.0" text="Логин" />
-                  <TextField fx:id="login" layoutX="125.0" layoutY="41.0" prefHeight="25.0" prefWidth="242.0" />
+                  <Label layoutX="73.0" layoutY="45.0" styleClass="label_white" text="Логин" />
+                  <TextField fx:id="login" layoutX="129.0" layoutY="41.0" prefHeight="25.0" prefWidth="242.0" />
                </children>
             </AnchorPane>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="background_blue">
                <children>
-                  <Label layoutX="74.0" layoutY="14.0" text="Пароль" />
+                  <Label layoutX="74.0" layoutY="14.0" styleClass="label_white" text="Пароль" />
                   <PasswordField fx:id="password" layoutX="128.0" layoutY="10.0" prefHeight="25.0" prefWidth="242.0" />
                </children>
             </AnchorPane>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="background-white">
                <children>
                   <Button fx:id="okButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#pressOkButton" prefHeight="25.0" prefWidth="119.0" text="ОК" />
                   <Button fx:id="cancelButton" layoutX="315.0" layoutY="14.0" mnemonicParsing="false" onAction="#pressCancelButton" prefHeight="25.0" prefWidth="122.0" text="Отмена" />
-                  <Button fx:id="restorePasswordButton" layoutX="148.0" layoutY="14.0" mnemonicParsing="false" onAction="#pressRestorePasswordButton" prefHeight="25.0" prefWidth="155.0" text="Восстановить пароль" />
+                  <Button fx:id="restorePasswordButton" layoutX="142.0" layoutY="14.0" mnemonicParsing="false" onAction="#pressRestorePasswordButton" prefHeight="31.0" prefWidth="166.0" text="Восстановить пароль" />
                </children>
             </AnchorPane>
          </children>

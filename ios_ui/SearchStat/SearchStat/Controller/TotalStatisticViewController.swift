@@ -13,8 +13,28 @@ class TotalStatisticViewController: UIViewController, UITableViewDelegate, UITab
     var personArray = [Person]()
 
     
+    @IBOutlet weak var backGroundButton: UIButton!
     @IBOutlet weak var nameSourceLabel: UILabel!
     @IBOutlet weak var totalStatTableView: UITableView!
+    @IBOutlet weak var calendarView: UIView!
+    @IBOutlet weak var calendarViewConstraint: NSLayoutConstraint!
+    
+    @IBAction func calendarButtonTapped(_ sender: UIButton) {
+        calendarViewConstraint.constant = 0
+        backGroundButton.alpha = 0.5
+        UIView.animate(withDuration: 0.3) {
+            self.view.layoutIfNeeded()
+        }
+    }
+ 
+    @IBAction func hideCalendarButton(_ sender: UIButton) {
+        calendarViewConstraint.constant = 375
+        backGroundButton.alpha = 0
+        
+        UIView.animate(withDuration: 0.1) {
+            self.view.layoutIfNeeded()
+        }
+    }
     
     var nameSourceLabelString = " "
     
@@ -30,7 +50,6 @@ class TotalStatisticViewController: UIViewController, UITableViewDelegate, UITab
         nameSourceLabelString = site.name + "    " + DateFormatter.localizedString(from: Date(), dateStyle: .short, timeStyle: .short)
     }
     
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return personArray.count
     }
@@ -42,6 +61,4 @@ class TotalStatisticViewController: UIViewController, UITableViewDelegate, UITab
        
         return cell
     }
-
-
 }

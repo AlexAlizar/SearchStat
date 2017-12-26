@@ -8,9 +8,9 @@
 
 import UIKit
 
-
-class TotalStatisticCell: UITableViewCell {
+class TotalStatisticCell:  UITableViewCell {
     
+ 
     @IBOutlet weak var personNameLabel: UILabel!
     @IBOutlet weak var totalStatLabel: UILabel!
     

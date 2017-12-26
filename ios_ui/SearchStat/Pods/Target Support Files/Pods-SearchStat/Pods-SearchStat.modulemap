@@ -1,0 +1,6 @@
+framework module Pods_SearchStat {
+  umbrella header "Pods-SearchStat-umbrella.h"
+
+  export *
+  module * { export * }
+}

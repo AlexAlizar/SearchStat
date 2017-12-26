@@ -16,7 +16,13 @@ class DetailStatisticViewController: UIViewController, UITableViewDelegate, UITa
     
     @IBOutlet weak var calendarButton: UIButton!
     
- 
+    @IBAction func calendarbtnPressed(_ sender: Any) {
+        
+        let calendarVC = CalendarVC()
+        calendarVC.modalPresentationStyle = .custom
+        self.present(calendarVC, animated: true, completion: nil)
+    }
+    
     var personArray = [Person]()
     var dayStatArray = [DayStats]()
     

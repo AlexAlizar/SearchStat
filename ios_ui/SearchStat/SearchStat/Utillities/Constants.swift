@@ -28,7 +28,7 @@ struct Colors {
 }
 
 //Notification Constants
-let NOTIF_USER_DID_CHANGED = Notification.Name("notifUserDataChanged")
+let NOTIF_CALL_DONE = Notification.Name("notifCallDone")
 
 //Segues
 let TO_LOGIN = "toLogin"

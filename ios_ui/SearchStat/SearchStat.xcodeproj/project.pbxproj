@@ -29,6 +29,8 @@
 		FF3B784E1FEAE94E0096CD24 /* MainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3B784D1FEAE94E0096CD24 /* MainService.swift */; };
 		FF3B78501FEB0A300096CD24 /* SourceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3B784F1FEB0A300096CD24 /* SourceCell.swift */; };
 		FF7EDA4A1FE7E7AF00943B25 /* MainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF7EDA491FE7E7AF00943B25 /* MainModel.swift */; };
+		FFE260C61FF2EE9E00EDAC2F /* CalendarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE260C41FF2EE9E00EDAC2F /* CalendarVC.swift */; };
+		FFE260C71FF2EE9E00EDAC2F /* CalendarVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = FFE260C51FF2EE9E00EDAC2F /* CalendarVC.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +60,8 @@
 		FF3B784D1FEAE94E0096CD24 /* MainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainService.swift; sourceTree = "<group>"; };
 		FF3B784F1FEB0A300096CD24 /* SourceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceCell.swift; sourceTree = "<group>"; };
 		FF7EDA491FE7E7AF00943B25 /* MainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainModel.swift; sourceTree = "<group>"; };
+		FFE260C41FF2EE9E00EDAC2F /* CalendarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarVC.swift; sourceTree = "<group>"; };
+		FFE260C51FF2EE9E00EDAC2F /* CalendarVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CalendarVC.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +127,7 @@
 		E71FBDAC1FE93BE600B3A0B3 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				FFE260C51FF2EE9E00EDAC2F /* CalendarVC.xib */,
 				E71F0D501FE7E2DB001F311D /* Main.storyboard */,
 				E71F0D551FE7E2DB001F311D /* LaunchScreen.storyboard */,
 				E71FBDAF1FE9445900B3A0B3 /* GradientView.swift */,
@@ -146,6 +151,7 @@
 				E78870E31FEA9713004E57C6 /* TotalStatisticViewController.swift */,
 				E78870E51FEAA130004E57C6 /* DetailStatisticViewController.swift */,
 				E73B48251FEEA83800F53B1E /* ScheludeViewController.swift */,
+				FFE260C41FF2EE9E00EDAC2F /* CalendarVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -248,6 +254,7 @@
 			files = (
 				E71F0D571FE7E2DB001F311D /* LaunchScreen.storyboard in Resources */,
 				E71F0D541FE7E2DB001F311D /* Assets.xcassets in Resources */,
+				FFE260C71FF2EE9E00EDAC2F /* CalendarVC.xib in Resources */,
 				E71F0D521FE7E2DB001F311D /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -331,6 +338,7 @@
 				E73B48261FEEA83800F53B1E /* ScheludeViewController.swift in Sources */,
 				E78870E41FEA9713004E57C6 /* TotalStatisticViewController.swift in Sources */,
 				FF3B78491FE8B4640096CD24 /* Constants.swift in Sources */,
+				FFE260C61FF2EE9E00EDAC2F /* CalendarVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -470,11 +478,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = CVT437WHU7;
+				DEVELOPMENT_TEAM = CH6GQXAMK3;
 				INFOPLIST_FILE = "$(SRCROOT)/SearchStat/Supporting/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = SearchStatTim;
+				PRODUCT_BUNDLE_IDENTIFIER = SearchStatTre;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
@@ -489,11 +497,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = CVT437WHU7;
+				DEVELOPMENT_TEAM = CH6GQXAMK3;
 				INFOPLIST_FILE = "$(SRCROOT)/SearchStat/Supporting/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = SearchStatTim;
+				PRODUCT_BUNDLE_IDENTIFIER = SearchStatTre;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;

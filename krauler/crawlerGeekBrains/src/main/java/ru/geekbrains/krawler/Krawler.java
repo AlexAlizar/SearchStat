@@ -2,6 +2,7 @@ package ru.geekbrains.krawler;
 
 import dbService.DBService;
 import dbService.dataSets.Person;
+import dbService.dataSets.Site;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -21,7 +22,7 @@ public class Krawler {
         dbService.
 
         Person person = dbService.getPersonByName("Путин");
-        keywords = dbService.getKeywordByPerson(person);
+
 
 
         List<String> sites = null; // получить из базы список сайтов
@@ -63,6 +64,9 @@ public class Krawler {
 
         /*Записать count в базу*/
 
+
+
+        sessionFactory.close();
     }
 
     private static void searchPageLinks() {
@@ -71,11 +75,13 @@ public class Krawler {
 
         DBService dbService = new DBService(sessionFactory);
 
-        List<String> sitesList = null;       /*получить из базы список ссылок на сайты*/
+        List<Site> sitesList = dbService.getAllSite();       /*получить из базы список ссылок на сайты*/
 
-        for (String siteLink : sitesList) {                                 // Идём по сайтам
 
-            for (String siteMap : PageParser.searchSiteMap(siteLink)) {     // Ищем сайтМапы и передаём их сразу в цикл для поиска ссылок на страницы
+
+        for (Site siteLink : sitesList) {                                 // Идём по сайтам
+
+            for (String siteMap : PageParser.searchSiteMap(siteLink.getName())) {     // Ищем сайтМапы и передаём их сразу в цикл для поиска ссылок на страницы
 
                 for (String pageLink : PageParser.parseSiteMap(siteMap)) {    // Ищем ссылки на страницы и записываем их в базу
 
@@ -84,5 +90,6 @@ public class Krawler {
                 }
             }
         }
+        sessionFactory.close();
     }
 }

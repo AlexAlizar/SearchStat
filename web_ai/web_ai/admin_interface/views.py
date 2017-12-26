@@ -1,7 +1,5 @@
-from django.shortcuts import render, HttpResponseRedirect, get_list_or_404
+from django.shortcuts import render, get_list_or_404
 from .models import ModelSite, ModelPerson
-
-from urllib import request as urlrequest, error as urlerror
 
 
 def admin_interface(request):

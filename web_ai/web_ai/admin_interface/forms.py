@@ -18,5 +18,13 @@ class PersonsManageForm(forms.ModelForm):
         model = ModelPerson
         fields = '__all__'
 
+
     multiple_select = forms.ModelMultipleChoiceField(queryset=ModelPerson.objects.all(), required=False)
     name = forms.CharField(required=False, widget=forms.TextInput(attrs={'id': 'person'}))
+
+
+class PersonDropDown(forms.Form):
+
+    dropdown_choices = tuple((x.name.capitalize(), x.name) for x in ModelPerson.objects.all())
+    print(dropdown_choices)
+    dropdown = forms.ChoiceField(choices=dropdown_choices)

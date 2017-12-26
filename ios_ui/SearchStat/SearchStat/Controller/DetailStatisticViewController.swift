@@ -12,11 +12,21 @@ class DetailStatisticViewController: UIViewController, UITableViewDelegate, UITa
 
     
     
-    @IBOutlet weak var detailBackGroundBtn: UIButton!
     @IBOutlet weak var detailTableView: UITableView!
-    @IBOutlet weak var detailCalendarConstraint: NSLayoutConstraint!
     
-<<<<<<< HEAD
+    @IBOutlet weak var calendarButton: UIButton!
+    
+ 
+    var personArray = [Person]()
+    var dayStatArray = [DayStats]()
+    
+    @IBOutlet weak var nameSourceLabel: UILabel!
+    
+    @IBOutlet weak var detailCalendarView: UIView!
+    
+    @IBOutlet weak var detailBackGroundBtn: UIButton!
+    @IBOutlet weak var detailCalendarConstraint: NSLayoutConstraint!
+   
     @IBAction func calendarDetailTapped(_ sender: UIButton) {
         detailCalendarConstraint.constant = 0
         detailBackGroundBtn.alpha = 0.5
@@ -32,15 +42,6 @@ class DetailStatisticViewController: UIViewController, UITableViewDelegate, UITa
             self.view.layoutIfNeeded()
         }
     }
-=======
-    @IBOutlet weak var calendarButton: UIButton!
->>>>>>> a2edb54be02009532e17025dd96305772a22e2d8
-    
-    var personArray = [Person]()
-    var dayStatArray = [DayStats]()
-    
-    @IBOutlet weak var nameSourceLabel: UILabel!
-    
     
 
     
@@ -62,7 +63,7 @@ class DetailStatisticViewController: UIViewController, UITableViewDelegate, UITa
         
     }
     
-    
+
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

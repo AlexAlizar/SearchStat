@@ -1,0 +1,25 @@
+{
+  "sites": [
+    {
+      "SiteID": "0000",
+      "SiteName": "Site #1",
+      "persons": [
+        {
+          "PersonID": "0000",
+          "PersonName": "Person #1",
+          "PersonRank": "100500"
+        },
+        {
+          "PersonID": "0001",
+          "PersonName": "Person #2",
+          "PersonRank": "10050"
+        },
+        {
+          "PersonID": "0003",
+          "PersonName": "Person #3",
+          "PersonRank": "1050"
+        }
+      ]
+    }
+  ]
+}

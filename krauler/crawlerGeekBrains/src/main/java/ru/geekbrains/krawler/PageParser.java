@@ -4,24 +4,26 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+import sun.plugin2.message.Message;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class PageParser {
+
     /**
      * Поиск Sitemap в robots.txt
-     *
      * @param robots
      * @return Список ссылок на sitemap'ы
      */
@@ -30,6 +32,8 @@ public class PageParser {
         String keyForSearch = "sitemap:";                   // ключ для поиска ссылки на saitmap
         String robotsLowerCase = robots.toLowerCase();      // приводим строку к нижнему регистру для упрощения поиска
         StringBuilder stringBuilder = new StringBuilder();  // стринг билдер для посимвольного построения найденной ссылки после keyForSearch
+        // В строке ниже, среда разработки почемуто ругалась на невозможность использования даймонд в версии jdk1.5, хотя и в проекте указал версию 1.8
+        // и далее по тексту кода ниже такиеже неприятности (например try with resorses)
         List<String> siteMapXmlLinks = new ArrayList<String>();   // результирующий список для вывода из метода найденных ссылок
 
         boolean keyFound = false;  // отметка о том что keyForSearch найден или нет
@@ -47,15 +51,15 @@ public class PageParser {
             }
 
             if (keyFound) { // если keyForSearch найден, берём ссылку и записываем её в список
-                for (; ; i++) {
+                for (;; i++) {
                     if (robots.charAt(i) == separator) continue;
 
                     System.out.println();
-                    for (; robots.charAt(i) != separator; i++) {
+                    for (;robots.charAt(i) != separator; i++) {
                         stringBuilder.append(robots.charAt(i));
                     }
                     siteMapXmlLinks.add(stringBuilder.toString());
-                    stringBuilder.delete(0, stringBuilder.length());
+                    stringBuilder.delete(0,stringBuilder.length());
                     break;
                 }
                 keyFound = false;
@@ -65,8 +69,46 @@ public class PageParser {
     }
 
     /**
+     * Тот же searchSiteMap только на вход подаётся файл
+     * @param robotsFile
+     * @return List<String> searchSiteMap
+     */
+    public static List<String> searchSiteMap(File robotsFile) {
+        String keyForSearch = "sitemap:";                   // ключ для поиска ссылки на saitmap
+        List<String> siteMapXmlLinks = new ArrayList<String>();   // результирующий список для вывода из метода найденных ссылок
+
+        try {
+            FileInputStream fileInputStream = new FileInputStream(robotsFile);
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(fileInputStream));
+
+            String tmpStr;
+
+            while ((tmpStr = bufferedReader.readLine()) != null) {
+
+                System.out.println("---   next string");
+
+                if (tmpStr.toLowerCase().contains(keyForSearch)) {
+
+                    System.out.println("tmpStr   ---   " + tmpStr);
+
+
+                    tmpStr.substring(keyForSearch.length() - 1, tmpStr.length() - 1);
+                }
+            }
+
+            fileInputStream.close();
+            bufferedReader.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return siteMapXmlLinks;
+    }
+
+
+    /**
      * Поиск страниц в Sitemap
-     *
      * @param uriSiteMapXml
      * @return Список ссылок из входного sitemap
      */
@@ -93,17 +135,16 @@ public class PageParser {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        if (links.isEmpty()) System.out.println("Ссылок не найдено!");
+        if(links.isEmpty()) System.out.println("Ссылок не найдено!");
         return links;
     }
 
     /**
      * Принемает ссылку на файл и обробатывет его в зависимости от фйормата (xml или нет)
-     *
      * @param urlset
      * @return списо ссылок на страницы
      */
-    public static List<String> parseUrlSet(String urlset) {
+    public static List<String> parseUrlSet (String urlset) {
         if (isXml(urlset)) {              // если файл имеет формат xml
             return parseSiteMap(urlset);
         } else {                          // парсим как обычный текст
@@ -113,7 +154,6 @@ public class PageParser {
 
     /**
      * Поиск целевых строк в странице и подсчёт их количества
-     *
      * @param page
      * @param searchString
      * @return колличество найденных вхождений переданной строки
@@ -125,8 +165,8 @@ public class PageParser {
         String preparedSearchString = searchString.trim().toLowerCase();
         List<String> words = new ArrayList<String>();
 
-        for (String s : page.split("[\\s,.;:!?« »<=>\"–\\-]")) {
-            if (s.trim().toLowerCase().equals(preparedSearchString)) count++;
+        for (String s : page.split("[\\s,.;:!?« »<=>\"–\\-]")) { // Между ковычками не пробел, это какойто другой не видимый символ
+            if(s.trim().toLowerCase().equals(preparedSearchString)) count++;
         }
 /**/
 
@@ -142,13 +182,12 @@ public class PageParser {
 
     /**
      * Проверка строки на соответствие формату xml
-     *
      * @param urlStr
      * @return true / false
      */
-    public static boolean isXml(String urlStr) {
+    private static boolean isXml(String urlStr) {
 
-        String adr = urlStr;
+        String adr= urlStr;
         StringBuilder stringBuilder = new StringBuilder();
         URL url = null; //создаем URL
         BufferedReader br;
@@ -156,7 +195,7 @@ public class PageParser {
 
         try {
             url = new URL(adr);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection(); //открываем соединение
+            HttpURLConnection conn = (HttpURLConnection)url.openConnection(); //открываем соединение
             br = new BufferedReader(new InputStreamReader(conn.getInputStream())); // используем объект класса BufferedReader для работы со строками
             str = br.readLine();
 
@@ -171,14 +210,13 @@ public class PageParser {
     }
 
     /**
-     * Скачивает, по переданной ссылке, построчно файл
-     *
+     * Скачивает, по переданной ссылке, построчно файл. Возвращает список строк.
      * @param urlStr
      * @return список строк
      */
     public static List<String> getStringsByUrl(String urlStr) {
 
-        String adr = urlStr;
+        String adr= urlStr;
         BufferedReader br;
         String str;
         URL url = null; //создаем URL
@@ -186,10 +224,10 @@ public class PageParser {
 
         try {
             url = new URL(adr);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection(); //открываем соединение
+            HttpURLConnection conn = (HttpURLConnection)url.openConnection(); //открываем соединение
             br = new BufferedReader(new InputStreamReader(conn.getInputStream())); // используем объект класса BufferedReader для работы со строками
 
-            while ((str = br.readLine()) != null) { // пока не достигнут конец, считываем страницу построчно
+            while((str = br.readLine()) != null){ // пока не достигнут конец, считываем страницу построчно
                 resultList.add(str);
             }
             br.close(); //закрываем поток
@@ -203,6 +241,89 @@ public class PageParser {
         return resultList;
     }
 
+    /**
+     * Скачивает, по переданной ссылке, построчно файл.
+     * Создаёт файл со случайным именем по куазанному пути folderPath.
+     * После использования файла в программе, его нужно удалить.
+     * @param urlStr
+     * @param folderPath
+     * @return случайное имя созданного файла
+     */
+    public static String getFileByUrl(String urlStr, String folderPath) {
+
+        prepareStorage(folderPath);
+        String[] nameParts = urlStr.split("[.]");
+
+        File workFolder = new File(folderPath);
+        File[] filesList = workFolder.listFiles();
+        String randomName = "zzz";
+        boolean coincidence = false;
+
+        while (randomName.equals("zzz") ||  coincidence) {
+            randomName = generateString();
+
+            for (File f : filesList) {
+                if (f.getName().equals(randomName)) {
+                    coincidence = true;
+                    break;
+                } else {
+                    coincidence = false;
+                }
+            }
+        }
+
+        File resultFile = new File(folderPath + "/" + randomName + "." + nameParts[nameParts.length - 1]);
+
+        URL url = null;
+
+        HttpURLConnection conn;
+        String tmpStr;
+
+        if(resultFile.exists()) resultFile.delete();
+        try {
+            resultFile.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            url = new URL(urlStr);
+            conn = (HttpURLConnection) url.openConnection();
+
+            BufferedInputStream bis = new BufferedInputStream(conn.getInputStream());
+
+            FileOutputStream fileOutputStream = new FileOutputStream(resultFile);
+
+            byte[] b = new byte[1024];
+            int count = 0;
+
+            while ((count=bis.read(b)) != -1)
+                fileOutputStream.write(b,0,count);
+
+            fileOutputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return randomName;
+    }
+
+    public static String getFileByUrl(String urlStr) {
+        return getFileByUrl(urlStr,"workFileStorage");
+    }
+
+
+    /**
+     * Проверка и создание рабочего каталога для скаченных файлов
+     * @param storageAddr
+     */
+    private static void prepareStorage (String storageAddr) {
+        File storage = new File(storageAddr);
+        if (!storage.exists()) storage.mkdir();
+    }
+
+    private static String generateString() {
+        String uuid = UUID.randomUUID().toString();
+        return uuid.replace("-", "");
+    }
 }
-
-

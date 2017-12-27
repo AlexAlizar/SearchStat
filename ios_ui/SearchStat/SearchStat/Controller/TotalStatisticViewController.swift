@@ -12,11 +12,14 @@ class TotalStatisticViewController: UIViewController, UITableViewDelegate, UITab
 
     var personArray = [Person]()
     
+    @IBOutlet weak var nameDateLabel: UILabel!
     @IBOutlet weak var nameSourceLabel: UILabel!
     @IBOutlet weak var totalStatTableView: UITableView!
     
-    var nameSourceLabelString = " "
+    var nameDateLabelString = " "
     var nameSourceDetailLabel = " "
+    var nameSourceLabelString = " "
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,19 +28,21 @@ class TotalStatisticViewController: UIViewController, UITableViewDelegate, UITab
             let siteIndex = MainService.instance.lasSiteIndex
             let site = MainService.instance.siteArray![siteIndex]
             personArray = site.personsArray
-            nameSourceLabelString = site.name + "    " + DateFormatter.localizedString(from: Date(), dateStyle: .short, timeStyle: .short)
+            nameSourceLabelString = site.name
+            nameDateLabelString =  DateFormatter.localizedString(from: Date(), dateStyle: .long, timeStyle: .short)
             nameSourceDetailLabel = site.name
             
         }
-        
         nameSourceLabel.text = nameSourceLabelString
+        nameDateLabel.text = nameDateLabelString
 //        nameSourceLabel.text = MainService.instance.lastUpdateDate!
         
     }
     
     func initVC(_ site: Site) {
         personArray = site.personsArray
-        nameSourceLabelString = site.name + "    " + DateFormatter.localizedString(from: Date(), dateStyle: .short, timeStyle: .short)
+        nameSourceLabelString = site.name
+        nameDateLabelString = DateFormatter.localizedString(from: Date(), dateStyle: .long, timeStyle: .short)
         nameSourceDetailLabel = site.name
     }
         

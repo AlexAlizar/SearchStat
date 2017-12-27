@@ -15,7 +15,4 @@ class ScheludeViewController: UIViewController {
 
         
     }
-
-
-
 }

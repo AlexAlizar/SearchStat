@@ -125,12 +125,40 @@ class MainService {
     
     private func generateFakeDayStatsArray() -> [DayStats] {
         var dayStatsArray = [DayStats]()
+        
         for i in 1...30 {
-            let tempDate = Date(timeIntervalSince1970: TimeInterval((20 + i)*365*24*60*60))
+//            let tempDate = Date(timeIntervalSince1970: TimeInterval((20 + i)*365*24*60*60))
             
-            dayStatsArray.append(DayStats(day: tempDate, total: 1 + i * 100))
+            let tempDate = generateRandomDate(daysBack:30)
+            
+            dayStatsArray.append(DayStats(day: tempDate!, total: 1 + i * 100))
+
             print(dayStatsArray)
         }
         return dayStatsArray
     }
+    
+    
+    func generateRandomDate(daysBack: Int) -> Date?{
+        let day = arc4random_uniform(UInt32(daysBack))+1
+//        let hour = arc4random_uniform(23)
+//        let minute = arc4random_uniform(59)
+        
+        let today = Date(timeIntervalSince1970: 1512087784)
+        let gregorian  = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)
+        var offsetComponents = DateComponents()
+        offsetComponents.day = Int(day - 1)
+//        offsetComponents.hour = Int(hour)
+//        offsetComponents.minute = Int(minute)
+        
+        let randomDate = gregorian?.date(byAdding: offsetComponents, to: today, options: .init(rawValue: 0) )
+        return randomDate
+    }
 }
+
+
+
+
+
+
+

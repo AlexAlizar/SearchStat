@@ -113,3 +113,4 @@ class DetailStatisticViewController: UIViewController, UITableViewDelegate, UITa
         return cell
     }
 }
+

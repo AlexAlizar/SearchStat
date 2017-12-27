@@ -1,10 +1,9 @@
 package ru.geekbrains.krawler;
 
 import dbService.DBService;
-import dbService.dataSets.Site;
+import dbService.dataSets.Page;
 import org.hibernate.SessionFactory;
 
-import java.util.Date;
 import java.util.List;
 
 public class Main {
@@ -31,20 +30,26 @@ public class Main {
         //алгоритм работы краулера, пошагово
         // 1)
         // 1.1) обход таблицы Sites с поиском тех сайтов, которых нету в табоце Pages
-        List<Site> sitesWithoutPages = dbService.gettAllSiteWithoutPage();
+        // List<Site> sitesWithoutPages = dbService.gettAllSiteWithoutPage();
         // 1.2) Добавление страниц с LastScanDate = null в таблицу Pages для найденных Site
-        Date todayDate = new Date();
-        for (Site site: sitesWithoutPages) {
-            dbService.addPage("http://"+site.getName()+"/robots.txt", site, todayDate, null);
-        }
+        // Date todayDate = new Date();
+        // for (Site site: sitesWithoutPages) {
+        // dbService.addPage("http://"+site.getName()+"/robots.txt", site, todayDate, null);
+        // }
         // 2) Обход ссылок, которых по которым раньше не производился обход
         // 2.1) Поиск таких ссылков
-//        List<Page> pagesWithoutScan = dbService.gettNonScannedPages();
-//        for(Page page: pagesWithoutScan) {
-//            if(page.getUrl().contains("robots.txt")) {
-//
-//            };
-//        }
+         List<Page> pagesWithoutScan = dbService.gettNonScannedPages();
+         for(Page page: pagesWithoutScan) {
+             String url = page.getUrl();
+
+             if(url.contains("robots.txt"))
+             {
+                 List<String> foundedSitemapLinks = PageParser.searchSiteMap(Downloader.download(url));
+                 for (String link: foundedSitemapLinks) {
+                     //dbService.addPage();
+                 }
+             }
+         }
 
 
         // примеры использования методов

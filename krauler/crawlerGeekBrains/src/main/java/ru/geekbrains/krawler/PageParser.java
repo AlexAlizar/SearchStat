@@ -4,7 +4,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
-import sun.plugin2.message.Message;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -17,8 +16,6 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class PageParser {
 
@@ -73,19 +70,19 @@ public class PageParser {
      * @param robotsFile
      * @return List<String> searchSiteMap
      */
-    public static List<String> searchSiteMap(File robotsFile) {
+    public static List<String> searchSiteMap(File robotsFile, String parhFile) {
         String keyForSearch = "sitemap:";                   // ключ для поиска ссылки на saitmap
         List<String> siteMapXmlLinks = new ArrayList<String>();   // результирующий список для вывода из метода найденных ссылок
 
         try {
-            FileInputStream fileInputStream = new FileInputStream(robotsFile);
+            FileInputStream fileInputStream = new FileInputStream(parhFile + "/" + robotsFile);
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(fileInputStream));
 
             String tmpStr;
 
             while ((tmpStr = bufferedReader.readLine()) != null) {
 
-                System.out.println("---   next string");
+                System.out.println("---  В ЦИКЛЕ   ---");
 
                 if (tmpStr.toLowerCase().contains(keyForSearch)) {
 
@@ -125,6 +122,7 @@ public class PageParser {
                 for (int j = 0; j < nodeList1.getLength(); j++) {
                     if (nodeList1.item(j).getNodeName().equals("loc")) {  // ищем узлы "loc" и заносим значиения из этих узлов в результирующий список
                         links.addAll(parseUrlSet(nodeList1.item(j).getTextContent()));
+//                        System.out.println();
                     }
                 }
             }
@@ -249,7 +247,7 @@ public class PageParser {
      * @param folderPath
      * @return случайное имя созданного файла
      */
-    public static String getFileByUrl(String urlStr, String folderPath) {
+    private static String downloadFileByUrl(String urlStr, String folderPath) {
 
         prepareStorage(folderPath);
         String[] nameParts = urlStr.split("[.]");
@@ -272,7 +270,9 @@ public class PageParser {
             }
         }
 
-        File resultFile = new File(folderPath + "/" + randomName + "." + nameParts[nameParts.length - 1]);
+        randomName = randomName + "." + nameParts[nameParts.length - 1]; // добавляем к имени файла первоначальное расширение
+
+        File resultFile = new File(folderPath + "/" + randomName);
 
         URL url = null;
 
@@ -308,8 +308,26 @@ public class PageParser {
         return randomName;
     }
 
-    public static String getFileByUrl(String urlStr) {
-        return getFileByUrl(urlStr,"workFileStorage");
+
+
+    public static File getFileByUrl(String urlStr, String folderPathForSave) {
+
+        String fileName = downloadFileByUrl(urlStr, folderPathForSave);
+
+        String[] fileNameArr = fileName.toLowerCase().split("[.]");
+
+        if (fileNameArr[fileNameArr.length - 1].equals("gz")) {
+
+            File result = ArchiveWorker.decompressGzipFile(fileName,folderPathForSave,true);
+
+            File archive = new File(fileName);
+
+            archive.delete();
+
+            return result;
+        } else {
+            return new File(folderPathForSave + "/" + fileName);
+        }
     }
 
 

@@ -1,5 +1,6 @@
 package ru.geekbrains.krawler;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -9,8 +10,13 @@ import java.util.zip.GZIPOutputStream;
 
 public class ArchiveWorker {
 
-    private static void decompressGzipFile(String gzipFile, String newFile) {
+    public static String decompressGzipFile(String gzipFile, String pathFile) {
+
+        String nameOutFile = gzipFile + ".unpack";
+        gzipFile = pathFile + "/" + gzipFile;
+
         try {
+            String newFile = pathFile + "/" + nameOutFile;
             FileInputStream fis = new FileInputStream(gzipFile);
             GZIPInputStream gis = new GZIPInputStream(fis);
             FileOutputStream fos = new FileOutputStream(newFile);
@@ -25,10 +31,17 @@ public class ArchiveWorker {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        return nameOutFile;
     }
 
-    private static void compressGzipFile(String file, String gzipFile) {
+    public static File decompressGzipFile(String gzipFile, String pathFile, boolean returnFile) {
+        if (returnFile)
+        return new File(decompressGzipFile(gzipFile, pathFile));
+        return new File(decompressGzipFile(gzipFile, pathFile));
+    }
+
+
+    public static void compressGzipFile(String file, String gzipFile) {
         try {
             FileInputStream fis = new FileInputStream(file);
             FileOutputStream fos = new FileOutputStream(gzipFile);

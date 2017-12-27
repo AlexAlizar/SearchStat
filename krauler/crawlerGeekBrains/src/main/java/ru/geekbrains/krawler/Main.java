@@ -1,24 +1,67 @@
 package ru.geekbrains.krawler;
 
-import dbService.DBService;
-import dbService.dataSets.Keyword;
-import dbService.dataSets.Page;
-import dbService.dataSets.Person;
-import dbService.dataSets.Site;
-import org.hibernate.SessionFactory;
-import org.hibernate.annotations.SourceType;
-
-import java.util.Date;
+import java.io.File;
 import java.util.List;
+
+import static ru.geekbrains.krawler.PageParser.*;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Start program");
-        System.out.println("Проверка связи =)");
-        //пример вызова метода download
-    //    System.out.println(Downloader.download("lenta.ru"));
+        System.out.println("Start program\n");
+//        System.out.println("Проверка связи =)");
+        // пример вызова метода download
+//        System.out.println(Downloader.download("lenta.ru"));
 
 //        System.out.println("Проверка от Алексей Грунтов =)");
+
+        /*   Тестирую работу с архивами   */
+
+        String fileStorage = "workFileStorage";
+
+        String targetUrl1 = "https://lenta.ru/sitemap.xml.gz";
+        String targetUrl2 = "https://lenta.ru";
+        String targetUrl3 = "https://yandex.ru";
+        String targetUrl4 = "https://yandex.ru/blog/sitemap.xml";
+        String targetUrl5 = "https://bfm.ru";
+
+//        File archiveName = getFileByUrl(targetUrl1,fileStorage);
+
+//        System.out.println("archiveName   ->   " + archiveName);
+
+        String robots = Downloader.download(targetUrl5 + "/robots.txt");
+
+        List<String> siteMapList = searchSiteMap(robots);
+
+
+
+//        List<String> siteMapList = searchSiteMap(getFileByUrl(targetUrl,fileStorage),fileStorage);
+
+        System.out.println("siteMapList SIZE -> " + siteMapList.size());
+
+        for (String s : siteMapList) {
+            System.out.println("SITE_MAP   --->   " + s);
+        }
+
+        System.out.println("\n   ----------------------   \n");
+
+        for (String s : parseUrlSet(targetUrl4)) {
+
+            System.out.println(s);
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+        /*   ^^^   Тестирую работу с архивами   ^^^   */
+
 
         /**
          * чтобы всё работало, надо:
@@ -29,9 +72,9 @@ public class Main {
          * 4) ВУАЛЯ - можно использовать методы add/insert Person
          */
 
-        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-
-        DBService dbService = new DBService(sessionFactory);
+//        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+//
+//        DBService dbService = new DBService(sessionFactory);
 
 
         // примеры использования методов
@@ -94,7 +137,7 @@ public class Main {
 //                   System.out.println(pg.toString());
 //               }
 
-        sessionFactory.close();
+//        sessionFactory.close();
 
         //Site site = dbService.getSiteByName("somesite");
         //Date date1 = new Date();

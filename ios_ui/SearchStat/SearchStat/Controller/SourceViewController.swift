@@ -36,9 +36,6 @@ class SourceViewController: UIViewController, UITableViewDelegate, UITableViewDa
         } else {
             self.sitesArray = MainService.instance.siteArray!
         }
-
-        
-        
     }
     
     
@@ -47,8 +44,6 @@ class SourceViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
 
     
-    
-
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell  {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! SourceCell
     

@@ -11,20 +11,18 @@ import UIKit
 class DetailStatisticViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     
-    
     @IBOutlet weak var detailTableView: UITableView!
-    
     @IBOutlet weak var calendarButton: UIButton!
     
- 
     var personArray = [Person]()
     var dayStatArray = [DayStats]()
+    var nameSourceLabelStr = " "
     
     @IBOutlet weak var nameSourceLabel: UILabel!
-    
     @IBOutlet weak var detailCalendarView: UIView!
-    
     @IBOutlet weak var detailBackGroundBtn: UIButton!
+    
+  
     @IBOutlet weak var detailCalendarConstraint: NSLayoutConstraint!
    
     @IBAction func calendarDetailTapped(_ sender: UIButton) {
@@ -43,11 +41,10 @@ class DetailStatisticViewController: UIViewController, UITableViewDelegate, UITa
         }
     }
     
-
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
+       nameSourceLabel.text = nameSourceLabelStr
         calendarButton.setTitle(MainService.instance.lastUpdateDate, for: .normal)
         
         MainService.instance.getPerson { (result) in
@@ -60,12 +57,9 @@ class DetailStatisticViewController: UIViewController, UITableViewDelegate, UITa
                 dayStatArray = MainService.instance.dayStatArray!
             }
         }
-        
     }
     
 
-    
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return personArray.count
     }

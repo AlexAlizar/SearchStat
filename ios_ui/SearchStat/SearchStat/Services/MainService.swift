@@ -18,7 +18,7 @@ class MainService {
     
 
     
-    
+
     func getSites(completionHandler: @escaping CompletionHandler) {
         
         // Request

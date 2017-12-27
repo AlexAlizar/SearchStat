@@ -33,9 +33,9 @@ class DetailStatisticViewController: UIViewController, UITableViewDelegate, UITa
         calendarButton.setTitle(self.formatter.string(from: currentDate), for: .normal)
         
         //1. запрос массива за выбранную дату
-        for i in 0..<MainService.instance.personArray!.count {
+        for i in 0..<personArray.count {
             
-            let temp = MainService.instance.personArray![i].filteredStats(filteredDate: currentDate)
+            let temp = personArray[i].filteredStats(filteredDate: currentDate)
             if temp != nil {
                 dayStatArray[i] = temp!
                 //2. reload data
@@ -50,9 +50,9 @@ class DetailStatisticViewController: UIViewController, UITableViewDelegate, UITa
         calendarButton.setTitle(self.formatter.string(from: currentDate), for: .normal)
         
         //1. запрос массива за выбранную дату
-        for i in 0..<MainService.instance.personArray!.count {
+        for i in 0..<personArray.count {
             
-            let temp = MainService.instance.personArray![i].filteredStats(filteredDate: currentDate)
+            let temp = personArray[i].filteredStats(filteredDate: currentDate)
             if temp != nil {
                 dayStatArray[i] = temp!
                 //2. reload data
@@ -97,16 +97,20 @@ class DetailStatisticViewController: UIViewController, UITableViewDelegate, UITa
         // MARK: Вместо Choose the date
         calendarButton.setTitle(self.formatter.string(from: currentDate), for: .normal)
         
-        MainService.instance.getPerson { (result) in
-            if result {
-                personArray = MainService.instance.personArray!
+        let siteIndex = MainService.instance.lasSiteIndex
+        personArray = MainService.instance.siteArray![siteIndex].personsArray
+        
+        //1. запрос массива за выбранную дату
+        for i in 0..<personArray.count {
+            
+            let temp = personArray[i].filteredStats(filteredDate: currentDate)
+            if temp != nil {
+                dayStatArray.append(temp!)
+                //2. reload data
+                detailTableView.reloadData()
             }
         }
-        MainService.instance.getDayStat { (result) in
-            if result {
-                dayStatArray = MainService.instance.dayStatArray!
-            }
-        }
+
     }
     
     
@@ -120,9 +124,9 @@ class DetailStatisticViewController: UIViewController, UITableViewDelegate, UITa
         
         dissMissCalendar()
         //1. запрос массива за выбранную дату
-        for i in 0..<MainService.instance.personArray!.count {
+        for i in 0..<personArray.count {
             
-            let temp = MainService.instance.personArray![i].filteredStats(filteredDate: date)
+            let temp = personArray[i].filteredStats(filteredDate: date)
             if temp != nil {
                 dayStatArray[i] = temp!
                 //2. reload data

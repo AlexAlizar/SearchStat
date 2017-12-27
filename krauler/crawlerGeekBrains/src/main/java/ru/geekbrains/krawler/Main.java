@@ -1,12 +1,8 @@
 package ru.geekbrains.krawler;
 
 import dbService.DBService;
-import dbService.dataSets.Keyword;
-import dbService.dataSets.Page;
-import dbService.dataSets.Person;
 import dbService.dataSets.Site;
 import org.hibernate.SessionFactory;
-import org.hibernate.annotations.SourceType;
 
 import java.util.Date;
 import java.util.List;
@@ -32,21 +28,38 @@ public class Main {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
         DBService dbService = new DBService(sessionFactory);
+        //алгоритм работы краулера, пошагово
+        // 1)
+        // 1.1) обход таблицы Sites с поиском тех сайтов, которых нету в табоце Pages
+        List<Site> sitesWithoutPages = dbService.gettAllSiteWithoutPage();
+        // 1.2) Добавление страниц с LastScanDate = null в таблицу Pages для найденных Site
+        Date todayDate = new Date();
+        for (Site site: sitesWithoutPages) {
+            dbService.addPage("http://"+site.getName()+"/robots.txt", site, todayDate, null);
+        }
+        // 2) Обход ссылок, которых по которым раньше не производился обход
+        // 2.1) Поиск таких ссылков
+//        List<Page> pagesWithoutScan = dbService.gettNonScannedPages();
+//        for(Page page: pagesWithoutScan) {
+//            if(page.getUrl().contains("robots.txt")) {
+//
+//            };
+//        }
 
 
         // примеры использования методов
 
-        // добавление сайтов
+//         добавление сайтов
 
-        //  dbService.addSite("lenta.ru");
-        //  dbService.addSite("bfm.ru");
-        //  dbService.addSite("infox.ru");
+//          dbService.addSite("lenta.ru");
+//          dbService.addSite("bfm.ru");
+//          dbService.addSite("infox.ru");
 
         // добавление персон
 
-        //  dbService.addPerson("Путин");
-        //  dbService.addPerson("Медведев");
-        //  dbService.addPerson("Навальный");
+//          dbService.addPerson("Путин");
+//          dbService.addPerson("Медведев");
+//          dbService.addPerson("Навальный");
 
         // добавление страниц
 //        Site site = dbService.getSiteByName("lenta.ru");

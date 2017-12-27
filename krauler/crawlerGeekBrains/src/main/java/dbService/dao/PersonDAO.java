@@ -6,6 +6,8 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
+import java.util.List;
+
 public class PersonDAO {
 
     private Session session;
@@ -27,6 +29,11 @@ public class PersonDAO {
         Criteria criteria = session.createCriteria(Person.class);
         Person person = (Person) criteria.add(Restrictions.eq("name", name)).uniqueResult();
         return person;
+    }
+
+    public List<Person> getAllPerson() throws HibernateException{
+        Criteria criteria = session.createCriteria(Person.class);
+        return criteria.list();
     }
 
 }

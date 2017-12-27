@@ -260,6 +260,20 @@ public class DBService {
         }
     }
 
+    public List<Person> getAllPerson() {
+        List<Person> persons = null;
+        try{
+            openSessionAndTransation();
+            PersonDAO personDAO = new PersonDAO(session);
+            persons = personDAO.getAllPerson();
+            closeSessionAndTransation("commit");
+        } catch (HibernateException e) {
+            closeSessionAndTransation("rollback");
+            System.err.println("!!!HIBERNATE ERROR APPEARED!!!");
+        } finally {
+            return persons;
+        }
+    }
 
     public int addKeyword(Person person, String name) {
         int id = -1;

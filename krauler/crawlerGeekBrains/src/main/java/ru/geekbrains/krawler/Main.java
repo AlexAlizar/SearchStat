@@ -1,9 +1,12 @@
 package ru.geekbrains.krawler;
 
 import dbService.DBService;
+import dbService.dataSets.Keyword;
 import dbService.dataSets.Page;
+import dbService.dataSets.Person;
 import org.hibernate.SessionFactory;
 
+import java.util.Date;
 import java.util.List;
 
 public class Main {
@@ -46,7 +49,33 @@ public class Main {
              {
                  List<String> foundedSitemapLinks = PageParser.searchSiteMap(Downloader.download(url));
                  for (String link: foundedSitemapLinks) {
-                     //dbService.addPage();
+                     dbService.addPage(url, page.getSite(), page.getFoundDateTime(), new Date());
+                 }
+             }
+             else if(url.contains("sitemap"))
+             {
+                 List<String> foundedLinksOfSite = PageParser.parseSiteMap(url);
+                 for(String link: foundedLinksOfSite) {
+                     dbService.addPage(link, page.getSite(), page.getFoundDateTime(), new Date());
+                 }
+             }
+             else {
+                 List<Person> persons = dbService.getAllPerson();
+
+                 for (Person person: persons) {
+                     List<Keyword> keywordList = dbService.getKeywordByPerson(person);
+                     for(int i = 0; i < keywordList.size(); i++)
+                     {
+                         String HTMLString = Downloader.download(url);
+
+                         String keyword = keywordList.get(i).getName();
+
+                         dbService.writeRank(
+                                            person,
+                                            page,
+                                            PageParser.parsePage(HTMLString, keyword)
+                                            );
+                     }
                  }
              }
          }

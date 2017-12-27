@@ -31,11 +31,34 @@ class DetailStatisticViewController: UIViewController, UITableViewDelegate, UITa
     @IBAction func previouslyButton(_ sender: UIButton) {
         currentDate -= unixDay
         calendarButton.setTitle(self.formatter.string(from: currentDate), for: .normal)
+        
+        //1. запрос массива за выбранную дату
+        for i in 0..<MainService.instance.personArray!.count {
+            
+            let temp = MainService.instance.personArray![i].filteredStats(filteredDate: currentDate)
+            if temp != nil {
+                dayStatArray[i] = temp!
+                //2. reload data
+                detailTableView.reloadData()
+            }
+        }
+        
     }
     
     @IBAction func laterButton(_ sender: UIButton) {
         currentDate += unixDay
         calendarButton.setTitle(self.formatter.string(from: currentDate), for: .normal)
+        
+        //1. запрос массива за выбранную дату
+        for i in 0..<MainService.instance.personArray!.count {
+            
+            let temp = MainService.instance.personArray![i].filteredStats(filteredDate: currentDate)
+            if temp != nil {
+                dayStatArray[i] = temp!
+                //2. reload data
+                detailTableView.reloadData()
+            }
+        }
     }
     
     //=========================
@@ -110,6 +133,8 @@ class DetailStatisticViewController: UIViewController, UITableViewDelegate, UITa
         
 
     }
+    
+    
     
     func dissMissCalendar() {
         UIView.animate(withDuration: 0.1) {

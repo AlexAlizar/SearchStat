@@ -558,7 +558,7 @@
                                     <action selector="calendarDetailTapped:" destination="s7Q-Zt-Au8" eventType="touchUpInside" id="HWb-56-M3m"/>
                                 </connections>
                             </button>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xaK-VB-wWJ" userLabel="Later">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xaK-VB-wWJ" userLabel="Later">
                                 <rect key="frame" x="320" y="97" width="35" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="gdb-hw-koC"/>
@@ -569,7 +569,7 @@
                                     <action selector="laterButton:" destination="s7Q-Zt-Au8" eventType="touchUpInside" id="kxQ-SW-A5U"/>
                                 </connections>
                             </button>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DVX-fH-rbX" userLabel="Previously">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DVX-fH-rbX" userLabel="Previously">
                                 <rect key="frame" x="20" y="97" width="35" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="25" id="GU7-6G-FQT"/>
@@ -711,7 +711,7 @@
         <image name="Иконка график" width="27" height="27"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="SY8-6n-aes"/>
+        <segue reference="IPk-Uq-5dr"/>
         <segue reference="bu2-I7-xZv"/>
     </inferredMetricsTieBreakers>
 </document>

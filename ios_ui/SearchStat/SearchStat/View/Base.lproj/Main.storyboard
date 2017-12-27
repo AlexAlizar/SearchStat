@@ -414,7 +414,7 @@
             </objects>
             <point key="canvasLocation" x="5380" y="-331"/>
         </scene>
-        <!--Детальная статистика-->
+        <!--Data Source-->
         <scene sceneID="eHG-uH-hXy">
             <objects>
                 <viewController title="Детальная статистика" id="s7Q-Zt-Au8" customClass="DetailStatisticViewController" customModule="SearchStat" customModuleProvider="target" sceneMemberID="viewController">
@@ -487,7 +487,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eA5-Uf-3rX">
                                 <rect key="frame" x="16" y="56" width="343" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                 <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -495,7 +495,7 @@
                                 <rect key="frame" x="74" y="94" width="243" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                <state key="normal" title="Button">
+                                <state key="normal" title="Choose the date">
                                     <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
@@ -506,11 +506,17 @@
                                 <rect key="frame" x="315" y="96" width="39" height="26"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="Arrow Right"/>
+                                <connections>
+                                    <action selector="laterButton:" destination="s7Q-Zt-Au8" eventType="touchUpInside" id="kxQ-SW-A5U"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DVX-fH-rbX" userLabel="Previously">
                                 <rect key="frame" x="22" y="96" width="39" height="26"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="Arrow Left"/>
+                                <connections>
+                                    <action selector="previouslyButton:" destination="s7Q-Zt-Au8" eventType="touchUpInside" id="Owd-Cl-dXX"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6p5-Dr-E1T" userLabel="BackButton">
                                 <rect key="frame" x="16" y="35" width="73" height="26"/>
@@ -540,13 +546,13 @@
                             </button>
                             <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nVc-mK-zMd">
                                 <rect key="frame" x="0.0" y="-1" width="375" height="668"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <action selector="hideDetailCalendar:" destination="s7Q-Zt-Au8" eventType="touchUpInside" id="ky5-0Q-rfh"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dnc-oe-2Xg" customClass="FSCalendar">
-                                <rect key="frame" x="407.5" y="88" width="310" height="310"/>
+                                <rect key="frame" x="32.5" y="778.5" width="310" height="310"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="310" id="ehQ-zF-ew6"/>
@@ -556,7 +562,32 @@
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.CornerRadius">
                                         <integer key="value" value="10"/>
                                     </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="firstWeekday">
+                                        <integer key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="weekdayTextSize">
+                                        <real key="value" value="16"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="headerTitleTextSize">
+                                        <real key="value" value="19"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="selectionColor">
+                                        <color key="value" red="0.13736441730000001" green="0.3344948888" blue="0.58828461170000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="titleWeekendColor">
+                                        <color key="value" red="0.76788114439999999" green="0.3320058823" blue="0.27231426450000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="headerTitleColor">
+                                        <color key="value" red="0.13736441730000001" green="0.3344948888" blue="0.58828461170000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="weekdayTextColor">
+                                        <color key="value" red="0.13736441730000001" green="0.3344948888" blue="0.58828461170000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <outlet property="dataSource" destination="s7Q-Zt-Au8" id="gEf-27-wXP"/>
+                                    <outlet property="delegate" destination="s7Q-Zt-Au8" id="hBW-az-Awa"/>
+                                </connections>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="0.0039215686274509803" green="0.3411764705882353" blue="0.60784313725490191" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -574,8 +605,8 @@
                             <constraint firstItem="pDI-ot-bhW" firstAttribute="leading" secondItem="RtK-G0-CK4" secondAttribute="trailing" constant="5" id="i5d-1n-5Bs"/>
                             <constraint firstItem="zyx-Fd-uwf" firstAttribute="leading" secondItem="SmB-Yp-Ehy" secondAttribute="leading" id="k9A-Ph-JfP"/>
                             <constraint firstItem="6p5-Dr-E1T" firstAttribute="leading" secondItem="SmB-Yp-Ehy" secondAttribute="leading" constant="16" id="oB1-Zn-Ebz"/>
-                            <constraint firstItem="Dnc-oe-2Xg" firstAttribute="centerX" secondItem="mYP-wR-efr" secondAttribute="centerX" constant="375" id="rPh-XL-K0a"/>
-                            <constraint firstItem="Dnc-oe-2Xg" firstAttribute="centerY" secondItem="mYP-wR-efr" secondAttribute="centerY" constant="-90" id="s7Z-St-kLM"/>
+                            <constraint firstItem="Dnc-oe-2Xg" firstAttribute="centerX" secondItem="mYP-wR-efr" secondAttribute="centerX" id="rPh-XL-K0a"/>
+                            <constraint firstItem="Dnc-oe-2Xg" firstAttribute="centerY" secondItem="mYP-wR-efr" secondAttribute="centerY" constant="600" id="s7Z-St-kLM"/>
                             <constraint firstItem="SmB-Yp-Ehy" firstAttribute="trailing" secondItem="nVc-mK-zMd" secondAttribute="trailing" id="uHC-pQ-LJM"/>
                             <constraint firstItem="zyx-Fd-uwf" firstAttribute="bottom" secondItem="SmB-Yp-Ehy" secondAttribute="bottom" id="vhN-z7-SIc"/>
                             <constraint firstItem="6p5-Dr-E1T" firstAttribute="top" secondItem="SmB-Yp-Ehy" secondAttribute="top" constant="15" id="zMY-7m-F2T"/>
@@ -585,7 +616,7 @@
                     <connections>
                         <outlet property="calendarButton" destination="iAL-Re-ZSk" id="rtw-Ss-qF8"/>
                         <outlet property="detailBackGroundBtn" destination="nVc-mK-zMd" id="RvZ-LM-84l"/>
-                        <outlet property="detailCalendarConstraint" destination="rPh-XL-K0a" id="fWB-p2-mdH"/>
+                        <outlet property="detailCalendarConstraint" destination="s7Z-St-kLM" id="Nsc-Xh-MDc"/>
                         <outlet property="detailCalendarView" destination="Dnc-oe-2Xg" id="DT1-8w-Ins"/>
                         <outlet property="detailTableView" destination="zyx-Fd-uwf" id="cgQ-s6-j7k"/>
                         <outlet property="nameSourceLabel" destination="eA5-Uf-3rX" id="1a4-BX-vtW"/>

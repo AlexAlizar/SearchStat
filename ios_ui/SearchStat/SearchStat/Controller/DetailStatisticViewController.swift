@@ -69,6 +69,10 @@ class DetailStatisticViewController: UIViewController, UITableViewDelegate, UITa
 
         nameSourceLabel.text = nameSourceLabelStr
         
+        
+        // MARK: Вместо Choose the date
+        calendarButton.setTitle(self.formatter.string(from: currentDate), for: .normal)
+        
         MainService.instance.getPerson { (result) in
             if result {
                 personArray = MainService.instance.personArray!

@@ -16,6 +16,7 @@ class MainService {
     
     public private(set) var lastUpdateDate: String? 
     
+    var lasSiteIndex: Int = 0
 
     
 
@@ -51,11 +52,6 @@ class MainService {
         lastUpdateDate = DateFormatter.localizedString(from: Date(), dateStyle: .short, timeStyle: .none)
         
     }
-    
-
-    
-    
-    
     
     private func generateSiteArrayFromJson (_ json: SiteForSearch ) -> [Site] {
         var siteArray = [Site]()
@@ -129,7 +125,7 @@ class MainService {
         for i in 1...30 {
 //            let tempDate = Date(timeIntervalSince1970: TimeInterval((20 + i)*365*24*60*60))
             
-            let tempDate = generateRandomDate(daysBack:30)
+            let tempDate = generateDate(daysBack: i)
             
             dayStatsArray.append(DayStats(day: tempDate!, total: 1 + i * 100))
 
@@ -139,17 +135,17 @@ class MainService {
     }
     
     
-    func generateRandomDate(daysBack: Int) -> Date?{
-        let day = arc4random_uniform(UInt32(daysBack))+1
-//        let hour = arc4random_uniform(23)
-//        let minute = arc4random_uniform(59)
+    func generateDate(daysBack: Int) -> Date?{
+        let day = daysBack
+        let hour = 0
+        let minute = 0
         
         let today = Date(timeIntervalSince1970: 1512087784)
         let gregorian  = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)
         var offsetComponents = DateComponents()
         offsetComponents.day = Int(day - 1)
-//        offsetComponents.hour = Int(hour)
-//        offsetComponents.minute = Int(minute)
+        offsetComponents.hour = Int(hour)
+        offsetComponents.minute = Int(minute)
         
         let randomDate = gregorian?.date(byAdding: offsetComponents, to: today, options: .init(rawValue: 0) )
         return randomDate

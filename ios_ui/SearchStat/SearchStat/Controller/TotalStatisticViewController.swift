@@ -20,6 +20,16 @@ class TotalStatisticViewController: UIViewController, UITableViewDelegate, UITab
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //еще костыль
+        if personArray.count == 0 {
+            let siteIndex = MainService.instance.lasSiteIndex
+            let site = MainService.instance.siteArray![siteIndex]
+            personArray = site.personsArray
+            nameSourceLabelString = site.name + "    " + DateFormatter.localizedString(from: Date(), dateStyle: .short, timeStyle: .short)
+            nameSourceDetailLabel = site.name
+            
+        }
+        
         nameSourceLabel.text = nameSourceLabelString
 //        nameSourceLabel.text = MainService.instance.lastUpdateDate!
         

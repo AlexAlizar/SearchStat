@@ -51,6 +51,7 @@ class DetailStatisticViewController: UIViewController, UITableViewDelegate, UITa
     @IBOutlet weak var nameSourceLabel: UILabel!
     @IBOutlet weak var detailCalendarView: UIView!
     @IBOutlet weak var detailBackGroundBtn: UIButton!
+    
     @IBAction func calendarDetailTapped(_ sender: UIButton) {
         
         UIView.animate(withDuration: 0.2) {
@@ -92,7 +93,21 @@ class DetailStatisticViewController: UIViewController, UITableViewDelegate, UITa
 
         currentDate = date
         calendarButton.setTitle(self.formatter.string(from: date), for: .normal)
+        
+        
         dissMissCalendar()
+        //1. запрос массива за выбранную дату
+        for i in 0..<MainService.instance.personArray!.count {
+            
+            let temp = MainService.instance.personArray![i].filteredStats(filteredDate: date)
+            if temp != nil {
+                dayStatArray[i] = temp!
+                //2. reload data
+                detailTableView.reloadData()
+            }
+            
+        }
+        
 
     }
     

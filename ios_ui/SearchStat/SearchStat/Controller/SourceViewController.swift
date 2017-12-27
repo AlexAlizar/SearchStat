@@ -60,6 +60,9 @@ class SourceViewController: UIViewController, UITableViewDelegate, UITableViewDa
             if let indexPath = sourceTableView.indexPathForSelectedRow {
                 let destVC: TotalStatisticViewController = segue.destination as! TotalStatisticViewController
                 destVC.initVC(sitesArray[indexPath.row])
+                
+                //костыль
+                MainService.instance.lasSiteIndex = indexPath.row
             }
         }
     }

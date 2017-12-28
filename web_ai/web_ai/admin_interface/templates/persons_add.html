@@ -5,7 +5,7 @@
         {% csrf_token %}
         {{ form.name }}
         <input class="btn btn-dark" type="submit" value="Добавить">
-        <a class="btn btn-dark" href="{% url 'sites_view' %}">Назад</a>
+        <a class="btn btn-dark" href="{% url 'persons_view' %}">Назад</a>
     </form>
 
 {% endblock %}

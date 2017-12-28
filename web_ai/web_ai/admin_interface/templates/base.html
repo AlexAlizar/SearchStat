@@ -20,26 +20,20 @@
             </li>
             <ul class="nav flex-column">
                 <li class="nav-item">
-                <a class="nav-link" href="#">Личности</a>
+                <a class="nav-link" href="{% url 'persons_view' %}">Личности</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'keywords_view' %}">Ключевые слова</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Сайты</a>
+                <a class="nav-link" href="{% url 'sites_view' %}">Сайты</a>
             </li>
             </ul>
         </ul>
     </nav>
 
     {% block content %}
-        <div class="col-sm-3">
-            {% include 'included/sites_view.html' %}
-        </div>
-
-        <div class="col-sm-3">
-            {% include 'included/persons_view.html' %}
-        </div>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur atque autem cum ducimus ex, exercitationem illum impedit iusto maiores minus nihil nobis nostrum, odit perferendis quibusdam quos sint ullam vero?</p>
     {% endblock %}
 
 </div>

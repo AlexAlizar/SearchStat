@@ -16,14 +16,14 @@ def clear_kw(keywords):
 def objects_bulk(class_name, lst, person_id):
         result = []
         for i in lst:
-            result.append(class_name(keyword=str(i), person_id_id=int(person_id)))
+            result.append(class_name(keyword=str(i), person_id=int(person_id)))
         return result
 
 
 def keywords_view(request):
     form = KeywordsForm()
     if request.method == 'POST':
-        keywords = ModelKeyword.objects.filter(person_id__name__icontains=request.POST['dropdown'])
+        keywords = ModelKeyword.objects.filter(person__name__icontains=request.POST['dropdown'])
         if 'view' in request.POST:
             return render(request,
                           'keywords_view.html',

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="col-sm-3">
+        <ul class="list-group">
+            <li class="list-group-item active"><b>Сайты:</b></li>
+            {% for site in sites %}
+                <li class="list-group-item">{{ site.name }}</li>
+            {% endfor %}
+        </ul>
+        <br>
+        <a class="btn btn-dark" href="{% url 'add_site' %}">Добавить</a>
+        <a class="btn btn-dark" href="{% url 'delete_site' %}">Удалить</a>
+    </div>
+
+{% endblock %}
+

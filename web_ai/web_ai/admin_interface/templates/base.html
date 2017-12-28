@@ -15,20 +15,18 @@
 <div class="container-fluid row">
     <nav class="navbar navbar-dark bg-light col-sm-3">
         <ul class="nav flex-column">
-            <li class="nav-item nav-pills">
-                <a class="nav-link active" href="/">Справочник</a>
-            </li>
-            <ul class="nav flex-column">
-                <li class="nav-item">
-                <a class="nav-link" href="{% url 'persons_view' %}">Личности</a>
+            <li class="nav-item">
+                <a class="nav-link" href="/"><h3>Справочник</h3></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'keywords_view' %}">Ключевые слова</a>
+                <a class="nav-link {% if request.resolver_match.url_name == 'persons_view' %}active{% endif %}" href="{% url 'persons_view' %}">Личности</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'sites_view' %}">Сайты</a>
+                <a class="nav-link {% if request.resolver_match.url_name == 'keywords_view' %}active{% endif %}" href="{% url 'keywords_view' %}">Ключевые слова</a>
             </li>
-            </ul>
+            <li class="nav-item active">
+                <a class="nav-link {% if request.resolver_match.url_name == 'sites_view' %}active{% endif %}" href="{% url 'sites_view' %}">Сайты</a>
+            </li>
         </ul>
     </nav>
 
@@ -38,6 +36,9 @@
 
 </div>
 <script src="{% static 'js/bootstrap.min.js' %}"></script>
-
+<script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+{% block js %}{% endblock %}
 </body>
+
+
 </html>

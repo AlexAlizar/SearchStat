@@ -29,6 +29,6 @@ class KeywordsForm(forms.Form):
         fields = '__all__'
 
     dropdown_choices = tuple((x.name.capitalize(), x.name) for x in ModelPerson.objects.all())
-    dropdown = forms.ChoiceField(choices=dropdown_choices)
+    dropdown = forms.ChoiceField(choices=dropdown_choices, required=False)
     keywords_add = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'keyword1, keyword2, etc.'}),
                                    required=False)

@@ -2,7 +2,7 @@ from django.urls import path
 from .views import admin_interface
 from .admin_sites_views import sites_view, add_site, delete_sites
 from .admin_persons_views import persons_view, persons_add, persons_delete
-from .admin_keywords_views import *
+from .admin_keywords_views import keywords_view, keywords_add, keywords_delete
 
 urlpatterns = [
     path('', admin_interface, name='admin_interface'),
@@ -18,6 +18,6 @@ urlpatterns = [
 
     # keywords_manage_views
     path('keywords/', keywords_view, name='keywords_view'),
-
-
+    path('keywords/add', keywords_add, name='keywords_add'),
+    path('keywords/delete', keywords_delete, name='keywords_delete')
 ]

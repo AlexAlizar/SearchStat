@@ -22,30 +22,36 @@ def objects_bulk(class_name, lst, person_id):
 
 def keywords_view(request):
     form = KeywordsForm()
-    if request.method == 'POST':
+    if 'view' in request.POST:
         keywords = ModelKeyword.objects.filter(person__name__icontains=request.POST['dropdown'])
-        if 'view' in request.POST:
-            return render(request,
-                          'keywords_view.html',
-                          {"form": form, 'keywords': keywords, 'name': request.POST['dropdown']})
-        if 'add' in request.POST:
-             keywords_add(request)
+        person = request.POST['dropdown']
+        request.session['person'] = person
+        return render(request,
+                      'keywords_view.html',
+                      {"form": form, 'keywords': keywords, 'person': person})
+
     return render(request, 'keywords_view.html', {"form": form})
 
 
 def keywords_add(request):
-    form = KeywordsForm(request.POST)
-    if form.is_valid():
-        keywords_list = set(clear_kw(request.POST['keywords_add']))
-        person = ModelPerson.objects.get(name__icontains=request.POST['dropdown'])
-        obj = objects_bulk(ModelKeyword, keywords_list, person.id)
-        ModelKeyword.objects.bulk_create(objs=obj)
-        return HttpResponseRedirect('/keywords')
-
+    person = ModelPerson.objects.get(name__icontains=request.session['person'])
+    keywords = ModelKeyword.objects.filter(person__name__icontains=person.name)
+    form = KeywordsForm()
+    if request.POST:
+        form = KeywordsForm(request.POST)
+        if form.is_valid():
+            keywords_list = set(clear_kw(request.POST['keywords_add']))
+            obj = objects_bulk(ModelKeyword, keywords_list, person.id)
+            ModelKeyword.objects.bulk_create(objs=obj)
+            return HttpResponseRedirect('/keywords')
+    return render(request, 'keywords_add.html', {'form': form, 'person': person, 'keywords': keywords})
 
 
 def keywords_delete(request):
-    pass
+    person = ModelPerson.objects.get(name__icontains=request.session['person'])
+    keywords = ModelKeyword.objects.filter(person__name__icontains=person.name)
+    form = KeywordsForm()
+    return render(request, 'keywords_delete.html', {'form': form})
 
 
 def keywords_edit(request):

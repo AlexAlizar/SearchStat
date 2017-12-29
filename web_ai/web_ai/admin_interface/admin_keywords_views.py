@@ -49,8 +49,12 @@ def keywords_add(request):
 
 def keywords_delete(request):
     person = ModelPerson.objects.get(name__icontains=request.session['person'])
-    keywords = ModelKeyword.objects.filter(person__name__icontains=person.name)
     form = KeywordsForm()
+    form.fields['multiple_select'].queryset = ModelKeyword.objects.filter(person__name__icontains=person.name)
+    if request.POST:
+        keywords_id = request.POST.getlist('multiple_select')
+        ModelKeyword.objects.filter(id__in=keywords_id).delete()
+        return HttpResponseRedirect('/keywords')
     return render(request, 'keywords_delete.html', {'form': form})
 
 

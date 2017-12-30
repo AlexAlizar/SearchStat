@@ -21,7 +21,6 @@ def persons_delete(request):
 
 
 def persons_add(request):
-    print(request)
     if request.method == 'POST':
         form = PersonsManageForm(request.POST)
         if form.is_valid():

@@ -1,5 +1,5 @@
 from django.shortcuts import render, HttpResponseRedirect, get_object_or_404, get_list_or_404
-from .forms import KeywordsForm
+from .forms import KeywordsForm, KeywordsAddForm
 from .models import ModelKeyword, ModelPerson
 
 
@@ -29,16 +29,15 @@ def keywords_view(request):
         return render(request,
                       'keywords_view.html',
                       {"form": form, 'keywords': keywords, 'person': person})
-
     return render(request, 'keywords_view.html', {"form": form})
 
 
 def keywords_add(request):
     person = ModelPerson.objects.get(name__icontains=request.session['person'])
     keywords = ModelKeyword.objects.filter(person__name__icontains=person.name)
-    form = KeywordsForm()
-    if request.POST:
-        form = KeywordsForm(request.POST)
+    form = KeywordsAddForm()
+    if request.method == 'POST':
+        form = KeywordsAddForm(request.POST)
         if form.is_valid():
             keywords_list = set(clear_kw(request.POST['keywords_add']))
             obj = objects_bulk(ModelKeyword, keywords_list, person.id)
@@ -51,7 +50,7 @@ def keywords_delete(request):
     person = ModelPerson.objects.get(name__icontains=request.session['person'])
     form = KeywordsForm()
     form.fields['multiple_select'].queryset = ModelKeyword.objects.filter(person__name__icontains=person.name)
-    if request.POST:
+    if request.method == 'POST':
         keywords_id = request.POST.getlist('multiple_select')
         ModelKeyword.objects.filter(id__in=keywords_id).delete()
         return HttpResponseRedirect('/keywords')

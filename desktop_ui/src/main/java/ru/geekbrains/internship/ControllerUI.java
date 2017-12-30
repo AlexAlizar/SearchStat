@@ -13,7 +13,6 @@ import java.util.ResourceBundle;
 public class ControllerUI implements Initializable {
 
     private StartWindow mainApp;
-    private RequestDB connDB;
 
     @FXML
     private ChoiceBox<String> totalStatisticsSite;
@@ -52,33 +51,52 @@ public class ControllerUI implements Initializable {
         this.mainApp = mainApp;
     }
 
-    public void setDBApp(RequestDB connDB) {
-        this.connDB = connDB;
-    }
-
-    public void pressTotalStatisticsUpdateButton() throws Exception {
+    public void pressTotalStatisticsUpdateButton() {
         if (totalStatisticsSite.getValue() != null) {
-            totalStatisticsTable.setItems(connDB.getTotalStatisticsList(totalStatisticsSite.getValue()));
-            totalStatisticsChart.setData(connDB.getTotalStatisticsChartData());
+            totalStatisticsTable.setItems(mainApp.getRequestDB().getTotalStatisticsList(mainApp.getDBStringURL(), totalStatisticsSite.getValue()));
+            totalStatisticsChart.setData(mainApp.getRequestDB().getTotalStatisticsChartData());
             totalStatisticsChart.setLabelLineLength(10);
             totalStatisticsChart.setLegendSide(Side.LEFT);
+        } else {
+            new AlertHandler(Alert.AlertType.WARNING, "Не заполнен параметр",
+                    "Внимание!", "Необходимо выбрать сайт");
         }
     }
 
-    public void pressDailyStatisticsUpdateButton() throws Exception {
+    public void pressDailyStatisticsUpdateButton() {
         LocalDate beginDate = dailyStatisticsBeginDate.getValue();
         LocalDate endDate = dailyStatisticsEndDate.getValue();
-        if (!(dailyStatisticsSite.getValue() == null || dailyStatisticsName.getValue() == null ||
-                beginDate == null || endDate == null)) {
-            if (endDate.compareTo(beginDate) >= 0) {
-                dailyStatisticsTable.setItems(
-                        connDB.getDailyStatisticsList(
-                                dailyStatisticsSite.getValue(), dailyStatisticsName.getValue(),
-                                beginDate, endDate));
-                dailyStatisticsTotalQuantity.setText(Integer.toString(connDB.getDailyStatisticsTotal()));
-                dailyStatisticsChart.getData().add(connDB.getDailyStatisticsChartData(dailyStatisticsName.getValue()));
-                dailyStatisticsChart.setTitle("");
+        if (dailyStatisticsSite.getValue() != null) {
+            if (dailyStatisticsName.getValue() != null) {
+                if (beginDate != null) {
+                    if (endDate != null) {
+                        if (endDate.compareTo(beginDate) >= 0) {
+                            dailyStatisticsTable.setItems(
+                                    mainApp.getRequestDB().getDailyStatisticsList(mainApp.getDBStringURL(),
+                                            dailyStatisticsSite.getValue(), dailyStatisticsName.getValue(),
+                                            beginDate, endDate));
+                            dailyStatisticsTotalQuantity.setText(Integer.toString(mainApp.getRequestDB().getDailyStatisticsTotal()));
+                            dailyStatisticsChart.getData().add(mainApp.getRequestDB().getDailyStatisticsChartData(dailyStatisticsName.getValue()));
+                            dailyStatisticsChart.setTitle("");
+                        } else {
+                            new AlertHandler(Alert.AlertType.WARNING, "Не верно заполнены параметры",
+                                    "Внимание!", "Начальная дата должна быть раньше конечной");
+                        }
+                    } else {
+                        new AlertHandler(Alert.AlertType.WARNING, "Не заполнен параметр",
+                                "Внимание!", "Необходимо выбрать конечную дату");
+                    }
+                } else {
+                    new AlertHandler(Alert.AlertType.WARNING, "Не заполнен параметр",
+                            "Внимание!", "Необходимо выбрать начальную дату");
+                }
+            } else {
+                new AlertHandler(Alert.AlertType.WARNING, "Не заполнен параметр",
+                        "Внимание!", "Необходимо выбрать имя");
             }
+        } else {
+            new AlertHandler(Alert.AlertType.WARNING, "Не заполнен параметр",
+                    "Внимание!", "Необходимо выбрать сайт");
         }
     }
 
@@ -90,10 +108,10 @@ public class ControllerUI implements Initializable {
         dstColumnQuantity.setCellValueFactory(cellData -> cellData.getValue().quantityProperty());
     }
 
-    public void fillLists() throws Exception {
-        totalStatisticsSite.setItems(connDB.getSites());
-        dailyStatisticsSite.setItems(connDB.getSites());
-        dailyStatisticsName.setItems(connDB.getNames());
+    public void fillLists() {
+        totalStatisticsSite.setItems(mainApp.getRequestDB().getSites(mainApp.getDBStringURL()));
+        dailyStatisticsSite.setItems(mainApp.getRequestDB().getSites(mainApp.getDBStringURL()));
+        dailyStatisticsName.setItems(mainApp.getRequestDB().getNames(mainApp.getDBStringURL()));
     }
 
 }

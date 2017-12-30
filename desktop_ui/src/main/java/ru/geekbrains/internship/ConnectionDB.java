@@ -1,31 +1,46 @@
 package ru.geekbrains.internship;
 
+import javafx.scene.control.Alert;
+
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class ConnectionDB implements ConnectionDBConst {
+public class ConnectionDB {
 
     private HttpURLConnection dBCon;
 
-    public ConnectionDB() throws Exception {
-        URL dBUrl = new URL(DBSTRINGURL);
+    public ConnectionDB(String DBStringURL) throws Exception {
+        URL dBUrl = new URL(DBStringURL);
         dBCon = (HttpURLConnection) dBUrl.openConnection();
     }
 
-    public String readDBResult() throws Exception {
-        InputStream is = dBCon.getInputStream();
-        BufferedReader br = new BufferedReader(new InputStreamReader(is));
-
+    public String readDBResult() {
         String out = "";
+        try {
 
-        while(br.ready()) {
-            out += br.readLine();
+            BufferedReader in = new BufferedReader(new InputStreamReader(dBCon.getInputStream()));
+            String inputLine;
+            while ((inputLine = in.readLine()) != null) {
+                out += inputLine;
+            }
+            in.close();
+/*
+            InputStream is = dBCon.getInputStream();
+            BufferedReader br = new BufferedReader(new InputStreamReader(is));
+            while(br.ready()) {
+                out += br.readLine();
+            }
+            br.close();
+            is.close();
+*/
+        } catch (IOException e) {
+            new AlertHandler(Alert.AlertType.ERROR, "Ошибка", "Внимание!", "Ошибка чтения данных из БД");
+            //e.printStackTrace();
         }
-        br.close();
-        is.close();
         return out;
     }
 

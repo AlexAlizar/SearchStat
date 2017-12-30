@@ -6,7 +6,6 @@ import javafx.scene.control.TextField;
 public class ControllerAuth {
 
     private StartWindow mainApp;
-    private RequestDB connDB;
 
     @FXML
     private TextField login;
@@ -17,21 +16,17 @@ public class ControllerAuth {
         this.mainApp = mainApp;
     }
 
-    public void setDBApp(RequestDB connDB) {
-        this.connDB = connDB;
-    }
-
-    public void pressOkButton() throws Exception {
-        if (connDB.checkAuthorization(login.getText(), password.getText())) {
-            new DesktopUI(mainApp, connDB);
+    public void pressOkButton() {
+        if (mainApp.getRequestDB().checkAuthorization(login.getText(), password.getText())) {
+            new DesktopUI(mainApp);
         }
     }
 
-    public void pressCancelButton() throws Exception{
-        mainApp.paint(mainApp.getStage(), connDB);
+    public void pressCancelButton() {
+        mainApp.paint(mainApp.getStage());
     }
 
-    public void pressRestorePasswordButton() throws Exception{
+    public void pressRestorePasswordButton() {
 
     }
 

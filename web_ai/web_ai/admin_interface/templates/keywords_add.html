@@ -2,14 +2,16 @@
 
 {% block content %}
     <form action="" method="post">
-    {% csrf_token %}
-    <ul class="list-group">
-        <li class="list-group-item active">keywords for <b>{{ person }}</b>:</li>
-        {% for keyword in keywords %}
-            <li class="list-group-item">{{ keyword }}</li>
-        {% endfor %}
-    </ul>
+        {% csrf_token %}
+        <ul class="list-group">
+            <li class="list-group-item active">keywords for <b>{{ person }}</b>:</li>
+            {% for keyword in keywords %}
+                <li class="list-group-item">{{ keyword }}</li>
+            {% endfor %}
+        </ul>
         {{ form.keywords_add }}
-        <input class="btn btn-dark" type="submit" value="Добавить">
+        <input class="btn btn-dark btn-sm" type="submit" value="Добавить">
+        <a class="btn btn-dark btn-sm" href="{% url 'keywords_view' %}">Назад</a>
+
     </form>
 {% endblock %}

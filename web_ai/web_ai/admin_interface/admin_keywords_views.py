@@ -23,12 +23,12 @@ def objects_bulk(class_name, lst, person_id):
 def keywords_view(request):
     form = KeywordsForm()
     if 'view' in request.POST:
-        keywords = ModelKeyword.objects.filter(person__name__icontains=request.POST['dropdown'])
-        person = request.POST['dropdown']
-        request.session['person'] = person
+        keywords = ModelKeyword.objects.filter(person__id__icontains=request.POST['dropdown'])
+        person = ModelPerson.objects.get(id=request.POST['dropdown'])
+        request.session['person'] = person.name
         return render(request,
                       'keywords_view.html',
-                      {"form": form, 'keywords': keywords, 'person': person})
+                      {"form": form, 'keywords': keywords, 'person': person.name})
     return render(request, 'keywords_view.html', {"form": form})
 
 

@@ -28,9 +28,14 @@ class KeywordsForm(forms.Form):
         model = ModelKeyword
         fields = '__all__'
 
-    dropdown_choices = tuple((x.name.capitalize(), x.name) for x in ModelPerson.objects.all())
-    dropdown = forms.ChoiceField(choices=dropdown_choices, required=False)
-    multiple_select = forms.ModelMultipleChoiceField(queryset=None,required=False)
+    dropdown = forms.ModelChoiceField(queryset=None, required=False)
+    multiple_select = forms.ModelMultipleChoiceField(queryset=None, required=False)
+
+    def __init__(self, *args, **kwargs):
+        super(KeywordsForm, self).__init__(*args, **kwargs)
+        self.fields['dropdown'] = forms.ModelChoiceField(
+            queryset=ModelPerson.objects.all()
+        )
 
 
 class KeywordsAddForm(forms.Form):

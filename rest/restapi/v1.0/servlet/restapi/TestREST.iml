@@ -10,7 +10,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/src/servlet-api.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../../../additional/servlet-api.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

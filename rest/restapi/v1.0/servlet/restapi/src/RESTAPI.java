@@ -80,6 +80,8 @@ public class RESTAPI extends HttpServlet {
                         date2 = "\"" + req.getParameter("date2") + "\"";
                         site = "\"" + req.getParameter("site") + "\"";
 
+//                      Checking for existance of parameters
+
                         mysqlDailyRequest = mysqlDailyRequest1 + person +
                             mysqlDailyRequest2 + date1 + mysqlDailyRequest3 + date2 +
                             mysqlDailyRequest4 + site + mysqlDailyRequest5;

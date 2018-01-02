@@ -23,9 +23,11 @@ import debug_toolbar
 # local imports
 import admin_interface.urls
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include(admin_interface.urls))
+    path('', include(admin_interface.urls)),
+    path('auth/', include('authapp.urls', namespace='auth')),
 ]
 
 if settings.DEBUG:

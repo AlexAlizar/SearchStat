@@ -1,4 +1,4 @@
-package ru.geekbrains.krawler;
+package ru.geekbrains;
 
 import java.io.File;
 import java.io.FileInputStream;

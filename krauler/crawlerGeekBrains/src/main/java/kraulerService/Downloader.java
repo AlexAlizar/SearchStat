@@ -1,4 +1,4 @@
-package ru.geekbrains.krawler;
+package ru.geekbrains;
 
 /**
  * Created by User on 21.12.2017.

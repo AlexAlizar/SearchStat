@@ -1,9 +1,6 @@
-package ru.geekbrains.krawler;
+package ru.geekbrains;
 
-import java.io.File;
 import java.util.List;
-
-import static ru.geekbrains.krawler.PageParser.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -30,7 +27,7 @@ public class Main {
 
         String robots = Downloader.download(targetUrl5 + "/robots.txt");
 
-        List<String> siteMapList = searchSiteMap(robots);
+        List<String> siteMapList = PageParser.searchSiteMap(robots);
 
 
 
@@ -44,7 +41,7 @@ public class Main {
 
         System.out.println("\n   ----------------------   \n");
 
-        for (String s : parseUrlSet(targetUrl4)) {
+        for (String s : PageParser.parseUrlSet(targetUrl4)) {
 
             System.out.println(s);
 

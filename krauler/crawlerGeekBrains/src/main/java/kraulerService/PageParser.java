@@ -1,4 +1,4 @@
-package ru.geekbrains.krawler;
+package ru.geekbrains;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;

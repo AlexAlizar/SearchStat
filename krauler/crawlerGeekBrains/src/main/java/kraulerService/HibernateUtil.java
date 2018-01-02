@@ -1,4 +1,4 @@
-package ru.geekbrains;
+package kraulerService;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;

@@ -1,4 +1,4 @@
-package ru.geekbrains;
+package kraulerService;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ public class Main {
         System.out.println("Start program\n");
 //        System.out.println("Проверка связи =)");
         // пример вызова метода download
-//        System.out.println(Downloader.download("lenta.ru"));
+//        System.out.println(Downloader.download("lenta.kraulerService"));
 
 //        System.out.println("Проверка от Алексей Грунтов =)");
 
@@ -15,11 +15,11 @@ public class Main {
 
         String fileStorage = "workFileStorage";
 
-        String targetUrl1 = "https://lenta.ru/sitemap.xml.gz";
-        String targetUrl2 = "https://lenta.ru";
-        String targetUrl3 = "https://yandex.ru";
-        String targetUrl4 = "https://yandex.ru/blog/sitemap.xml";
-        String targetUrl5 = "https://bfm.ru";
+        String targetUrl1 = "https://lenta.kraulerService/sitemap.xml.gz";
+        String targetUrl2 = "https://lenta.kraulerService";
+        String targetUrl3 = "https://yandex.kraulerService";
+        String targetUrl4 = "https://yandex.kraulerService/blog/sitemap.xml";
+        String targetUrl5 = "https://bfm.kraulerService";
 
 //        File archiveName = getFileByUrl(targetUrl1,fileStorage);
 
@@ -78,9 +78,9 @@ public class Main {
 
         // добавление сайтов
 
-        //  dbService.addSite("lenta.ru");
-        //  dbService.addSite("bfm.ru");
-        //  dbService.addSite("infox.ru");
+        //  dbService.addSite("lenta.kraulerService");
+        //  dbService.addSite("bfm.kraulerService");
+        //  dbService.addSite("infox.kraulerService");
 
         // добавление персон
 
@@ -89,10 +89,10 @@ public class Main {
         //  dbService.addPerson("Навальный");
 
         // добавление страниц
-//        Site site = dbService.getSiteByName("lenta.ru");
+//        Site site = dbService.getSiteByName("lenta.kraulerService");
 //        Date date1 = new Date();
 //        Date date2 = new Date(date1.getTime() + 86400000); //+1 сутки в миллисекундах
-//        dbService.addPage("lenta.ru/testurl.html", site, date1, date2);
+//        dbService.addPage("lenta.kraulerService/testurl.html", site, date1, date2);
 
 
         // получение списка сайтов, у которых нет соответствия в pages

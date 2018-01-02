@@ -1,4 +1,4 @@
-package ru.geekbrains;
+package kraulerService;
 
 import java.io.File;
 import java.io.FileInputStream;

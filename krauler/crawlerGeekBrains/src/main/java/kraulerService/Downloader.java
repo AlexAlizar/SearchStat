@@ -1,4 +1,4 @@
-package ru.geekbrains;
+package kraulerService;
 
 /**
  * Created by User on 21.12.2017.

@@ -6,6 +6,8 @@ import dbService.dataSets.Keyword;
 import dbService.dataSets.Page;
 import dbService.dataSets.Person;
 import dbService.dataSets.Site;
+import kraulerService.parsingService.Downloader;
+import kraulerService.parsingService.PageParser;
 import org.hibernate.SessionFactory;
 
 import java.util.Date;
@@ -37,11 +39,11 @@ public class Krauler {
 
             if(url.contains("robots.txt"))
             {
-                addPageFromRobots(url, page);
+                addSiteMapPageFromRobots(url, page);
             }
             else if(url.contains("sitemap"))
             {
-                addLinksFromSitemap(url, page);
+                addLinksToPagesFromSitemap(url, page);
             }
             else
             {
@@ -60,14 +62,14 @@ public class Krauler {
         }
     }
 
-    private void addPageFromRobots(String url, Page page) {
+    private void addSiteMapPageFromRobots(String url, Page page) {
         List<String> foundedSitemapLinks = PageParser.searchSiteMap(Downloader.download(url));
         for (String link: foundedSitemapLinks) {
             dbService.addPage(url, page.getSite(), page.getFoundDateTime(), new Date());
         }
     }
 
-    private void addLinksFromSitemap(String url, Page page) {
+    private void addLinksToPagesFromSitemap(String url, Page page) {
         List<String> foundedLinksOfSite = PageParser.parseSiteMap(url);
         for(String link: foundedLinksOfSite) {
             dbService.addPage(link, page.getSite(), page.getFoundDateTime(), new Date());

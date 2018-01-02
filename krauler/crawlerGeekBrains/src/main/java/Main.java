@@ -6,11 +6,6 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
         System.out.println("Start program\n");
-//        System.out.println("Проверка связи =)");
-        // пример вызова метода download
-//        System.out.println(Downloader.download("lenta.kraulerService"));
-
-//        System.out.println("Проверка от Алексей Грунтов =)");
 
         /*   Тестирую работу с архивами   */
 
@@ -29,8 +24,7 @@ public class Main {
         String robots = Downloader.download(targetUrl5 + "/robots.txt");
 
         List<String> siteMapList = PageParser.searchSiteMap(robots);
-
-
+        
 
 //        List<String> siteMapList = searchSiteMap(getFileByUrl(targetUrl,fileStorage),fileStorage);
 

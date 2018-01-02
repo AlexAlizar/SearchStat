@@ -1,5 +1,5 @@
-import kraulerService.Downloader;
-import kraulerService.PageParser;
+import kraulerService.parsingService.Downloader;
+import kraulerService.parsingService.PageParser;
 
 import java.util.List;
 

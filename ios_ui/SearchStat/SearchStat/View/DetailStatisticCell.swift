@@ -26,9 +26,14 @@ class DetailStatisticCell: UITableViewCell {
         
     }
     
-    func setupDetailCell(person: Person, dayStat: DayStats) {
-      nameLabel.text = person.name
-      dayStatlabel.text = String(dayStat.total)
+    func setupDetailCell(person: Person, forDate date: Date) {
+        nameLabel.text = person.name
+        
+        if let stats = person.filteredStats(filteredDate: date) {
+            dayStatlabel.text = String(stats.total)
+        } else {
+            dayStatlabel.text = "NoDataForSelectedDate"
+        }
     }
     
 }

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="IPT-hT-L9Z">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="IPT-hT-L9Z">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -462,7 +462,7 @@
             </objects>
             <point key="canvasLocation" x="5380" y="-331"/>
         </scene>
-        <!--Data Source-->
+        <!--Детальная статистика-->
         <scene sceneID="eHG-uH-hXy">
             <objects>
                 <viewController title="Детальная статистика" id="s7Q-Zt-Au8" customClass="DetailStatisticViewController" customModule="SearchStat" customModuleProvider="target" sceneMemberID="viewController">
@@ -575,9 +575,9 @@
                                     <constraint firstAttribute="height" constant="25" id="gdb-hw-koC"/>
                                     <constraint firstAttribute="width" constant="35" id="sfg-pM-3Gs"/>
                                 </constraints>
-                                <state key="normal" image="Arrow Right"/>
+                                <state key="normal" title="NextDate" image="Arrow Right"/>
                                 <connections>
-                                    <action selector="laterButton:" destination="s7Q-Zt-Au8" eventType="touchUpInside" id="kxQ-SW-A5U"/>
+                                    <action selector="switchDatePressed:" destination="s7Q-Zt-Au8" eventType="touchUpInside" id="C4c-Xf-3Pq"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DVX-fH-rbX" userLabel="Previously">
@@ -587,9 +587,9 @@
                                     <constraint firstAttribute="width" constant="35" id="UzZ-tu-cuP"/>
                                     <constraint firstAttribute="height" constant="25" id="h7Z-zM-m8j"/>
                                 </constraints>
-                                <state key="normal" image="Arrow Left"/>
+                                <state key="normal" title="PrewDate" image="Arrow Left"/>
                                 <connections>
-                                    <action selector="previouslyButton:" destination="s7Q-Zt-Au8" eventType="touchUpInside" id="Owd-Cl-dXX"/>
+                                    <action selector="switchDatePressed:" destination="s7Q-Zt-Au8" eventType="touchUpInside" id="ff2-II-OXb"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6p5-Dr-E1T" userLabel="BackButton">
@@ -618,51 +618,6 @@
                                 </constraints>
                                 <state key="normal" image="Menu"/>
                             </button>
-                            <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nVc-mK-zMd">
-                                <rect key="frame" x="0.0" y="-1" width="375" height="668"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <connections>
-                                    <action selector="hideDetailCalendar:" destination="s7Q-Zt-Au8" eventType="touchUpInside" id="ky5-0Q-rfh"/>
-                                </connections>
-                            </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dnc-oe-2Xg" customClass="FSCalendar">
-                                <rect key="frame" x="33" y="779" width="310" height="310"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="310" id="ehQ-zF-ew6"/>
-                                    <constraint firstAttribute="width" constant="310" id="yHm-IT-5y9"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.CornerRadius">
-                                        <integer key="value" value="10"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="firstWeekday">
-                                        <integer key="value" value="2"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="weekdayTextSize">
-                                        <real key="value" value="16"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="headerTitleTextSize">
-                                        <real key="value" value="19"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="selectionColor">
-                                        <color key="value" red="0.13736441730000001" green="0.3344948888" blue="0.58828461170000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="titleWeekendColor">
-                                        <color key="value" red="0.76788114439999999" green="0.3320058823" blue="0.27231426450000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="headerTitleColor">
-                                        <color key="value" red="0.13736441730000001" green="0.3344948888" blue="0.58828461170000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="weekdayTextColor">
-                                        <color key="value" red="0.13736441730000001" green="0.3344948888" blue="0.58828461170000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <outlet property="dataSource" destination="s7Q-Zt-Au8" id="gEf-27-wXP"/>
-                                    <outlet property="delegate" destination="s7Q-Zt-Au8" id="hBW-az-Awa"/>
-                                </connections>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.0039215686274509803" green="0.3411764705882353" blue="0.60784313725490191" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -670,16 +625,12 @@
                             <constraint firstItem="pDI-ot-bhW" firstAttribute="top" secondItem="SmB-Yp-Ehy" secondAttribute="top" constant="15" id="17a-ii-WQH"/>
                             <constraint firstItem="zyx-Fd-uwf" firstAttribute="top" secondItem="SmB-Yp-Ehy" secondAttribute="top" constant="112" id="1Hk-KR-NbR"/>
                             <constraint firstItem="zyx-Fd-uwf" firstAttribute="top" secondItem="DVX-fH-rbX" secondAttribute="bottom" constant="10" id="54v-Tv-ilR"/>
-                            <constraint firstItem="nVc-mK-zMd" firstAttribute="leading" secondItem="SmB-Yp-Ehy" secondAttribute="leading" id="8pw-vL-dK1"/>
                             <constraint firstItem="iAL-Re-ZSk" firstAttribute="leading" secondItem="DVX-fH-rbX" secondAttribute="trailing" constant="10" id="9Tb-Tb-gUQ"/>
                             <constraint firstItem="zyx-Fd-uwf" firstAttribute="trailing" secondItem="SmB-Yp-Ehy" secondAttribute="trailing" id="AJO-V6-8l1"/>
                             <constraint firstItem="RtK-G0-CK4" firstAttribute="top" secondItem="SmB-Yp-Ehy" secondAttribute="top" constant="15" id="DJo-Wx-riB"/>
                             <constraint firstItem="SmB-Yp-Ehy" firstAttribute="trailing" secondItem="pDI-ot-bhW" secondAttribute="trailing" constant="16" id="FcG-Rn-7yS"/>
-                            <constraint firstItem="nVc-mK-zMd" firstAttribute="centerY" secondItem="mYP-wR-efr" secondAttribute="centerY" id="GQP-9j-sIm"/>
                             <constraint firstItem="DVX-fH-rbX" firstAttribute="leading" secondItem="SmB-Yp-Ehy" secondAttribute="leading" constant="20" id="ImX-0a-yJr"/>
                             <constraint firstItem="DVX-fH-rbX" firstAttribute="top" secondItem="eA5-Uf-3rX" secondAttribute="bottom" constant="11" id="Ose-aJ-dhv"/>
-                            <constraint firstItem="SmB-Yp-Ehy" firstAttribute="bottom" secondItem="nVc-mK-zMd" secondAttribute="bottom" id="PHK-qr-bKG"/>
-                            <constraint firstItem="nVc-mK-zMd" firstAttribute="centerX" secondItem="mYP-wR-efr" secondAttribute="centerX" id="RDm-WM-K0E"/>
                             <constraint firstItem="SmB-Yp-Ehy" firstAttribute="trailing" secondItem="xaK-VB-wWJ" secondAttribute="trailing" constant="20" id="Tuf-us-JM6"/>
                             <constraint firstItem="DVX-fH-rbX" firstAttribute="centerY" secondItem="iAL-Re-ZSk" secondAttribute="centerY" id="ai7-fF-BlK"/>
                             <constraint firstItem="eA5-Uf-3rX" firstAttribute="trailing" secondItem="pDI-ot-bhW" secondAttribute="trailing" id="gA4-fe-eno"/>
@@ -688,10 +639,7 @@
                             <constraint firstItem="zyx-Fd-uwf" firstAttribute="leading" secondItem="SmB-Yp-Ehy" secondAttribute="leading" id="k9A-Ph-JfP"/>
                             <constraint firstItem="eA5-Uf-3rX" firstAttribute="leading" secondItem="6p5-Dr-E1T" secondAttribute="leading" id="o0T-sz-rqG"/>
                             <constraint firstItem="6p5-Dr-E1T" firstAttribute="leading" secondItem="SmB-Yp-Ehy" secondAttribute="leading" constant="16" id="oB1-Zn-Ebz"/>
-                            <constraint firstItem="Dnc-oe-2Xg" firstAttribute="centerX" secondItem="mYP-wR-efr" secondAttribute="centerX" id="rPh-XL-K0a"/>
-                            <constraint firstItem="Dnc-oe-2Xg" firstAttribute="centerY" secondItem="mYP-wR-efr" secondAttribute="centerY" constant="600" id="s7Z-St-kLM"/>
                             <constraint firstItem="xaK-VB-wWJ" firstAttribute="leading" secondItem="iAL-Re-ZSk" secondAttribute="trailing" constant="10" id="spK-oj-0dd"/>
-                            <constraint firstItem="SmB-Yp-Ehy" firstAttribute="trailing" secondItem="nVc-mK-zMd" secondAttribute="trailing" id="uHC-pQ-LJM"/>
                             <constraint firstItem="zyx-Fd-uwf" firstAttribute="bottom" secondItem="SmB-Yp-Ehy" secondAttribute="bottom" id="vhN-z7-SIc"/>
                             <constraint firstItem="eA5-Uf-3rX" firstAttribute="top" secondItem="SmB-Yp-Ehy" secondAttribute="top" constant="36" id="yDN-WI-BZ1"/>
                             <constraint firstItem="6p5-Dr-E1T" firstAttribute="top" secondItem="SmB-Yp-Ehy" secondAttribute="top" constant="15" id="zMY-7m-F2T"/>
@@ -700,9 +648,6 @@
                     </view>
                     <connections>
                         <outlet property="calendarButton" destination="iAL-Re-ZSk" id="rtw-Ss-qF8"/>
-                        <outlet property="detailBackGroundBtn" destination="nVc-mK-zMd" id="RvZ-LM-84l"/>
-                        <outlet property="detailCalendarConstraint" destination="s7Z-St-kLM" id="Nsc-Xh-MDc"/>
-                        <outlet property="detailCalendarView" destination="Dnc-oe-2Xg" id="DT1-8w-Ins"/>
                         <outlet property="detailTableView" destination="zyx-Fd-uwf" id="cgQ-s6-j7k"/>
                         <outlet property="nameSourceLabel" destination="eA5-Uf-3rX" id="1a4-BX-vtW"/>
                     </connections>

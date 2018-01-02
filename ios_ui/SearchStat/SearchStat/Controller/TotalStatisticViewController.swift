@@ -16,34 +16,24 @@ class TotalStatisticViewController: UIViewController, UITableViewDelegate, UITab
     @IBOutlet weak var nameSourceLabel: UILabel!
     @IBOutlet weak var totalStatTableView: UITableView!
     
-    var nameDateLabelString = " "
-    var nameSourceDetailLabel = " "
-    var nameSourceLabelString = " "
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //еще костыль
-        if personArray.count == 0 {
-            let siteIndex = MainService.instance.lasSiteIndex
-            let site = MainService.instance.siteArray![siteIndex]
-            personArray = site.personsArray
-            nameSourceLabelString = site.name
-            nameDateLabelString =  DateFormatter.localizedString(from: Date(), dateStyle: .long, timeStyle: .short)
-            nameSourceDetailLabel = site.name
-            
-        }
-        nameSourceLabel.text = nameSourceLabelString
-        nameDateLabel.text = nameDateLabelString
-//        nameSourceLabel.text = MainService.instance.lastUpdateDate!
+        self.initVC()
         
     }
     
-    func initVC(_ site: Site) {
+    private func initVC() {
+        //MARK: Чтение выбранного сайта
+        let siteIndex = UserDefaults.standard.integer(forKey: SITE_INDEX)
+        //MARK: Чтение даты обновления данных
+        let dateString = UserDefaults.standard.string(forKey: DATA_UPDATE_STRING)
+        
+        let site = MainService.instance.siteArray![siteIndex]
         personArray = site.personsArray
-        nameSourceLabelString = site.name
-        nameDateLabelString = DateFormatter.localizedString(from: Date(), dateStyle: .long, timeStyle: .short)
-        nameSourceDetailLabel = site.name
+        
+        nameSourceLabel.text = site.name
+        nameDateLabel.text = dateString
     }
         
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -59,9 +49,10 @@ class TotalStatisticViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toDetailStatistic" {
+        if segue.identifier == TO_DETAIL_STAT {
             let destVC: DetailStatisticViewController = segue.destination as! DetailStatisticViewController
-            destVC.nameSourceLabelStr = nameSourceDetailLabel
+            //tempcomment
+//            destVC.nameSourceLabelStr = nameSourceDetailLabel
         }
     }
 }

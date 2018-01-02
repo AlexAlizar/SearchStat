@@ -12,10 +12,9 @@ import UIKit
 typealias CompletionHandler = (_ Success: Bool) -> ()
 
 //URL Constants
-let BASE_URL = "http://195.110.59.16:8081/rest-api-servlet/"
-let URL_REGISTER = "\(BASE_URL)account/register"
-let URL_LOGIN = "\(BASE_URL)account/login"
-let URL_USER_ADD = "\(BASE_URL)user/add"
+let BASE_URL = "http://195.110.59.16:8081/"
+let SITE_LIST_URL = "\(BASE_URL)rest-api-servlet/"
+
 
 //Colors
 //let redColor = #colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1)
@@ -31,16 +30,23 @@ struct Colors {
 let NOTIF_USER_DID_CHANGED = Notification.Name("notifUserDataChanged")
 
 //Segues
-let TO_LOGIN = "toLogin"
-let TO_CREATE_ACCOUNT = "toCreateAccount"
-let UNWIND = "unwindToChannel"
-let TO_AVATAR_PICKER = "toAvatarPicker"
+let TO_TOTAL_STAT = "toTotalStatistic"
+let TO_DETAIL_STAT = "toDetailStatistic"
+
+//let TO_LOGIN = "toLogin"
+//let TO_CREATE_ACCOUNT = "toCreateAccount"
+//let UNWIND = "unwindToChannel"
+//let TO_AVATAR_PICKER = "toAvatarPicker"
 
 
 //User Defaults
-let TOKEN_KEY = "token"
-let LOGGED_IN_KEY = "loggedin"
-let USER_EMAIL = "userEmail"
+let SITE_INDEX = "siteIndex"
+let DATA_UPDATE_STRING = "dataUpdateString"
+
+
+//let TOKEN_KEY = "token"
+//let LOGGED_IN_KEY = "loggedin"
+//let USER_EMAIL = "userEmail"
 
 //Headers
 let HEADER = [

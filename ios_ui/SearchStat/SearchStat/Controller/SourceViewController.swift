@@ -16,6 +16,12 @@ class SourceViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.initVC()
+        
+    }
+    
+    private func initVC() {
         if MainService.instance.siteArray == nil {
             MainService.instance.getSites { (result) in
                 if result {
@@ -38,7 +44,6 @@ class SourceViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
     }
     
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return sitesArray.count
     }
@@ -52,17 +57,21 @@ class SourceViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "toTotalStatistic", sender: self)
+        performSegue(withIdentifier: TO_TOTAL_STAT, sender: self)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toTotalStatistic" {
+        if segue.identifier == TO_TOTAL_STAT {
+            
             if let indexPath = sourceTableView.indexPathForSelectedRow {
-                let destVC: TotalStatisticViewController = segue.destination as! TotalStatisticViewController
-                destVC.initVC(sitesArray[indexPath.row])
                 
-                //костыль
-                MainService.instance.lasSiteIndex = indexPath.row
+                //MARK: Запоминаем выбранный сайт
+                UserDefaults.standard.set(indexPath.row, forKey: SITE_INDEX)
+                
+//                let destVC: TotalStatisticViewController = segue.destination as! TotalStatisticViewController
+//                destVC.initVC()
+                
+                
             }
         }
     }

@@ -14,17 +14,27 @@ class MainService {
     
     public private(set) var siteArray: [Site]?
     
-    public private(set) var lastUpdateDate: String? 
-    
     var lasSiteIndex: Int = 0
 
-    
+    //userdDefExample
+//    UserDefaults.standard.set(true, forKey: "Key") //Bool
+//    UserDefaults.standard.set(1, forKey: "Key")  //Integer
+//    UserDefaults.standard.set("TEST", forKey: "Key") //setObject
+//    Retrieve
+//
+//    UserDefaults.standard.bool(forKey: "Key")
+//    UserDefaults.standard.integer(forKey: "Key")
+//    UserDefaults.standard.string(forKey: "Key")
+//    Remove
+//
+//    UserDefaults.standard.removeObject(forKey: "Key")
+    //
 
     func getSites(completionHandler: @escaping CompletionHandler) {
         
         // Request
         
-        let urlString = BASE_URL
+        let urlString = SITE_LIST_URL
         guard let url = URL(string: urlString) else {return}
         
         URLSession.shared.dataTask(with: url) { (data, response, error) in
@@ -49,7 +59,12 @@ class MainService {
                 }
             } .resume()
         
-        lastUpdateDate = DateFormatter.localizedString(from: Date(), dateStyle: .short, timeStyle: .none)
+        
+        
+        let lastUpdateDateString = DateFormatter.localizedString(from: Date(), dateStyle: .long, timeStyle: .short)
+        
+        UserDefaults.standard.set(lastUpdateDateString, forKey: DATA_UPDATE_STRING)
+        
         
     }
     
@@ -79,25 +94,6 @@ class MainService {
         //FIX!! FAKE DATA!!
         return person
     }
-//___________________________________________________________________________
-    public private(set) var personArray: [Person]?
-    
-    func getPerson(completionHandler: CompletionHandler) {
-        
-        self.personArray = generateFakePersonArray()
-        completionHandler(true)
-    }
-//___________________________________________________________________________
-
-    public private(set) var dayStatArray: [DayStats]?
-    
-    func getDayStat(completionHandler: CompletionHandler) {
-        
-        self.dayStatArray = generateFakeDayStatsArray()
-        completionHandler(true)
-    }
-//___________________________________________________________________________
-    //tempFakeFunc
     
     private func generateFakeSites() -> [Site] {
         let tempSite = Site(id: 0, name: "fakeSiteOne", personsArray: generateFakePersonArray())

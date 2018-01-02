@@ -48,11 +48,11 @@ class TotalStatisticViewController: UIViewController, UITableViewDelegate, UITab
         return cell
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == TO_DETAIL_STAT {
-            let destVC: DetailStatisticViewController = segue.destination as! DetailStatisticViewController
-            //tempcomment
-//            destVC.nameSourceLabelStr = nameSourceDetailLabel
-        }
-    }
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == TO_DETAIL_STAT {
+//            let destVC: DetailStatisticViewController = segue.destination as! DetailStatisticViewController
+//
+////            destVC.nameSourceLabelStr = nameSourceDetailLabel
+//        }
+//    }
 }

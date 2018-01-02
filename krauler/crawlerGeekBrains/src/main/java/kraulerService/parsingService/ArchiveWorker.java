@@ -1,4 +1,4 @@
-package kraulerService;
+package kraulerService.parsingService;
 
 import java.io.File;
 import java.io.FileInputStream;

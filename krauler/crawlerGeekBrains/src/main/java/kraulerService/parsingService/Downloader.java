@@ -1,4 +1,4 @@
-package kraulerService;
+package kraulerService.parsingService;
 
 /**
  * Created by User on 21.12.2017.

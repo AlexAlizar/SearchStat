@@ -65,14 +65,14 @@ public class Krauler {
     private void addSiteMapPageFromRobots(String url, Page page) {
         List<String> foundedSitemapLinks = PageParser.searchSiteMap(Downloader.download(url));
         for (String link: foundedSitemapLinks) {
-            dbService.addPage(url, page.getSite(), page.getFoundDateTime(), new Date());
+            dbService.addPage(link, page.getSite(), page.getFoundDateTime(), null);
         }
     }
 
     private void addLinksToPagesFromSitemap(String url, Page page) {
         List<String> foundedLinksOfSite = PageParser.parseSiteMap(url);
         for(String link: foundedLinksOfSite) {
-            dbService.addPage(link, page.getSite(), page.getFoundDateTime(), new Date());
+            dbService.addPage(link, page.getSite(), page.getFoundDateTime(), null);
         }
     }
 

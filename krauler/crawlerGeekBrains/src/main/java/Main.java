@@ -7,7 +7,7 @@ public class Main {
         /*   РАБОТА КЛАССА Krauler */
 
         Krauler krauler = new Krauler();
-        //krauler.Work();
+        krauler.Work();
 
 
         /*   Тестирую работу с архивами   */

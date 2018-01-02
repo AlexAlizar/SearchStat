@@ -1,56 +1,52 @@
-import kraulerService.parsingService.Downloader;
-import kraulerService.parsingService.PageParser;
-
-import java.util.List;
+import kraulerService.Krauler;
 
 public class Main {
     public static void main(String[] args) {
         System.out.println("Start program\n");
 
+        /*   РАБОТА КЛАССА Krauler */
+
+        Krauler krauler = new Krauler();
+        //krauler.Work();
+
+
         /*   Тестирую работу с архивами   */
-
-        String fileStorage = "workFileStorage";
-
-        String targetUrl1 = "https://lenta.kraulerService/sitemap.xml.gz";
-        String targetUrl2 = "https://lenta.kraulerService";
-        String targetUrl3 = "https://yandex.kraulerService";
-        String targetUrl4 = "https://yandex.kraulerService/blog/sitemap.xml";
-        String targetUrl5 = "https://bfm.kraulerService";
-
-//        File archiveName = getFileByUrl(targetUrl1,fileStorage);
-
-//        System.out.println("archiveName   ->   " + archiveName);
-
-        String robots = Downloader.download(targetUrl5 + "/robots.txt");
-
-        List<String> siteMapList = PageParser.searchSiteMap(robots);
         
 
-//        List<String> siteMapList = searchSiteMap(getFileByUrl(targetUrl,fileStorage),fileStorage);
 
-        System.out.println("siteMapList SIZE -> " + siteMapList.size());
-
-        for (String s : siteMapList) {
-            System.out.println("SITE_MAP   --->   " + s);
-        }
-
-        System.out.println("\n   ----------------------   \n");
-
-        for (String s : PageParser.parseUrlSet(targetUrl4)) {
-
-            System.out.println(s);
-
-        }
-
-
-
-
-
-
-
-
-
-
+//
+//        String fileStorage = "workFileStorage";
+//
+//        String targetUrl1 = "https://lenta.kraulerService/sitemap.xml.gz";
+//        String targetUrl2 = "https://lenta.kraulerService";
+//        String targetUrl3 = "https://yandex.kraulerService";
+//        String targetUrl4 = "https://yandex.kraulerService/blog/sitemap.xml";
+//        String targetUrl5 = "https://bfm.kraulerService";
+//
+////        File archiveName = getFileByUrl(targetUrl1,fileStorage);
+//
+////        System.out.println("archiveName   ->   " + archiveName);
+//
+//        String robots = Downloader.download(targetUrl5 + "/robots.txt");
+//
+//        List<String> siteMapList = PageParser.searchSiteMap(robots);
+//
+//
+////        List<String> siteMapList = searchSiteMap(getFileByUrl(targetUrl,fileStorage),fileStorage);
+//
+//        System.out.println("siteMapList SIZE -> " + siteMapList.size());
+//
+//        for (String s : siteMapList) {
+//            System.out.println("SITE_MAP   --->   " + s);
+//        }
+//
+//        System.out.println("\n   ----------------------   \n");
+//
+//        for (String s : PageParser.parseUrlSet(targetUrl4)) {
+//
+//            System.out.println(s);
+//
+//        }
 
         /*   ^^^   Тестирую работу с архивами   ^^^   */
 

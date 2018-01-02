@@ -1,8 +1,6 @@
-import java.util.Date;
-
 public class DailyStatistic {
-    private static String date;
-    private static String countOfPages;
+    private String date;
+    private String countOfPages;
 
     public DailyStatistic(String date, String countOfPages) {
         this.date = date;

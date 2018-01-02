@@ -1,4 +1,7 @@
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -53,14 +56,14 @@ public class RESTAPI extends HttpServlet {
     String date1 = null;
     String date2 = null;
 
+    List<DailyStatistic> ds = new ArrayList();
+    List<GeneralStatistic> gs = new ArrayList();
+
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         resp.setContentType("application/json; charset=utf-8");
         PrintWriter out = resp.getWriter();
         req.setCharacterEncoding ("UTF-8");
-
-        List<DailyStatistic> ds = new ArrayList();
-        List<GeneralStatistic> gs = new ArrayList();
 
         try {
             Class.forName(mysqlDriver);
@@ -106,20 +109,7 @@ public class RESTAPI extends HttpServlet {
 //                      <- ----- End of "Parsing of SQL query" -----
 
 //                      -> ----- Start of "Making JSON response" -----
-//                      later it wll be changed to GSON framework
-                        out.println("{\"daily_statistic\": [{ ");
-                        for (int i = 0; i < ds.size(); i++) {
-                            out.print("                     \"date\" : \"");
-                            out.print(ds.get(i).getDate());
-                            out.println("\",");
-                            out.print("                     \"count\" : \"");
-                            out.print(ds.get(i).getCountOfPages());
-                            out.print("\"}");
-                            if (i != ds.size() - 1) {
-                                out.println(",");
-                            }
-                        }
-                        out.println("]");
+                        out.println(constructJSON(ds));
 //                       <- ----- End of "Making JSON response" -----
 
                         break;
@@ -149,20 +139,7 @@ public class RESTAPI extends HttpServlet {
 //                      <- ----- End of "Parsing of SQL query" -----
 
 //                      -> ----- Start of "Making JSON response" -----
-//                      later it wll be changed to GSON framework
-                        out.println("{\"general_statistic\": [{ ");
-                        for (int i = 0; i < gs.size(); i++) {
-                            out.print("                     \"name\" : \"");
-                            out.print(gs.get(i).getName());
-                            out.println("\",");
-                            out.print("                     \"rank\" : \"");
-                            out.print(gs.get(i).getRank());
-                            out.print("\"}");
-                            if (i != gs.size() - 1) {
-                                out.println(",");
-                            }
-                        }
-                        out.println("]");
+                        out.print(constructJSON(gs));
 //                       <- ----- End of "Making JSON response" -----
 
                         break;
@@ -200,5 +177,11 @@ public class RESTAPI extends HttpServlet {
 //            out.println("Access denied!");
 //        }
 
+    }
+
+    private String constructJSON(Object object) {
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        Gson gson = gsonBuilder.setPrettyPrinting().create();
+        return gson.toJson(object);
     }
 }

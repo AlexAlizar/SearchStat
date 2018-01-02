@@ -1,4 +1,5 @@
-package kraulerService;
+import kraulerService.Downloader;
+import kraulerService.PageParser;
 
 import java.util.List;
 

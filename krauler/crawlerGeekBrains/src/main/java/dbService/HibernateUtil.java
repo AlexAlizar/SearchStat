@@ -1,4 +1,4 @@
-package kraulerService;
+package dbService;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;

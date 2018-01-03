@@ -1,7 +1,12 @@
-from django.shortcuts import render, HttpResponseRedirect
-
+from django.shortcuts import render, redirect
+from django.forms import inlineformset_factory, modelformset_factory
 from .forms import PersonsManageForm
-from .models import ModelPerson
+from .models import ModelPerson, ModelKeyword
+
+
+def count_persons(max_len):
+    max_len -= len(ModelPerson.objects.all())
+    return max_len
 
 
 def persons_view(request):
@@ -9,29 +14,37 @@ def persons_view(request):
     return render(request, 'persons_view.html', {'persons': persons})
 
 
-def persons_delete(request):
-    form = PersonsManageForm()
-    if request.method == 'POST':
-        multiple_select = request.POST.getlist('multiple_select')
-        if request.POST.getlist('delete'):
-            ModelPerson.objects.filter(id__in=multiple_select).delete()
-            return HttpResponseRedirect('/persons')
-    else:
-        return render(request, 'persons_delete.html', {'form': form})
-
-
-def persons_add(request):
-    if request.method == 'POST':
-        form = PersonsManageForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect('/persons')
-        else:
-            return render(request, 'persons_add.html', {'form': form})
-    else:
-        form = PersonsManageForm()
-        return render(request, 'persons_add.html', {'form': form})
-
-
 def persons_edit(request):
-    pass
+    persons = ModelPerson.objects.all()
+    max_len = 5
+    extra_fields = count_persons(max_len)
+    PersonsModelFormset = modelformset_factory(ModelPerson,
+                                                PersonsManageForm,
+                                                can_delete=True,
+                                                extra=extra_fields)
+    if request.method == 'POST':
+        formset = PersonsModelFormset(request.POST)
+        if formset.is_valid():
+            formset.save()
+            return redirect('/ai/persons')
+    else:
+        formset = PersonsModelFormset()
+    return render(request, 'persons_edit.html', {'formset': formset, 'persons':persons})
+
+
+def person_keyword_edit(request, pk):
+    person = ModelPerson.objects.get(id=pk)
+    KeywordsInlineFormset = inlineformset_factory(ModelPerson,
+                                                  ModelKeyword,
+                                                  fields=('keyword',),
+                                                  extra=1,
+                                                  )
+    if request.method == 'POST':
+        formset = KeywordsInlineFormset(request.POST, instance=person)
+        if formset.is_valid():
+            formset.save()
+            return redirect('/ai/persons')
+    else:
+        formset = KeywordsInlineFormset(instance=person)
+    return render(request, 'persons_edit.html', {'formset': formset, 'person': person})
+

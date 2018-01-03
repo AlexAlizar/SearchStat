@@ -24,11 +24,13 @@
                                 <li class="list-group-item active">keywords for <b>{{ person }}</b>:</li>
                                 <li class="list-group-item">No keywords for this person</li>
                             </ul>
+                            <a class='btn btn-dark btn-sm' href="{% url 'keywords_edit' pk=person.pk %}">Edit</a>
                             </div>
                         {% endif %}
                     <br>
                     <a class='btn btn-dark btn-sm'href="{% url 'keywords_add' %}">Добавить</a>
                     <a class='btn btn-dark btn-sm'href="{% url 'keywords_delete' %}">Удалить</a>
+
                 </form>
                 </div>
             {% else %}

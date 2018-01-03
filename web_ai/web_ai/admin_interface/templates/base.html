@@ -19,19 +19,22 @@
                 <a class="nav-link" href="/"><h3>Справочник</h3></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {% if request.resolver_match.url_name == 'persons_view' %}active{% endif %}" href="{% url 'persons_view' %}">Личности</a>
+                <a class="nav-link {% if request.resolver_match.url_name == 'persons_view' %}active{% endif %}" href="{% url 'ai:persons_view' %}">Личности</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {% if request.resolver_match.url_name == 'keywords_view' %}active{% endif %}" href="{% url 'keywords_view' %}">Ключевые слова</a>
+                <a class="nav-link {% if request.resolver_match.url_name == 'keywords_view' %}active{% endif %}" href="{% url 'ai:keywords_view' %}">Ключевые слова</a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link {% if request.resolver_match.url_name == 'sites_view' %}active{% endif %}" href="{% url 'sites_view' %}">Сайты</a>
+                <a class="nav-link {% if request.resolver_match.url_name == 'sites_view' %}active{% endif %}" href="{% url 'ai:sites_view' %}">Сайты</a>
             </li>
         </ul>
     </nav>
 
     {% block content %}
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur atque autem cum ducimus ex, exercitationem illum impedit iusto maiores minus nihil nobis nostrum, odit perferendis quibusdam quos sint ullam vero?</p>
+        <div class="col-sm-6">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur atque autem cum ducimus ex, exercitationem illum impedit iusto maiores minus nihil nobis nostrum, odit perferendis quibusdam quos sint ullam vero?</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur atque autem cum ducimus ex, exercitationem illum impedit iusto maiores minus nihil nobis nostrum, odit perferendis quibusdam quos sint ullam vero?</p>
+        </div>
     {% endblock %}
 
 </div>

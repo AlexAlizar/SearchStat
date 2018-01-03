@@ -1,10 +1,7 @@
-from django.shortcuts import render, get_list_or_404
-from .models import ModelSite, ModelPerson
+from django.shortcuts import get_list_or_404, render_to_response
+from .models import ModelSite
 
 
 def admin_interface(request):
     sites = get_list_or_404(ModelSite.objects.all())
-    persons = get_list_or_404(ModelPerson.objects.all())
-    context = {'sites': sites, 'persons': persons}
-    template = 'base.html'
-    return render(request, template, context)
+    return render_to_response('base.html', {'sites': sites})

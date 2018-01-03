@@ -1,6 +1,7 @@
 from django.shortcuts import render, HttpResponseRedirect, get_object_or_404, get_list_or_404
 from .forms import KeywordsForm, KeywordsAddForm
 from .models import ModelKeyword, ModelPerson
+from django.forms import inlineformset_factory
 
 
 def clear_kw(keywords):
@@ -57,5 +58,15 @@ def keywords_delete(request):
     return render(request, 'keywords_delete.html', {'form': form})
 
 
-def keywords_edit(request):
-    pass
+def keywords_edit(request, person_id):
+    person = ModelPerson.objects.get(id=person_id)
+    KeywordsInlineFormset = inlineformset_factory(ModelPerson, ModelKeyword, fields=('keyword',))
+    if request.method == 'POST':
+        formset = KeywordsInlineFormset(request.POST, instance=person)
+        if formset.is_valid():
+            formset.save()
+            return HttpResponseRedirect('/keywords')
+    else:
+        formset = KeywordsInlineFormset(instance=person)
+    return render(request, 'persons_edit.html', {'formset': formset})
+

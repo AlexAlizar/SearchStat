@@ -5,11 +5,10 @@
     <ul class="list-group">
         <li class="list-group-item active"> <b>Личности:</b></li>
         {% for person in persons %}
-            <li class="list-group-item">{{ person }}</li>
+            <li class="list-group-item"><a href="{% url 'ai:person_keyword_edit' pk=person.pk %}">{{ person }}</a></li>
         {% endfor %}
     </ul>
     <br>
-    <a class="btn btn-dark" href="{% url 'add_person' %}">Добавить</a>
-    <a class="btn btn-dark" href="{% url 'delete_person' %}">Удалить</a>
+    <a class="btn btn-dark" href="{% url 'ai:persons_edit' %}">Редактировать</a>
     </div>
 {% endblock %}

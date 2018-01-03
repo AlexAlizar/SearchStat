@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponseRedirect, get_list_or_404
+from django.shortcuts import render, HttpResponseRedirect, get_list_or_404, render_to_response
 from .models import ModelSite
 from .forms import SitesManageForm
 
@@ -7,7 +7,12 @@ from urllib import request as urlrequest, error as urlerror
 
 def sites_view(request):
     sites = ModelSite.objects.all()
-    return render(request, 'sites_view.html', {'sites': sites})
+
+    if sites:
+        return render_to_response('sites_view.html', {'sites': sites})
+    else:
+        message = 'Nothing to display'
+        return render_to_response('sites_view.html', {'message': message})
 
 
 def delete_sites(request):

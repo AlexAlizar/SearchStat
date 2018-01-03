@@ -68,5 +68,5 @@ def keywords_edit(request, person_id):
             return HttpResponseRedirect('/keywords')
     else:
         formset = KeywordsInlineFormset(instance=person)
-    return render(request, 'persons_edit.html', {'formset': formset})
+    return render(request, 'person_keywords_edit.html', {'formset': formset})
 

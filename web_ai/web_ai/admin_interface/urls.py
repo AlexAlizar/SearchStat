@@ -1,17 +1,17 @@
 from django.urls import path
 from .views import admin_interface
-from .admin_sites_views import sites_view, add_site, delete_sites
+from .admin_sites_views import sites_view, sites_edit
 from .admin_persons_views import persons_view, person_keyword_edit, persons_edit
-from .admin_keywords_views import keywords_view, keywords_add, keywords_delete, keywords_edit
+from .admin_keywords_views import keywords_view, keywords_add, keywords_delete
 
 app_name = 'admin_interface'
 
 urlpatterns = [
     path('', admin_interface, name='admin_interface'),
+
     # sites_manage_views
     path('sites', sites_view, name='sites_view'),
-    path('sites/add/', add_site, name='add_site'),
-    path('sites/delete', delete_sites, name='delete_site'),
+    path('sites/edit/', sites_edit, name='sites_edit'),
 
     # persons_manage_views
     path('persons/', persons_view, name='persons_view'),

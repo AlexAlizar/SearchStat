@@ -4,10 +4,13 @@ from .forms import PersonsManageForm
 from .models import ModelPerson, ModelKeyword
 
 
-def count_persons(max_len):
-    max_len -= len(ModelPerson.objects.all())
-    return max_len
+def count_persons(max_num):
+    max_num -= len(ModelPerson.objects.all())
+    return max_num
 
+def count_keywords(max_num, person_pk):
+    max_num -= len(ModelKeyword.objects.filter(person_id=person_pk))
+    return max_num
 
 def persons_view(request):
     persons = ModelPerson.objects.all()
@@ -16,12 +19,12 @@ def persons_view(request):
 
 def persons_edit(request):
     persons = ModelPerson.objects.all()
-    max_len = 5
-    extra_fields = count_persons(max_len)
+    max_num = 5
+    extra_fields = count_persons(max_num)
     PersonsModelFormset = modelformset_factory(ModelPerson,
-                                                PersonsManageForm,
-                                                can_delete=True,
-                                                extra=extra_fields)
+                                               PersonsManageForm,
+                                               can_delete=True,
+                                               extra=extra_fields)
     if request.method == 'POST':
         formset = PersonsModelFormset(request.POST)
         if formset.is_valid():
@@ -29,15 +32,17 @@ def persons_edit(request):
             return redirect('/ai/persons')
     else:
         formset = PersonsModelFormset()
-    return render(request, 'persons_edit.html', {'formset': formset, 'persons':persons})
+    return render(request, 'persons_edit.html', {'formset': formset, 'persons': persons})
 
 
 def person_keyword_edit(request, pk):
-    person = ModelPerson.objects.get(id=pk)
+    person = ModelPerson.objects.get(pk=pk)
+    max_num = 6
+    extra_fields = count_keywords(max_num, person.pk)
     KeywordsInlineFormset = inlineformset_factory(ModelPerson,
                                                   ModelKeyword,
                                                   fields=('keyword',),
-                                                  extra=1,
+                                                  extra=extra_fields,
                                                   )
     if request.method == 'POST':
         formset = KeywordsInlineFormset(request.POST, instance=person)
@@ -46,5 +51,5 @@ def person_keyword_edit(request, pk):
             return redirect('/ai/persons')
     else:
         formset = KeywordsInlineFormset(instance=person)
-    return render(request, 'persons_edit.html', {'formset': formset, 'person': person})
+    return render(request, 'person_keywords_edit.html', {'formset': formset, 'person': person})
 

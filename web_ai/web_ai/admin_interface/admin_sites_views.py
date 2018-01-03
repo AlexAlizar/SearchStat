@@ -1,13 +1,18 @@
-from django.shortcuts import render, HttpResponseRedirect, get_list_or_404, render_to_response
+from django.core.validators import URLValidator
+from django.core.exceptions import ValidationError
+from django.shortcuts import render, render_to_response, redirect
+from django.forms import modelformset_factory
 from .models import ModelSite
 from .forms import SitesManageForm
 
-from urllib import request as urlrequest, error as urlerror
+
+def count_sites(max_num):
+    max_num -= len(ModelSite.objects.all())
+    return max_num
 
 
 def sites_view(request):
     sites = ModelSite.objects.all()
-
     if sites:
         return render_to_response('sites_view.html', {'sites': sites})
     else:
@@ -15,31 +20,23 @@ def sites_view(request):
         return render_to_response('sites_view.html', {'message': message})
 
 
-def delete_sites(request):
-    form = SitesManageForm()
+def sites_edit(request):
+    sites = ModelSite.objects.all()
+    max_num = 3
+    extra_fields = count_sites(max_num)
+    SitesModelFormset = modelformset_factory(ModelSite,
+                                             SitesManageForm,
+                                             can_delete=True,
+                                             extra=extra_fields,
+                                             )
     if request.method == 'POST':
-        multiple_select = request.POST.getlist('multiple_select')
-        if request.POST.getlist('delete'):
-            ModelSite.objects.filter(id__in=multiple_select).delete()
-            return HttpResponseRedirect('/sites')
+        formset = SitesModelFormset(request.POST)
+        if formset.is_valid():
+            formset.save()
+            return redirect('/ai/sites')
+        else:
+            formset = SitesModelFormset(request.POST)
+            return render(request, 'sites_edit.html', {'formset': formset})
     else:
-        return render(request, 'sites_delete.html', {'form': form})
-
-
-def add_site(request):
-    if request.method == 'POST':
-        form = SitesManageForm(request.POST)
-        try:
-            url = urlrequest.urlopen(request.POST.get('name'))
-            if form.is_valid() and url.getcode() == 200:
-                form.save()
-                return HttpResponseRedirect('/sites')
-            else:
-                return render(request, 'sites_add.html', {'form': form})
-        except urlerror.URLError:
-            form = SitesManageForm()
-            return render(request, 'sites_add.html', {'form': form})
-    else:
-        form = SitesManageForm()
-        return render(request, 'sites_add.html', {'form': form})
-
+        formset = SitesModelFormset()
+        return render(request, 'sites_edit.html', {'sites': sites, 'formset': formset})

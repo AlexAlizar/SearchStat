@@ -8,8 +8,7 @@ class SitesManageForm(forms.ModelForm):
         model = ModelSite
         fields = '__all__'
 
-    multiple_select = forms.ModelMultipleChoiceField(queryset=ModelSite.objects.all(), required=False)
-    name = forms.CharField(required=False, widget=forms.URLInput(attrs={'id': 'url', 'value': 'http://'}))
+    name = forms.CharField(required=False, widget=forms.URLInput(attrs={'id': 'url', 'placeholder': 'http://site.com'}))
 
 
 class PersonsManageForm(forms.ModelForm):

@@ -9,13 +9,12 @@
                 {% endfor %}
             </ul>
             <br>
-            <a class="btn btn-dark" href="{% url 'add_site' %}">Добавить</a>
-            <a class="btn btn-dark" href="{% url 'delete_site' %}">Удалить</a>
+            <a class="btn btn-dark" href="{% url 'ai:sites_edit' %}">Редактировать</a>
         </div>
     {% else %}
         <ul class="list-group">
             <li class="list-group-item">{{ message }}</li>
-            <li class="list-group-item"><a class="btn btn-dark" href="{% url 'add_site' %}">Добавить</a></li>
+            <li class="list-group-item"><a class="btn btn-dark" href="{% url 'ai:sites_edit' %}">Добавить</a></li>
         </ul>
     {% endif %}
 {% endblock %}

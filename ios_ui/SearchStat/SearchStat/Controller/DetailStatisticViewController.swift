@@ -20,6 +20,8 @@ class DetailStatisticViewController: UIViewController, UITableViewDelegate, UITa
     
     var currentDate = Date()
     var personsArray = [Person]()
+    var periodDates = [Date]()
+    var observer: NSObjectProtocol?
     
     //Outlets
     @IBOutlet weak var nameSourceLabel: UILabel!
@@ -39,16 +41,39 @@ class DetailStatisticViewController: UIViewController, UITableViewDelegate, UITa
 
     @IBAction func calendarDetailTapped(_ sender: UIButton) {
         
-//        UIView.animate(withDuration: 0.2) {
-//            self.detailCalendarConstraint.constant = -80
-//            self.detailBackGroundBtn.alpha = 0.5
-//            self.view.layoutIfNeeded()
-//        }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.initVC()
+    }
+    
+    // MARK: Получаем данные с CalendarVC
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        //MARK: Здесь дата
+       observer = NotificationCenter.default.addObserver(forName: .sendDate , object: nil, queue: OperationQueue.main) { (notification) in
+            let detailVC = notification.object as! CalendarVC
+            self.currentDate = detailVC.selectedDay
+            self.calendarButton.setTitle(self.formatter.string(from:self.currentDate ), for: .normal)
+            self.detailTableView.reloadData()
+        }
+        
+        //MARK: Здесь массив с датами за период
+        NotificationCenter.default.addObserver(forName: .sendPeriod , object: nil, queue: OperationQueue.main) { (notification) in
+            let detailVC = notification.object as! CalendarVC
+            self.periodDates = detailVC.selectedPeriod
+        }
+    }
+    
+    //MARK: Удаляем обзервер
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        if let observer = observer {
+            NotificationCenter.default.removeObserver(observer)
+        }
     }
     
     private func initVC() {
@@ -60,8 +85,6 @@ class DetailStatisticViewController: UIViewController, UITableViewDelegate, UITa
         
         self.nameSourceLabel.text = site.name
         
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd MMMM yyyy"
         let currentDateStringFormatted = formatter.string(from: Date())
         
         calendarButton.setTitle(currentDateStringFormatted, for: .normal)

@@ -80,19 +80,19 @@ public class Krauler {
         List<Person> persons = dbService.getAllPerson();
 
         for (Person person: persons) {
+            int rank = 0;
             List<Keyword> keywordList = dbService.getKeywordByPerson(person);
+            String HTMLString = Downloader.download(url);
             for(int i = 0; i < keywordList.size(); i++)
             {
-                String HTMLString = Downloader.download(url);
-
                 String keyword = keywordList.get(i).getName();
-
-                dbService.writeRank(
-                        person,
-                        page,
-                        PageParser.parsePage(HTMLString, keyword)
-                );
+                rank+=PageParser.parsePage(HTMLString, keyword);
             }
+            dbService.writeRank(
+                    person,
+                    page,
+                    rank
+            );
         }
     }
 

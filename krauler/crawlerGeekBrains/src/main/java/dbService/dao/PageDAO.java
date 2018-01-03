@@ -20,6 +20,11 @@ public class PageDAO {
         return (Integer) session.save(new Page(url, site, foundDateTime, lastScanDate));
     }
 
+    public void updatePageDate(Page page) {
+        page.setLastScanDate(new Date());
+        session.update(page);
+    }
+
     public Page getPageById(int id) {
         Page page = (Page) session.get(Page.class, id);
         return page;

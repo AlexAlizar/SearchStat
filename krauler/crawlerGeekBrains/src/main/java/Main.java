@@ -1,4 +1,6 @@
-import kraulerService.Krauler;
+import dbService.DBService;
+import dbService.HibernateUtil;
+import kraulerService.parsingService.PageParser;
 
 public class Main {
     public static void main(String[] args) {
@@ -6,9 +8,14 @@ public class Main {
 
         /*   РАБОТА КЛАССА Krauler */
 
-        Krauler krauler = new Krauler();
-        krauler.Work();
+        DBService dbService = new DBService(HibernateUtil.getSessionFactory());
 
+        for (String link : PageParser.parseSiteMap("http://alloyer.000webhostapp.com/sitemap.xml")) {
+            System.out.println(link);
+        }
+
+        //        Krauler krauler = new Krauler();
+//        krauler.Work();
 
         /*   Тестирую работу с архивами   */
         

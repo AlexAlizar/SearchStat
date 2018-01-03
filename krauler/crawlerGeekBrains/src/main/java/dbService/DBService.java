@@ -146,6 +146,20 @@ public class DBService {
         }
     }
 
+    public int updatePageDate(Page page){
+        int id = -1;
+        try {
+            openSessionAndTransation();
+            PageDAO pageDAO = new PageDAO(session);
+            pageDAO.updatePageDate(page);
+            closeSessionAndTransation("commit");
+        } catch (HibernateException e) {
+            closeSessionAndTransation("rollback");
+            System.err.println("!!!HIBERNATE ERROR APPEARED!!!");
+        } finally {
+            return id;
+        }
+    }
 
     public Page getPageById(int id) {
         Page page = null;

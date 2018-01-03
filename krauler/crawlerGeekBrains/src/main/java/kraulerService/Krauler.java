@@ -36,7 +36,7 @@ public class Krauler {
 
         for(Page page: pagesWithoutScan) {
             String url = page.getUrl();
-
+            dbService.updatePageDate(page);
             if(url.contains("robots.txt"))
             {
                 addSiteMapPageFromRobots(url, page);

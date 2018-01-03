@@ -28,17 +28,9 @@ public class ConnectionDB {
                 out += inputLine;
             }
             in.close();
-/*
-            InputStream is = dBCon.getInputStream();
-            BufferedReader br = new BufferedReader(new InputStreamReader(is));
-            while(br.ready()) {
-                out += br.readLine();
-            }
-            br.close();
-            is.close();
-*/
         } catch (IOException e) {
-            new AlertHandler(Alert.AlertType.ERROR, "Ошибка", "Внимание!", "Ошибка чтения данных из БД");
+            new AlertHandler(Alert.AlertType.ERROR,
+                    "Ошибка", "Внимание!", "Ошибка чтения данных из БД");
             //e.printStackTrace();
         }
         return out;

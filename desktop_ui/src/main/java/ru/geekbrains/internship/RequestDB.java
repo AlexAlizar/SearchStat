@@ -1,17 +1,16 @@
 package ru.geekbrains.internship;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.time.LocalDate;
 
-public class RequestDB {
+public class RequestDB implements ConnectionDBConst{
 
     private ObservableList<TotalStatistics> totalStatisticsList;
     private ObservableList<DailyStatistics> dailyStatisticsList;
@@ -25,43 +24,16 @@ public class RequestDB {
     public ObservableList getTotalStatisticsList(String DBStringURL, String site) {
 
         totalStatisticsList = FXCollections.observableArrayList();
-/*
-        totalStatisticsList.add(new TotalStatistics("Путин",5000));
-        totalStatisticsList.add(new TotalStatistics("Медведев",4000));
-        totalStatisticsList.add(new TotalStatistics("Навальный",3000));
-*/
-
-        // +++ тест чтения и репарсинга json
         try {
-            ConnectionDB connectionDB = new ConnectionDB(DBStringURL);
-            String out = connectionDB.readDBResult();
-
-            JsonParser parser = new JsonParser();
-            JsonElement jsonElement = parser.parse(out);
-
-            JsonObject rootObject = jsonElement.getAsJsonObject();
-            JsonArray sitesArray = (JsonArray) rootObject.get("sites");
-            for (int i = 0; i < sitesArray.size(); i++) {
-                JsonObject siteJSON = (JsonObject) sitesArray.get(i);
-                String stringSiteID = siteJSON.get("SiteID").getAsString();
-                String stringSiteName = siteJSON.get("SiteName").getAsString();
-                //System.out.println("SiteID = " + stringSiteID + " SiteName = " + stringSiteName);
-                JsonArray personArray = (JsonArray) siteJSON.get("persons");
-                TotalStatisticsJSONReparsing tsJSONReparsing = new TotalStatisticsJSONReparsing();
-                for (int j = 0; j < personArray.size(); j++) {
-                    JsonObject personJSON = (JsonObject) personArray.get(j);
-                    totalStatisticsList.add((TotalStatistics) tsJSONReparsing.readJSONObject(personJSON));
-                }
-            }
-            connectionDB.closeConnectionDB();
-        } catch (IllegalStateException e) {
-            new AlertHandler(Alert.AlertType.ERROR, "Ошибка", "Внимание!", "Ошибка в полученных данных");
-            //e.printStackTrace();
-        } catch (Exception e) {
-            new AlertHandler(Alert.AlertType.ERROR, "Ошибка", "Внимание!", "Ошибка подключения к базе данных");
+            String getTotalStatistics = String.format(GETTOTALSTATISTICS + GETTOTALSTATISTICSPARAMS,
+                    URLEncoder.encode(site, "UTF-8"));
+            JSONReparsing tsJSONReparsing = new TotalStatisticsJSONReparsing();
+            tsJSONReparsing.readJSON(DBStringURL + getTotalStatistics, totalStatisticsList);
+        } catch (UnsupportedEncodingException e) {
+            new AlertHandler(Alert.AlertType.ERROR, "Ошибка",
+                    "Внимание!", "Ошибка формирования запроса");
             //e.printStackTrace();
         }
-        // --- тест чтения и репарсинга json
         return totalStatisticsList;
     }
 
@@ -73,29 +45,20 @@ public class RequestDB {
         return pieChartData;
     }
 
-    public ObservableList getDailyStatisticsList(String DBStringURL, String site, String name, LocalDate beginDate, LocalDate endDate) {
+    public ObservableList getDailyStatisticsList(String DBStringURL,
+                                                 String site, String name, LocalDate beginDate, LocalDate endDate) {
         dailyStatisticsList = FXCollections.observableArrayList();
-        // +++ тестовые данные
-        LocalDate d = beginDate;
-        while (!d.isAfter(endDate)) {
-            dailyStatisticsList.add(new DailyStatistics(String.valueOf(d), d.getDayOfMonth() * 11 % 50));
-            d = d.plusDays(1);
-        }
-        // --- тестовые данные
-
         try {
-            ConnectionDB connectionDB = new ConnectionDB(DBStringURL);
-
-
-            connectionDB.closeConnectionDB();
-        } catch (IllegalStateException e) {
-            new AlertHandler(Alert.AlertType.ERROR, "Ошибка", "Внимание!", "Ошибка в полученных данных");
-            //e.printStackTrace();
-        } catch (Exception e) {
-            new AlertHandler(Alert.AlertType.ERROR, "Ошибка", "Внимание!", "Ошибка подключения к базе данных");
+            String getDailyStatistics = String.format(GETDAILYSTATISTICS + GETDAILYSTATISTICSPARAMS,
+                    URLEncoder.encode(name, "UTF-8"), beginDate, endDate, URLEncoder.encode(site, "UTF-8"));
+            JSONReparsing dsJSONReparsing = new DailyStatisticsJSONReparsing();
+            dsJSONReparsing.readJSON(DBStringURL + getDailyStatistics, dailyStatisticsList);
+        } catch (UnsupportedEncodingException e) {
+            new AlertHandler(Alert.AlertType.ERROR, "Ошибка",
+                    "Внимание!", "Ошибка формирования запроса");
             //e.printStackTrace();
         }
-       return dailyStatisticsList;
+        return dailyStatisticsList;
     }
 
     public int getDailyStatisticsTotal() {
@@ -117,45 +80,15 @@ public class RequestDB {
 
     public ObservableList getSites(String DBStringURL) {
         sites = FXCollections.observableArrayList();
-        // +++ тестовые данные
-        sites.add("lenta.ru");
-        sites.add("rbc.ru");
-        sites.add("rambler.ru");
-        // --- тестовые данные
-        try {
-            ConnectionDB connectionDB = new ConnectionDB(DBStringURL);
-
-
-            connectionDB.closeConnectionDB();
-        } catch (IllegalStateException e) {
-            new AlertHandler(Alert.AlertType.ERROR, "Ошибка", "Внимание!", "Ошибка в полученных данных");
-            //e.printStackTrace();
-        } catch (Exception e) {
-            new AlertHandler(Alert.AlertType.ERROR, "Ошибка", "Внимание!", "Ошибка подключения к базе данных");
-            //e.printStackTrace();
-        }
+        JSONReparsing sitesJSONReparsing = new StringJSONReparsing();
+        sitesJSONReparsing.readJSON(DBStringURL + GETSITES, sites);
         return sites;
     }
 
     public ObservableList getNames(String DBStringURL) {
         names = FXCollections.observableArrayList();
-        // +++ тестовые данные
-        names.add("Person #1");
-        names.add("Person #2");
-        names.add("Person #3");
-        // --- тестовые данные
-        try {
-            ConnectionDB connectionDB = new ConnectionDB(DBStringURL);
-
-
-            connectionDB.closeConnectionDB();
-        } catch (IllegalStateException e) {
-            new AlertHandler(Alert.AlertType.ERROR, "Ошибка", "Внимание!", "Ошибка в полученных данных");
-            //e.printStackTrace();
-        } catch (Exception e) {
-            new AlertHandler(Alert.AlertType.ERROR, "Ошибка", "Внимание!", "Ошибка подключения к базе данных");
-            //e.printStackTrace();
-        }
+        JSONReparsing namesJSONReparsing = new StringJSONReparsing();
+        namesJSONReparsing.readJSON(DBStringURL + GETPERSONS, names);
         return names;
     }
 

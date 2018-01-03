@@ -2,17 +2,12 @@ package ru.geekbrains.internship;
 
 import com.google.gson.JsonObject;
 
-public class TotalStatisticsJSONReparsing implements JSONReparsing {
+public class TotalStatisticsJSONReparsing extends JSONReparsing<TotalStatistics> {
 
     @Override
-    public Statistics readJSONObject(JsonObject jsonObject) {
-        String stringPersonID = jsonObject.get("PersonID").getAsString();
-        String stringPersonName = jsonObject.get("PersonName").getAsString();
-        String stringPersonRank = jsonObject.get("PersonRank").getAsString();
-/*
-        System.out.println("\t"+"PersonID = "+ stringPersonID + " PersonName = " + stringPersonName +
-                " PersonRank = " + stringPersonRank);
-*/
+    public TotalStatistics readJSONObject(JsonObject jsonObject) {
+        String stringPersonName = jsonObject.get("name").getAsString();
+        String stringPersonRank = jsonObject.get("rank").getAsString();
         return new TotalStatistics(stringPersonName, Integer.parseInt(stringPersonRank));
     }
 }

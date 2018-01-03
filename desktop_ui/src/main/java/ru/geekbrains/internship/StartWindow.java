@@ -13,6 +13,7 @@ public class StartWindow extends Application implements ConnectionDBConst  {
     private Stage stage;
     private RequestDB requestDB;
     private String DBStringURL;
+    private String DBStringURLAPI;
 
     public Stage getStage() {
         return stage;
@@ -38,9 +39,18 @@ public class StartWindow extends Application implements ConnectionDBConst  {
         this.DBStringURL = DBStringURL;
     }
 
+    public String getDBStringURLAPI() {
+        return DBStringURLAPI;
+    }
+
+    public void setDBStringURLAPI(String DBStringURLAPI) {
+        this.DBStringURLAPI = DBStringURLAPI;
+    }
+
     @Override
     public void start(Stage primaryStage){
         DBStringURL = DBSTRINGURL;
+        DBStringURLAPI = DBSTRINGURLAPI;
         setStage(primaryStage);
         paint(primaryStage);
 

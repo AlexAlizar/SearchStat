@@ -53,7 +53,8 @@ public class ControllerUI implements Initializable {
 
     public void pressTotalStatisticsUpdateButton() {
         if (totalStatisticsSite.getValue() != null) {
-            totalStatisticsTable.setItems(mainApp.getRequestDB().getTotalStatisticsList(mainApp.getDBStringURL(), totalStatisticsSite.getValue()));
+            totalStatisticsTable.setItems(mainApp.getRequestDB().getTotalStatisticsList(mainApp.getDBStringURLAPI(),
+                    totalStatisticsSite.getValue()));
             totalStatisticsChart.setData(mainApp.getRequestDB().getTotalStatisticsChartData());
             totalStatisticsChart.setLabelLineLength(10);
             totalStatisticsChart.setLegendSide(Side.LEFT);
@@ -72,7 +73,7 @@ public class ControllerUI implements Initializable {
                     if (endDate != null) {
                         if (endDate.compareTo(beginDate) >= 0) {
                             dailyStatisticsTable.setItems(
-                                    mainApp.getRequestDB().getDailyStatisticsList(mainApp.getDBStringURL(),
+                                    mainApp.getRequestDB().getDailyStatisticsList(mainApp.getDBStringURLAPI(),
                                             dailyStatisticsSite.getValue(), dailyStatisticsName.getValue(),
                                             beginDate, endDate));
                             dailyStatisticsTotalQuantity.setText(Integer.toString(mainApp.getRequestDB().getDailyStatisticsTotal()));

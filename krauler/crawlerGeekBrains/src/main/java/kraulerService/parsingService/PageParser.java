@@ -109,7 +109,7 @@ public class PageParser {
      * @param uriSiteMapXml
      * @return Список ссылок из входного sitemap
      */
-    public static List<String> parseSiteMap(String uriSiteMapXml) {
+    public static List<String> parseSiteMap(String uriSiteMapXml, int linkscount) {
         List<String> links = new LinkedList<String>();
         try {
             DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
@@ -117,11 +117,14 @@ public class PageParser {
             Node root = document.getDocumentElement();                    // Получаем корневой элемент xml документа
             NodeList nodeList = root.getChildNodes();                     // Получаем список дочерних элиментов
             for (int i = 0; i < nodeList.getLength(); i++) {              //
+                if (links.size()>linkscount && linkscount !=0) break;     //прерываем цикл чтобы не было долгого перебора
                 Node node = nodeList.item(i);                             //
                 NodeList nodeList1 = node.getChildNodes();                //
                 for (int j = 0; j < nodeList1.getLength(); j++) {
+                    if (links.size()>linkscount && linkscount !=0) break; //прерываем цикл чтобы не было долгого перебора
                     if (nodeList1.item(j).getNodeName().equals("loc")) {  // ищем узлы "loc" и заносим значиения из этих узлов в результирующий список
-                        links.addAll(parseUrlSet(nodeList1.item(j).getTextContent()));
+                        links.addAll(parseUrlSet(nodeList1.item(j).getTextContent(), linkscount));
+
 //                        System.out.println();
                     }
                 }
@@ -142,13 +145,26 @@ public class PageParser {
      * @param urlset
      * @return списо ссылок на страницы
      */
-    public static List<String> parseUrlSet (String urlset) {
+    public static List<String> parseUrlSet (String urlset, int linkscount) {
         if (isXml(urlset)) {              // если файл имеет формат xml
-            return parseSiteMap(urlset);
-        } else {                          // парсим как обычный текст
-            return getStringsByUrl(urlset);
+            return parseSiteMap(urlset, linkscount);
+        }
+        else {
+            //проверяем возможно это архив
+            String[] fileNameArr = urlset.toLowerCase().split("[.]");
+            if (fileNameArr[fileNameArr.length - 1].equals("gz")) {
+                File file = getFileByUrl(urlset, "d:\\");
+                String filename = "d:\\" + file.getName();
+                return parseSiteMap(filename, linkscount);
+            }
+            else {
+                List<String> result = new ArrayList<String>();
+                result.add(urlset);
+                return result;
+            }
         }
     }
+
 
     /**
      * Поиск целевых строк в странице и подсчёт их количества

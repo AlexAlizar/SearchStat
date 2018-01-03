@@ -28,11 +28,11 @@ public class Krauler {
         this.dbService = new DBService(sessionFactory);
     }
 
-    public void Work() {
+    public void Work(int linkscount) {
 
         addPagesWithoutScan();
 
-        List<Page> pagesWithoutScan = dbService.gettNonScannedPages();
+        List<Page> pagesWithoutScan = dbService.getNonScannedPages();
 
         for(Page page: pagesWithoutScan) {
             String url = page.getUrl();
@@ -43,7 +43,7 @@ public class Krauler {
             }
             else if(url.contains("sitemap"))
             {
-                addLinksToPagesFromSitemap(url, page);
+                addLinksToPagesFromSitemap(url, page, linkscount);
             }
             else
             {
@@ -58,7 +58,7 @@ public class Krauler {
         List<Site> sitesWithoutPages = dbService.gettAllSiteWithoutPage();
         Date todayDate = new Date();
         for (Site site: sitesWithoutPages) {
-            dbService.addPage("http://"+site.getName()+"/robots.txt", site, todayDate, null);
+            dbService.addPage(site.getName()+"/robots.txt", site, todayDate, null);
         }
     }
 
@@ -69,8 +69,8 @@ public class Krauler {
         }
     }
 
-    private void addLinksToPagesFromSitemap(String url, Page page) {
-        List<String> foundedLinksOfSite = PageParser.parseSiteMap(url);
+    private void addLinksToPagesFromSitemap(String url, Page page, int linkscount) {
+        List<String> foundedLinksOfSite = PageParser.parseUrlSet(url, linkscount);
         for(String link: foundedLinksOfSite) {
             dbService.addPage(link, page.getSite(), page.getFoundDateTime(), null);
         }

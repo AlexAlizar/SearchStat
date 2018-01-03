@@ -244,7 +244,7 @@ public class DBService {
         }
     }
 
-    public List<Page> gettNonScannedPages() {
+    public List<Page> getNonScannedPages() {
         List<Page> pages = null;
         try {
             openSessionAndTransation();

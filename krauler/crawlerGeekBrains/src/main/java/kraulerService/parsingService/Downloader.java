@@ -45,6 +45,7 @@ public class Downloader {
             URL site = new URL(url);
             reader = new BufferedReader(new InputStreamReader(site.openStream()));
             String line;
+
             while ((line = reader.readLine()) != null) {
                 result.append(line);
                 result.append(" ");

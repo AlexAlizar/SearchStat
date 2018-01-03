@@ -20,7 +20,7 @@ public class PersonPageRankDAO {
 
     public int insertRank(Person person, Page page, int rank) {
     //    return (Integer) session.save(new PersonPageRank(person, page, rank));
-        SQLQuery query = session.createSQLQuery("INSERT into PersonPageRank VALUES ("+rank+" , "+page.getId()+", "+person.getId()+")");
+        SQLQuery query = session.createSQLQuery("INSERT into PersonPageRank VALUES ("+person.getId()+" , "+page.getId()+", "+rank+")");
         return query.executeUpdate();
 
     }

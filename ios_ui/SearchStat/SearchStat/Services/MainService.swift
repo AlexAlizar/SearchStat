@@ -125,7 +125,7 @@ class MainService {
             
             dayStatsArray.append(DayStats(day: tempDate!, total: 1 + i * 100))
 
-            print(dayStatsArray)
+//            print(dayStatsArray)
         }
         return dayStatsArray
     }
@@ -136,7 +136,7 @@ class MainService {
         let hour = 0
         let minute = 0
         
-        let today = Date(timeIntervalSince1970: 1512087784)
+        let today = Date(timeIntervalSince1970: 1514709054)
         let gregorian  = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)
         var offsetComponents = DateComponents()
         offsetComponents.day = Int(day - 1)

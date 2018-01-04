@@ -40,7 +40,8 @@ class DetailStatisticViewController: UIViewController, UITableViewDelegate, UITa
         }
     }
     
-    var observer: NSObjectProtocol?
+    var observerDate: NSObjectProtocol?
+    var observerPeriod: NSObjectProtocol?
     
     //Outlets
     @IBOutlet weak var nameSourceLabel: UILabel!
@@ -57,7 +58,7 @@ class DetailStatisticViewController: UIViewController, UITableViewDelegate, UITa
     
 
     @IBAction func calendarDetailTapped(_ sender: UIButton) {
-        
+        // Надо ли оно здесь?
     }
     
     override func viewDidLoad() {
@@ -70,24 +71,28 @@ class DetailStatisticViewController: UIViewController, UITableViewDelegate, UITa
         super.viewDidAppear(animated)
         
         //MARK: Здесь дата
-       observer = NotificationCenter.default.addObserver(forName: .sendDate , object: nil, queue: OperationQueue.main) { (notification) in
+       observerDate = NotificationCenter.default.addObserver(forName: .sendDate , object: nil, queue: OperationQueue.main) { (notification) in
             let detailVC = notification.object as! CalendarVC
             self.currentDate = detailVC.selectedDay
         }
         
         //MARK: Здесь массив с датами за период
-        NotificationCenter.default.addObserver(forName: .sendPeriod , object: nil, queue: OperationQueue.main) { (notification) in
+       observerPeriod = NotificationCenter.default.addObserver(forName: .sendPeriod , object: nil, queue: OperationQueue.main) { (notification) in
             let detailVC = notification.object as! CalendarVC
             self.periodDates = detailVC.selectedPeriod
             print(self.periodDates)
         }
     }
     
-    //MARK: Удаляем обзервер
+    //MARK: Удаляем обзерверы
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
-        if let observer = observer {
+        if let observer = observerDate {
+            NotificationCenter.default.removeObserver(observer)
+        }
+        
+        if let observer = observerPeriod {
             NotificationCenter.default.removeObserver(observer)
         }
     }

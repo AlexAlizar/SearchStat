@@ -1,5 +1,7 @@
 from django import forms
 from .models import ModelSite, ModelPerson, ModelKeyword
+from django.contrib.auth.models import User
+from authapp.forms import EditForm
 
 
 class SitesManageForm(forms.ModelForm):
@@ -43,3 +45,8 @@ class KeywordsAddForm(forms.Form):
 
     keywords_add = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'keyword1, keyword2, etc.'}),
                                    required=False)
+
+class UserAdminEditForm(EditForm):
+    class Meta:
+        model = User
+        fields = '__all__'

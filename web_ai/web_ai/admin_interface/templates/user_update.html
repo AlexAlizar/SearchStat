@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+
+
+{% block content %}
+    <form class="form-horizontal" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ update_form.as_p }}
+        <input class="form-control" type="submit" value="сохранить">
+    </form>
+    
+{% endblock %}

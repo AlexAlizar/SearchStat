@@ -77,12 +77,8 @@ WSGI_APPLICATION = 'web_ai.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'HOST': 'localhost',
-        'OPTIONS': {
-            'read_default_file': '/etc/mysql/my.cnf',
-            'init_command': 'SET default_storage_engine=INNODB',
-        }
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 

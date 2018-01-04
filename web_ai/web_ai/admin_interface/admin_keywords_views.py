@@ -34,8 +34,7 @@ def person_keywords_edit(request):
         formset = KeywordsInlineFormset(request.POST, instance=person)
         if formset.is_valid():
             formset.save()
-            form = KeywordsForm()
-            return HttpResponseRedirect(reverse('keywords_view', args=[form]))
+            return HttpResponseRedirect('/ai/keywords')
     else:
         formset = KeywordsInlineFormset(instance=person)
     return render(request, 'admin_interface/person_keywords_edit.html', {'formset': formset, 'person': person})

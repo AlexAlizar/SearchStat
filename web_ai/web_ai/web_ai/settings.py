@@ -56,7 +56,7 @@ ROOT_URLCONF = 'web_ai.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['templates', 'admin_interface/templates/admin_interface', 'authapp/templates/authapp'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -78,13 +78,14 @@ WSGI_APPLICATION = 'web_ai.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'HOST': '195.110.59.16',
-        'PORT': '3306',
-        'NAME': 'searchstat_django_testdrive',
-        'USER': 'django_unchained',
-        'PASSWORD': 'testpass',
+        'HOST':  'localhost',
+        # 'HOST': '195.110.59.16',
+        # 'PORT': '3306',
+        # 'NAME': 'searchstat_django_testdrive',
+        # 'USER': 'django_unchained',
+        # 'PASSWORD': 'testpass',
         'OPTIONS': {
-            # 'read_default_file': '/etc/mysql/my.cnf',
+            'read_default_file': '/etc/mysql/my.cnf',
             'init_command': 'SET default_storage_engine=INNODB',
         }
     }
@@ -127,7 +128,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
+
 STATIC_URL = '/static/'
+
 
 
 # 3rd party apps

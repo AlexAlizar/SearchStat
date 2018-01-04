@@ -35,7 +35,6 @@ class RegisterForm(UserCreationForm):
             return self.cleaned_data['username']
         raise forms.ValidationError("Имя пользователя уже существует.")
  
-    
 
 class EditForm(UserChangeForm):
     class Meta:

@@ -4,41 +4,45 @@ from authapp.forms import RegisterForm, LoginForm, EditForm
 from django.contrib import auth
 from django.urls import reverse
 
+
 def login(request):
-  title = 'Вход'
+    title = 'Вход'
 
-  login_form = LoginForm(data=request.POST)
+    login_form = LoginForm(data=request.POST)
 
-  if request.method == 'POST' and login_form.is_valid():
-    username = request.POST['username']
-    password = request.POST['password']
-    user = auth.authenticate(username=username, password=password)
-    if user and user.is_active:
-      auth.login(request, user)
-      return HttpResponseRedirect('/')
+    if request.method == 'POST' and login_form.is_valid():
+        username = request.POST['username']
+        password = request.POST['password']
+        user = auth.authenticate(username=username, password=password)
+        if user and user.is_active:
+            auth.login(request, user)
+            return HttpResponseRedirect('/')
 
-  content = {'title': title, 'login_form': login_form}
+    content = {'title': title, 'login_form': login_form}
 
-  return render(request, 'authapp/login.html', content)
+    return render(request, 'authapp/login.html', content)
+
 
 def logout(request):
-  auth.logout(request)
-  return HttpResponseRedirect('/')
+    auth.logout(request)
+    return HttpResponseRedirect('/')
+
 
 def register(request):
-  title = 'Регистрация'
-  if request.method == 'POST':
-      register_form = RegisterForm(request.POST, request.FILES)
+    title = 'Регистрация'
+    if request.method == 'POST':
+        register_form = RegisterForm(request.POST, request.FILES)
 
-      if register_form.is_valid():
-          register_form.save()
-          return HttpResponseRedirect(reverse('auth:login'))
-  else:
-      register_form = RegisterForm()
+        if register_form.is_valid():
+            register_form.save()
+            return HttpResponseRedirect(reverse('auth:login'))
+    else:
+        register_form = RegisterForm()
 
-  content = {'title': title, 'register_form': register_form}
+    content = {'title': title, 'register_form': register_form}
 
-  return render(request, 'authapp/register.html', content)
+    return render(request, 'authapp/register.html', content)
+
 
 def edit(request):
     title = 'Редактирование'

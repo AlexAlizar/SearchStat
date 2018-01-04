@@ -12,7 +12,7 @@ def count_persons(max_num):
 
 def persons_view(request):
     persons = ModelPerson.objects.all()
-    return render(request, 'persons_view.html', {'persons': persons})
+    return render(request, 'admin_interface/persons_view.html', {'persons': persons})
 
 
 def persons_edit(request):
@@ -30,6 +30,6 @@ def persons_edit(request):
             return redirect('/ai/persons')
     else:
         formset = PersonsModelFormset()
-    return render(request, 'persons_edit.html', {'formset': formset, 'persons': persons})
+    return render(request, 'admin_interface/persons_edit.html', {'formset': formset, 'persons': persons})
 
 

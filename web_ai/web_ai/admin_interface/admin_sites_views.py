@@ -14,10 +14,10 @@ def count_sites(max_num):
 def sites_view(request):
     sites = ModelSite.objects.all()
     if sites:
-        return render_to_response('sites_view.html', {'sites': sites})
+        return render_to_response('admin_interface/sites_view.html', {'sites': sites})
     else:
         message = 'Nothing to display'
-        return render_to_response('sites_view.html', {'message': message})
+        return render_to_response('admin_interface/sites_view.html', {'message': message})
 
 
 def sites_edit(request):
@@ -36,7 +36,7 @@ def sites_edit(request):
             return redirect('/ai/sites')
         else:
             formset = SitesModelFormset(request.POST)
-            return render(request, 'sites_edit.html', {'formset': formset})
+            return render(request, 'admin_interface/sites_edit.html', {'formset': formset})
     else:
         formset = SitesModelFormset()
-        return render(request, 'sites_edit.html', {'sites': sites, 'formset': formset})
+        return render(request, 'admin_interface/sites_edit.html', {'sites': sites, 'formset': formset})

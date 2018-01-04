@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponseRedirect
+from django.shortcuts import render, HttpResponseRedirect, reverse
 from .forms import KeywordsForm
 from .models import ModelKeyword, ModelPerson
 from django.forms import inlineformset_factory
@@ -16,9 +16,9 @@ def keywords_view(request):
         person = ModelPerson.objects.get(id=request.POST['dropdown'])
         request.session['person'] = person.name
         return render(request,
-                      'keywords_view.html',
+                      'admin_interface/keywords_view.html',
                       {"form": form, 'keywords': keywords, 'person': person.name})
-    return render(request, 'keywords_view.html', {"form": form})
+    return render(request, 'admin_interface/keywords_view.html', {"form": form})
 
 
 def person_keywords_edit(request):
@@ -34,9 +34,10 @@ def person_keywords_edit(request):
         formset = KeywordsInlineFormset(request.POST, instance=person)
         if formset.is_valid():
             formset.save()
-            return HttpResponseRedirect('/ai/keywords')
+            form = KeywordsForm()
+            return HttpResponseRedirect(reverse('keywords_view', args=[form]))
     else:
         formset = KeywordsInlineFormset(instance=person)
-    return render(request, 'person_keywords_edit.html', {'formset': formset, 'person': person})
+    return render(request, 'admin_interface/person_keywords_edit.html', {'formset': formset, 'person': person})
 
 

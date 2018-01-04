@@ -22,12 +22,11 @@ urlpatterns = [
     path('keywords/edit', person_keywords_edit, name='person_keywords_edit'),
     path('keywords/', keywords_view, name='keywords_view'),
 
+    # user_manage_views
     path('users/', users, name='users'),
     path('users/create/', user_create, name='user_create'),
- 
-
-    path(r'^users/update/(?P<pk>\d+)/$', user_update, name='user_update'),
-    path(r'^users/delete/(?P<pk>\d+)/$', user_delete, name='user_delete'),
+    path('users/update/<int:pk>', user_update, name='user_update'),
+    path('users/delete/<int:pk>', user_delete, name='user_delete'),
 
 
 ]

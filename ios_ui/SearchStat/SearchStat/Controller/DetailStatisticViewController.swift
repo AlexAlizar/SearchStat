@@ -33,7 +33,7 @@ class DetailStatisticViewController: UIViewController, UITableViewDelegate, UITa
             if periodDates.count > 1 {
                 self.periodActivated = true
                 let startDate = self.formatter.string(from: periodDates[0])
-                let endDate = self.formatter.string(from: periodDates[1])
+                let endDate = self.formatter.string(from: periodDates.last!)
                 self.calendarButton.setTitle("\(startDate) - \(endDate)", for: .normal)
                 self.detailTableView.reloadData()
             }

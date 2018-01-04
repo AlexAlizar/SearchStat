@@ -1,8 +1,8 @@
 from django.urls import path
 from .views import admin_interface
 from .admin_sites_views import sites_view, sites_edit
-from .admin_persons_views import persons_view, person_keyword_edit, persons_edit
-from .admin_keywords_views import keywords_view, keywords_add, keywords_delete
+from .admin_persons_views import persons_view, persons_edit
+from .admin_keywords_views import keywords_view, person_keywords_edit
 
 app_name = 'admin_interface'
 
@@ -15,12 +15,11 @@ urlpatterns = [
 
     # persons_manage_views
     path('persons/', persons_view, name='persons_view'),
-    path('persons/<int:pk>', person_keyword_edit, name='person_keyword_edit'),
     path('persons/edit', persons_edit, name='persons_edit'),
 
     # keywords_manage_views
+    path('keywords/edit', person_keywords_edit, name='person_keywords_edit'),
     path('keywords/', keywords_view, name='keywords_view'),
-    path('keywords/add', keywords_add, name='keywords_add'),
-    path('keywords/delete', keywords_delete, name='keywords_delete'),
+
 
 ]

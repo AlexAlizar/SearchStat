@@ -14,7 +14,7 @@ class DetailStatisticViewController: UIViewController, UITableViewDelegate, UITa
     
     fileprivate let formatter: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.dateFormat = "dd MMMM yyyy"
+        formatter.dateFormat = "dd.MM.yyyy"
         return formatter
     }()
     
@@ -25,6 +25,7 @@ class DetailStatisticViewController: UIViewController, UITableViewDelegate, UITa
             self.detailTableView.reloadData()
         }
     }
+    
     var personsArray = [Person]()
     var periodActivated = false
     var periodDates = [Date]() {
@@ -38,6 +39,7 @@ class DetailStatisticViewController: UIViewController, UITableViewDelegate, UITa
             }
         }
     }
+    
     var observer: NSObjectProtocol?
     
     //Outlets
@@ -77,6 +79,7 @@ class DetailStatisticViewController: UIViewController, UITableViewDelegate, UITa
         NotificationCenter.default.addObserver(forName: .sendPeriod , object: nil, queue: OperationQueue.main) { (notification) in
             let detailVC = notification.object as! CalendarVC
             self.periodDates = detailVC.selectedPeriod
+            print(self.periodDates)
         }
     }
     
@@ -116,8 +119,6 @@ class DetailStatisticViewController: UIViewController, UITableViewDelegate, UITa
         } else {
             cell.setupDetailCell(person: personsArray[indexPath.row], forDate: currentDate)
         }
-        
-
         return cell
     }
 }

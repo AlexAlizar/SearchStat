@@ -63,14 +63,6 @@ class CalendarVC: UIViewController,FSCalendarDelegate, FSCalendarDataSource {
     //MARK: Выбираем период и отправляем его на DetailStatisticVC
     func setPeriod(date: Date) {
         
-        //MARK: Считаем касания
-        tapCounter = tapCounter + 1
-        if tapCounter == 2 {
-            NotificationCenter.default.post(name: .sendPeriod, object: self)
-            dismiss(animated: true, completion: nil)
-            
-        }
-        
         var firstDay = calendar.selectedDates.first
         var lastDay = calendar.selectedDates.last
         
@@ -82,8 +74,13 @@ class CalendarVC: UIViewController,FSCalendarDelegate, FSCalendarDataSource {
             changeValuesOfVariables(&firstDay!, &lastDay!)
         }
         
-        selectedPeriod = generateDatesArrayBetweenTwoDates(startDate: firstDay!, endDate: lastDay!)
-        print(selectedPeriod)
+        //MARK: Считаем касания
+        tapCounter = tapCounter + 1
+        if tapCounter == 2 {
+            selectedPeriod = generateDatesArrayBetweenTwoDates(startDate: firstDay!, endDate: lastDay!)
+            NotificationCenter.default.post(name: .sendPeriod, object: self)
+            dismiss(animated: true, completion: nil)            
+        }
     }
     
     //MARK: Генерим массив дат

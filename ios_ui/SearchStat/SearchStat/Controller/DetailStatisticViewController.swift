@@ -18,9 +18,26 @@ class DetailStatisticViewController: UIViewController, UITableViewDelegate, UITa
         return formatter
     }()
     
-    var currentDate = Date()
+    var currentDate = Date() {
+        didSet {
+            self.periodActivated = false
+            self.calendarButton.setTitle(self.formatter.string(from: currentDate), for: .normal)
+            self.detailTableView.reloadData()
+        }
+    }
     var personsArray = [Person]()
-    var periodDates = [Date]()
+    var periodActivated = false
+    var periodDates = [Date]() {
+        didSet {
+            if periodDates.count > 1 {
+                self.periodActivated = true
+                let startDate = self.formatter.string(from: periodDates[0])
+                let endDate = self.formatter.string(from: periodDates[1])
+                self.calendarButton.setTitle("\(startDate) - \(endDate)", for: .normal)
+                self.detailTableView.reloadData()
+            }
+        }
+    }
     var observer: NSObjectProtocol?
     
     //Outlets
@@ -34,8 +51,6 @@ class DetailStatisticViewController: UIViewController, UITableViewDelegate, UITa
         } else {
             currentDate += unixDay
         }
-        calendarButton.setTitle(self.formatter.string(from: currentDate), for: .normal)
-        self.detailTableView.reloadData()
     }
     
 
@@ -56,8 +71,6 @@ class DetailStatisticViewController: UIViewController, UITableViewDelegate, UITa
        observer = NotificationCenter.default.addObserver(forName: .sendDate , object: nil, queue: OperationQueue.main) { (notification) in
             let detailVC = notification.object as! CalendarVC
             self.currentDate = detailVC.selectedDay
-            self.calendarButton.setTitle(self.formatter.string(from:self.currentDate ), for: .normal)
-            self.detailTableView.reloadData()
         }
         
         //MARK: Здесь массив с датами за период

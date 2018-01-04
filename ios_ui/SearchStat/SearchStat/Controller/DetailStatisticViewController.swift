@@ -109,7 +109,14 @@ class DetailStatisticViewController: UIViewController, UITableViewDelegate, UITa
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "detailcell", for: indexPath)  as! DetailStatisticCell
-        cell.setupDetailCell(person: personsArray[indexPath.row], forDate: currentDate)
+        
+        //MARK: Single date OR Period
+        if periodActivated {
+            cell.setupDetailCellWith(period: periodDates, person: personsArray[indexPath.row])
+        } else {
+            cell.setupDetailCell(person: personsArray[indexPath.row], forDate: currentDate)
+        }
+        
 
         return cell
     }

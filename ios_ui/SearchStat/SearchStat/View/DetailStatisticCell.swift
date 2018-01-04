@@ -36,4 +36,20 @@ class DetailStatisticCell: UITableViewCell {
         }
     }
     
+    func setupDetailCellWith(period periodArray: [Date], person: Person) {
+        nameLabel.text = person.name
+        if let stats = person.filteredPeriodStats(startDate: periodArray[0], endDate: periodArray[1]) {
+            
+        } else {
+            dayStatlabel.text = "PeriodDataNotFound"
+        }
+
+        
+//        if let stats = person.filteredStats(filteredDate: date) {
+//            dayStatlabel.text = String(stats.total)
+//        } else {
+//            dayStatlabel.text = "NoDataForSelectedDate"
+//        }
+    }
+    
 }

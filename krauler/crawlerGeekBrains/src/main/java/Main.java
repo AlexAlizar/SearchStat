@@ -1,23 +1,26 @@
 import kraulerService.Krauler;
-import dbService.DBService;
-import dbService.HibernateUtil;
-import kraulerService.Krauler;
-import kraulerService.parsingService.PageParser;
 
 public class Main {
     public static void main(String[] args) {
         System.out.println("Start program\n");
 
-        /*   РАБОТА КЛАССА Krauler */
+        /*//////// ДЛЯ УПРОЩЕНИЯ ВСТАВКИ В БД РАБОТА С DBService ////////////*/
+//        DBService dbService = new DBService(HibernateUtil.getSessionFactory());
 
-       //   DBService dbService = new DBService(HibernateUtil.getSessionFactory());
 
-        //for (String link : PageParser.parseSiteMap("http://alloyer.000webhostapp.com/sitemap.xml")) {
-        //    System.out.println(link);
-        //}
 
-        Krauler krauler = new Krauler();
-        krauler.Work(5);
+
+        /*/////////   РАБОТА КЛАССА Krauler //////////////*/
+
+      Krauler krauler = new Krauler();
+      krauler.Work();
+
+        /*////////    КОНЕЦ РАБОТЫ Krauler //////////////*/
+
+
+
+
+
 
         /*   Тестирую работу с архивами   */
 

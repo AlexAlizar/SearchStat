@@ -1,19 +1,19 @@
 from django.shortcuts import render, HttpResponseRedirect, reverse
 from .forms import KeywordsForm
-from .models import ModelKeyword, ModelPerson
+from .models import Keywords, Persons
 from django.forms import inlineformset_factory
 
 
 def count_keywords(max_num, person_pk):
-    max_num -= len(ModelKeyword.objects.filter(person_id=person_pk))
+    max_num -= len(Keywords.objects.filter(person_id=person_pk))
     return max_num
 
 
 def keywords_view(request):
     form = KeywordsForm()
     if 'view' in request.POST:
-        keywords = ModelKeyword.objects.filter(person__id__icontains=request.POST['dropdown'])
-        person = ModelPerson.objects.get(id=request.POST['dropdown'])
+        keywords = Keywords.objects.filter(person_id=request.POST['dropdown'])
+        person = Persons.objects.get(id=request.POST['dropdown'])
         request.session['person'] = person.name
         return render(request,
                       'admin_interface/keywords_view.html',
@@ -22,12 +22,13 @@ def keywords_view(request):
 
 
 def person_keywords_edit(request):
-    person = ModelPerson.objects.get(name__iexact=request.session['person'])
+    person = Persons.objects.get(name__iexact=request.session['person'])
+    print(person.name)
     max_num = 6
     extra_fields = count_keywords(max_num, person.pk)
-    KeywordsInlineFormset = inlineformset_factory(ModelPerson,
-                                                  ModelKeyword,
-                                                  fields=('keyword',),
+    KeywordsInlineFormset = inlineformset_factory(Persons,
+                                                  Keywords,
+                                                  fields=('name',),
                                                   extra=extra_fields,
                                                   )
     if request.method == 'POST':

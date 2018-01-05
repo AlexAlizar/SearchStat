@@ -2,17 +2,17 @@ from django.core.validators import URLValidator
 from django.core.exceptions import ValidationError
 from django.shortcuts import render, render_to_response, redirect
 from django.forms import modelformset_factory
-from .models import ModelSite
+from .models import Sites
 from .forms import SitesManageForm
 
 
 def count_sites(max_num):
-    max_num -= len(ModelSite.objects.all())
+    max_num -= len(Sites.objects.all())
     return max_num
 
 
 def sites_view(request):
-    sites = ModelSite.objects.all()
+    sites = Sites.objects.all()
     if sites:
         return render_to_response('admin_interface/sites_view.html', {'sites': sites})
     else:
@@ -21,13 +21,15 @@ def sites_view(request):
 
 
 def sites_edit(request):
-    sites = ModelSite.objects.all()
+    sites = Sites.objects.all()
     max_num = 3
     extra_fields = count_sites(max_num)
-    SitesModelFormset = modelformset_factory(ModelSite,
+    SitesModelFormset = modelformset_factory(Sites,
                                              SitesManageForm,
                                              can_delete=True,
                                              extra=extra_fields,
+                                             validate_min=1,
+                                             min_num=1
                                              )
     if request.method == 'POST':
         formset = SitesModelFormset(request.POST)

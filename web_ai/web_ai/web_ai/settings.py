@@ -25,7 +25,7 @@ SECRET_KEY = '^k#7vp#(5fyne7jdlmya+m+i)g=p(!cd56u27vhgp(a&4e&z2@'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.2', '127.0.0.1',]
+ALLOWED_HOSTS = ['127.0.0.2', '127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -78,14 +78,14 @@ WSGI_APPLICATION = 'web_ai.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'HOST':  'localhost',
-        # 'HOST': '195.110.59.16',
-        # 'PORT': '3306',
-        # 'NAME': 'searchstat_django_testdrive',
-        # 'USER': 'django_unchained',
-        # 'PASSWORD': 'testpass',
+        # 'HOST':  'localhost',
+        'HOST': '195.110.59.16',
+        'PORT': '3306',
+        'NAME': 'searchstat_django_testdrive',
+        'USER': 'django_unchained',
+        'PASSWORD': 'testpass',
         'OPTIONS': {
-            'read_default_file': '/etc/mysql/my.cnf',
+            # 'read_default_file': '/etc/mysql/my.cnf',
             'init_command': 'SET default_storage_engine=INNODB',
         }
     }

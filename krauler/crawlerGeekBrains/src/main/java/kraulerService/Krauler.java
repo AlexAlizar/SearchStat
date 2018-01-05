@@ -32,11 +32,25 @@ public class Krauler {
 
         addSitePagesWithoutScan();
 
-        addSiteMapPageFromRobots(dbService.getNonScannedPages());
+        List<Page> pages;
 
-        addPageLinksFromSitemap(dbService.getNonScannedPages());
+        pages = dbService.getNonScannedPages();
+        int count = pages.size();
+        while (count > 0) {
+            for(Page page: pages) {
+                String url = page.getUrl();
+                if (url.contains("robots.txt")) {
+                    addSiteMapPageFromRobots(page);
+                }
+                else if (url.contains("sitemap")) {
+                    addPageLinksFromSitemap(page);
+                }
+                else addRanksForPersons(page);
+            }
+            pages = dbService.getNonScannedPages();
+            count = pages.size();
+        }
 
-        addRanksForPersons(dbService.getNonScannedPages());
 
         sessionFactory.close();
     }
@@ -49,74 +63,58 @@ public class Krauler {
         List<Site> sitesWithoutPages = dbService.gettAllSiteWithoutPage();
         Date todayDate = new Date();
         for (Site site: sitesWithoutPages) {
-            dbService.addPage("http://" + site.getName()+"/robots.txt", site, todayDate, null);
+            dbService.addPage(site.getName()+"/robots.txt", site, todayDate, null);
         }
     }
 
     /**
-     * метод, который для каждой строки вида <имя сайта/robots.txt> в таблице Pages
+     * метод,
      * добавляет в таблицу Pages ссылки на найденные в robots.txt sitemap-ы
-     * @param pages
+     * @param page
      */
-    private void addSiteMapPageFromRobots(List<Page> pages) {
-        for(Page page: pages) {
-            String url = page.getUrl();
-            dbService.updatePageDate(page);
-            if(url.contains("robots.txt"))
-            {
-                List<String> foundedSitemapLinks = PageParser.searchSiteMap(Downloader.download(url));
-                for (String link: foundedSitemapLinks) {
-                    dbService.addPage(link, page.getSite(), page.getFoundDateTime(), null);
-                }
-            }
+    private void addSiteMapPageFromRobots(Page page) {
+        List<String> foundedSitemapLinks = PageParser.searchSiteMap(Downloader.download(page.getUrl()));
+        dbService.updatePageDate(page);
+        for (String link : foundedSitemapLinks) {
+            dbService.addPage(link, page.getSite(), page.getFoundDateTime(), null);
         }
     }
+
 
     /**
      * метод, который добавляет в Pages все найденные ссылки на web-страницы из sitemap-ов
-     * @param pages
+     * @param page
      */
-    private void addPageLinksFromSitemap(List<Page> pages) {
-        for(Page page: pages) {
-            String url = page.getUrl();
-            dbService.updatePageDate(page);
-            if(url.contains("sitemap"))
-            {
-                List<String> allLinksFromSitemap = PageParser.getLinkPagesFromSiteMap(url);
-                for(String link: allLinksFromSitemap) {
-                    dbService.addPage(link, page.getSite(), page.getFoundDateTime(), null);
-                }
-            }
+    private void addPageLinksFromSitemap(Page page) {
+        List<String> allLinksFromSitemap = PageParser.getLinkPagesFromSiteMap(page.getUrl());
+        dbService.updatePageDate(page);
+        for (String link : allLinksFromSitemap) {
+            dbService.addPage(link, page.getSite(), page.getFoundDateTime(), null);
         }
     }
 
     /**
-     * метод, который считает Rank для каждой персоны считает количесвто упоминаний на каждой странице из передаваемого pages
-     * @param pages
+     * метод, который считает Rank для каждой персоны считает количесвто упоминаний на переданной странице
+     * @param page
      */
-    private void addRanksForPersons(List<Page> pages) {
+    private void addRanksForPersons(Page page) {
         List<Person> persons = dbService.getAllPerson();
 
-        for(Page page: pages)
-        {
-            String url = page.getUrl();
-            dbService.updatePageDate(page);
-            for (Person person: persons) {
-                int rank = 0;
-                List<Keyword> keywordList = dbService.getKeywordByPerson(person);
-                String HTMLString = Downloader.download(url);
-                for(int i = 0; i < keywordList.size(); i++)
-                {
-                    String keyword = keywordList.get(i).getName();
-                    rank+=PageParser.parsePage(HTMLString, keyword);
-                }
-                dbService.writeRank(
-                        person,
-                        page,
-                        rank
-                );
+        for (Person person : persons) {
+            int rank = 0;
+            List<Keyword> keywordList = dbService.getKeywordByPerson(person);
+            String HTMLString = Downloader.download(page.getUrl());
+            for (int i = 0; i < keywordList.size(); i++) {
+                String keyword = keywordList.get(i).getName();
+                rank += PageParser.parsePage(HTMLString, keyword);
             }
+            dbService.writeRank(
+                    person,
+                    page,
+                    rank
+            );
         }
+        dbService.updatePageDate(page);
     }
 
 }

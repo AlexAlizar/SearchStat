@@ -132,15 +132,17 @@ public class PageParser {
         // debug // Проверка правельности пути
 //        System.out.println("str 127 --- " + sitemapFile.getPath());
 
-        if (indexOrUrlset(sitemapFile.getPath()) == 1) {
+        Integer mode = indexOrUrlset(sitemapFile.getPath());
+
+        if (mode == 1) {
 
             // search site map
 
             List<String> sitemapList;
 
-            File sitemapXml = getFileByUrl(sitemap);
+           // File sitemapXml = getFileByUrl(sitemap);
 
-            sitemapList = searchSiteMapInXmlString(sitemapXml.getPath());
+            sitemapList = searchSiteMapInXmlString(sitemapFile.getPath());
 
             for (String s : sitemapList) {
                 System.out.println("str 143 --- " + s);
@@ -151,7 +153,7 @@ public class PageParser {
 
             //sitemapFile.delete();
 
-        } else if (indexOrUrlset(sitemapFile.getPath()) == 2) {
+        } else if (mode == 2) {
 
             // search link pages in xml
 
@@ -177,6 +179,11 @@ public class PageParser {
      * @return Список ссылок из входного sitemap
      */
     public static List<String> searchLinkPagesInXml(String xml) {
+
+        if (!xml.contains("\\")) {
+            xml = WORK_FOLDER_PATH + "/" + xml;
+        }
+
         List<String> links = new LinkedList<String>();
         try {
             DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
@@ -218,6 +225,11 @@ public class PageParser {
      * @return Список ссылок из входного sitemap
      */
     public static List<String> searchSiteMapInXmlString(String xml) {
+
+        if (!xml.contains("\\")) {
+            xml = WORK_FOLDER_PATH + "/" + xml;
+        }
+
         List<String> links = new LinkedList<String>();
         try {
             DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
@@ -285,7 +297,13 @@ public class PageParser {
      * @return Список ссылок из входного sitemap
      */
     private static int indexOrUrlset(String xml) {
-        File file = new File(WORK_FOLDER_PATH + "/" + xml);
+        File file;
+        if (!xml.contains("\\")) {
+            file = new File(WORK_FOLDER_PATH + "/" + xml);
+        }
+        else {
+            file = new File(xml);
+        }
 
         if (isXml(file)) {
             try {

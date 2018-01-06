@@ -282,6 +282,60 @@
             </objects>
             <point key="canvasLocation" x="2765.5999999999999" y="474.51274362818594"/>
         </scene>
+        <!--Schelude View Controller-->
+        <scene sceneID="qVE-9f-s24">
+            <objects>
+                <viewController id="sTR-rd-m7G" customClass="ScheludeViewController" customModule="SearchStat" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="0Mh-e3-TFM">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="urR-iI-LC1" customClass="PieChartView" customModule="Charts">
+                                <rect key="frame" x="0.0" y="91" width="375" height="243"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2vL-3z-eps" customClass="BarChartView" customModule="Charts">
+                                <rect key="frame" x="0.0" y="342" width="375" height="325"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="urR-iI-LC1" firstAttribute="trailing" secondItem="GoN-oq-GQc" secondAttribute="trailing" id="33j-vk-Ax3"/>
+                            <constraint firstItem="2vL-3z-eps" firstAttribute="top" secondItem="urR-iI-LC1" secondAttribute="bottom" constant="8" id="E5z-tb-tJE"/>
+                            <constraint firstItem="2vL-3z-eps" firstAttribute="bottom" secondItem="GoN-oq-GQc" secondAttribute="bottom" id="Gd6-cW-qcV"/>
+                            <constraint firstItem="urR-iI-LC1" firstAttribute="leading" secondItem="GoN-oq-GQc" secondAttribute="leading" id="HxS-TF-Udz"/>
+                            <constraint firstItem="2vL-3z-eps" firstAttribute="leading" secondItem="GoN-oq-GQc" secondAttribute="leading" id="MQ5-V4-XEP"/>
+                            <constraint firstItem="2vL-3z-eps" firstAttribute="trailing" secondItem="GoN-oq-GQc" secondAttribute="trailing" id="SBW-mq-Mnc"/>
+                            <constraint firstItem="urR-iI-LC1" firstAttribute="top" secondItem="GoN-oq-GQc" secondAttribute="top" constant="71" id="U5O-Lo-2Qb"/>
+                            <constraint firstItem="urR-iI-LC1" firstAttribute="bottom" secondItem="GoN-oq-GQc" secondAttribute="bottom" constant="-333" id="cbl-5x-YzH"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="GoN-oq-GQc"/>
+                    </view>
+                    <connections>
+                        <outlet property="barChartView" destination="2vL-3z-eps" id="E39-zK-sQq"/>
+                        <outlet property="pieChartView" destination="urR-iI-LC1" id="Trb-Vg-QTB"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IGP-M1-uEg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3660" y="-341"/>
+        </scene>
+        <!--Detail Chart View Controller-->
+        <scene sceneID="EMW-fd-Ve0">
+            <objects>
+                <viewController id="szv-fr-ZNd" customClass="DetailChartViewController" customModule="SearchStat" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="VqI-PP-fxD">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="fXo-qA-aWu"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="q7b-2n-7Az" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4606" y="-341"/>
+        </scene>
         <!--Общая статистика-->
         <scene sceneID="lTs-Vd-hHf">
             <objects>
@@ -400,13 +454,16 @@
                                 </constraints>
                                 <state key="normal" image="Menu"/>
                             </button>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GOd-Ou-USM" userLabel="GraphButton">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GOd-Ou-USM" userLabel="GraphButton">
                                 <rect key="frame" x="294" y="35" width="30" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="e8l-Y1-TPr"/>
                                     <constraint firstAttribute="width" constant="30" id="vUs-6l-ekK"/>
                                 </constraints>
                                 <state key="normal" image="Иконка график"/>
+                                <connections>
+                                    <segue destination="sTR-rd-m7G" kind="show" id="Gcb-By-3eI"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Bc-EJ-xjG">
                                 <rect key="frame" x="25" y="65" width="325" height="30"/>
@@ -447,21 +504,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="S34-s8-0Xc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3660" y="474.51274362818594"/>
-        </scene>
-        <!--Schelude View Controller-->
-        <scene sceneID="4Uw-ti-Ixw">
-            <objects>
-                <viewController id="i2c-3d-7g4" customClass="ScheludeViewController" customModule="SearchStat" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="aPu-J9-dTS">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="ogP-cL-ou9"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="fVY-mh-TP0" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="5380" y="-331"/>
         </scene>
         <!--Детальная статистика-->
         <scene sceneID="eHG-uH-hXy">
@@ -601,7 +643,7 @@
                                     <segue destination="elS-Hb-Zz0" kind="show" id="IPk-Uq-5dr"/>
                                 </connections>
                             </button>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RtK-G0-CK4" userLabel="GraphButton">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RtK-G0-CK4" userLabel="GraphButton">
                                 <rect key="frame" x="294" y="35" width="30" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="30" id="bVu-J3-eEv"/>
@@ -609,7 +651,7 @@
                                 </constraints>
                                 <state key="normal" image="Иконка график"/>
                                 <connections>
-                                    <segue destination="i2c-3d-7g4" kind="show" id="vUd-S9-O5q"/>
+                                    <segue destination="szv-fr-ZNd" kind="show" id="Ukb-PI-8Rt"/>
                                 </connections>
                             </button>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pDI-ot-bhW" userLabel="MenuButton">

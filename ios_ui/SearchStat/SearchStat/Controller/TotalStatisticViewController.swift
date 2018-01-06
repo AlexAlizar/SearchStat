@@ -32,6 +32,7 @@ class TotalStatisticViewController: UIViewController, UITableViewDelegate, UITab
         let site = MainService.instance.siteArray![siteIndex]
         personArray = site.personsArray
         
+        
         nameSourceLabel.text = site.name
         nameDateLabel.text = dateString
     }

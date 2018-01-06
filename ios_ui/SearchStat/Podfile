@@ -7,4 +7,5 @@ target 'SearchStat' do
 
   # Pods for SearchStat
 	pod 'FSCalendar'
+	pod 'Charts'
 end

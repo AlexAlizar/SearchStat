@@ -42,6 +42,7 @@
 		E75484EA1FED3ABA00546D61 /* TotalStatisticCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75484E91FED3ABA00546D61 /* TotalStatisticCell.swift */; };
 		E78870E41FEA9713004E57C6 /* TotalStatisticViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78870E31FEA9713004E57C6 /* TotalStatisticViewController.swift */; };
 		E78870E61FEAA130004E57C6 /* DetailStatisticViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78870E51FEAA130004E57C6 /* DetailStatisticViewController.swift */; };
+		E7AF352320010CBF00CFD6AC /* DetailChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7AF352220010CBF00CFD6AC /* DetailChartViewController.swift */; };
 		E7BB79101FE98F07004FFC83 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7BB790F1FE98F07004FFC83 /* CustomButton.swift */; };
 		FF3B78491FE8B4640096CD24 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3B78481FE8B4640096CD24 /* Constants.swift */; };
 		FF3B784E1FEAE94E0096CD24 /* MainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3B784D1FEAE94E0096CD24 /* MainService.swift */; };
@@ -107,6 +108,7 @@
 		E75484E91FED3ABA00546D61 /* TotalStatisticCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalStatisticCell.swift; sourceTree = "<group>"; };
 		E78870E31FEA9713004E57C6 /* TotalStatisticViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalStatisticViewController.swift; sourceTree = "<group>"; };
 		E78870E51FEAA130004E57C6 /* DetailStatisticViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailStatisticViewController.swift; sourceTree = "<group>"; };
+		E7AF352220010CBF00CFD6AC /* DetailChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailChartViewController.swift; sourceTree = "<group>"; };
 		E7BB790F1FE98F07004FFC83 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		FF3B78481FE8B4640096CD24 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		FF3B784D1FEAE94E0096CD24 /* MainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainService.swift; sourceTree = "<group>"; };
@@ -242,6 +244,7 @@
 				E78870E31FEA9713004E57C6 /* TotalStatisticViewController.swift */,
 				E78870E51FEAA130004E57C6 /* DetailStatisticViewController.swift */,
 				E73B48251FEEA83800F53B1E /* ScheludeViewController.swift */,
+				E7AF352220010CBF00CFD6AC /* DetailChartViewController.swift */,
 				619590691FF82D0A00FEFA58 /* CalendarVC.swift */,
 			);
 			path = Controller;
@@ -380,10 +383,12 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-SearchStat/Pods-SearchStat-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
 				"${BUILT_PRODUCTS_DIR}/FSCalendar/FSCalendar.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FSCalendar.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -439,6 +444,7 @@
 				E7BB79101FE98F07004FFC83 /* CustomButton.swift in Sources */,
 				612B421E1FECC44400604393 /* Struct.swift in Sources */,
 				6195906A1FF82D0A00FEFA58 /* CalendarVC.swift in Sources */,
+				E7AF352320010CBF00CFD6AC /* DetailChartViewController.swift in Sources */,
 				FF7EDA4A1FE7E7AF00943B25 /* MainModel.swift in Sources */,
 				611654AA1FF339ED00D7A5D3 /* FSCalendarAppearance.m in Sources */,
 				611654A21FF339ED00D7A5D3 /* FSCalendarConstants.m in Sources */,

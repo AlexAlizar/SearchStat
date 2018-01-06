@@ -132,14 +132,14 @@ class MainService {
     
     
     func generateDate(daysBack: Int) -> Date?{
-        let day = daysBack
+        let day = daysBack - 1
         let hour = 0
         let minute = 0
         
-        let today = Date(timeIntervalSince1970: 1514709054)
+        let today = Date(timeIntervalSince1970: 1514764800)
         let gregorian  = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)
         var offsetComponents = DateComponents()
-        offsetComponents.day = Int(day - 1)
+        offsetComponents.day = Int(day)
         offsetComponents.hour = Int(hour)
         offsetComponents.minute = Int(minute)
         

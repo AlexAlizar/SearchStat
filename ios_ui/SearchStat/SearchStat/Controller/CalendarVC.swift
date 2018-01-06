@@ -54,7 +54,6 @@ class CalendarVC: UIViewController,FSCalendarDelegate, FSCalendarDataSource {
    
     // MARK: Выбираем дату и отправляем ее на DetailStatisticVC
     func setDate(date: Date) {
-        
         selectedDay = date
         NotificationCenter.default.post(name: .sendDate, object: self)
         dismiss(animated: true, completion: nil)

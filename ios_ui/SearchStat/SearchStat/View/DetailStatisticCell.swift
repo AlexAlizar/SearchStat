@@ -38,7 +38,9 @@ class DetailStatisticCell: UITableViewCell {
     
     func setupDetailCellWith(period periodArray: [Date], person: Person) {
         nameLabel.text = person.name
-        if let stats = person.filteredPeriodStats(startDate: periodArray[0], endDate: periodArray[1]) {
+        let arrayCount = periodArray.count
+        if let stats = person.filteredPeriodStats(startDate: periodArray[0], endDate: periodArray[arrayCount - 1]) {
+            dayStatlabel.text = String(stats.total)
             
         } else {
             dayStatlabel.text = "PeriodDataNotFound"

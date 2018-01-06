@@ -14,6 +14,9 @@ class DetailStatisticViewController: UIViewController, UITableViewDelegate, UITa
     
     fileprivate let formatter: DateFormatter = {
         let formatter = DateFormatter()
+        //MARK: ADDed for fix time zone
+        formatter.timeZone = .current
+        formatter.calendar = Calendar.current
         formatter.dateFormat = "dd.MM.yyyy"
         return formatter
     }()
@@ -51,8 +54,10 @@ class DetailStatisticViewController: UIViewController, UITableViewDelegate, UITa
     @IBAction func switchDatePressed(_ sender: UIButton) {
         if sender.currentTitle == "PrewDate" {
             currentDate -= unixDay
+            print(self.currentDate)
         } else {
             currentDate += unixDay
+            print(self.currentDate)
         }
     }
     
@@ -74,6 +79,7 @@ class DetailStatisticViewController: UIViewController, UITableViewDelegate, UITa
        observerDate = NotificationCenter.default.addObserver(forName: .sendDate , object: nil, queue: OperationQueue.main) { (notification) in
             let detailVC = notification.object as! CalendarVC
             self.currentDate = detailVC.selectedDay
+        print(self.currentDate)
         }
         
         //MARK: Здесь массив с датами за период

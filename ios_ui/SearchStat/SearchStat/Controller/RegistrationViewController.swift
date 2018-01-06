@@ -12,10 +12,20 @@ class RegistrationViewController: UIViewController {
 
     
     
+    @IBAction func userPhotoBtn(_ sender: UIButton) {
+    }
+    
+    @IBOutlet weak var userPhoto: UIButton!
+    @IBOutlet weak var userNameTextField: CustomTextField!
+    @IBOutlet weak var emailTextField: CustomTextField!
+    @IBOutlet weak var passwordTextField: CustomTextField!
+    @IBOutlet weak var repeatPassTextField: CustomTextField!
+    
+    @IBAction func createUserBtn(_ sender: CustomButton) {
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
        
     }
-
 }

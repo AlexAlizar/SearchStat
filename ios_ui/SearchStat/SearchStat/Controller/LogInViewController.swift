@@ -10,7 +10,15 @@ import UIKit
 
 class LogInViewController: UIViewController {
     
+    @IBOutlet weak var emailTextField: CustomTextField!
+    @IBOutlet weak var passwordTextField: CustomTextField!
     
+    @IBAction func restorePasswordBtn(_ sender: UIButton) {
+    }
+    
+    @IBAction func logInBtn(_ sender: CustomButton) {
+    }
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         

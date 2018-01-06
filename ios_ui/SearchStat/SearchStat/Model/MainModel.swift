@@ -68,25 +68,10 @@ struct Person {
     
     func isDatesEqual(dateOne: Date, dateTwo: Date) -> Bool {
         
-        let calendar = NSCalendar.current
-        let startComponents = calendar.dateComponents([.year, .month, .day], from: dateOne)
-        let endComponents = calendar.dateComponents([.year, .month, .day], from: dateTwo)
+        let unixDateOne = Int(dateOne.timeIntervalSince1970 / 86400) * 86400
+        let unixDateTwo = Int(dateTwo.timeIntervalSince1970 / 86400) * 86400
         
-        let startFilteredDay = startComponents.day
-        let startFilteredMonth = startComponents.month
-        let startFilteredYear = startComponents.year
-        
-        let endFilteredDay = endComponents.day
-        let endFilteredMonth = endComponents.month
-        let endFilteredYear = endComponents.year
-        
-    
-        if startFilteredDay == endFilteredDay && startFilteredMonth == endFilteredMonth && startFilteredYear == endFilteredYear {
-            //sovpodaet
-            return true
-        } else {
-            return false
-        }
+        return unixDateOne == unixDateTwo ? true : false
     }
 }
 

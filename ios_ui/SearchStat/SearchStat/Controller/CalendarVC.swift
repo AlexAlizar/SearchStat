@@ -14,6 +14,7 @@ class CalendarVC: UIViewController,FSCalendarDelegate, FSCalendarDataSource {
     var selectedDay = Date()
     var selectedPeriod = [Date]()
     
+    
     @IBOutlet weak var calendar: FSCalendar!
     @IBOutlet weak var dayPeriodBtn: UIButton!
    
@@ -41,6 +42,7 @@ class CalendarVC: UIViewController,FSCalendarDelegate, FSCalendarDataSource {
         
             calendar.allowsMultipleSelection = false
             dayPeriodBtn.setTitle("Day", for: .normal)
+        
     }
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
@@ -87,7 +89,9 @@ class CalendarVC: UIViewController,FSCalendarDelegate, FSCalendarDataSource {
        
         var datesArray = [Date]()
         var startDate = startDate
-        let calendar = Calendar.current
+        var calendar = NSCalendar.current
+        // Added
+        calendar.timeZone = .current
    
         while startDate <= endDate {
             datesArray.append(startDate)

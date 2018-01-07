@@ -9,7 +9,7 @@
 
     <TextView
         android:id="@+id/gs_name_item"
-        android:text="Name"
+        android:text="@string/name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -18,7 +18,7 @@
         android:layout_weight="1"/>
     <TextView
         android:id="@+id/gs_mentions_item"
-        android:text="Mentions"
+        android:text="@string/mentions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"

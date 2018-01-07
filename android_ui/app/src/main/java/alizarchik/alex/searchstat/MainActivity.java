@@ -1,73 +1,85 @@
 package alizarchik.alex.searchstat;
-
 import android.content.res.Configuration;
+import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageView;
+
+/**
+ * Created by Александр on 07.01.2018.
+ */
 
 public class MainActivity extends AppCompatActivity {
+    private DrawerLayout mDrawer;
+    private Toolbar toolbar;
+    private NavigationView nvDrawer;
 
-    //IRestApi restAPI;
+    // Убедитесь, что используется версия
+    // android.support.v7.app.ActionBarDrawerToggle.
 
-    DrawerLayout drawer;
-    Toolbar toolbar;
-    NavigationView navigationView;
-    ActionBarDrawerToggle drawerToggle;
+    // android.support.v4.app.ActionBarDrawerToggle устарел.
 
-    public static final String TAG = "MyLogs";
+    private ActionBarDrawerToggle drawerToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //btnLoad.setOnClickListener((v) -> onClick());
-
-        toolbar = findViewById(R.id.toolbar);
+        // Установить Toolbar для замены ActionBar'а.
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        drawer = findViewById(R.id.drawer_layout);
+        // Найти наш view drawer'а
+        mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerToggle = setupDrawerToggle();
-        drawer.addDrawerListener(drawerToggle);
+        // Найти наш view drawer'а
+        nvDrawer = (NavigationView) findViewById(R.id.nvView);
+        // Настроить view drawer'а
+        setupDrawerContent(nvDrawer);
 
-        navigationView = findViewById(R.id.nav_view);
-        setupDrawerContent(navigationView);
+        mDrawer.addDrawerListener(drawerToggle);
 
-        NavigationView navigationView = findViewById(R.id.nav_view);
-
-        View headerLayout = navigationView.inflateHeaderView(R.layout.nav_header_main);
-
-        ImageView ivHeaderPhoto = headerLayout.findViewById(R.id.imageView);
     }
 
     private ActionBarDrawerToggle setupDrawerToggle() {
-        return new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open,  R.string.navigation_drawer_close);
+        // Примечание: Убедитесь, что вы передаёте допустимую ссылку
+        // на toolbar
+        // ActionBarDrawToggle() не предусматривает в ней
+        // необходимости и не будет отображать иконку гамбургера без
+        // неё
+        return new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.navigation_drawer_open,  R.string.navigation_drawer_close);
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                drawer.openDrawer(GravityCompat.START);
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        // Синхронизировать состояние переключения после того, как
+        // возникнет onRestoreInstanceState
+        drawerToggle.syncState();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        // Передать любые изменения конфигурации переключателям
+        // drawer'а
+        drawerToggle.onConfigurationChanged(newConfig);
     }
 
     private void setupDrawerContent(NavigationView navigationView) {
         navigationView.setNavigationItemSelectedListener(
-                menuItem -> {
-                    selectDrawerItem(menuItem);
-                    return true;
+                new NavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(MenuItem menuItem) {
+                        selectDrawerItem(menuItem);
+                        return true;
+                    }
                 });
     }
 
@@ -80,18 +92,18 @@ public class MainActivity extends AppCompatActivity {
             case R.id.general_stat:
                 fragmentClass = GeneralStatFragment.class;
                 break;
-//            case R.id.detailed_stat:
-//                fragmentClass = SecondFragment.class;
-//                break;
-//            case R.id.account:
-//                fragmentClass = ThirdFragment.class;
-//                break;
-//            case R.id.settings:
-//                fragmentClass = ThirdFragment.class;
-//                break;
-//            case R.id.exit:
-//                fragmentClass = ThirdFragment.class;
-//                break;
+            case R.id.detailed_stat:
+                fragmentClass = GeneralStatFragment.class;
+                break;
+            case R.id.account:
+                fragmentClass = GeneralStatFragment.class;
+                break;
+            case R.id.settings:
+                fragmentClass = GeneralStatFragment.class;
+                break;
+            case R.id.exit:
+                fragmentClass = GeneralStatFragment.class;
+                break;
             default:
                 fragmentClass = GeneralStatFragment.class;
         }
@@ -112,10 +124,19 @@ public class MainActivity extends AppCompatActivity {
         // Установить заголовок для action bar'а
         setTitle(menuItem.getTitle());
         // Закрыть navigation drawer
-        drawer.closeDrawers();
+        mDrawer.closeDrawers();
     }
 
-    /*public void onClick() {
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (drawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+}
+
+/*public void onClick() {
         mInfoTextView.setText("");
         // для логирования ретрофита
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
@@ -180,33 +201,5 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }*/
-
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
-
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        // Синхронизировать состояние переключения после того, как
-        // возникнет onRestoreInstanceState
-        drawerToggle.syncState();
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        // Передать любые изменения конфигурации переключателям
-        // drawer'а
-        drawerToggle.onConfigurationChanged(newConfig);
-    }
-
-}
 
 

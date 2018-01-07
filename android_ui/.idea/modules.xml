@@ -3,9 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/android_ui.iml" filepath="$PROJECT_DIR$/android_ui.iml" />
-      <module fileurl="file://C:\_Scrypting\AS_Workspace\Git\SearchStat\android_ui\android_ui.iml" filepath="C:\_Scrypting\AS_Workspace\Git\SearchStat\android_ui\android_ui.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://C:\_Scrypting\AS_Workspace\Git\SearchStat\android_ui\app\app.iml" filepath="C:\_Scrypting\AS_Workspace\Git\SearchStat\android_ui\app\app.iml" />
     </modules>
   </component>
 </project>

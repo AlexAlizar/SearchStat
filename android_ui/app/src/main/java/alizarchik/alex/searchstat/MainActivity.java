@@ -1,25 +1,27 @@
 package alizarchik.alex.searchstat;
 
-import android.content.Intent;
+import android.content.res.Configuration;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import alizarchik.alex.searchstat.Model.GenStatDataItem;
-
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity {
 
     //IRestApi restAPI;
+
+    DrawerLayout drawer;
+    Toolbar toolbar;
+    NavigationView navigationView;
+    ActionBarDrawerToggle drawerToggle;
 
     public static final String TAG = "MyLogs";
 
@@ -30,17 +32,87 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         //btnLoad.setOnClickListener((v) -> onClick());
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
+        drawer = findViewById(R.id.drawer_layout);
+        drawerToggle = setupDrawerToggle();
+        drawer.addDrawerListener(drawerToggle);
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        navigationView = findViewById(R.id.nav_view);
+        setupDrawerContent(navigationView);
+
+        NavigationView navigationView = findViewById(R.id.nav_view);
+
+        View headerLayout = navigationView.inflateHeaderView(R.layout.nav_header_main);
+
+        ImageView ivHeaderPhoto = headerLayout.findViewById(R.id.imageView);
+    }
+
+    private ActionBarDrawerToggle setupDrawerToggle() {
+        return new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open,  R.string.navigation_drawer_close);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                drawer.openDrawer(GravityCompat.START);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void setupDrawerContent(NavigationView navigationView) {
+        navigationView.setNavigationItemSelectedListener(
+                menuItem -> {
+                    selectDrawerItem(menuItem);
+                    return true;
+                });
+    }
+
+    public void selectDrawerItem(MenuItem menuItem) {
+        // Создать новый фрагмент и задать фрагмент для отображения
+        // на основе нажатия на элемент навигации
+        Fragment fragment = null;
+        Class fragmentClass;
+        switch(menuItem.getItemId()) {
+            case R.id.general_stat:
+                fragmentClass = GeneralStatFragment.class;
+                break;
+//            case R.id.detailed_stat:
+//                fragmentClass = SecondFragment.class;
+//                break;
+//            case R.id.account:
+//                fragmentClass = ThirdFragment.class;
+//                break;
+//            case R.id.settings:
+//                fragmentClass = ThirdFragment.class;
+//                break;
+//            case R.id.exit:
+//                fragmentClass = ThirdFragment.class;
+//                break;
+            default:
+                fragmentClass = GeneralStatFragment.class;
+        }
+
+        try {
+            fragment = (Fragment) fragmentClass.newInstance();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // Вставить фрагмент, заменяя любой существующий
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.fragment_container, fragment).commit();
+
+        // Выделение существующего элемента выполнено с помощью
+        // NavigationView
+        menuItem.setChecked(true);
+        // Установить заголовок для action bar'а
+        setTitle(menuItem.getTitle());
+        // Закрыть navigation drawer
+        drawer.closeDrawers();
     }
 
     /*public void onClick() {
@@ -119,27 +191,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.account) {
-            // Handle the camera action
-        } else if (id == R.id.settings) {
-
-        } else if (id == R.id.exit) {
-
-        } else if (id == R.id.general_stat) {
-            Intent intent = new Intent(this, GeneralStatActivity.class);
-            startActivity(intent);
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        // Синхронизировать состояние переключения после того, как
+        // возникнет onRestoreInstanceState
+        drawerToggle.syncState();
     }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        // Передать любые изменения конфигурации переключателям
+        // drawer'а
+        drawerToggle.onConfigurationChanged(newConfig);
+    }
+
 }
 
 

@@ -4,22 +4,22 @@
         <item
             android:id="@+id/general_stat"
             android:icon="@android:drawable/arrow_up_float"
-            android:title="First"/>
+            android:title="General stat"/>
         <item
             android:id="@+id/detailed_stat"
             android:icon="@android:drawable/arrow_up_float"
-            android:title="Second"/>
+            android:title="Detailed stat"/>
         <item
             android:id="@+id/account"
             android:icon="@android:drawable/arrow_up_float"
-            android:title="Third"/>
+            android:title="My account"/>
         <item
             android:id="@+id/settings"
             android:icon="@android:drawable/arrow_up_float"
-            android:title="Third"/>
+            android:title="Settings"/>
         <item
             android:id="@+id/exit"
             android:icon="@android:drawable/arrow_up_float"
-            android:title="Third"/>
+            android:title="Exit"/>
     </group>
 </menu>

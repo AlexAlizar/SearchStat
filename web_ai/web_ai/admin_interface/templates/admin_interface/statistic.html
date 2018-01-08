@@ -2,12 +2,26 @@
 
 {% block content %}
     <div class="col-sm-6">
+        <div class="container">
+            <span><b>Total sites:</b> {{ total_sites }}</span>
+            <span><b>Total pages:</b> {{ total_pages }}</span>
+        </div>
+        <hr>
+        {% for site, pages in pages_dict.items %}
+            <div class="container">
+                <ul class="list-group">
 
-        <span>Total sites: {{ total_sites }}</span>
-        <span>Total pages: {{ total_pages }}</span>
-        {% for foo in pages %}
-            <p>{{ foo }}</p>
+                    <li class="list-group-item active">{{site}}</li>
+                    {% for page in pages %}
+                        <li class="list-group-item">{{ page }}</li>
+                    {% endfor %}
+
+                </ul>
+            </div>
+            <br>
         {% endfor %}
+
+
 
     </div>
 {% endblock %}

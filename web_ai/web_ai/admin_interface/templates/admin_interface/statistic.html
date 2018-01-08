@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="col-sm-6">
+
+        <span>Total sites: {{ total_sites }}</span>
+        <span>Total pages: {{ total_pages }}</span>
+        {% for foo in pages %}
+            <p>{{ foo }}</p>
+        {% endfor %}
+
+    </div>
+{% endblock %}

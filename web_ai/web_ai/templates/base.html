@@ -21,15 +21,18 @@
                 <a class="nav-link" href="/"><h3>Справочник</h3></a>
             </li>
             <li class="nav-item">
+                <a class="nav-link {% if request.resolver_match.url_name == 'statistic' %}active{% endif %}" href="{% url 'ai:statistic' %}">Статистика краулера</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link {% if request.resolver_match.url_name == 'persons_view' %}active{% endif %}" href="{% url 'ai:persons_view' %}">Личности</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link {% if request.resolver_match.url_name == 'keywords_view' %}active{% endif %}" href="{% url 'ai:keywords_view' %}">Ключевые слова</a>
             </li>
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link {% if request.resolver_match.url_name == 'sites_view' %}active{% endif %}" href="{% url 'ai:sites_view' %}">Сайты</a>
             </li>
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link {% if request.resolver_match.url_name == 'users' %}active{% endif %}" href="{% url 'ai:users' %}">Пользователи</a>
             </li>
         </ul>

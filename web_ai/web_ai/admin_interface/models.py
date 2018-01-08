@@ -30,6 +30,9 @@ class Pages(models.Model):
         managed = False
         db_table = 'pages'
 
+    def __str__(self):
+        return self.url
+
 
 class PersonPageRank(models.Model):
     person = models.ForeignKey('Persons', models.DO_NOTHING)

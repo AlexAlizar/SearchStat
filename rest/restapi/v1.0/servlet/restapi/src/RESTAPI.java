@@ -1,4 +1,3 @@
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -10,7 +9,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 
@@ -36,7 +34,6 @@ public class RESTAPI extends HttpServlet {
     String mysqlGeneralRequest2 = "\n" +
             "GROUP BY person_name";
 
-
     String mysqlDailyRequest = null;
     String mysqlDailyRequest1 = "SELECT p.found_date_time as date, count(p.id) as count \n" +
             "FROM pages as p\n" +
@@ -48,8 +45,6 @@ public class RESTAPI extends HttpServlet {
     String mysqlDailyRequest3 = " AND ";
     String mysqlDailyRequest4 = " AND s.name = ";
     String mysqlDailyRequest5 = " GROUP BY date";
-
-
 
     String site = null;
     String person = null;
@@ -71,10 +66,21 @@ public class RESTAPI extends HttpServlet {
             out.println("{ \"error\" : \"" +e.toString()+ "\"}");
         }
 
+
+        String reqRequest = req.getParameter("request");
         String reqStatisticType = req.getParameter("statistic");
 
-        if (reqStatisticType != null) {
+        if (reqStatisticType != null || reqRequest !=null) {
             try {
+
+//              -> ----- Start of "DB connection" -----
+                con = DriverManager.getConnection(mysqlURL, login, password);
+//              <- ----- End of "DB connection" -----
+
+//              -> ----- Start of "SQL query preparation" -----
+                stmt = con.createStatement();
+//              <- ----- End of "SQL query preparation" -----
+
                 switch (reqStatisticType) {
                     case "daily":
 //                      ----- Start of "Daily statistic" -----
@@ -90,14 +96,6 @@ public class RESTAPI extends HttpServlet {
                             mysqlDailyRequest4 + site + mysqlDailyRequest5;
 
 //                        out.println(mysqlDailyRequest);
-
-//                      -> ----- Start of "DB connection" -----
-                        con = DriverManager.getConnection(mysqlURL, login, password);
-//                      <- ----- End of "DB connection" -----
-
-//                      -> ----- Start of "SQL query preparation" -----
-                        stmt = con.createStatement();
-//                       <- ----- End of "SQL query preparation" -----
 
 //                      -> ----- Start of "Parsing of SQL query" -----
                         rs = stmt.executeQuery(mysqlDailyRequest);
@@ -119,13 +117,13 @@ public class RESTAPI extends HttpServlet {
 
                         mysqlGeneralRequest = mysqlGeneralRequest1 + site +mysqlGeneralRequest2;
 
-//                      -> ----- Start of "DB connection" -----
-                        con = DriverManager.getConnection(mysqlURL, login, password);
-//                      <- ----- End of "DB connection" -----
-
-//                      -> ----- Start of "SQL query preparation" -----
-                        stmt = con.createStatement();
-//                       <- ----- End of "SQL query preparation" -----
+////                      -> ----- Start of "DB connection" -----
+//                        con = DriverManager.getConnection(mysqlURL, login, password);
+////                      <- ----- End of "DB connection" -----
+//
+////                      -> ----- Start of "SQL query preparation" -----
+//                        stmt = con.createStatement();
+////                       <- ----- End of "SQL query preparation" -----
 
 //                      -> ----- Start of "Parsing of SQL query" -----
                         rs = stmt.executeQuery(mysqlGeneralRequest);

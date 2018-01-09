@@ -18,7 +18,7 @@ public class RESTAPI extends HttpServlet {
         String rToken = request.getParameter("token");
 
         if (rToken != null) {
-            Authentication auth = new Authentication(rToken);
+            RestAuthentication auth = new RestAuthentication(rToken);
             if (auth.Check()) {
                 //Proceed with request
             } else {

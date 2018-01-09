@@ -1,8 +1,8 @@
-public class Authentication {
+public class RestAuthentication {
     private String role;
     private String token;
 
-    Authentication(String token) {
+    RestAuthentication(String token) {
         this.token = token;
     }
 

@@ -1,3 +1,6 @@
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -22,7 +25,13 @@ public class RESTAPI extends HttpServlet {
                 //Token is invalid
             }
         } else {
-            //Token was not found.
+            out.println(constructJSON(new Object()));
         }
+    }
+
+    private String constructJSON(Object object) {
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        Gson gson = gsonBuilder.setPrettyPrinting().create();
+        return gson.toJson(object);
     }
 }

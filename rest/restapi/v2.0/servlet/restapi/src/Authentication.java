@@ -11,14 +11,14 @@ public class Authentication {
     }
 
     public boolean Check() {
-        if (this.token != null) {
-            //Checking the token:
-            //connection to db and looking for the user,
-            //checking expiration date of the token,
-            //identifying role of the user: authorization(user||admin);
-        } else {
-            return false;
-        }
-        return true;
+//        if (this.token != null) {
+//            //Checking the token:
+//            //connection to db and looking for the user,
+//            //checking expiration date of the token,
+//            //identifying role of the user: authorization(user||admin);
+//        } else {
+//            return false;
+//        }
+        return true; //Temporary
     }
 }

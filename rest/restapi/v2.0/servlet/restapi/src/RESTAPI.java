@@ -25,7 +25,7 @@ public class RESTAPI extends HttpServlet {
                 //Token is invalid
             }
         } else {
-            out.println(constructJSON(new Object()));
+            out.println(constructJSON(new RestError(0x1)));
         }
     }
 

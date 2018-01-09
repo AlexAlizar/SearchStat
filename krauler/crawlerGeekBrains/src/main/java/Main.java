@@ -1,13 +1,14 @@
+import dbService.dataSets.Person;
 import kraulerService.Krauler;
+import dbService.DBService;
+import dbService.HibernateUtil;
+import kraulerService.Krauler;
+import kraulerService.parsingService.PageParser;
+import org.hibernate.SessionFactory;
 
 public class Main {
     public static void main(String[] args) {
         System.out.println("Start program\n");
-
-        /*//////// ДЛЯ УПРОЩЕНИЯ ВСТАВКИ В БД РАБОТА С DBService ////////////*/
-//        DBService dbService = new DBService(HibernateUtil.getSessionFactory());
-
-
 
 
         /*/////////   РАБОТА КЛАССА Krauler //////////////*/
@@ -21,9 +22,10 @@ public class Main {
 
 
 
+        /*//////// ДЛЯ УПРОЩЕНИЯ ВСТАВКИ В БД РАБОТА С DBService ////////////*/
+//        DBService dbService = new DBService(HibernateUtil.getSessionFactory());
 
         /*   Тестирую работу с архивами   */
-
 
 
 //
@@ -72,24 +74,24 @@ public class Main {
          * 4) ВУАЛЯ - можно использовать методы add/insert Person
          */
 
-//        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        //       SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 //
-//        DBService dbService = new DBService(sessionFactory);
+        //     DBService dbService = new DBService(sessionFactory);
 
 
         // примеры использования методов
 
         // добавление сайтов
 
-        //  dbService.addSite("lenta.kraulerService");
-        //  dbService.addSite("bfm.kraulerService");
-        //  dbService.addSite("infox.kraulerService");
-
-        // добавление персон
-
-        //  dbService.addPerson("Путин");
-        //  dbService.addPerson("Медведев");
-        //  dbService.addPerson("Навальный");
+//          dbService.addSite("lenta.ru");
+//          dbService.addSite("bfm.ru");
+//          dbService.addSite("rambler.ru");
+//
+//        // добавление персон
+//
+//          dbService.addPerson("Путин");
+//          dbService.addPerson("Медведев");
+//          dbService.addPerson("Навальный");
 
         // добавление страниц
 //        Site site = dbService.getSiteByName("lenta.kraulerService");
@@ -109,8 +111,23 @@ public class Main {
 
         // добавление ключевых слов
 //        Person person = dbService.getPersonByName("Путин");
+//        dbService.addKeyword(person,"Путин");
 //        dbService.addKeyword(person,"Путина");
 //        dbService.addKeyword(person,"Путину");
+//        dbService.addKeyword(person,"Путиным");
+//
+//        Person person2 = dbService.getPersonByName("Медведев");
+//        dbService.addKeyword(person2,"Медведев");
+//        dbService.addKeyword(person2,"Медведева");
+//        dbService.addKeyword(person2,"Медведеве");
+//        dbService.addKeyword(person2,"Медведевым");
+//
+//        Person person3 = dbService.getPersonByName("Навальный");
+//        dbService.addKeyword(person3,"Навальный");
+//        dbService.addKeyword(person3,"Навального");
+//        dbService.addKeyword(person3,"Навальному");
+//        dbService.addKeyword(person3,"Навальный");
+
 
         // получение ключевых слов
 //        List<Keyword> keywords = null;
@@ -137,7 +154,7 @@ public class Main {
 //                   System.out.println(pg.toString());
 //               }
 
-    //       sessionFactory.close();
+        //      sessionFactory.close();
 
         //Site site = dbService.getSiteByName("somesite");
         //Date date1 = new Date();

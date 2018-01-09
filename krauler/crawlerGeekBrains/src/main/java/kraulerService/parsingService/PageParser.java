@@ -151,7 +151,7 @@ public class PageParser {
 
             }
 
-            //sitemapFile.delete();
+            sitemapFile.delete();
 
         } else if (mode == 2) {
 
@@ -159,7 +159,7 @@ public class PageParser {
 
             resultList.addAll(searchLinkPagesInXml(sitemapFile.getPath()));
 
-            //sitemapFile.delete();
+            sitemapFile.delete();
 
         } else {
 
@@ -536,7 +536,7 @@ public class PageParser {
 
             File archive = new File(WORK_FOLDER_PATH + "/" + fileName);
 
-            //archive.delete();
+            archive.delete();
 
             return result;
         } else {

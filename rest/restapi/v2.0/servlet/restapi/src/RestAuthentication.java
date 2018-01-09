@@ -21,4 +21,8 @@ public class RestAuthentication {
 //        }
         return true; //Temporary
     }
+
+    public String getRole() {
+        return role;
+    }
 }

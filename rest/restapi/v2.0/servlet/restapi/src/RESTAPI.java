@@ -16,15 +16,31 @@ public class RESTAPI extends HttpServlet {
         response.setContentType("application/json; charset=utf-8");
 
         String rToken = request.getParameter("token");
+        String rAction = request.getParameter("action");
 
-        if (rToken != null) {
+        if ((rToken != null) || (rAction == "auth")) {
+            //Need to check if action is "Authentication",
+            //then try to authenticate by login and password.
             RestAuthentication auth = new RestAuthentication(rToken);
             if (auth.Check()) {
-                //Proceed with request
+                if (auth.getRole() == "user") {
+
+                    //Proceed request with user role
+
+                } else if (auth.getRole() == "admin") {
+
+                    //Proceed request with admin role
+
+                } else {
+
+                    //Error: user is not authorized
+
+                }
             } else {
                 //Token is invalid
             }
         } else {
+
             out.println(constructJSON(new RestError(0x1)));
         }
     }

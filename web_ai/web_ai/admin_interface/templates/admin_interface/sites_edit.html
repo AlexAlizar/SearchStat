@@ -1,17 +1,19 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <form action="" method="post">
-        {{ formset.management_form }}
-        {% csrf_token %}
-        <ul class="list-group">
-            {% for field in formset %}
-                <li class="list-group-item">{{ field }}</li>
-            {% endfor %}
-            <li class="list-group-item">
-                <input class="btn btn-primary" type="submit" name="Сохранить" value="Сохранить">
-                <a class="btn btn-secondary" type="button" href="{% url 'ai:sites_view' %}">Назад</a>
-            </li>
-        </ul>
-    </form>
+    <div class="col-sm-5">
+        <form action="" method="post">
+            {{ formset.management_form }}
+            {% csrf_token %}
+            <ul class="list-group">
+                {% for field in formset %}
+                    <li class="list-group-item">{{ field }}</li>
+                {% endfor %}
+                <li class="list-group-item">
+                    <input class="btn btn-primary" type="submit" name="Сохранить" value="Сохранить">
+                    <a class="btn btn-secondary" type="button" href="{% url 'ai:sites_view' %}">Назад</a>
+                </li>
+            </ul>
+        </form>
+    </div>
 {% endblock %}

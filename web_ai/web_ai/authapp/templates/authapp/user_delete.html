@@ -2,13 +2,13 @@
 
 
 {% block content %}
-    <div class="user_delete">
-        Вы уверены, что хотите удалить пользователя {{ user_to_delete.username }}
+    <div class="col-sm-6 user_delete">
+        <p>Вы уверены, что хотите удалить пользователя {{ user_to_delete.username }}</p>
         {% if user_to_delete.first_name %}
             <b>{{ user_to_delete.first_name|title }}</b>
             {% if user_to_delete.last_name %}
                 {{ user_to_delete.last_name|title }}
-            {% endif %})
+            {% endif %}
         {% endif %}?
         <form action="{% url 'ai:user_delete' user_to_delete.pk %}" method="post">
             {% csrf_token %}

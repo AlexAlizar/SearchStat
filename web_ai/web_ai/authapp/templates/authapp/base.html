@@ -3,31 +3,33 @@
 <html lang="en">
 <html>
 <head>
-	<meta charset="utf-8">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<title>
+    <title>
         {% block title %}
             {{ title|title }}
         {% endblock %}
     </title>
     {% block css %}
-       <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     {% endblock %}
     {% block js %}
 
     {% endblock %}
 </head>
 <body>
-	<div class="container-fluid row">
+<div class="container row ">
+    <div class="col-sm-6 offset-4">
         <h2>
-          Вход
+            Вход
         </h2>
-        <div class="login">       
+        <div class="login">
             {% block content %}
 
             {% endblock %}
         </div>
-	</div>
+    </div>
+</div>
 </body>
 </html>
 

@@ -16,6 +16,13 @@
         android:textSize="24sp"
         android:textColor="@color/colorPrimaryDark"
         android:layout_weight="1"/>
+
+    <View
+        android:layout_gravity="center_horizontal"
+        android:layout_width="1dp"
+        android:layout_height="fill_parent"
+        android:background="@color/colorPrimaryDark" />
+
     <TextView
         android:id="@+id/gs_mentions_item"
         android:text="Mentions"

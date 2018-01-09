@@ -13,9 +13,6 @@ public class Site {
     @SerializedName("SiteName")
     @Expose
     private String siteName;
-    @SerializedName("persons")
-    @Expose
-    private ArrayList<Person> persons;
 
     public Site(String siteName) {
         this.siteName = siteName;
@@ -27,14 +24,6 @@ public class Site {
 
     public void setSiteName(String siteName) {
         this.siteName = siteName;
-    }
-
-    public ArrayList<Person> getPersons() {
-        return persons;
-    }
-
-    public void setPersons(ArrayList<Person> persons) {
-        this.persons = persons;
     }
 
     @Override

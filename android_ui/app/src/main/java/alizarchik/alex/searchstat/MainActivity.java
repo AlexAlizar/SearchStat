@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
                 fragmentClass = GeneralStatFragment.class;
                 break;
             case R.id.detailed_stat:
-                fragmentClass = GeneralStatFragment.class;
+                fragmentClass = SitesFragment.class;
                 break;
             case R.id.account:
                 fragmentClass = GeneralStatFragment.class;

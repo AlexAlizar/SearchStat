@@ -6,25 +6,13 @@
     android:orientation="vertical">
 
     <TextView
-        android:text="Select a site"
-        android:textColor="@color/colorPrimaryDark"
-        android:gravity="center"
-        android:textSize="24sp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <Spinner
-        android:id="@+id/spSite"
-        android:layout_width="match_parent"
-        android:layout_height="24dp"
-        android:entries="@array/sitelist" />
-
-    <TextView
         android:id="@+id/tvCurrentDate"
         android:text="Current date"
         android:textColor="@color/colorPrimaryDark"
         android:gravity="center"
         android:textSize="24sp"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginBottom="12dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <LinearLayout

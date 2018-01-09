@@ -393,6 +393,14 @@
                                     <rect key="frame" x="0.0" y="91" width="375" height="243"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </view>
+                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f56-6W-vzK">
+                                    <rect key="frame" x="16" y="35" width="76" height="23"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" image="Back Button"/>
+                                    <connections>
+                                        <segue destination="elS-Hb-Zz0" kind="show" id="ZxW-Fm-uqv"/>
+                                    </connections>
+                                </button>
                             </subviews>
                             <constraints>
                                 <constraint firstItem="2vL-3z-eps" firstAttribute="leading" secondItem="aQC-J1-SB8" secondAttribute="leading" id="8Kn-Ab-dAt"/>
@@ -415,7 +423,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IGP-M1-uEg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3660" y="-341"/>
+            <point key="canvasLocation" x="3660" y="-341.37931034482762"/>
         </scene>
         <!--Detail Chart View Controller-->
         <scene sceneID="EMW-fd-Ve0">
@@ -897,7 +905,7 @@
         <image name="Иконка график" width="27" height="27"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="IPk-Uq-5dr"/>
-        <segue reference="XSe-dY-ec9"/>
+        <segue reference="ZxW-Fm-uqv"/>
+        <segue reference="bu2-I7-xZv"/>
     </inferredMetricsTieBreakers>
 </document>

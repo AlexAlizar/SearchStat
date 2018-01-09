@@ -26,6 +26,8 @@ class ScheludeViewController: UIViewController, ChartViewDelegate {
     }
     
     private func initVCAndUpdateChart() {
+        
+        
         //MARK: Чтение выбранного сайта
         let siteIndex = UserDefaults.standard.integer(forKey: SITE_INDEX)
         //MARK: Чтение даты обновления данных
@@ -47,76 +49,33 @@ class ScheludeViewController: UIViewController, ChartViewDelegate {
         pieChartView.chartDescription?.text = site.name
         barChartView.chartDescription?.text = site.name
         
-//        var dataEntries: [BarChartDataEntry] = []
-        
-//        for i in 0..<personArray.count {
-//            let dataEntry = BarChartDataEntry(x: Double(i), y: Double(totalArray[i]))
-//            dataEntries.append(dataEntry)
-//        }
-//
-//        let chartDataSet = BarChartDataSet(values: dataEntries, label: "")
-//        let barData = BarChartData(dataSets: [chartDataSet])
-//        barChartView.data = barData
-        
-        
-        
-//        Бар - график
-        
-                let dataEntries1 = BarChartDataEntry(x: Double(1), y: Double(totalArray[0]))
-                let dataEntries2 = BarChartDataEntry(x: Double(2), y: Double(totalArray[1]))
-                let dataEntries3 = BarChartDataEntry(x: Double(3), y: Double(totalArray[2]))
-        
-                let chartDataSet1 = BarChartDataSet(values: [dataEntries1], label: nameArray[0])
-                chartDataSet1.colors = [UIColor.blue]
-                let chartDataSet2 = BarChartDataSet(values: [dataEntries2], label: nameArray[1])
-                chartDataSet2.colors = [UIColor.brown]
-                let chartDataSet3 = BarChartDataSet(values: [dataEntries3], label: nameArray[2])
-                chartDataSet3.colors = [UIColor.green]
-        
-                let dataSets = [chartDataSet1,chartDataSet2,chartDataSet3]
-                let chartData = BarChartData(dataSets: dataSets)
-                   barChartView.data = chartData
-//      Диаграмма
-//        let dataPie1 = PieChartDataEntry(value: Double(totalArray[0]), label: nameArray[0])
-//        let dataPie2 = PieChartDataEntry(value: Double(totalArray[1]), label: nameArray[1])
-//        let dataPie3 = PieChartDataEntry(value: Double(totalArray[2]), label: nameArray[2])
-//
-//        let chartData1 = PieChartDataSet(values: [dataPie1], label: nameArray[0])
-//        let chartData2 = PieChartDataSet(values: [dataPie2], label: nameArray[1])
-////        chartData2.colors = [UIColor.green]
-//        let chartData3 = PieChartDataSet(values: [dataPie3], label: nameArray[2])
-////        chartData3.colors = [UIColor.brown]
-//
-//        let dataPieSets = [chartData1,chartData2,chartData3]
-//        let chartPieData = PieChartData(dataSets: dataPieSets)
-//        pieChartView.data = chartPieData
+
         
         var dataEntries: [ChartDataEntry] = []
+        let colors: [UIColor] = [UIColor.blue, UIColor.brown, UIColor.green]
         
         for i in 0..<nameArray.count {
             let dataEntry = ChartDataEntry(x: Double(i), y: Double(totalArray[i]))
             dataEntries.append(dataEntry)
         }
         
+        var dataBarEntries: [BarChartDataEntry] = []
         
+        for i in 0..<nameArray.count {
+            let dataBarEntry = BarChartDataEntry(x: Double(i), y: Double(totalArray[i]))
+            dataBarEntries.append(dataBarEntry)
+        }
+        
+        
+        let barChartDataSet = BarChartDataSet(values: dataBarEntries, label: site.name)
+        barChartDataSet.colors = colors
+        let barChartData = BarChartData(dataSets: [barChartDataSet])
+        barChartView.data = barChartData
         
         let pieChartDataSet = PieChartDataSet(values: dataEntries, label: site.name)
         let pieChartData = PieChartData(dataSet: pieChartDataSet)
         pieChartView.data = pieChartData
-        
         pieChartView.holeColor = UIColor.darkGray
-        
-       let colors: [UIColor] = [UIColor.blue, UIColor.brown, UIColor.green]
-
-//        for i in 0..<nameArray.count {
-//            let red = Double(arc4random_uniform(256))
-//            let green = Double(arc4random_uniform(256))
-//            let blue = Double(arc4random_uniform(256))
-//
-//            let color = UIColor(red: CGFloat(red/255), green: CGFloat(green/255), blue: CGFloat(blue/255), alpha: 1)
-//            colors.append(color)
-//        }
-
         pieChartDataSet.colors = colors
     }
 }

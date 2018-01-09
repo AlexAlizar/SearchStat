@@ -15,6 +15,11 @@ public class DailyStatisticsModel {
     @Expose
     private int page;
 
+    public DailyStatisticsModel(String person, int page) {
+        this.person = person;
+        this.page = page;
+    }
+
     public String getPerson() {
         return person;
     }

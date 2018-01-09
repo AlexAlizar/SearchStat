@@ -18,6 +18,9 @@
     <string name="detail_stat">Detail stat</string>
     <string name="name">Name</string>
     <string name="mentions">Mentions</string>
+    <string name="person">Person</string>
+    <string name="number_of_new_pages">Number of new pages</string>
+    <string name="select_a_person">Select a person</string>
 
     <string-array name="sitelist">
         <item>Site#1</item>

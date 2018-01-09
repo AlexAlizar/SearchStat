@@ -1,4 +1,4 @@
-package alizarchik.alex.searchstat;
+package alizarchik.alex.searchstat.Model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

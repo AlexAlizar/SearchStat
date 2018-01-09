@@ -17,7 +17,7 @@
         </property>
         <property name="connection.username">root</property>
         <!--У меня пароль 123456, изначально был admin, но с ним что-то не пошло-->
-        <property name="connection.password">123456</property>
+        <property name="connection.password">admin</property>
         <property name="show_sql">true</property>
         <property name="hbm2ddl.auto">update</property>
 

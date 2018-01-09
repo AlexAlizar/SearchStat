@@ -1,4 +1,4 @@
-package ru.geekbrains.krawler;
+package kraulerService.parsingService;
 
 /**
  * Created by User on 21.12.2017.
@@ -45,6 +45,7 @@ public class Downloader {
             URL site = new URL(url);
             reader = new BufferedReader(new InputStreamReader(site.openStream()));
             String line;
+
             while ((line = reader.readLine()) != null) {
                 result.append(line);
                 result.append(" ");

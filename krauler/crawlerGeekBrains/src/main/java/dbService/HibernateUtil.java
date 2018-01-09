@@ -1,4 +1,4 @@
-package ru.geekbrains.krawler;
+package dbService;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;

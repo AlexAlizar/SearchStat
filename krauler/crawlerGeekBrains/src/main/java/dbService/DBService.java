@@ -146,6 +146,20 @@ public class DBService {
         }
     }
 
+    public int updatePageDate(Page page){
+        int id = -1;
+        try {
+            openSessionAndTransation();
+            PageDAO pageDAO = new PageDAO(session);
+            pageDAO.updatePageDate(page);
+            closeSessionAndTransation("commit");
+        } catch (HibernateException e) {
+            closeSessionAndTransation("rollback");
+            System.err.println("!!!HIBERNATE ERROR APPEARED!!!");
+        } finally {
+            return id;
+        }
+    }
 
     public Page getPageById(int id) {
         Page page = null;
@@ -230,7 +244,7 @@ public class DBService {
         }
     }
 
-    public List<Page> gettNonScannedPages() {
+    public List<Page> getNonScannedPages() {
         List<Page> pages = null;
         try {
             openSessionAndTransation();
@@ -257,6 +271,21 @@ public class DBService {
             System.err.println("!!!HIBERNATE ERROR APPEARED!!!");
         } finally {
             return keywords;
+        }
+    }
+
+    public List<Person> getAllPerson() {
+        List<Person> persons = null;
+        try{
+            openSessionAndTransation();
+            PersonDAO personDAO = new PersonDAO(session);
+            persons = personDAO.getAllPerson();
+            closeSessionAndTransation("commit");
+        } catch (HibernateException e) {
+            closeSessionAndTransation("rollback");
+            System.err.println("!!!HIBERNATE ERROR APPEARED!!!");
+        } finally {
+            return persons;
         }
     }
 

@@ -1,21 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-    <Button
-        android:id="@+id/btnLoad"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Загрузить данные" />
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone"/>
-    <TextView
-        android:id="@+id/tvLoad"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content" />
+    android:layout_height="wrap_content"
+    android:background="@color/colorPrimary"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvCurrentDate"
+        android:text="Current date"
+        android:textColor="@color/colorPrimaryDark"
+        android:gravity="center"
+        android:textSize="24sp"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginBottom="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:background="@color/colorPrimaryDark"
+        android:layout_height="40dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:text="@string/name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="24sp"
+            android:layout_weight="1"/>
+        <TextView
+            android:text="@string/mentions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:textSize="24sp"
+            />
     </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:background="@color/colorPrimary"
+        android:id="@+id/rvGenStat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>

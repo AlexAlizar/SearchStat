@@ -16,4 +16,13 @@
     <string name="detailed_stat">Detailed stat</string>
     <string name="general_stat">General stat</string>
     <string name="detail_stat">Detail stat</string>
+    <string name="name">Name</string>
+    <string name="mentions">Mentions</string>
+
+    <string-array name="sitelist">
+        <item>Site#1</item>
+        <item>Site#2</item>
+        <item>Site#3</item>
+        <item>Site#4</item>
+    </string-array>
 </resources>

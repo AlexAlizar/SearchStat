@@ -2,6 +2,7 @@ package alizarchik.alex.searchstat;
 
 import java.util.List;
 
+import alizarchik.alex.searchstat.Model.DailyStatisticsModel;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;

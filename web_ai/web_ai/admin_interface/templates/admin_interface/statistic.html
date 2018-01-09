@@ -3,8 +3,17 @@
 {% block content %}
     <div class="col-sm-6">
         <div class="container">
-            <span><b>Total sites:</b> {{ total_sites }}</span>
-            <span><b>Total pages:</b> {{ total_pages }}</span>
+            <p>Общая статистика:</p>
+            <span><b>Всего сайтов: </b> {{ total_sites }}</span>
+            <br>
+            <span><b>Всего страниц: </b> {{ total_pages }}</span>
+            <hr>
+            {% for site in agg_pages %}
+                <div>
+                <span> <b>{{ site.site__name }}</b>:</span>
+                <span> {{ site.agg }} страниц для обхода</span>
+                </div>
+            {% endfor %}
         </div>
         <hr>
         {% for site, pages in pages_dict.items %}
@@ -20,8 +29,5 @@
             </div>
             <br>
         {% endfor %}
-
-
-
     </div>
 {% endblock %}

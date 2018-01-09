@@ -1,4 +1,5 @@
 from django.shortcuts import render, HttpResponseRedirect, reverse
+from django.contrib.auth.decorators import user_passes_test
 from .forms import KeywordsForm
 from .models import Keywords, Persons
 from django.forms import inlineformset_factory
@@ -9,6 +10,7 @@ def count_keywords(max_num, person_pk):
     return max_num
 
 
+@user_passes_test(lambda user: user.is_staff, login_url='/auth/login')
 def keywords_view(request):
     form = KeywordsForm()
     if 'view' in request.POST:
@@ -21,6 +23,7 @@ def keywords_view(request):
     return render(request, 'admin_interface/keywords_view.html', {"form": form})
 
 
+@user_passes_test(lambda user: user.is_staff, login_url='/auth/login')
 def person_keywords_edit(request):
     person = Persons.objects.get(name__iexact=request.session['person'])
     print(person.name)

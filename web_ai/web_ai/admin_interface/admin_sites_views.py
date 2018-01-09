@@ -1,5 +1,4 @@
-from django.core.validators import URLValidator
-from django.core.exceptions import ValidationError
+from django.contrib.auth.decorators import user_passes_test
 from django.shortcuts import render, render_to_response, redirect
 from django.forms import modelformset_factory
 from .models import Sites
@@ -11,6 +10,7 @@ def count_sites(max_num):
     return max_num
 
 
+@user_passes_test(lambda user: user.is_staff, login_url='/auth/login')
 def sites_view(request):
     sites = Sites.objects.all()
     if sites:
@@ -20,6 +20,7 @@ def sites_view(request):
         return render_to_response('admin_interface/sites_view.html', {'message': message})
 
 
+@user_passes_test(lambda user: user.is_staff, login_url='/auth/login')
 def sites_edit(request):
     sites = Sites.objects.all()
     max_num = 3

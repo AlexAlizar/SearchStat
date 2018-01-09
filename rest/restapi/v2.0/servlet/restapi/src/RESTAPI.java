@@ -19,29 +19,32 @@ public class RESTAPI extends HttpServlet {
         String rAction = request.getParameter("action");
 
         if ((rToken != null) || (rAction == "auth")) {
-            //Need to check if action is "Authentication",
-            //then try to authenticate by login and password.
-            RestAuthentication auth = new RestAuthentication(rToken);
-            if (auth.Check()) {
-                if (auth.getRole() == "user") {
-
-                    //Proceed request with user role
-
-                } else if (auth.getRole() == "admin") {
-
-                    //Proceed request with admin role
-
-                } else {
-
-                    //Error: user is not authorized
-
+            RestAuthentication auth;
+            if (rAction == "auth") {
+                String login = request.getParameter("login");
+                String password = request.getParameter("password");
+                auth = new RestAuthentication(login, password);
+                if (!auth.Check()) {
+                    //Send Error: 0x3 "Authorization failed.",
+                    //halt doGet ...
                 }
             } else {
-                //Token is invalid
+                auth = new RestAuthentication(rToken);
+            }
+
+            if (auth.Check()) {
+                if (auth.getRole() == "user") {
+                    //Proceed request with user role
+                } else if (auth.getRole() == "admin") {
+                    //Proceed request with admin role
+                } else {
+                    //Error: 0x0 "Unknown error."
+                }
+            } else {
+                out.println(constructJSON(new RestError(0x2))); //"Token is invalid."
             }
         } else {
-
-            out.println(constructJSON(new RestError(0x1)));
+            out.println(constructJSON(new RestError(0x1))); // "Token is not found."
         }
     }
 

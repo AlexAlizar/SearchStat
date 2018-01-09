@@ -1,9 +1,17 @@
 public class RestAuthentication {
+    private String login;
     private String role;
     private String token;
 
     RestAuthentication(String token) {
         this.token = token;
+        authorization("user"); //Temporary
+    }
+
+    RestAuthentication(String login, String password) {
+        //Looking in DB that login and comparing password,
+        //if success - generating Token
+        authorization("user"); //Temporary
     }
 
     void authorization(String role) {

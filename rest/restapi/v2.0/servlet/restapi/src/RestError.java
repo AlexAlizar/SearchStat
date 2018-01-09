@@ -5,12 +5,19 @@ public class RestError {
     RestError(int errorCode) {
         switch (errorCode) {
             case 0x1:
-                this.message = "token is not found";
+                this.message = "Token is not found.";
                 break;
             case 0x2:
+                this.message = "Token is invalid.";
+                break;
+            case 0x3:
+                this.message = "Authorization failed.";
+                break;
+            case 0x4:
+                this.message = "";
                 break;
             default:
-                this.message = "unknown error";
+                this.message = "Unknown error.";
         }
     }
 }

@@ -1,5 +1,4 @@
 {% load static %}
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -14,43 +13,47 @@
 
 </head>
 <body>
-<div class="container row">
-    <nav class="navbar navbar-dark bg-light col-sm-3">
-        <ul class="nav flex-column">
-            <li class="nav-item">
-                <a class="nav-link" href="/"><h3>Справочник</h3></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link {% if request.resolver_match.url_name == 'statistic' %}active{% endif %}" href="{% url 'ai:statistic' %}">Статистика краулера</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link {% if request.resolver_match.url_name == 'persons_view' %}active{% endif %}" href="{% url 'ai:persons_view' %}">Личности</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link {% if request.resolver_match.url_name == 'keywords_view' %}active{% endif %}" href="{% url 'ai:keywords_view' %}">Ключевые слова</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link {% if request.resolver_match.url_name == 'sites_view' %}active{% endif %}" href="{% url 'ai:sites_view' %}">Сайты</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link {% if request.resolver_match.url_name == 'users' %}active{% endif %}" href="{% url 'ai:users' %}">Пользователи</a>
-            </li>
-        </ul>
-    </nav>
-
-    {% block content %}
-        <div class="col-sm-6">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur atque autem cum ducimus ex, exercitationem illum impedit iusto maiores minus nihil nobis nostrum, odit perferendis quibusdam quos sint ullam vero?</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur ea et harum labore, maxime neque optio quis quisquam quos totam. Assumenda error fugit inventore iure minus nemo repudiandae rerum veritatis.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur atque autem cum ducimus ex, exercitationem illum impedit iusto maiores minus nihil nobis nostrum, odit perferendis quibusdam quos sint ullam vero?</p>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-3">
+            <nav class="navbar navbar-dark bg-light col-sm-12" id="sticky-sidebar">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/"><h3>Справочник</h3></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'statistic' %}active{% endif %}" href="{% url 'ai:statistic' %}">Статистика краулера</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'persons_view' %}active{% endif %}" href="{% url 'ai:persons_view' %}">Личности</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'keywords_view' %}active{% endif %}" href="{% url 'ai:keywords_view' %}">Ключевые слова</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'sites_view' %}active{% endif %}" href="{% url 'ai:sites_view' %}">Сайты</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'users' %}active{% endif %}" href="{% url 'ai:users' %}">Пользователи</a>
+                    </li>
+                </ul>
+            </nav>
         </div>
-    {% endblock %}
+
+        {% block content %}
+            <div class="col-sm-6">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur atque autem cum ducimus ex, exercitationem illum impedit iusto maiores minus nihil nobis nostrum, odit perferendis quibusdam quos sint ullam vero?</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur ea et harum labore, maxime neque optio quis quisquam quos totam. Assumenda error fugit inventore iure minus nemo repudiandae rerum veritatis.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur atque autem cum ducimus ex, exercitationem illum impedit iusto maiores minus nihil nobis nostrum, odit perferendis quibusdam quos sint ullam vero?</p>
+            </div>
+        {% endblock %}
+    </div>
+
+
 
 </div>
 <script src="{% static 'js/bootstrap.min.js' %}"></script>
 <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
 {% block js %}{% endblock %}
 </body>
-
-
 </html>

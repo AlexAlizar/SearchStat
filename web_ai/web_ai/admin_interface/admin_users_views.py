@@ -12,12 +12,10 @@ def users(request):
                                              '-is_superuser',
                                              '-is_staff',
                                              'username')
-
     content = {
         'title': title,
         'objects': users_list,
     }
-
     return render(request, 'authapp/users.html', content)
 
 
@@ -42,16 +40,16 @@ def user_create(request):
 
 def user_update(request, pk):
     title = 'users/edit'
-
     edit_user = get_object_or_404(User, pk=pk)
 
     if request.method == 'POST':
-        edit_form = UserAdminEditForm(request.POST, request.FILES, instance=edit_user)
-       
+        edit_form = UserAdminEditForm(request.POST, instance=edit_user)
         if edit_form.is_valid():
             edit_form.save()
             return HttpResponseRedirect(reverse('ai:user_update', args=[edit_user.pk]))
-         
+        else:
+            edit_form = UserAdminEditForm(instance=edit_user)
+            return render(request, 'authapp/user_update.html', {'edit_form': edit_form})
     else:
         edit_form = UserAdminEditForm(instance=edit_user)
 
@@ -66,9 +64,7 @@ def user_delete(request, pk):
     user = get_object_or_404(User, pk=pk)
 
     if request.method == 'POST':
-      
         user.delete()
-      
         return HttpResponseRedirect(reverse('ai:users'))
 
     content = {'title': title, 'user_to_delete': user}

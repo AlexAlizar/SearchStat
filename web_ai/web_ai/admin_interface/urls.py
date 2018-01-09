@@ -3,7 +3,7 @@ from .views import admin_interface, statistic
 from .admin_sites_views import sites_view, sites_edit
 from .admin_persons_views import persons_view, persons_edit
 from .admin_keywords_views import keywords_view, person_keywords_edit
-from .users_views import users, user_create, user_update, user_delete
+from .admin_users_views import users, user_create, user_update, user_delete
 
 app_name = 'admin_interface'
 

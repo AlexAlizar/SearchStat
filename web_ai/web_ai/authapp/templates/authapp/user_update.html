@@ -1,14 +1,22 @@
 {% extends 'base.html' %}
 
-
-
 {% block content %}
-    <form class="form-horizontal" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        <div class="container">
-            {{ update_form.as_p }}
+    <div class="col-sm-9">
+        <div class="card">
+            <form class="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="card-body">
+                    {{ update_form.as_p }}
+
+                    <div class="btn-group btn-block">
+                        <input class="form-control btn btn-primary col-sm-6" type="submit" value="Сохранить">
+                        <a class="btn btn-secondary col-sm-6" href="{% url 'ai:users' %}">Назад</a>
+                    </div>
+                </div>
+            </form>
+
         </div>
-        <input class="form-control" type="submit" value="сохранить">
-    </form>
+        <br>
+    </div>
 
 {% endblock %}

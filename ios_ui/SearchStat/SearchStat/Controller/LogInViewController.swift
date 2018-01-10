@@ -17,6 +17,8 @@ class LogInViewController: UIViewController {
     }
     
     @IBAction func logInBtn(_ sender: CustomButton) {
+        //authorization...
+        self.dismiss(animated: true, completion: nil)
     }
         
     override func viewDidLoad() {

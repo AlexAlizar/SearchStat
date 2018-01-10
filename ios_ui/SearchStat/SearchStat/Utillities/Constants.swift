@@ -32,8 +32,8 @@ let NOTIF_USER_DID_CHANGED = Notification.Name("notifUserDataChanged")
 //Segues
 let TO_TOTAL_STAT = "toTotalStatistic"
 let TO_DETAIL_STAT = "toDetailStatistic"
+let TO_LOGIN = "toLogin"
 
-//let TO_LOGIN = "toLogin"
 //let TO_CREATE_ACCOUNT = "toCreateAccount"
 //let UNWIND = "unwindToChannel"
 //let TO_AVATAR_PICKER = "toAvatarPicker"

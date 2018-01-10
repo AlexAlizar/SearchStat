@@ -10,6 +10,10 @@ import UIKit
 
 class MenuVC: UIViewController {
 
+    @IBAction func loginBtnPressed(_ sender: Any) {
+        
+        performSegue(withIdentifier: TO_LOGIN, sender: nil)
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         //MARK: Ширина Ьокового меню

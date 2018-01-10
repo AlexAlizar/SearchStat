@@ -11,6 +11,9 @@ import UIKit
 class RegistrationViewController: UIViewController {
 
     
+    @IBAction func closeBtnPressed(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
     
     @IBAction func userPhotoBtn(_ sender: UIButton) {
     }

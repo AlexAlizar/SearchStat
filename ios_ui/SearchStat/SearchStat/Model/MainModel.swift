@@ -68,8 +68,8 @@ struct Person {
     
     func isDatesEqual(dateOne: Date, dateTwo: Date) -> Bool {
     
-        let unixDateOne = dateOne.timeIntervalSince1970
-        let unixDateTwo = dateTwo.timeIntervalSince1970
+        let unixDateOne = Int(dateOne.timeIntervalSince1970 / 86400)
+        let unixDateTwo = Int(dateTwo.timeIntervalSince1970 / 86400)
        
         return unixDateOne == unixDateTwo ? true : false
     }

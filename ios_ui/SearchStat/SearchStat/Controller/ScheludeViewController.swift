@@ -45,11 +45,13 @@ class ScheludeViewController: UIViewController, ChartViewDelegate {
         let nameArray = personArray.enumerated().map { index, element in
             return element.name
         }
-      
-        pieChartView.chartDescription?.text = site.name
-        barChartView.chartDescription?.text = site.name
+//      выводится название источника
         
-
+//        pieChartView.chartDescription?.text = site.name
+//        barChartView.chartDescription?.text = site.name
+        
+        barChartView.chartDescription?.text = ""
+        pieChartView.chartDescription?.text = ""
         
         var dataEntries: [ChartDataEntry] = []
         let colors: [UIColor] = [UIColor.blue, UIColor.brown, UIColor.green]
@@ -64,14 +66,13 @@ class ScheludeViewController: UIViewController, ChartViewDelegate {
         
         for i in 0..<nameArray.count {
             let dataBarEntry = BarChartDataEntry(x: Double(i), y: Double(totalArray[i]))
+//                let dataBarEntry = BarChartDataEntry(x: Double(i), y: Double(totalArray[i]), data: nameArray[i] as AnyObject)
             dataBarEntries.append(dataBarEntry)
         }
         
-        for name in nameArray {
-            
-        }
+
         
-        let barChartDataSet = BarChartDataSet(values: dataBarEntries, label: "")
+        let barChartDataSet = BarChartDataSet(values: dataBarEntries, label: nameArray.description)
         barChartDataSet.colors = colors
         let barChartData = BarChartData(dataSets: [barChartDataSet])
         barChartView.data = barChartData
@@ -79,8 +80,10 @@ class ScheludeViewController: UIViewController, ChartViewDelegate {
         barChartView.xAxis.labelPosition = .bottom
         
         
-        let pieChartDataSet = PieChartDataSet(values: dataEntries, label: site.name)
-        let pieChartData = PieChartData(dataSet: pieChartDataSet)
+        
+        
+        let pieChartDataSet = PieChartDataSet(values: dataEntries, label: nameArray.description)
+        let pieChartData = PieChartData(dataSets: [pieChartDataSet])
         pieChartView.data = pieChartData
         pieChartView.animate(xAxisDuration: 2.0, yAxisDuration: 2.0)
         pieChartView.holeColor = UIColor.darkGray

@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+//сщььше
 struct SiteForSearch: Codable {
     var sites: [SitesDescription]
 }

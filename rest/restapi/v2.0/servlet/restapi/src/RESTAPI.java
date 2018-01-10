@@ -35,8 +35,10 @@ public class RESTAPI extends HttpServlet {
             if (auth.Check()) {
                 if (auth.getRole() == "user") {
                     //Proceed request with user role
+                    identifyUserAction(rAction);
                 } else if (auth.getRole() == "admin") {
                     //Proceed request with admin role
+                    identifyAdminAction(rAction);
                 } else {
                     //Error: 0x0 "Unknown error."
                 }
@@ -46,6 +48,24 @@ public class RESTAPI extends HttpServlet {
         } else {
             out.println(constructJSON(new RestError(0x1))); // "Token is not found."
         }
+    }
+
+    private String identifyAdminAction(String action) {
+        switch (action) {
+            case "":
+                break;
+            default:
+        }
+        return null;
+    }
+
+    private String identifyUserAction(String action) {
+        switch (action) {
+            case "":
+                break;
+            default:
+        }
+        return null;
     }
 
     private String constructJSON(Object object) {

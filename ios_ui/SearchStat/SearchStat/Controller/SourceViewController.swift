@@ -12,10 +12,17 @@ class SourceViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     var sitesArray: [Site] = []
 
+    @IBOutlet weak var menuBtn: UIButton!
     @IBOutlet weak var sourceTableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //MARK: показать меню
+        menuBtn.addTarget(self.revealViewController(), action: #selector(SWRevealViewController.revealToggle(_:)), for: .touchUpInside)
+        //MARK: Обработчики нашатий для меню
+        self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+        self.view.addGestureRecognizer(self.revealViewController().tapGestureRecognizer())
+        
         
         self.initVC()
         

@@ -72,7 +72,11 @@ class ScheludeViewController: UIViewController, ChartViewDelegate {
         
 
         
+<<<<<<< HEAD
         let barChartDataSet = BarChartDataSet(values: dataBarEntries, label: nameArray.description)
+=======
+        let barChartDataSet = BarChartDataSet(values: dataBarEntries, label: ")
+>>>>>>> parent of b0c7e45... регистрация и авторизация admin| 123
         barChartDataSet.colors = colors
         let barChartData = BarChartData(dataSets: [barChartDataSet])
         barChartView.data = barChartData

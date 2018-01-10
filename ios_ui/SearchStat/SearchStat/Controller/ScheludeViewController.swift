@@ -71,7 +71,7 @@ class ScheludeViewController: UIViewController, ChartViewDelegate {
             
         }
         
-        let barChartDataSet = BarChartDataSet(values: dataBarEntries, label: ")
+        let barChartDataSet = BarChartDataSet(values: dataBarEntries, label: "")
         barChartDataSet.colors = colors
         let barChartData = BarChartData(dataSets: [barChartDataSet])
         barChartView.data = barChartData

@@ -47,6 +47,8 @@
 		FF39B5A320060662002AFE40 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF39B5A220060662002AFE40 /* SWRevealViewController.m */; };
 		FF39B5A720060A25002AFE40 /* FirstScreenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF39B5A620060A25002AFE40 /* FirstScreenVC.swift */; };
 		FF39B5A920060A37002AFE40 /* MenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF39B5A820060A37002AFE40 /* MenuVC.swift */; };
+		FF39B5AB20062F94002AFE40 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF39B5AA20062F94002AFE40 /* AuthService.swift */; };
+		FF39B5AD200634D8002AFE40 /* UserDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF39B5AC200634D8002AFE40 /* UserDataService.swift */; };
 		FF3B78491FE8B4640096CD24 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3B78481FE8B4640096CD24 /* Constants.swift */; };
 		FF3B784E1FEAE94E0096CD24 /* MainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3B784D1FEAE94E0096CD24 /* MainService.swift */; };
 		FF3B78501FEB0A300096CD24 /* SourceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3B784F1FEB0A300096CD24 /* SourceCell.swift */; };
@@ -118,6 +120,8 @@
 		FF39B5A420060720002AFE40 /* SWRevealBridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SWRevealBridgingHeader.h; sourceTree = "<group>"; };
 		FF39B5A620060A25002AFE40 /* FirstScreenVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstScreenVC.swift; sourceTree = "<group>"; };
 		FF39B5A820060A37002AFE40 /* MenuVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuVC.swift; sourceTree = "<group>"; };
+		FF39B5AA20062F94002AFE40 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		FF39B5AC200634D8002AFE40 /* UserDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataService.swift; sourceTree = "<group>"; };
 		FF3B78481FE8B4640096CD24 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		FF3B784D1FEAE94E0096CD24 /* MainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainService.swift; sourceTree = "<group>"; };
 		FF3B784F1FEB0A300096CD24 /* SourceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceCell.swift; sourceTree = "<group>"; };
@@ -294,6 +298,8 @@
 			children = (
 				FF3B784D1FEAE94E0096CD24 /* MainService.swift */,
 				612B421D1FECC44400604393 /* Struct.swift */,
+				FF39B5AA20062F94002AFE40 /* AuthService.swift */,
+				FF39B5AC200634D8002AFE40 /* UserDataService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -446,6 +452,7 @@
 				E71F0D4F1FE7E2DB001F311D /* MainViewController.swift in Sources */,
 				6116547E1FF339C900D7A5D3 /* FSCalendar.m in Sources */,
 				611654AC1FF339ED00D7A5D3 /* FSCalendarCollectionViewLayout.m in Sources */,
+				FF39B5AB20062F94002AFE40 /* AuthService.swift in Sources */,
 				611654A81FF339ED00D7A5D3 /* FSCalendarCalculator.m in Sources */,
 				FF3B78501FEB0A300096CD24 /* SourceCell.swift in Sources */,
 				611654A91FF339ED00D7A5D3 /* FSCalendarStickyHeader.m in Sources */,
@@ -472,6 +479,7 @@
 				611654A21FF339ED00D7A5D3 /* FSCalendarConstants.m in Sources */,
 				611654AE1FF339ED00D7A5D3 /* FSCalendarExtensions.m in Sources */,
 				FF39B5A920060A37002AFE40 /* MenuVC.swift in Sources */,
+				FF39B5AD200634D8002AFE40 /* UserDataService.swift in Sources */,
 				E73B48261FEEA83800F53B1E /* ScheludeViewController.swift in Sources */,
 				611654AB1FF339ED00D7A5D3 /* FSCalendarDelegationFactory.m in Sources */,
 				FF39B5A320060662002AFE40 /* SWRevealViewController.m in Sources */,

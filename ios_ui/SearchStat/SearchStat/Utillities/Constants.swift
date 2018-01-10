@@ -33,15 +33,20 @@ let NOTIF_USER_DID_CHANGED = Notification.Name("notifUserDataChanged")
 let TO_TOTAL_STAT = "toTotalStatistic"
 let TO_DETAIL_STAT = "toDetailStatistic"
 let TO_LOGIN = "toLogin"
+let UNWIND = "unwindToMenu"
 
 //let TO_CREATE_ACCOUNT = "toCreateAccount"
-//let UNWIND = "unwindToChannel"
 //let TO_AVATAR_PICKER = "toAvatarPicker"
 
 
 //User Defaults
 let SITE_INDEX = "siteIndex"
 let DATA_UPDATE_STRING = "dataUpdateString"
+    //auth service
+    let TOKEN_KEY = "token"
+    let LOGGED_IN_KEY = "loggedin"
+    let USER_EMAIL = "userEmail"
+    let USER_NAME = "userName"
 
 
 //let TOKEN_KEY = "token"

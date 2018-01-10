@@ -1,6 +1,6 @@
 public class RestError {
-    public static String error;
-    public static String message;
+    private static String error;
+    private static String message;
 
     RestError(int errorCode) {
         switch (errorCode) {
@@ -14,7 +14,7 @@ public class RestError {
                 this.message = "Authorization failed.";
                 break;
             case 0x4:
-                this.message = "";
+                this.message = "Access denied.";
                 break;
             default:
                 this.message = "Unknown error.";

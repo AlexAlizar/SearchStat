@@ -44,6 +44,9 @@
 		E78870E61FEAA130004E57C6 /* DetailStatisticViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78870E51FEAA130004E57C6 /* DetailStatisticViewController.swift */; };
 		E7AF352320010CBF00CFD6AC /* DetailChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7AF352220010CBF00CFD6AC /* DetailChartViewController.swift */; };
 		E7BB79101FE98F07004FFC83 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7BB790F1FE98F07004FFC83 /* CustomButton.swift */; };
+		FF39B5A320060662002AFE40 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF39B5A220060662002AFE40 /* SWRevealViewController.m */; };
+		FF39B5A720060A25002AFE40 /* FirstScreenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF39B5A620060A25002AFE40 /* FirstScreenVC.swift */; };
+		FF39B5A920060A37002AFE40 /* MenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF39B5A820060A37002AFE40 /* MenuVC.swift */; };
 		FF3B78491FE8B4640096CD24 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3B78481FE8B4640096CD24 /* Constants.swift */; };
 		FF3B784E1FEAE94E0096CD24 /* MainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3B784D1FEAE94E0096CD24 /* MainService.swift */; };
 		FF3B78501FEB0A300096CD24 /* SourceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3B784F1FEB0A300096CD24 /* SourceCell.swift */; };
@@ -110,6 +113,11 @@
 		E78870E51FEAA130004E57C6 /* DetailStatisticViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailStatisticViewController.swift; sourceTree = "<group>"; };
 		E7AF352220010CBF00CFD6AC /* DetailChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailChartViewController.swift; sourceTree = "<group>"; };
 		E7BB790F1FE98F07004FFC83 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
+		FF39B5A120060662002AFE40 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
+		FF39B5A220060662002AFE40 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
+		FF39B5A420060720002AFE40 /* SWRevealBridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SWRevealBridgingHeader.h; sourceTree = "<group>"; };
+		FF39B5A620060A25002AFE40 /* FirstScreenVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstScreenVC.swift; sourceTree = "<group>"; };
+		FF39B5A820060A37002AFE40 /* MenuVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuVC.swift; sourceTree = "<group>"; };
 		FF3B78481FE8B4640096CD24 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		FF3B784D1FEAE94E0096CD24 /* MainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainService.swift; sourceTree = "<group>"; };
 		FF3B784F1FEB0A300096CD24 /* SourceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceCell.swift; sourceTree = "<group>"; };
@@ -246,6 +254,8 @@
 				E73B48251FEEA83800F53B1E /* ScheludeViewController.swift */,
 				E7AF352220010CBF00CFD6AC /* DetailChartViewController.swift */,
 				619590691FF82D0A00FEFA58 /* CalendarVC.swift */,
+				FF39B5A620060A25002AFE40 /* FirstScreenVC.swift */,
+				FF39B5A820060A37002AFE40 /* MenuVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -253,11 +263,22 @@
 		E71FBDAE1FE93C0400B3A0B3 /* Supporting */ = {
 			isa = PBXGroup;
 			children = (
+				FF39B5A020060638002AFE40 /* SWRevealViewController */,
 				6116547A1FF3399000D7A5D3 /* FSCalendar */,
 				E71F0D531FE7E2DB001F311D /* Assets.xcassets */,
 				E71F0D581FE7E2DB001F311D /* Info.plist */,
 			);
 			path = Supporting;
+			sourceTree = "<group>";
+		};
+		FF39B5A020060638002AFE40 /* SWRevealViewController */ = {
+			isa = PBXGroup;
+			children = (
+				FF39B5A120060662002AFE40 /* SWRevealViewController.h */,
+				FF39B5A220060662002AFE40 /* SWRevealViewController.m */,
+				FF39B5A420060720002AFE40 /* SWRevealBridgingHeader.h */,
+			);
+			path = SWRevealViewController;
 			sourceTree = "<group>";
 		};
 		FF3B78471FE8B43B0096CD24 /* Utillities */ = {
@@ -443,14 +464,17 @@
 				E72112D61FEA763C004093BA /* SourceViewController.swift in Sources */,
 				E7BB79101FE98F07004FFC83 /* CustomButton.swift in Sources */,
 				612B421E1FECC44400604393 /* Struct.swift in Sources */,
+				FF39B5A720060A25002AFE40 /* FirstScreenVC.swift in Sources */,
 				6195906A1FF82D0A00FEFA58 /* CalendarVC.swift in Sources */,
 				E7AF352320010CBF00CFD6AC /* DetailChartViewController.swift in Sources */,
 				FF7EDA4A1FE7E7AF00943B25 /* MainModel.swift in Sources */,
 				611654AA1FF339ED00D7A5D3 /* FSCalendarAppearance.m in Sources */,
 				611654A21FF339ED00D7A5D3 /* FSCalendarConstants.m in Sources */,
 				611654AE1FF339ED00D7A5D3 /* FSCalendarExtensions.m in Sources */,
+				FF39B5A920060A37002AFE40 /* MenuVC.swift in Sources */,
 				E73B48261FEEA83800F53B1E /* ScheludeViewController.swift in Sources */,
 				611654AB1FF339ED00D7A5D3 /* FSCalendarDelegationFactory.m in Sources */,
+				FF39B5A320060662002AFE40 /* SWRevealViewController.m in Sources */,
 				E78870E41FEA9713004E57C6 /* TotalStatisticViewController.swift in Sources */,
 				611654A11FF339ED00D7A5D3 /* FSCalendarTransitionCoordinator.m in Sources */,
 				FF3B78491FE8B4640096CD24 /* Constants.swift in Sources */,

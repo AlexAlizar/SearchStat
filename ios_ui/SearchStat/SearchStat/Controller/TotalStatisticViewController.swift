@@ -16,10 +16,14 @@ class TotalStatisticViewController: UIViewController, UITableViewDelegate, UITab
     @IBOutlet weak var nameSourceLabel: UILabel!
     @IBOutlet weak var totalStatTableView: UITableView!
     
+    @IBAction func backBtnPressed(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.initVC()
+        
         
     }
     

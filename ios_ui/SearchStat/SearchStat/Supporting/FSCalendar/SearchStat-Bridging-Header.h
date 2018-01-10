@@ -6,5 +6,6 @@
 #define FSCalendarSwiftExample_Objc_Bridge_Header_h
 
 #import "FSCalendar.h"
+#import "SWRevealViewController.h"
 
 #endif

@@ -51,6 +51,10 @@ class DetailStatisticViewController: UIViewController, UITableViewDelegate, UITa
     @IBOutlet weak var detailTableView: UITableView!
     @IBOutlet weak var calendarButton: UIButton!
     
+    @IBAction func backBtnPressed(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     @IBAction func switchDatePressed(_ sender: UIButton) {
         if sender.currentTitle == "PrewDate" {
             currentDate -= unixDay

@@ -26,6 +26,7 @@
 		611654AE1FF339ED00D7A5D3 /* FSCalendarExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6116549B1FF339ED00D7A5D3 /* FSCalendarExtensions.m */; };
 		612B421E1FECC44400604393 /* Struct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 612B421D1FECC44400604393 /* Struct.swift */; };
 		6195906A1FF82D0A00FEFA58 /* CalendarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 619590691FF82D0A00FEFA58 /* CalendarVC.swift */; };
+		6195ADE22006838C00612D4A /* CustomImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6195ADE12006838C00612D4A /* CustomImageView.swift */; };
 		AC6E45B4F699C02A825873F0 /* Pods_SearchStat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D32D87F08DBCB5E0E46A6179 /* Pods_SearchStat.framework */; };
 		E71F0D4D1FE7E2DB001F311D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71F0D4C1FE7E2DB001F311D /* AppDelegate.swift */; };
 		E71F0D4F1FE7E2DB001F311D /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71F0D4E1FE7E2DB001F311D /* MainViewController.swift */; };
@@ -93,6 +94,7 @@
 		6116549E1FF339ED00D7A5D3 /* FSCalendarConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSCalendarConstants.h; sourceTree = "<group>"; };
 		612B421D1FECC44400604393 /* Struct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Struct.swift; sourceTree = "<group>"; };
 		619590691FF82D0A00FEFA58 /* CalendarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarVC.swift; sourceTree = "<group>"; };
+		6195ADE12006838C00612D4A /* CustomImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomImageView.swift; sourceTree = "<group>"; };
 		A60C34444EE3859B3C88FDC7 /* Pods-SearchStat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SearchStat.release.xcconfig"; path = "Pods/Target Support Files/Pods-SearchStat/Pods-SearchStat.release.xcconfig"; sourceTree = "<group>"; };
 		D32D87F08DBCB5E0E46A6179 /* Pods_SearchStat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SearchStat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE5EB0DE56367307DB1F93BF /* Pods-SearchStat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SearchStat.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SearchStat/Pods-SearchStat.debug.xcconfig"; sourceTree = "<group>"; };
@@ -238,6 +240,7 @@
 				E71FBDAF1FE9445900B3A0B3 /* GradientView.swift */,
 				E7BB790F1FE98F07004FFC83 /* CustomButton.swift */,
 				E75484E11FED203000546D61 /* CustomTextField.swift */,
+				6195ADE12006838C00612D4A /* CustomImageView.swift */,
 				FF3B784F1FEB0A300096CD24 /* SourceCell.swift */,
 				E75484E91FED3ABA00546D61 /* TotalStatisticCell.swift */,
 				E7509EF11FEE7A4700A5FC56 /* DetailStatisticCell.swift */,
@@ -476,6 +479,7 @@
 				E7AF352320010CBF00CFD6AC /* DetailChartViewController.swift in Sources */,
 				FF7EDA4A1FE7E7AF00943B25 /* MainModel.swift in Sources */,
 				611654AA1FF339ED00D7A5D3 /* FSCalendarAppearance.m in Sources */,
+				6195ADE22006838C00612D4A /* CustomImageView.swift in Sources */,
 				611654A21FF339ED00D7A5D3 /* FSCalendarConstants.m in Sources */,
 				611654AE1FF339ED00D7A5D3 /* FSCalendarExtensions.m in Sources */,
 				FF39B5A920060A37002AFE40 /* MenuVC.swift in Sources */,

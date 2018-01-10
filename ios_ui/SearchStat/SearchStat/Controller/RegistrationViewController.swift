@@ -18,6 +18,7 @@ class RegistrationViewController: UIViewController {
     @IBAction func userPhotoBtn(_ sender: UIButton) {
     }
     
+    @IBOutlet weak var userImageView: CustomImageView!
     @IBOutlet weak var userPhoto: UIButton!
     @IBOutlet weak var userNameTextField: CustomTextField!
     @IBOutlet weak var emailTextField: CustomTextField!

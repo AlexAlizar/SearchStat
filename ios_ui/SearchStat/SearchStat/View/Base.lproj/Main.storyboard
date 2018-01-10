@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="wqk-IF-yhv">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="wqk-IF-yhv">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -262,9 +262,27 @@
                                     <action selector="createUserBtn:" destination="LEH-mq-CP1" eventType="touchUpInside" id="lUt-g4-qi9"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="photo icon" translatesAutoresizingMaskIntoConstraints="NO" id="xqC-L2-Gpp" customClass="CustomImageView" customModule="SearchStat" customModuleProvider="target">
+                                <rect key="frame" x="117" y="85" width="140" height="140"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="70"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EJv-hN-OdO">
                                 <rect key="frame" x="117" y="85" width="141" height="141"/>
-                                <state key="normal" image="photo icon"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="141" id="fe2-pQ-EZA"/>
+                                    <constraint firstAttribute="width" constant="141" id="izb-uZ-uGq"/>
+                                </constraints>
                                 <connections>
                                     <action selector="userPhotoBtn:" destination="LEH-mq-CP1" eventType="touchUpInside" id="fPL-Z3-Wng"/>
                                 </connections>
@@ -308,6 +326,7 @@
                         <outlet property="emailTextField" destination="jeO-sc-d3g" id="T9v-V0-G1C"/>
                         <outlet property="passwordTextField" destination="BKb-qJ-Lnp" id="gEO-Gt-F1d"/>
                         <outlet property="repeatPassTextField" destination="qbc-Zc-rG4" id="Oja-Eh-lcQ"/>
+                        <outlet property="userImageView" destination="xqC-L2-Gpp" id="hqa-th-z2S"/>
                         <outlet property="userNameTextField" destination="898-xz-qba" id="lEt-Rh-vPi"/>
                         <outlet property="userPhoto" destination="EJv-hN-OdO" id="wF5-ZU-tna"/>
                         <segue destination="jdN-e5-2F3" kind="unwind" identifier="unwindToMenu" unwindAction="prepareForUnwindWithSegue:" id="oCa-Uf-9Pw"/>
@@ -316,7 +335,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ek7-AD-53S" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="jdN-e5-2F3" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1036" y="-341"/>
+            <point key="canvasLocation" x="1036" y="-341.37931034482762"/>
         </scene>
         <!--Log In View Controller-->
         <scene sceneID="Cws-Mg-qrI">

@@ -56,6 +56,7 @@ class ScheludeViewController: UIViewController, ChartViewDelegate {
         
         for i in 0..<nameArray.count {
             let dataEntry = ChartDataEntry(x: Double(i), y: Double(totalArray[i]))
+           
             dataEntries.append(dataEntry)
         }
         
@@ -66,15 +67,22 @@ class ScheludeViewController: UIViewController, ChartViewDelegate {
             dataBarEntries.append(dataBarEntry)
         }
         
+        for name in nameArray {
+            
+        }
         
-        let barChartDataSet = BarChartDataSet(values: dataBarEntries, label: site.name)
+        let barChartDataSet = BarChartDataSet(values: dataBarEntries, label: ")
         barChartDataSet.colors = colors
         let barChartData = BarChartData(dataSets: [barChartDataSet])
         barChartView.data = barChartData
+        barChartView.animate(xAxisDuration: 2.0, yAxisDuration: 2.0)
+        barChartView.xAxis.labelPosition = .bottom
+        
         
         let pieChartDataSet = PieChartDataSet(values: dataEntries, label: site.name)
         let pieChartData = PieChartData(dataSet: pieChartDataSet)
         pieChartView.data = pieChartData
+        pieChartView.animate(xAxisDuration: 2.0, yAxisDuration: 2.0)
         pieChartView.holeColor = UIColor.darkGray
         pieChartDataSet.colors = colors
     }

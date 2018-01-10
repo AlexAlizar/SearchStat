@@ -84,12 +84,23 @@
                                     <segue destination="IPT-hT-L9Z" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="ZWV-lr-cdc"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="photo icon" translatesAutoresizingMaskIntoConstraints="NO" id="DlX-99-vS2">
-                                <rect key="frame" x="17" y="519" width="93" height="92"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="photo icon" translatesAutoresizingMaskIntoConstraints="NO" id="DlX-99-vS2" customClass="CustomImageView" customModule="SearchStat" customModuleProvider="target">
+                                <rect key="frame" x="17" y="519" width="92" height="92"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="92" id="HQu-9g-TwB"/>
-                                    <constraint firstAttribute="width" constant="93" id="ZeD-vu-iri"/>
+                                    <constraint firstAttribute="width" constant="92" id="ZeD-vu-iri"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="46"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SOq-tK-hmX" customClass="CustomButton" customModule="SearchStat" customModuleProvider="target">
                                 <rect key="frame" x="35" y="318" width="245" height="50"/>
@@ -130,15 +141,15 @@
                         </subviews>
                         <color key="backgroundColor" red="0.0039215686274509803" green="0.3411764705882353" blue="0.60784313725490191" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="L7M-YY-ZCs" firstAttribute="leading" secondItem="DlX-99-vS2" secondAttribute="trailing" constant="8" id="062-ar-PT1"/>
+                            <constraint firstItem="L7M-YY-ZCs" firstAttribute="leading" secondItem="DlX-99-vS2" secondAttribute="trailing" constant="9" id="062-ar-PT1"/>
                             <constraint firstItem="IFX-nO-70Q" firstAttribute="top" secondItem="SOq-tK-hmX" secondAttribute="bottom" id="1a6-gC-kBN"/>
-                            <constraint firstItem="L7M-YY-ZCs" firstAttribute="leading" secondItem="DlX-99-vS2" secondAttribute="trailing" constant="8" id="61r-dx-hLh"/>
+                            <constraint firstItem="L7M-YY-ZCs" firstAttribute="leading" secondItem="DlX-99-vS2" secondAttribute="trailing" constant="9" id="61r-dx-hLh"/>
                             <constraint firstItem="Kph-zR-Yp6" firstAttribute="trailing" secondItem="IFX-nO-70Q" secondAttribute="trailing" constant="95" id="6iQ-vr-BLe"/>
                             <constraint firstItem="DlX-99-vS2" firstAttribute="leading" secondItem="Kph-zR-Yp6" secondAttribute="leading" constant="17" id="82V-cm-3pv"/>
                             <constraint firstItem="Kph-zR-Yp6" firstAttribute="bottom" secondItem="DlX-99-vS2" secondAttribute="bottom" constant="56" id="B32-sZ-eTQ"/>
                             <constraint firstItem="DlX-99-vS2" firstAttribute="top" secondItem="IFX-nO-70Q" secondAttribute="bottom" constant="101" id="Fac-OW-Qua"/>
                             <constraint firstItem="L7M-YY-ZCs" firstAttribute="top" secondItem="IFX-nO-70Q" secondAttribute="bottom" constant="122" id="GVf-Je-aQw"/>
-                            <constraint firstItem="L7M-YY-ZCs" firstAttribute="leading" secondItem="DlX-99-vS2" secondAttribute="trailing" constant="8" id="Hb0-aQ-h8O"/>
+                            <constraint firstItem="L7M-YY-ZCs" firstAttribute="leading" secondItem="DlX-99-vS2" secondAttribute="trailing" constant="9" id="Hb0-aQ-h8O"/>
                             <constraint firstItem="Kph-zR-Yp6" firstAttribute="bottom" secondItem="L7M-YY-ZCs" secondAttribute="bottom" constant="77" id="IBQ-ah-Gp5"/>
                             <constraint firstItem="DlX-99-vS2" firstAttribute="leading" secondItem="Kph-zR-Yp6" secondAttribute="leading" constant="17" id="ItA-ab-D7t"/>
                             <constraint firstItem="L7M-YY-ZCs" firstAttribute="centerY" secondItem="DlX-99-vS2" secondAttribute="centerY" id="Mm2-U0-870"/>

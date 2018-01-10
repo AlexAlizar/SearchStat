@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="wqk-IF-yhv">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="wqk-IF-yhv">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -156,6 +156,8 @@
                         <viewLayoutGuide key="safeArea" id="Kph-zR-Yp6"/>
                     </view>
                     <connections>
+                        <outlet property="loginBtn" destination="L7M-YY-ZCs" id="7u2-28-Fbx"/>
+                        <outlet property="menuBtn" destination="thb-FR-D3V" id="32b-i6-U95"/>
                         <segue destination="DZq-Vl-2OD" kind="show" identifier="toLogin" id="Iz7-5y-sFH"/>
                     </connections>
                 </viewController>
@@ -308,9 +310,11 @@
                         <outlet property="repeatPassTextField" destination="qbc-Zc-rG4" id="Oja-Eh-lcQ"/>
                         <outlet property="userNameTextField" destination="898-xz-qba" id="lEt-Rh-vPi"/>
                         <outlet property="userPhoto" destination="EJv-hN-OdO" id="wF5-ZU-tna"/>
+                        <segue destination="jdN-e5-2F3" kind="unwind" identifier="unwindToMenu" unwindAction="prepareForUnwindWithSegue:" id="oCa-Uf-9Pw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ek7-AD-53S" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="jdN-e5-2F3" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1036" y="-341"/>
         </scene>
@@ -415,9 +419,11 @@
                     <connections>
                         <outlet property="emailTextField" destination="w1I-cv-74D" id="07E-ac-hp0"/>
                         <outlet property="passwordTextField" destination="cIz-is-sjG" id="xYY-U0-HMN"/>
+                        <segue destination="R6G-rq-6h9" kind="unwind" identifier="unwindToMenu" unwindAction="prepareForUnwindWithSegue:" id="pj7-oR-mQs"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NCk-5l-etS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="R6G-rq-6h9" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="206" y="-341"/>
         </scene>

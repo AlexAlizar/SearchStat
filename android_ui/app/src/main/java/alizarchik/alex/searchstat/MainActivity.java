@@ -1,135 +1,46 @@
 package alizarchik.alex.searchstat;
-import android.content.res.Configuration;
+
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
+import android.view.Menu;
+import android.view.View;
+import android.widget.Button;
 
 /**
  * Created by Александр on 07.01.2018.
  */
 
 public class MainActivity extends AppCompatActivity {
-    private DrawerLayout mDrawer;
+
     private Toolbar toolbar;
-    private NavigationView nvDrawer;
-
-    // Убедитесь, что используется версия
-    // android.support.v7.app.ActionBarDrawerToggle.
-
-    // android.support.v4.app.ActionBarDrawerToggle устарел.
-
-    private ActionBarDrawerToggle drawerToggle;
+    private Button buttonGS;
+    private Button buttonDS;
+    private Button buttonPS;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        // Установить Toolbar для замены ActionBar'а.
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        // Найти наш view drawer'а
-        mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawerToggle = setupDrawerToggle();
-        // Найти наш view drawer'а
-        nvDrawer = (NavigationView) findViewById(R.id.nvView);
-        // Настроить view drawer'а
-        setupDrawerContent(nvDrawer);
-
-        mDrawer.addDrawerListener(drawerToggle);
-
+        buttonGS = findViewById(R.id.button_GS);
+        buttonDS = findViewById(R.id.button_DS);
+        buttonPS = findViewById(R.id.button_PS);
+        buttonGS.setOnClickListener(view -> startNewActivity(GeneralStatActivity.class));
+        buttonDS.setOnClickListener(view -> startNewActivity(DailyStatActivity.class));
     }
 
-    private ActionBarDrawerToggle setupDrawerToggle() {
-        // Примечание: Убедитесь, что вы передаёте допустимую ссылку
-        // на toolbar
-        // ActionBarDrawToggle() не предусматривает в ней
-        // необходимости и не будет отображать иконку гамбургера без
-        // неё
-        return new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.navigation_drawer_open,  R.string.navigation_drawer_close);
+    private void startNewActivity(Class<?> classActivity) {
+        Intent intent = new Intent(this, classActivity);
+        startActivity(intent);
     }
 
     @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        // Синхронизировать состояние переключения после того, как
-        // возникнет onRestoreInstanceState
-        drawerToggle.syncState();
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        // Передать любые изменения конфигурации переключателям
-        // drawer'а
-        drawerToggle.onConfigurationChanged(newConfig);
-    }
-
-    private void setupDrawerContent(NavigationView navigationView) {
-        navigationView.setNavigationItemSelectedListener(
-                menuItem -> {
-                    selectDrawerItem(menuItem);
-                    return true;
-                });
-    }
-
-    public void selectDrawerItem(MenuItem menuItem) {
-        // Создать новый фрагмент и задать фрагмент для отображения
-        // на основе нажатия на элемент навигации
-        Fragment fragment = null;
-        Class fragmentClass;
-        switch(menuItem.getItemId()) {
-            case R.id.general_stat:
-                fragmentClass = GeneralStatFragment.class;
-                break;
-            case R.id.detailed_stat:
-                fragmentClass = SitesFragment.class;
-                break;
-            case R.id.account:
-                fragmentClass = DailyStatFragment.class;
-                break;
-            case R.id.settings:
-                fragmentClass = GeneralStatFragment.class;
-                break;
-            case R.id.exit:
-                fragmentClass = GeneralStatFragment.class;
-                break;
-            default:
-                fragmentClass = GeneralStatFragment.class;
-        }
-
-        try {
-            fragment = (Fragment) fragmentClass.newInstance();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        // Вставить фрагмент, заменяя любой существующий
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.fragment_container, fragment).commit();
-
-        // Выделение существующего элемента выполнено с помощью
-        // NavigationView
-        menuItem.setChecked(true);
-        // Установить заголовок для action bar'а
-        setTitle(menuItem.getTitle());
-        // Закрыть navigation drawer
-        mDrawer.closeDrawers();
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (drawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.graphics, menu);
+        return true;
     }
 }
 

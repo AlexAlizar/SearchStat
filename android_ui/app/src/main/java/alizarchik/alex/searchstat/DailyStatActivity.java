@@ -1,15 +1,16 @@
 package alizarchik.alex.searchstat;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.widget.Button;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,32 +18,56 @@ import java.util.List;
 import alizarchik.alex.searchstat.Model.DailyStatisticsModel;
 
 /**
- * Created by Olesia on 09.01.2018.
+ * Created by Olesia on 10.01.2018.
  */
 
-public class DailyStatFragment extends Fragment {
+public class DailyStatActivity extends AppCompatActivity {
 
+    private Toolbar toolbar;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+    private Button buttonSelectPerson;
 
     public static final String TAG = "MyLogs";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setRetainInstance(true);
+        setContentView(R.layout.detail_stat_screen);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        init();
+
+        ArrayList<String> persons = new ArrayList<>();
+        persons.add("person#1");
+        persons.add("person#2");
+        persons.add("person#3");
+
+        final CharSequence[] personsArray = persons.toArray(new String[persons.size()]);
+
+        buttonSelectPerson = findViewById(R.id.button_select_person);
+        buttonSelectPerson.setOnClickListener(view -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Select a person");
+            builder.setItems(personsArray, (DialogInterface.OnClickListener) (dialogInterface, i) -> {
+                // Do something with the selection
+            });
+            builder.show();
+        });
     }
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.detail_stat_screen, container, false);
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.graphics, menu);
+        return true;
+    }
 
+    private void init() {
         List<DailyStatisticsModel> dailyStatistics = getDailyStatistics();
-        mRecyclerView = view.findViewById(R.id.rvDailyStat);
+        mRecyclerView = findViewById(R.id.rvDailyStat);
         mRecyclerView.setHasFixedSize(true);
-        mLayoutManager = new LinearLayoutManager(getActivity());
+        mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mAdapter = new DSRecyclerAdapter(dailyStatistics);
         mRecyclerView.setAdapter(mAdapter);
@@ -50,10 +75,9 @@ public class DailyStatFragment extends Fragment {
         DividerItemDecoration divider = new
                 DividerItemDecoration(mRecyclerView.getContext(),
                 DividerItemDecoration.VERTICAL);
-        divider.setDrawable(ContextCompat.getDrawable(getActivity(),
+        divider.setDrawable(ContextCompat.getDrawable(this,
                 R.drawable.line_divider));
         mRecyclerView.addItemDecoration(divider);
-        return view;
     }
 
     public List<DailyStatisticsModel> getDailyStatistics() {
@@ -67,5 +91,4 @@ public class DailyStatFragment extends Fragment {
 
         return dataSet;
     }
-
 }

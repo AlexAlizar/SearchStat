@@ -2,47 +2,60 @@ package alizarchik.alex.searchstat;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import alizarchik.alex.searchstat.Model.GenStatDataItem;
 
 /**
- * Created by Александр on 07.01.2018.
+ * Created by Olesia on 10.01.2018.
  */
 
-public class GeneralStatFragment extends Fragment {
+public class GeneralStatActivity extends AppCompatActivity {
 
+    private Toolbar toolbar;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+    private TextView currentDate;
 
     public static final String TAG = "MyLogs";
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setRetainInstance(true);
+        setContentView(R.layout.general_stat_screen);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        init();
     }
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.general_stat_screen, container, false);
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.graphics, menu);
+        return true;
+    }
 
+    private void init() {
         List<GenStatDataItem> myDataset = getDataSet();
-        mRecyclerView = view.findViewById(R.id.rvGenStat);
+        mRecyclerView = findViewById(R.id.rvGenStat);
         mRecyclerView.setHasFixedSize(true);
-        mLayoutManager = new LinearLayoutManager(getActivity());
+        mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mAdapter = new GSRecyclerAdapter(myDataset);
         mRecyclerView.setAdapter(mAdapter);
@@ -50,10 +63,13 @@ public class GeneralStatFragment extends Fragment {
         DividerItemDecoration divider = new
                 DividerItemDecoration(mRecyclerView.getContext(),
                 DividerItemDecoration.VERTICAL);
-        divider.setDrawable(ContextCompat.getDrawable(getActivity(),
+        divider.setDrawable(ContextCompat.getDrawable(this,
                 R.drawable.line_divider));
         mRecyclerView.addItemDecoration(divider);
-        return view;
+        currentDate = findViewById(R.id.tvCurrentDate);
+        Date dateNow = new Date();
+        SimpleDateFormat formatForDateNow = new SimpleDateFormat("E, MMM d, ''yy", Locale.ENGLISH);
+        currentDate.setText("Current date: " + formatForDateNow.format(dateNow));
     }
 
     public List<GenStatDataItem> getDataSet() {
@@ -67,5 +83,4 @@ public class GeneralStatFragment extends Fragment {
 
         return dataSet;
     }
-
 }

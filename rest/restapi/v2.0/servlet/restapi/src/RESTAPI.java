@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 public class RESTAPI extends HttpServlet {
+    public String json = null;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("application/json; charset=utf-8");
@@ -50,12 +51,14 @@ public class RESTAPI extends HttpServlet {
                         );
                     } else if (auth.getRole() == "admin") {
                         out.println("Debug: user role = admin");
-                        out.println(
-                                constructJSON(
-                                        new RestActions().adminActionExecute(rAction, request)
-                                )
-                        );
-//                        constructJSON(test());
+//                        out.println(
+//                                constructJSON(
+//                                        new RestActions().adminActionExecute(rAction, request)
+//                                )
+//                        );
+//
+                        new RestActions().adminActionExecute(rAction, request);
+                        out.println(RestMessages.outputJSONMessage);
                     } else {
                         out.println("Debug: Unknown error");
                         //Error: 0x0 "Unknown error."
@@ -85,7 +88,7 @@ public class RESTAPI extends HttpServlet {
 
 
 
-    private String constructJSON(Object object) {
+    public String constructJSON(Object object) {
         GsonBuilder gsonBuilder = new GsonBuilder();
         Gson gson = gsonBuilder.setPrettyPrinting().create();
 //        Gson gson = gsonBuilder.create();

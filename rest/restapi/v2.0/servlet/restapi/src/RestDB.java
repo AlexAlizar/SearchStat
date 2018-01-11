@@ -81,6 +81,19 @@ public class RestDB {
         }
     }
 
+    public String executeDBQueryUpdate(String query) {
+        try {
+            if (stmt.executeUpdate(query) == 1) {
+                return "Updated";
+            } else {
+                return "Failed";
+            }
+
+        } catch (Exception e) {
+            return e.toString();
+        }
+    }
+
 
 
 

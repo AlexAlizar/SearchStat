@@ -2,7 +2,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.LinkedBlockingDeque;
 
 public class RestActions {
     private RestDB db = RestDB.getInstance();
@@ -43,14 +42,12 @@ public class RestActions {
         List<RestGeneralStatistic> generalStatisticList = new ArrayList<>();
         List<RestDailyStatistic> dailyStatisticList = new ArrayList<>();
         List<RestPersons> personsList = new ArrayList<>();
+        List<RestSites> sitesList = new ArrayList<>();
+        List<RestKeywords> keywordsList = new ArrayList<>();
 
         if (adminActionsL.contains(action)) {
-//            debug += "Action is exist in users actions.\r";
-            //connect to DB
             String result = db.prepareDB("mySQL");
             if (result == "DB is ready.") {
-//                return "Debug: " + result;
-//                debug += "DB is ready.";
                 switch (action) {
                     case "general-statistic":
                         site = "\"" + request.getParameter("site") + "\"";
@@ -62,7 +59,10 @@ public class RestActions {
                                     String rank = db.rs.getString(2);
                                     generalStatisticList.add(new RestGeneralStatistic(person_name, rank));
                                 }
+//START: Return result to the client
+                                RestMessages.outputMessages(generalStatisticList);
                                 return generalStatisticList;
+//END: Return result to the client
                             } catch (Exception e) {
                                 return e.toString();
                             }
@@ -83,14 +83,16 @@ public class RestActions {
                                     String countOfPages = db.rs.getString(2);
                                     dailyStatisticList.add(new RestDailyStatistic(date, countOfPages));
                                 }
+//START: Return result to the client
+                                RestMessages.outputMessages(dailyStatisticList);
                                 return dailyStatisticList;
+//END: Return result to the client
                             } catch (Exception e) {
                                 return e.toString();
                             }
                         } else {
                             return "Not enough parameters";
                         }
-//                        return "Success! daily-statistic"; //temporary
                     case "get-persons":
                         try {
                             result = db.executeDBQuery(
@@ -100,43 +102,129 @@ public class RestActions {
                                 String name = db.rs.getString(2);
                                 personsList.add(new RestPersons(id, name));
                             }
+//START: Return result to the client
+                            RestMessages.outputMessages(personsList);
                             return personsList;
+//END: Return result to the client
                         } catch (Exception e) {
                             return e.toString();
                         }
                     case "add-person":
-
-                        return "Success! add-person"; //temporary
+                        try {
+                            String name = request.getParameter("name");
+                            if (name != null) {
+                                return db.executeDBQueryUpdate(
+                                        "INSERT INTO `persons` (`id`, `name`) VALUES (NULL, '" + name +"')");
+                            } else {
+                                return "Not enough parameters";
+                            }
+                        } catch (Exception e) {
+                            return e.toString();
+                        }
                     case "edit-person":
 
                         return "Success! edit-person"; //temporary
                     case "remove-person":
-
-                        return "Success! remove-person"; //temporary
+                        try {
+                            String id = request.getParameter("id");
+                            if (id != null) {
+                                return db.executeDBQueryUpdate(
+                                        "DELETE FROM persons WHERE id = " + id);
+                            } else {
+                                return "Not enough parameters";
+                            }
+                        } catch (Exception e) {
+                            return e.toString();
+                        }
                     case "get-sites":
-
-                        return "Success! get-sites"; //temporary
+                        try {
+                            result = db.executeDBQuery(
+                                    new RestActionsSQLQueries.GetSitesQuery().query);
+                            while (db.rs.next()) {
+                                String id = db.rs.getString(1);
+                                String name = db.rs.getString(2);
+                                sitesList.add(new RestSites(id, name));
+                            }
+//START: Return result to the client
+                            RestMessages.outputMessages(sitesList);
+                            return sitesList;
+//END: Return result to the client
+                        } catch (Exception e) {
+                            return e.toString();
+                        }
                     case "add-site":
-
-                        return "Success! add-site"; //temporary
+                        try {
+                            String name = request.getParameter("name");
+                            if (name != null) {
+                                return db.executeDBQueryUpdate(
+                                        "INSERT INTO `sites` (`id`, `name`) VALUES (NULL, '" + name +"')");
+                            } else {
+                                return "Not enough parameters";
+                            }
+                        } catch (Exception e) {
+                            return e.toString();
+                        }
                     case "edit-site":
 
                         return "Success! edit-site"; //temporary
                     case "remove-site":
-
-                        return "Success! remove-site"; //temporary
+                        try {
+                            String id = request.getParameter("id");
+                            if (id != null) {
+                                return db.executeDBQueryUpdate(
+                                        "DELETE FROM sites WHERE id = " + id);
+                            } else {
+                                return "Not enough parameters";
+                            }
+                        } catch (Exception e) {
+                            return e.toString();
+                        }
                     case "get-keywords":
-
-                        return "Success! get-keywords"; //temporary
+                        try {
+                            result = db.executeDBQuery(
+                                    new RestActionsSQLQueries.GetKeywordsQuery().query);
+                            while (db.rs.next()) {
+                                String id = db.rs.getString(1);
+                                String name = db.rs.getString(2);
+                                String person_id = db.rs.getString(3);
+                                keywordsList.add(new RestKeywords(id, name, person_id));
+                            }
+//START: Return result to the client
+                            RestMessages.outputMessages(keywordsList);
+                            return keywordsList;
+//END: Return result to the client
+                        } catch (Exception e) {
+                            return e.toString();
+                        }
                     case "add-keyword":
-
-                        return "Success! add-keyword"; //temporary
+                        try {
+                            String name = request.getParameter("name");
+                            String person_id = request.getParameter("person_id");
+                            person_id = (person_id != null) ? person_id : "NULL";
+                            if (name != null) {
+                                return db.executeDBQueryUpdate(
+                                        "INSERT INTO keywords (id, name, person_id) VALUES (NULL, \"" + name + "\", " + person_id +")");
+                            } else {
+                                return "Not enough parameters";
+                            }
+                        } catch (Exception e) {
+                            return e.toString();
+                        }
                     case "edit-keyword":
 
                         return "Success! edit-keyword"; //temporary
                     case "remove-keyword":
-
-                        return "Success! remove-keyword"; //temporary
+                        try {
+                            String id = request.getParameter("id");
+                            if (id != null) {
+                                return db.executeDBQueryUpdate(
+                                        "DELETE FROM keywords WHERE id = " + id);
+                            } else {
+                                return "Not enough parameters";
+                            }
+                        } catch (Exception e) {
+                            return e.toString();
+                        }
                     default:
 
                         return "Failed!"; //temporary
@@ -147,7 +235,6 @@ public class RestActions {
         } else {
             return  "Action not found."; //Temporary - need to return somehow RestError message
         }
-//        return "adminActionExecute response"; //temporary
     }
 
 

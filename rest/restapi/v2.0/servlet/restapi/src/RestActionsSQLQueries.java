@@ -40,4 +40,12 @@ public class RestActionsSQLQueries {
     public static class GetPersonsQuery {
         public String query = "SELECT * FROM persons";
     }
+
+    public static class GetSitesQuery {
+        public String query = "SELECT * FROM sites";
+    }
+
+    public static class GetKeywordsQuery {
+        public String query = "SELECT * FROM keywords";
+    }
 }

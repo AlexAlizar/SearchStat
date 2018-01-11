@@ -1,12 +1,14 @@
 package ru.geekbrains.internship;
 
-public interface ConnectionDBConst {
-    final String DBSTRINGURLAPI = "http://searchstat.cf:8081/restapi/v1.0/servlet/?";
-    final String DBSTRINGURL = "http://195.110.59.16:8081/request/?";
-    final String GETTOTALSTATISTICS = "statistic=general";
-    final String GETTOTALSTATISTICSPARAMS = "&site=%s";
-    final String GETDAILYSTATISTICS = "statistic=daily";
-    final String GETDAILYSTATISTICSPARAMS = "&person=%s&date1=%s&date2=%s&site=%s";
-    final String GETSITES = "request=sites";
-    final String GETPERSONS = "request=persons";
+interface ConnectionDBConst {
+    String DBSTRINGURL = "http://searchstat.cf:8081";
+    String DBSTRINGURLAPI = "/restapi/v1.0/servlet/?";
+    String DBSTRINGURLREQUEST = "/request/?";
+    String GETTOTALSTATISTICS = "statistic=general";
+    String GETTOTALSTATISTICSPARAMS = "&site=%s";
+    String GETDAILYSTATISTICS = "statistic=daily";
+    String GETDAILYSTATISTICSPARAMS = "&person=%s&date1=%s&date2=%s&site=%s";
+    String GETSITES = "request=sites";
+    String GETPERSONS = "request=persons";
+    String FAKEDB = "fake";
 }

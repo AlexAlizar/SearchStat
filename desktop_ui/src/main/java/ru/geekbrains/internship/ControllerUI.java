@@ -1,23 +1,22 @@
 package ru.geekbrains.internship;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
 import javafx.fxml.*;
-import javafx.geometry.Side;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
-
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.ResourceBundle;
 
-public class ControllerUI implements Initializable {
+public class ControllerUI implements Initializable, ConnectionDBConst {
 
-    private StartWindow mainApp;
+    private Command getTotalStatisticsCommand;
+    private Command getDailylStatisticsCommand;
 
     @FXML
     private ChoiceBox<String> totalStatisticsSite;
-    @FXML
-    private Button totalStatisticsUpdateButton;
     @FXML
     private TableView<TotalStatistics> totalStatisticsTable;
     @FXML
@@ -33,8 +32,6 @@ public class ControllerUI implements Initializable {
     @FXML
     private DatePicker dailyStatisticsEndDate;
     @FXML
-    private Button dailyStatisticsUpdateButton;
-    @FXML
     private TableView<DailyStatistics> dailyStatisticsTable;
     @FXML
     private TableColumn<DailyStatistics, String> dstColumnDate;
@@ -48,57 +45,35 @@ public class ControllerUI implements Initializable {
     private LineChart<String, Number> dailyStatisticsChart;
 
     public void setMainApp(StartWindow mainApp) {
-        this.mainApp = mainApp;
-    }
-
-    public void pressTotalStatisticsUpdateButton() {
-        if (totalStatisticsSite.getValue() != null) {
-            totalStatisticsTable.setItems(mainApp.getRequestDB().getTotalStatisticsList(mainApp.getDBStringURLAPI(),
-                    totalStatisticsSite.getValue()));
-            totalStatisticsChart.setData(mainApp.getRequestDB().getTotalStatisticsChartData());
-            totalStatisticsChart.setLabelLineLength(10);
-            totalStatisticsChart.setLegendSide(Side.LEFT);
-        } else {
-            new AlertHandler(Alert.AlertType.WARNING, "Не заполнен параметр",
-                    "Внимание!", "Необходимо выбрать сайт");
-        }
-    }
-
-    public void pressDailyStatisticsUpdateButton() {
-        LocalDate beginDate = dailyStatisticsBeginDate.getValue();
-        LocalDate endDate = dailyStatisticsEndDate.getValue();
-        if (dailyStatisticsSite.getValue() != null) {
-            if (dailyStatisticsName.getValue() != null) {
-                if (beginDate != null) {
-                    if (endDate != null) {
-                        if (endDate.compareTo(beginDate) >= 0) {
-                            dailyStatisticsTable.setItems(
-                                    mainApp.getRequestDB().getDailyStatisticsList(mainApp.getDBStringURLAPI(),
-                                            dailyStatisticsSite.getValue(), dailyStatisticsName.getValue(),
-                                            beginDate, endDate));
-                            dailyStatisticsTotalQuantity.setText(Integer.toString(mainApp.getRequestDB().getDailyStatisticsTotal()));
-                            dailyStatisticsChart.getData().add(mainApp.getRequestDB().getDailyStatisticsChartData(dailyStatisticsName.getValue()));
-                            dailyStatisticsChart.setTitle("");
-                        } else {
-                            new AlertHandler(Alert.AlertType.WARNING, "Не верно заполнены параметры",
-                                    "Внимание!", "Начальная дата должна быть раньше конечной");
-                        }
-                    } else {
-                        new AlertHandler(Alert.AlertType.WARNING, "Не заполнен параметр",
-                                "Внимание!", "Необходимо выбрать конечную дату");
-                    }
-                } else {
-                    new AlertHandler(Alert.AlertType.WARNING, "Не заполнен параметр",
-                            "Внимание!", "Необходимо выбрать начальную дату");
-                }
-            } else {
-                new AlertHandler(Alert.AlertType.WARNING, "Не заполнен параметр",
-                        "Внимание!", "Необходимо выбрать имя");
+        getTotalStatisticsCommand = new GetTotalStatisticsCommand(mainApp, totalStatisticsSite,
+                totalStatisticsTable, totalStatisticsChart);
+        getDailylStatisticsCommand = new GetDailylStatisticsCommand(mainApp, dailyStatisticsSite,dailyStatisticsName, dailyStatisticsBeginDate,
+                dailyStatisticsEndDate, dailyStatisticsTable, dailyStatisticsTotalQuantity,
+                dailyStatisticsChart);
+        fillLists(mainApp);
+        totalStatisticsSite.valueProperty().addListener(new ChangeListener<String>() {
+            @Override public void changed(ObservableValue ov, String t, String t1) {
+                getTotalStatisticsCommand.execute();
             }
-        } else {
-            new AlertHandler(Alert.AlertType.WARNING, "Не заполнен параметр",
-                    "Внимание!", "Необходимо выбрать сайт");
-        }
+        });
+        dailyStatisticsSite.valueProperty().addListener(new ChangeListener<String>() {
+            @Override public void changed(ObservableValue ov, String t, String t1) {
+                getDailylStatisticsCommand.execute();
+            }
+        });
+        dailyStatisticsName.valueProperty().addListener(new ChangeListener<String>() {
+            @Override public void changed(ObservableValue ov, String t, String t1) {
+                getDailylStatisticsCommand.execute();
+            }
+        });
+    }
+
+    public void onActionDailyStatisticsBeginDate() {
+        getDailylStatisticsCommand.execute();
+    }
+
+    public void onActionDailyStatisticsEndDate() {
+        getDailylStatisticsCommand.execute();
     }
 
     @Override
@@ -109,10 +84,17 @@ public class ControllerUI implements Initializable {
         dstColumnQuantity.setCellValueFactory(cellData -> cellData.getValue().quantityProperty());
     }
 
-    public void fillLists() {
+    private void fillLists(StartWindow mainApp) {
+        ObservableList<String> sites;
+        /*
         totalStatisticsSite.setItems(mainApp.getRequestDB().getSites(mainApp.getDBStringURL()));
         dailyStatisticsSite.setItems(mainApp.getRequestDB().getSites(mainApp.getDBStringURL()));
         dailyStatisticsName.setItems(mainApp.getRequestDB().getNames(mainApp.getDBStringURL()));
+        */
+        sites = mainApp.getRequestDB().getList(mainApp.getDBStringURL(), GETSITES);
+        totalStatisticsSite.setItems(sites);
+        dailyStatisticsSite.setItems(sites);
+        dailyStatisticsName.setItems(mainApp.getRequestDB().getList(mainApp.getDBStringURL(), GETPERSONS));
     }
 
 }

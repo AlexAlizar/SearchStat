@@ -13,13 +13,12 @@ public class StartWindow extends Application implements ConnectionDBConst  {
     private Stage stage;
     private RequestDB requestDB;
     private String DBStringURL;
-    private String DBStringURLAPI;
 
     public Stage getStage() {
         return stage;
     }
 
-    public void setStage(Stage stage) {
+    private void setStage(Stage stage) {
         this.stage = stage;
     }
 
@@ -39,18 +38,9 @@ public class StartWindow extends Application implements ConnectionDBConst  {
         this.DBStringURL = DBStringURL;
     }
 
-    public String getDBStringURLAPI() {
-        return DBStringURLAPI;
-    }
-
-    public void setDBStringURLAPI(String DBStringURLAPI) {
-        this.DBStringURLAPI = DBStringURLAPI;
-    }
-
     @Override
     public void start(Stage primaryStage){
         DBStringURL = DBSTRINGURL;
-        DBStringURLAPI = DBSTRINGURLAPI;
         setStage(primaryStage);
         paint(primaryStage);
 
@@ -63,7 +53,7 @@ public class StartWindow extends Application implements ConnectionDBConst  {
     public void paint(Stage stage) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/startwin.fxml"));
-            AnchorPane load = (AnchorPane) loader.load();
+            AnchorPane load = loader.load();
             ControllerStart controller = loader.getController();
             controller.setMainApp(this);
             Scene scene = new Scene(load);

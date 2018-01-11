@@ -5,18 +5,16 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 
-public class DesktopUI{
+class DesktopUI{
 
-    public DesktopUI(StartWindow mainApp) {
+    DesktopUI(StartWindow mainApp) {
         try {
             FXMLLoader loader = new FXMLLoader(mainApp.getClass().getResource("/searchstat.fxml"));
-            AnchorPane load = (AnchorPane) loader.load();
+            AnchorPane load = loader.load();
             ControllerUI controller = loader.getController();
             controller.setMainApp(mainApp);
-            controller.fillLists();
             Stage stage = mainApp.getStage();
             stage.setTitle("SearchStat");
             Scene scene = new Scene(load);

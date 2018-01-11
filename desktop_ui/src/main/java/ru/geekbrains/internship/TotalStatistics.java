@@ -6,10 +6,10 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class TotalStatistics implements Statistics {
-    private StringProperty name;
-    private IntegerProperty quantity;
+    private final StringProperty name;
+    private final IntegerProperty quantity;
 
-    public TotalStatistics(String name, int quantity) {
+    TotalStatistics(String name, int quantity) {
         this.name = new SimpleStringProperty(name);
         this.quantity = new SimpleIntegerProperty(quantity);
     }

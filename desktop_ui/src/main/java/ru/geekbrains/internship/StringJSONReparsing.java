@@ -6,7 +6,6 @@ public class StringJSONReparsing extends JSONReparsing<String> {
 
     @Override
     public String readJSONObject(JsonObject jsonObject) {
-        String stringObject = jsonObject.getAsString();
-        return stringObject;
+        return jsonObject.getAsString();
     }
 }

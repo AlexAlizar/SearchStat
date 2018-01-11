@@ -6,10 +6,10 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class DailyStatistics implements Statistics {
-    private StringProperty date;
-    private IntegerProperty quantity;
+    private final StringProperty date;
+    private final IntegerProperty quantity;
 
-    public DailyStatistics(String date, int quantity) {
+    DailyStatistics(String date, int quantity) {
         this.date = new SimpleStringProperty(date);
         this.quantity = new SimpleIntegerProperty(quantity);
     }

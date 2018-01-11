@@ -7,7 +7,7 @@ import com.google.gson.JsonPrimitive;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 
-abstract public class JSONReparsing<T> {
+abstract class JSONReparsing<T> {
 
     public void readJSON(String stringURL, ObservableList<T> tList) {
         try {
@@ -35,5 +35,5 @@ abstract public class JSONReparsing<T> {
         }
     }
 
-    abstract public T readJSONObject(JsonObject jsonObject);
+    protected abstract T readJSONObject(JsonObject jsonObject);
 }

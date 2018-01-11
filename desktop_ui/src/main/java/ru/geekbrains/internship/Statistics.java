@@ -1,4 +1,4 @@
 package ru.geekbrains.internship;
 
-public interface Statistics {
+interface Statistics {
 }

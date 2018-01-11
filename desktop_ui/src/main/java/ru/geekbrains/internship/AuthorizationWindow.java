@@ -8,12 +8,12 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class AuthorizationWindow {
+class AuthorizationWindow {
 
-    public AuthorizationWindow(StartWindow mainApp) {
+    AuthorizationWindow(StartWindow mainApp) {
         try {
             FXMLLoader loader = new FXMLLoader(mainApp.getClass().getResource("/authwin.fxml"));
-            AnchorPane load = (AnchorPane) loader.load();
+            AnchorPane load = loader.load();
             ControllerAuth controller = loader.getController();
             controller.setMainApp(mainApp);
             Stage stage = mainApp.getStage();

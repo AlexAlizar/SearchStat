@@ -5,7 +5,7 @@ public class RestAuthentication {
 
     RestAuthentication(String token) {
         this.token = token;
-        authorization("user"); //Temporary
+        authorization("admin"); //Temporary
     }
 
     RestAuthentication(String login, String password) {
@@ -18,15 +18,11 @@ public class RestAuthentication {
         this.role = role;
     }
 
-    public boolean Check() {
-//        if (this.token != null) {
-//            //Checking the token:
-//            //connection to db and looking for the user,
-//            //checking expiration date of the token,
+    public boolean checkToken() {
+//            //checkToken the token:
+//            //connect to DB and look for the user with token,
+//            //check expiration date of the token,
 //            //identifying role of the user: authorization(user||admin);
-//        } else {
-//            return false;
-//        }
         return true; //Temporary
     }
 

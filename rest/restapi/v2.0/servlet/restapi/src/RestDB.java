@@ -8,9 +8,9 @@ public class RestDB {
     private String login = "phpmyadmin";
     private String password = "phpmyadmin";
 
-    Connection con = null;
-    Statement stmt = null;
-    ResultSet rs = null;
+    public Connection con = null;
+    public Statement stmt = null;
+    public ResultSet rs = null;
 
     private RestDB() {
 
@@ -73,8 +73,12 @@ public class RestDB {
     }
 
     public String executeDBQuery(String query) {
-
-        return null;
+        try {
+            rs = stmt.executeQuery(query);
+            return String.valueOf(rs);
+        } catch (Exception e) {
+            return e.toString();
+        }
     }
 
 

@@ -14,6 +14,9 @@ public class ControllerUI implements Initializable, ConnectionDBConst {
 
     private Command getTotalStatisticsCommand;
     private Command getDailylStatisticsCommand;
+    private Command exitToMainMenuCommand;
+    private Command exitToOSCommand;
+    private Command aboutCommand;
 
     @FXML
     private ChoiceBox<String> totalStatisticsSite;
@@ -50,6 +53,9 @@ public class ControllerUI implements Initializable, ConnectionDBConst {
         getDailylStatisticsCommand = new GetDailylStatisticsCommand(mainApp, dailyStatisticsSite,dailyStatisticsName, dailyStatisticsBeginDate,
                 dailyStatisticsEndDate, dailyStatisticsTable, dailyStatisticsTotalQuantity,
                 dailyStatisticsChart);
+        exitToMainMenuCommand = new ExitToMainMenuCommand(mainApp);
+        exitToOSCommand = new ExitToOSCommand(mainApp);
+        aboutCommand = new AboutCommand(mainApp);
         fillLists(mainApp);
         totalStatisticsSite.valueProperty().addListener(new ChangeListener<String>() {
             @Override public void changed(ObservableValue ov, String t, String t1) {
@@ -74,6 +80,18 @@ public class ControllerUI implements Initializable, ConnectionDBConst {
 
     public void onActionDailyStatisticsEndDate() {
         getDailylStatisticsCommand.execute();
+    }
+
+    public void onActionExitToMainMenu() {
+        exitToMainMenuCommand.execute();
+    }
+
+    public void onActionExitToOS() {
+        exitToOSCommand.execute();
+    }
+
+    public void onActionAbout() {
+        aboutCommand.execute();
     }
 
     @Override

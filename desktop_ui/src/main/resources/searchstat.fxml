@@ -8,6 +8,9 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
@@ -19,7 +22,7 @@
 
 <AnchorPane prefHeight="455.0" prefWidth="600.0" stylesheets="@hdteam.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.geekbrains.internship.ControllerUI">
    <children>
-      <TabPane layoutX="63.0" layoutY="58.0" side="LEFT" styleClass="background2" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <TabPane layoutX="63.0" layoutY="25.0" prefHeight="430.0" prefWidth="600.0" side="LEFT" styleClass="background2" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
         <tabs>
           <Tab text="Общая статистика">
                <content>
@@ -79,7 +82,8 @@
                            </children>
                            <padding>
                               <Insets bottom="10.0" />
-                           </padding></AnchorPane>
+                           </padding>
+                        </AnchorPane>
                          <AnchorPane prefHeight="45.0" prefWidth="571.0" styleClass="background_blue">
                              <children>
                                    <ChoiceBox fx:id="dailyStatisticsName" layoutX="102.0" layoutY="2.0" prefHeight="25.0" prefWidth="196.0" AnchorPane.topAnchor="2.0" />
@@ -87,7 +91,8 @@
                              </children>
                            <padding>
                               <Insets bottom="10.0" />
-                           </padding></AnchorPane>
+                           </padding>
+                        </AnchorPane>
                          <AnchorPane prefHeight="45.0" prefWidth="571.0" styleClass="background_blue">
                              <children>
                                    <Label layoutX="14.0" layoutY="-2.0" styleClass="label_white" text="Период с" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="6.0" />
@@ -97,7 +102,8 @@
                              </children>
                            <padding>
                               <Insets bottom="20.0" />
-                           </padding></AnchorPane>
+                           </padding>
+                        </AnchorPane>
                         <TabPane tabClosingPolicy="UNAVAILABLE">
                           <tabs>
                             <Tab text="Таблица">
@@ -158,5 +164,20 @@
             </Tab>
         </tabs>
       </TabPane>
+      <MenuBar>
+        <menus>
+          <Menu mnemonicParsing="false" text="Главная">
+            <items>
+              <MenuItem fx:id="exitToMainMenu" mnemonicParsing="false" onAction="#onActionExitToMainMenu" text="Выход в основное меню" />
+                  <MenuItem fx:id="exitToOS" mnemonicParsing="false" onAction="#onActionExitToOS" text="Выход из программы" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Помощь">
+            <items>
+              <MenuItem fx:id="about" mnemonicParsing="false" onAction="#onActionAbout" text="О программе" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
    </children>
 </AnchorPane>

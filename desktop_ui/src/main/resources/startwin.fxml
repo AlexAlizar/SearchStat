@@ -7,7 +7,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="353.0" prefWidth="324.0" styleClass="background_blue" stylesheets="@hdteam.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.geekbrains.internship.ControllerStart">
+<AnchorPane prefHeight="425.0" prefWidth="324.0" styleClass="background_blue" stylesheets="@hdteam.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.geekbrains.internship.ControllerStart">
    <children>
       <VBox prefHeight="353.0" prefWidth="359.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -30,14 +30,19 @@
                   </Text>
                </children>
             </AnchorPane>
-            <AnchorPane prefHeight="97.0" prefWidth="359.0">
+            <AnchorPane prefHeight="58.0" prefWidth="324.0">
                <children>
-                  <Button fx:id="startButton" layoutX="73.0" layoutY="14.0" mnemonicParsing="false" onAction="#pressStartButton" prefHeight="31.0" prefWidth="185.0" stylesheets="@hdteam.css" text="Начать работу" />
+                  <Button fx:id="startButton" layoutX="70.0" mnemonicParsing="false" onAction="#pressStartButton" prefHeight="31.0" prefWidth="185.0" stylesheets="@hdteam.css" text="Начать работу" />
                </children>
             </AnchorPane>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+            <AnchorPane prefHeight="58.0" prefWidth="324.0">
                <children>
-                  <Button layoutX="73.0" layoutY="19.0" mnemonicParsing="false" onAction="#pressSettingsButton" prefHeight="31.0" prefWidth="185.0" text="Параметры сервера БД" />
+                  <Button layoutX="70.0" mnemonicParsing="false" onAction="#pressSettingsButton" prefHeight="31.0" prefWidth="185.0" text="Параметры сервера БД" />
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="58.0" prefWidth="324.0">
+               <children>
+                  <Button layoutX="70.0" mnemonicParsing="false" onAction="#pressExitButton" prefHeight="31.0" prefWidth="185.0" text="Выход" />
                </children>
             </AnchorPane>
          </children>

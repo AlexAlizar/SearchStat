@@ -16,7 +16,7 @@ public class ControllerAuth {
 
     public void setMainApp(StartWindow mainApp) {
         passAuthorizationCommand = new PassAuthorizationCommand(mainApp, login, password);
-        cancelAuthorizationCommand = new CancelAuthorizationCommand(mainApp);
+        cancelAuthorizationCommand = new ExitToMainMenuCommand(mainApp);
         restorePasswordCommand = new RestorePasswordCommand();
     }
 

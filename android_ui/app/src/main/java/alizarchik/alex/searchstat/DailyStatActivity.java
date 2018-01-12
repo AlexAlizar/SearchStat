@@ -104,7 +104,7 @@ public class DailyStatActivity extends AppCompatActivity {
         });
         endDate = findViewById(R.id.end_date);
 
-        startDate.setOnClickListener(new View.OnClickListener() {
+        endDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 DialogFragment dateDialog = new DatePickerEnd();

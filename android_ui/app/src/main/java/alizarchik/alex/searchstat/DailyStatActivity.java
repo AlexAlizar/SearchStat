@@ -2,6 +2,7 @@ package alizarchik.alex.searchstat;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +11,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.View;
 import android.widget.Button;
 
 import java.util.ArrayList;
@@ -28,6 +30,9 @@ public class DailyStatActivity extends AppCompatActivity {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private Button buttonSelectPerson;
+    private Button buttonSelectSite;
+    private Button startDate;
+    private Button endDate;
 
     public static final String TAG = "MyLogs";
 
@@ -39,6 +44,11 @@ public class DailyStatActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         init();
 
+        initSiteSelect();
+        initPersonSelect();
+    }
+
+    private void initPersonSelect() {
         ArrayList<String> persons = new ArrayList<>();
         persons.add("person#1");
         persons.add("person#2");
@@ -57,6 +67,25 @@ public class DailyStatActivity extends AppCompatActivity {
         });
     }
 
+    private void initSiteSelect() {
+        ArrayList<String> sites = new ArrayList<>();
+        sites.add("site#1");
+        sites.add("site#2");
+        sites.add("site#3");
+
+        final CharSequence[] sitesArray = sites.toArray(new String[sites.size()]);
+
+        buttonSelectSite = findViewById(R.id.button_select_site);
+        buttonSelectSite.setOnClickListener(view -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Select a site");
+            builder.setItems(sitesArray, (DialogInterface.OnClickListener) (dialogInterface, i) -> {
+                // Do something with the selection
+            });
+            builder.show();
+        });
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.graphics, menu);
@@ -64,6 +93,25 @@ public class DailyStatActivity extends AppCompatActivity {
     }
 
     private void init() {
+
+        startDate = findViewById(R.id.start_date);
+        startDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogFragment dateDialog = new DatePickerStart();
+                dateDialog.show(getSupportFragmentManager(), "datePickerStart");
+            }
+        });
+        endDate = findViewById(R.id.end_date);
+
+        endDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogFragment dateDialog = new DatePickerEnd();
+                dateDialog.show(getSupportFragmentManager(), "datePickerEnd");
+            }
+        });
+
         List<DailyStatisticsModel> dailyStatistics = getDailyStatistics();
         mRecyclerView = findViewById(R.id.rvDailyStat);
         mRecyclerView.setHasFixedSize(true);

@@ -37,8 +37,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # Local apps
     'admin_interface',
-    'authapp'
+    'authapp',
+    'contacts',
+
 ]
 
 MIDDLEWARE = [
@@ -134,6 +138,10 @@ STATICFILES_DIRS = [
 
 STATIC_URL = '/static/'
 
+# Email Settings
+
+EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+EMAIL_FILE_PATH = 'tmp/email-messages/'
 
 
 # 3rd party apps

@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import user_passes_test
 from django.shortcuts import render, get_object_or_404, HttpResponseRedirect
 from django.urls import reverse
 from authapp.forms import EditForm, RegisterForm
@@ -6,6 +7,7 @@ from authapp.forms import EditForm, RegisterForm
 from admin_interface.forms import UserAdminEditForm
 
 
+@user_passes_test(lambda user: user.is_superuser, login_url='/auth/login')
 def users(request):
     title = 'ai/users'
     users_list = User.objects.all().order_by('-is_active',
@@ -19,6 +21,7 @@ def users(request):
     return render(request, 'authapp/users.html', content)
 
 
+@user_passes_test(lambda user: user.is_superuser, login_url='/auth/login')
 def user_create(request):
     title = 'users/create'
 
@@ -58,6 +61,7 @@ def user_update(request, pk):
     return render(request, 'authapp/user_update.html', content)
 
 
+@user_passes_test(lambda user: user.is_superuser, login_url='/auth/login')
 def user_delete(request, pk):
     title = 'users/delete'
 

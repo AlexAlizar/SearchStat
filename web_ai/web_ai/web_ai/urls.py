@@ -29,6 +29,7 @@ urlpatterns = [
     path('', admin_interface, name='admin_interface'),
     path('ai/', include('admin_interface.urls', namespace='ai')),
     path('auth/', include('authapp.urls', namespace='auth')),
+    path('contacts/', include('contacts.urls', namespace='contacts')),
 ]
 
 if settings.DEBUG:

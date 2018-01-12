@@ -15,7 +15,7 @@
 <body>
 <div class="container">
     <div class="row">
-        <div class="col-sm-3">
+        <div class="col-sm-4">
             <nav class="navbar navbar-dark bg-light col-sm-12" id="sticky-sidebar">
                 <ul class="nav flex-column">
                     <li class="nav-item">
@@ -36,6 +36,18 @@
                     <li class="nav-item">
                         <a class="nav-link {% if request.resolver_match.url_name == 'users' %}active{% endif %}" href="{% url 'ai:users' %}">Пользователи</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'contact' %}active{% endif %}" href="{% url 'contacts:contact' %}">Контакты</a>
+                    </li>
+                    {% if not request.user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.resolver_match.url_name == 'login' %}active{% endif %}" href="{% url 'auth:login' %}">Войти</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'auth:logout' %}">Выйти</a>
+                        </li>
+                    {% endif %}
                 </ul>
             </nav>
         </div>

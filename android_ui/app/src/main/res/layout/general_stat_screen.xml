@@ -22,6 +22,7 @@
         android:layout_height="wrap_content" />
 
     <Button
+        android:id="@+id/button_select_site_GS"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_gravity="center_horizontal"

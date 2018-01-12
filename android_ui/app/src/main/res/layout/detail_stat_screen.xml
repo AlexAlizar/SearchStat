@@ -22,7 +22,7 @@
         android:textSize="20sp" />
 
     <Button
-        android:id="@+id/button_select_site"
+        android:id="@+id/button_select_site_DS"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_gravity="center_horizontal"

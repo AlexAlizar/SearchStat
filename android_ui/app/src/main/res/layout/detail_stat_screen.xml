@@ -10,65 +10,66 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <Button
-        android:id="@+id/button_select_person"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:text="@string/select_a_person"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"
-        android:textSize="20sp" />
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:background="@color/colorPrimary"
+                  android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/button_select_site"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="@dimen/activity_vertical_margin"
-        android:layout_marginTop="8dp"
-        android:text="select a site"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"
-        android:textSize="20sp" />
+        <Button
+            android:id="@+id/button_select_person"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:layout_margin="16dp"
+            android:layout_width="0dp"
+            android:text="@string/select_a_person"
+            android:textSize="14sp" />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="@dimen/activity_vertical_margin"
-        android:text="Show statistic"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"
-        android:textSize="20sp" />
+        <Button
+            android:id="@+id/button_select_site"
+            android:layout_weight="1"
+            android:layout_height="60dp"
+            android:layout_margin="16dp"
+            android:text="select a site"
+            android:textSize="14sp"
+            android:layout_width="0dp"/>
+
+    </LinearLayout>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:background="@color/colorPrimary"
+                  android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/start_date"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:text="Start date"
+            android:textColor="#000"
+            android:textSize="18sp"/>
+
+        <Button
+            android:id="@+id/end_date"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_margin="8dp"
+            android:text="End date"
+            android:textColor="#000"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <Button
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="@color/colorPrimary"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="Start date"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="24sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="End date"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="24sp" />
-    </LinearLayout>
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="16dp"
+        android:text="Show statistic"
+        android:textSize="20sp" />
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"

@@ -36,12 +36,6 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, classActivity);
         startActivity(intent);
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.graphics, menu);
-        return true;
-    }
 }
 
 /*public void onClick() {

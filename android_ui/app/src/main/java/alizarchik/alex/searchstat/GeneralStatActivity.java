@@ -1,8 +1,10 @@
 package alizarchik.alex.searchstat;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
@@ -33,6 +36,7 @@ public class GeneralStatActivity extends AppCompatActivity {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private TextView currentDate;
+    private Button buttonSelectSite;
 
     public static final String TAG = "MyLogs";
 
@@ -43,6 +47,26 @@ public class GeneralStatActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         init();
+        initSiteSelect();
+    }
+
+    private void initSiteSelect() {
+        ArrayList<String> sites = new ArrayList<>();
+        sites.add("site#1");
+        sites.add("site#2");
+        sites.add("site#3");
+
+        final CharSequence[] sitesArray = sites.toArray(new String[sites.size()]);
+
+        buttonSelectSite = findViewById(R.id.button_select_site);
+        buttonSelectSite.setOnClickListener(view -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Select a site");
+            builder.setItems(sitesArray, (DialogInterface.OnClickListener) (DialogInterface dialogInterface, int i) -> {
+                // Do something with the selection
+            });
+            builder.show();
+        });
     }
 
     @Override

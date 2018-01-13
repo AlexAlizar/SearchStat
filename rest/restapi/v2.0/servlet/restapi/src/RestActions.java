@@ -60,7 +60,7 @@ public class RestActions {
                                     generalStatisticList.add(new RestGeneralStatistic(person_name, rank));
                                 }
 //START: Return result to the client
-                                RestMessages.outputMessages(generalStatisticList);
+                                RestMessages.constructMessage(generalStatisticList);
                                 return generalStatisticList;
 //END: Return result to the client
                             } catch (Exception e) {
@@ -84,7 +84,7 @@ public class RestActions {
                                     dailyStatisticList.add(new RestDailyStatistic(date, countOfPages));
                                 }
 //START: Return result to the client
-                                RestMessages.outputMessages(dailyStatisticList);
+                                RestMessages.constructMessage(dailyStatisticList);
                                 return dailyStatisticList;
 //END: Return result to the client
                             } catch (Exception e) {
@@ -103,7 +103,7 @@ public class RestActions {
                                 personsList.add(new RestPersons(id, name));
                             }
 //START: Return result to the client
-                            RestMessages.outputMessages(personsList);
+                            RestMessages.constructMessage(personsList);
                             return personsList;
 //END: Return result to the client
                         } catch (Exception e) {
@@ -146,7 +146,7 @@ public class RestActions {
                                 sitesList.add(new RestSites(id, name));
                             }
 //START: Return result to the client
-                            RestMessages.outputMessages(sitesList);
+                            RestMessages.constructMessage(sitesList);
                             return sitesList;
 //END: Return result to the client
                         } catch (Exception e) {
@@ -190,7 +190,7 @@ public class RestActions {
                                 keywordsList.add(new RestKeywords(id, name, person_id));
                             }
 //START: Return result to the client
-                            RestMessages.outputMessages(keywordsList);
+                            RestMessages.constructMessage(keywordsList);
                             return keywordsList;
 //END: Return result to the client
                         } catch (Exception e) {

@@ -2,18 +2,28 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 public class RestMessages {
-    private RestMessages instance = new RestMessages();
+    private static RestMessages instance = new RestMessages();
     public static String outputJSONMessage = null;
 
-    public static void outputMessages(Object object) {
+    private RestMessages() {
+    }
+
+    public static RestMessages getInstance() {
+        return instance;
+    }
+
+    public static void constructMessage(Object object) {
         outputJSONMessage = constructJSON(object);
     }
 
-    public class Message{
-
+    public static String getOutputMessage() {
+        return outputJSONMessage;
     }
 
-    public class Error {
+    public class Message{
+    }
+
+    public static class Error {
         private String error;
 
         Error(int errorCode) {

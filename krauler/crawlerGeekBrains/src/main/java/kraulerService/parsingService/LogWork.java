@@ -1,3 +1,5 @@
+package kraulerService.parsingService;
+
 import java.io.IOException;
 import java.io.File;
 import java.io.FileWriter;
@@ -8,13 +10,11 @@ public class LogWork {
 
     private static SimpleDateFormat formatForCurDate = new SimpleDateFormat("yyyy.MM.dd kk:mm:ss\"SSS");
     private static SimpleDateFormat formatForLogName = new SimpleDateFormat("yyyy.MM.dd");
+    private static String pathLog = "logs";
+    private static File folderPathLog = new File(pathLog);
     private static String nameLogFile = "SearchStat";
     //    private static File logFile = new File("../" + nameLogFile + "_" + formatForLogName.format(new Date()) + ".log");
-    private static File logFile = new File(nameLogFile + "_" + formatForLogName.format(new Date()) + ".log");
-
-//    public LogWork() {
-//        this.checkLogExist(logFile);
-//    }
+    private static File logFile = new File(pathLog + "/" +nameLogFile + "_" + formatForLogName.format(new Date()) + ".log");
 
     /**
      * It checks if the file exists and if it does not exist, it creates.
@@ -22,6 +22,9 @@ public class LogWork {
      * @return false if the file can not be created
      */
     private static boolean checkLogExist(File logFile) {
+
+        if (!folderPathLog.exists()) folderPathLog.mkdir();
+
         if (!logFile.exists()) {
             try {
                 logFile.createNewFile();
@@ -31,6 +34,10 @@ public class LogWork {
                 return false;
             }
         }
+
+        // debug //
+        System.out.println("LogFile --- " + logFile.getAbsolutePath());
+
         return true;
     }
 
@@ -50,7 +57,7 @@ public class LogWork {
             }
             System.out.println(logMsg);
         } else {
-            System.out.println("Что то пошло не так с лог файлом LogWork -> logWrite");
+            System.out.println("Что то пошло не так с лог файлом kraulerService.parsingService.LogWork -> logWrite");
         }
     }
 

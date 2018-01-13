@@ -1,8 +1,46 @@
 package kraulerService.parsingService;
 
-import java.io.File;
+import java.io.*;
+import java.util.List;
 
-public class TmpVVA {
+public class RobotsHandler {
+
+    File robots;
+
+    public RobotsHandler(File robots) {
+        this.robots = robots;
+    }
+
+    public List<String> getSitemap () {
+
+        String keyString = "sitemap";
+
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(robots));
+            String tmpLine;
+            for (;(tmpLine = bufferedReader.readLine()) != null;) {
+
+
+
+                // debug //
+//                System.out.println(" --- " + tmpLine);
+/**/
+                if (tmpLine.toLowerCase().trim().startsWith(keyString)) {
+                    System.out.println("Нашёл сайтмап --- " + tmpLine);
+                }
+/**/
+            }
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            LogWork.myPrintStackTrace(e);
+        } catch (IOException e) {
+            e.printStackTrace();
+            LogWork.myPrintStackTrace(e);
+        }
+
+        return null;
+    }
 
     /**
      * User-agent: SearchStat # Наш юзер агент
@@ -38,7 +76,7 @@ public class TmpVVA {
      * Метод получает на фход файл и находит в нём ЧТО?
      * @param robots
      */
-    public static void robotsHandler(File robots) {
+    public static void qwe(File robots) {
 
 
 

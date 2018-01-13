@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import admin_interface, statistic
+from .views import admin_interface, statistic, export_as_csv
 from .admin_sites_views import sites_view, sites_edit
 from .admin_persons_views import persons_view, persons_edit
 from .admin_keywords_views import keywords_view, person_keywords_edit
@@ -8,8 +8,10 @@ from .admin_users_views import users, user_create, user_update, user_delete
 app_name = 'admin_interface'
 
 urlpatterns = [
+    # statistic_views
     path('', admin_interface, name='admin_interface'),
     path('statistic', statistic, name='statistic'),
+    path('statistic/export', export_as_csv, name='export_as_csv' ),
 
     # sites_manage_views
     path('sites', sites_view, name='sites_view'),

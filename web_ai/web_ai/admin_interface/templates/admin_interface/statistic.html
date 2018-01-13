@@ -12,8 +12,11 @@
                 <div>
                 <span> <b>{{ site.site__name }}</b>:</span>
                 <span> {{ site.agg }} страниц для обхода</span>
+
                 </div>
             {% endfor %}
+            <br>
+            <a  class="btn btn-outline-primary" href="{% url 'ai:export_as_csv' %}">Выгрузить таблицу ссылок в CSV</a>
         </div>
         <hr>
         {% for site, pages in pages_dict.items %}

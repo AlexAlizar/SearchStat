@@ -2,8 +2,8 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <div class="col-sm-9">
-        <div class="col-sm-5">
+    <div class="col-sm-5">
+        <div class="col-sm-12">
             {% if request.POST %}
                 <form action="" method="post">
                     {% csrf_token %}

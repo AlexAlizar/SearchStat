@@ -13,52 +13,60 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 public class RESTAPI extends HttpServlet {
+    public String json = null;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("application/json; charset=utf-8");
         PrintWriter out = response.getWriter();
-        request.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("utf-8");
 
         String rToken = request.getParameter("token");
         String rAction = request.getParameter("action");
+        String authAction = "auth";
 
-        if (rToken != null) {
-            out.println("Debug: Token exist");
+        if ((rToken != null) || (rAction != null)) {
+//            out.println("Debug: Token or Action exist");
             if (rAction != null) {
-                out.println("Debug: Action exist");
+//                out.println("Debug: Action exist");
                 RestAuthentication auth;
-                if (rAction == "auth") {
-                    out.println("Debug: Action = auth");
+                if (rAction.equals("auth")) {
+//                    out.println("Debug: Action = auth");
                     String login = request.getParameter("login");
                     String password = request.getParameter("password");
-                    auth = new RestAuthentication(login, password);
-                    if (!auth.checkToken()) {
-                        //Send Error: 0x3 "Authorization failed.",
-                        //halt doGet ...
+                    if ((login == null) || (password == null)) {
+                        RestMessages.constructMessage(new RestMessages.Error("Not enough parameters"));
+                        out.println(RestMessages.outputJSONMessage);
+                        return;
                     }
+                    auth = new RestAuthentication(login, password);
+//                    out.println(RestMessages.outputJSONMessage);
+                    if (auth.isAuthenticated()) {
+
+//                      Need transform to CLASS
+                        out.println(RestMessages.constructJSON(auth.getToken()));
+//                      Need transform to CLASS
+
+                        return;
+                    }
+                    return;
                 } else {
-                    out.println("Debug: Action != auth");
+//                    out.println("Debug: Action != auth");
                     auth = new RestAuthentication(rToken);
                 }
 
                 if (auth.checkToken()) {
-                    out.println("Debug: Token is OK");
+//                    out.println("Debug: Token is OK");
                     if (auth.getRole() == "user") {
-                        out.println("Debug: user role = user");
+//                        out.println("Debug: user role = user");
                         out.println(
                                 new RestActions().userActionExecute(rAction, request)
                         );
                     } else if (auth.getRole() == "admin") {
-                        out.println("Debug: user role = admin");
-                        out.println(
-                                constructJSON(
-                                        new RestActions().adminActionExecute(rAction, request)
-                                )
-                        );
-//                        constructJSON(test());
+//                        out.println("Debug: user role = admin");
+                        Object result = new RestActions().adminActionExecute(rAction, request);
+                        out.println(RestMessages.outputJSONMessage);
                     } else {
-                        out.println("Debug: Unknown error");
-                        //Error: 0x0 "Unknown error."
+                        out.println("Debug: Unknown error"); //Error: 0x0 "Unknown error."
                     }
                 } else {
                     out.println(
@@ -85,7 +93,7 @@ public class RESTAPI extends HttpServlet {
 
 
 
-    private String constructJSON(Object object) {
+    public String constructJSON(Object object) {
         GsonBuilder gsonBuilder = new GsonBuilder();
         Gson gson = gsonBuilder.setPrettyPrinting().create();
 //        Gson gson = gsonBuilder.create();

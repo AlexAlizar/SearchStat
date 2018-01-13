@@ -13,20 +13,37 @@ public class RequestDB implements ConnectionDBConst{
 
     private ObservableList<TotalStatistics> totalStatisticsList;
     private ObservableList<DailyStatistics> dailyStatisticsList;
+    private ObservableList<StringList> stringList;
 
-    public boolean checkAuthorization(String login, String password) {
-        return true;
+    public String checkAuthorization(String DBStringURL, String login, String password) {
+
+        if (!DBStringURL.toUpperCase().equals(FAKEDB.toUpperCase())) {
+            try {
+                String getAuthorization = String.format(ACTION_GET_AUTH + ACTION_GET_AUTH_PARAMS,
+                        URLEncoder.encode(login, "UTF-8"), URLEncoder.encode(password, "UTF-8"));
+                return new TokenReading().readToken(DBStringURL + DBSTRINGURLAPI + getAuthorization);
+            } catch (UnsupportedEncodingException e) {
+                new AlertHandler(Alert.AlertType.ERROR, "Ошибка",
+                        "Внимание!", "Ошибка формирования запроса");
+                return "";
+                //e.printStackTrace();
+            }
+        } else {
+            return "00";
+        }
     }
 
-    public ObservableList getTotalStatisticsList(String DBStringURL, String site) {
+    public ObservableList getTotalStatisticsList(String DBStringURL, String site, String token) {
 
         totalStatisticsList = FXCollections.observableArrayList();
         if (!DBStringURL.toUpperCase().equals(FAKEDB.toUpperCase())) {
             try {
-                String getTotalStatistics = String.format(GETTOTALSTATISTICS + GETTOTALSTATISTICSPARAMS,
+                String getTotalStatistics = String.format(ACTION_GET_TOTALSTATISTICS + ACTION_GET_TOTALSTATISTICS_PARAMS,
                         URLEncoder.encode(site, "UTF-8"));
+                String actionToken = String.format(ACTION_TOKEN, URLEncoder.encode(token, "UTF-8"));
                 JSONReparsing tsJSONReparsing = new TotalStatisticsJSONReparsing();
-                tsJSONReparsing.readJSON(DBStringURL + DBSTRINGURLAPI + getTotalStatistics, totalStatisticsList);
+                tsJSONReparsing.readJSON(DBStringURL + DBSTRINGURLAPI + actionToken + getTotalStatistics,
+                        totalStatisticsList);
             } catch (UnsupportedEncodingException e) {
                 new AlertHandler(Alert.AlertType.ERROR, "Ошибка",
                         "Внимание!", "Ошибка формирования запроса");
@@ -47,14 +64,17 @@ public class RequestDB implements ConnectionDBConst{
     }
 
     public ObservableList getDailyStatisticsList(String DBStringURL,
-                                                 String site, String name, LocalDate beginDate, LocalDate endDate) {
+                                                 String site, String name, LocalDate beginDate,
+                                                 LocalDate endDate, String token) {
         dailyStatisticsList = FXCollections.observableArrayList();
         if (!DBStringURL.toUpperCase().equals(FAKEDB.toUpperCase())) {
             try {
-                String getDailyStatistics = String.format(GETDAILYSTATISTICS + GETDAILYSTATISTICSPARAMS,
+                String getDailyStatistics = String.format(ACTION_GET_DAILYSTATISTICS + ACTION_GET_GETDAILYSTATISTICS_PARAMS,
                         URLEncoder.encode(name, "UTF-8"), beginDate, endDate, URLEncoder.encode(site, "UTF-8"));
+                String actionToken = String.format(ACTION_TOKEN, URLEncoder.encode(token, "UTF-8"));
                 JSONReparsing dsJSONReparsing = new DailyStatisticsJSONReparsing();
-                dsJSONReparsing.readJSON(DBStringURL + DBSTRINGURLAPI + getDailyStatistics, dailyStatisticsList);
+                dsJSONReparsing.readJSON(DBStringURL + DBSTRINGURLAPI + actionToken + getDailyStatistics,
+                        dailyStatisticsList);
             } catch (UnsupportedEncodingException e) {
                 new AlertHandler(Alert.AlertType.ERROR, "Ошибка",
                         "Внимание!", "Ошибка формирования запроса");
@@ -89,11 +109,22 @@ public class RequestDB implements ConnectionDBConst{
         return series;
     }
 
-    public ObservableList getList(String DBStringURL, String getList) {
+    public ObservableList getList(String DBStringURL, String getList, String token) {
         ObservableList<String> list = FXCollections.observableArrayList();
+        stringList = FXCollections.observableArrayList();
         if (!DBStringURL.toUpperCase().equals(FAKEDB.toUpperCase())) {
-            JSONReparsing sitesJSONReparsing = new StringJSONReparsing();
-            sitesJSONReparsing.readJSON(DBStringURL + DBSTRINGURLREQUEST + getList, list);
+            try {
+                String actionToken = String.format(ACTION_TOKEN, URLEncoder.encode(token, "UTF-8"));
+                ListJSONReparsing sitesJSONReparsing = new ListJSONReparsing();
+                sitesJSONReparsing.readJSON(DBStringURL + DBSTRINGURLAPI + actionToken + getList, stringList);
+                for (StringList sl: stringList) {
+                    list.add(sl.nameProperty().getValue());
+                }
+            } catch (UnsupportedEncodingException e) {
+                new AlertHandler(Alert.AlertType.ERROR, "Ошибка",
+                    "Внимание!", "Ошибка формирования запроса");
+                //e.printStackTrace();
+            }
         } else {
             new FakeData().getFakeList(list, getList);
         }

@@ -6,12 +6,12 @@ import java.time.LocalDate;
 public class FakeData implements ConnectionDBConst{
 
     public void getFakeList(ObservableList<String> list, String getList) {
-        if (getList.equals(GETPERSONS)) {
+        if (getList.equals(ACTION_GET_PERSONS)) {
             list.add("Путин");
             list.add("Медведев");
             list.add("Навальный");
         } else {
-            if (getList.equals(GETSITES)) {
+            if (getList.equals(ACTION_GET_SITES)) {
                 list.add("lenta.ru");
                 list.add("rambler.ru");
                 list.add("rbc.ru");

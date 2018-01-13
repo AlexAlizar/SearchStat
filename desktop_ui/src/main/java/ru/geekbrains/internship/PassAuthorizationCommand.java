@@ -1,5 +1,6 @@
 package ru.geekbrains.internship;
 
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 
 public class PassAuthorizationCommand implements Command {
@@ -16,8 +17,14 @@ public class PassAuthorizationCommand implements Command {
 
     @Override
     public void execute() {
-        if (mainApp.getRequestDB().checkAuthorization(login.getText(), password.getText())) {
+        String token = mainApp.getRequestDB().checkAuthorization(mainApp.getDBStringURL(), login.getText(), password.getText()).trim();
+        if (!token.isEmpty()) {
+            token = token.substring(1, token.length() - 1);
+            mainApp.setToken(token);
             new DesktopUI(mainApp);
+        } else {
+            new AlertHandler(Alert.AlertType.ERROR, "Ошибка",
+                    "Внимание!", "Неверный логин и/или пароль");
         }
     }
 }

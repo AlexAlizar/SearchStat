@@ -28,6 +28,10 @@ abstract class JSONReparsing<T> {
             new AlertHandler(Alert.AlertType.ERROR, "Ошибка",
                     "Внимание!", "Ошибка в полученных данных");
             //e.printStackTrace();
+        } catch (UnsupportedOperationException e) {
+            new AlertHandler(Alert.AlertType.ERROR, "Ошибка",
+                    "Внимание!", "Ошибка разборки данных");
+            //e.printStackTrace();
         } catch (Exception e) {
             new AlertHandler(Alert.AlertType.ERROR, "Ошибка",
                     "Внимание!", "Ошибка подключения к базе данных");

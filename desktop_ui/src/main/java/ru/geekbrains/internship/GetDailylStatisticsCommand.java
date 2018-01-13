@@ -45,7 +45,7 @@ public class GetDailylStatisticsCommand implements Command {
                         dailyStatisticsTable.setItems(
                                 mainApp.getRequestDB().getDailyStatisticsList(mainApp.getDBStringURL(),
                                         dailyStatisticsSite.getValue(), dailyStatisticsName.getValue(),
-                                        beginDate, endDate));
+                                        beginDate, endDate, mainApp.getToken()));
                         dailyStatisticsTotalQuantity.setText(Integer.toString(mainApp.getRequestDB().getDailyStatisticsTotal()));
                         dailyStatisticsChart.getData().clear();
                         dailyStatisticsChart.getData().add(mainApp.getRequestDB().getDailyStatisticsChartData(dailyStatisticsName.getValue()));

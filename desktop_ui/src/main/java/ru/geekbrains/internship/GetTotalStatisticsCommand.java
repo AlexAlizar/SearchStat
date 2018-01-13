@@ -24,7 +24,7 @@ public class GetTotalStatisticsCommand implements Command {
     public void execute() {
         if (totalStatisticsSite.getValue() != null) {
             totalStatisticsTable.setItems(mainApp.getRequestDB().getTotalStatisticsList(mainApp.getDBStringURL(),
-                    totalStatisticsSite.getValue()));
+                    totalStatisticsSite.getValue(), mainApp.getToken()));
             totalStatisticsChart.setData(mainApp.getRequestDB().getTotalStatisticsChartData());
             totalStatisticsChart.setLabelLineLength(10);
             totalStatisticsChart.setLegendSide(Side.LEFT);

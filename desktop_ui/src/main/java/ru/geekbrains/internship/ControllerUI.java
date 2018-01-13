@@ -104,15 +104,12 @@ public class ControllerUI implements Initializable, ConnectionDBConst {
 
     private void fillLists(StartWindow mainApp) {
         ObservableList<String> sites;
-        /*
-        totalStatisticsSite.setItems(mainApp.getRequestDB().getSites(mainApp.getDBStringURL()));
-        dailyStatisticsSite.setItems(mainApp.getRequestDB().getSites(mainApp.getDBStringURL()));
-        dailyStatisticsName.setItems(mainApp.getRequestDB().getNames(mainApp.getDBStringURL()));
-        */
-        sites = mainApp.getRequestDB().getList(mainApp.getDBStringURL(), GETSITES);
+        sites = mainApp.getRequestDB().getList(mainApp.getDBStringURL(), ACTION_GET_SITES,
+                mainApp.getToken());
         totalStatisticsSite.setItems(sites);
         dailyStatisticsSite.setItems(sites);
-        dailyStatisticsName.setItems(mainApp.getRequestDB().getList(mainApp.getDBStringURL(), GETPERSONS));
+        dailyStatisticsName.setItems(mainApp.getRequestDB().getList(mainApp.getDBStringURL(),
+                ACTION_GET_PERSONS, mainApp.getToken()));
     }
 
 }

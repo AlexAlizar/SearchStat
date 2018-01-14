@@ -37,21 +37,23 @@ class MenuVC: UIViewController {
         
         //temp
         if AuthService.instance.isLoggedin {
-            UserDataService.instance.setUserData(id: "0", email: AuthService.instance.userEmail, name: AuthService.instance.userName)
+            UserDataService.instance.setUserData(name: AuthService.instance.userName)
             NotificationCenter.default.post(name: NOTIF_USER_DID_CHANGED, object: nil)
         }
     }
 
     @objc func userDataDidChanged(_ notif: Notification) {
         if AuthService.instance.isLoggedin {
-            loginBtn.setTitle(UserDataService.instance.name, for: .normal)
-            menuBtn.isHidden = false
-//            userImg.image = UIImage(named:"")
+            DispatchQueue.main.async {
+                self.loginBtn.setTitle(UserDataService.instance.name, for: .normal)
+                self.menuBtn.isHidden = false
+            }
+
         } else {
-            loginBtn.setTitle("Login", for: .normal)
-            menuBtn.isHidden = true
-//            userImg.image = UIImage(named: "menuProfileIcon")
-//            userImg.backgroundColor = UIColor.clear
+            DispatchQueue.main.async {
+                self.loginBtn.setTitle("Login", for: .normal)
+                self.menuBtn.isHidden = true
+            }
         }
     }
 

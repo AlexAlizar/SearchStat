@@ -14,6 +14,7 @@ typealias CompletionHandler = (_ Success: Bool) -> ()
 //URL Constants
 let BASE_URL = "http://195.110.59.16:8081/"
 let SITE_LIST_URL = "\(BASE_URL)rest-api-servlet/"
+let AUTH_URL = "\(BASE_URL)restapi-v2/?action=auth&"
 
 
 //Colors
@@ -45,7 +46,6 @@ let DATA_UPDATE_STRING = "dataUpdateString"
     //auth service
     let TOKEN_KEY = "token"
     let LOGGED_IN_KEY = "loggedin"
-    let USER_EMAIL = "userEmail"
     let USER_NAME = "userName"
 
 

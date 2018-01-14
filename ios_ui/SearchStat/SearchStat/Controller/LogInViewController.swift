@@ -18,16 +18,19 @@ class LogInViewController: UIViewController {
     
     @IBAction func logInBtn(_ sender: CustomButton) {
         //authorization...
-        guard let email = emailTextField.text , emailTextField.text != "" else {return }
+        guard let user = emailTextField.text , emailTextField.text != "" else {return }
         guard let pass = passwordTextField.text, passwordTextField.text != "" else { return }
         
         
-        AuthService.instance.loginUser(email: email, password: pass) { (success) in
+        AuthService.instance.loginUser(user: user, password: pass) { (success) in
             if success {
-                UserDataService.instance.setUserData(id: "0", email: email, name: "Admin")
+                UserDataService.instance.setUserData(name: AuthService.instance.userName)
                 self.performSegue(withIdentifier: UNWIND, sender: nil)
                 NotificationCenter.default.post(name: NOTIF_USER_DID_CHANGED, object: nil)
-                
+            } else {
+                let alert = UIAlertController(title: "Error", message: "Communication/Login \n Error", preferredStyle: UIAlertControllerStyle.alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
             }
         }
         

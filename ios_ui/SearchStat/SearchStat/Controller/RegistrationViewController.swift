@@ -32,9 +32,9 @@ class RegistrationViewController: UIViewController {
         
         AuthService.instance.registerUser(email: email, password: pass) { (success) in
             if success {
-                AuthService.instance.loginUser(email: email, password: pass, completion: { (success) in
+                AuthService.instance.loginUser(user: email, password: pass, completion: { (success) in
                     if success {
-                        UserDataService.instance.setUserData(id: "0", email: email, name: name)
+                        UserDataService.instance.setUserData(name: name)
                         self.performSegue(withIdentifier: UNWIND, sender: nil)
                         NotificationCenter.default.post(name: NOTIF_USER_DID_CHANGED, object: nil)
                         

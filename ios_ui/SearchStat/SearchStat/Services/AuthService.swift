@@ -26,15 +26,6 @@ class AuthService {
         }
     }
     
-    var userEmail: String {
-        get {
-            return defaults.value(forKey: USER_EMAIL) as! String
-        }
-        set {
-            defaults.set(newValue, forKey: USER_EMAIL)
-        }
-    }
-    
     var userName: String {
         get {
             return defaults.value(forKey: USER_NAME) as! String
@@ -66,14 +57,37 @@ class AuthService {
         }
     }
     
-    func loginUser(email: String, password: String, completion: @escaping CompletionHandler) {
-        let lowerCaseEmail = email.lowercased()
+    func loginUser(user: String, password: String, completion: @escaping CompletionHandler) {
+        let lowerCaseUser = user.lowercased()
         
-        if usersArray[lowerCaseEmail] == password {
-            self.isLoggedin = true
-            completion(true)
-        } else {
-            completion(false)
-        }
+        // Request
+        
+        let urlString = "\(AUTH_URL)login=\(lowerCaseUser)&password=\(password)"
+        guard let url = URL(string: urlString) else {return}
+        
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
+            guard let data = data else {
+                print("No Internet Connection")
+                
+                completion(false)
+                return
+            }
+            guard error == nil else {return}
+            
+            var tokenString = String(data: data, encoding: String.Encoding.utf8)
+            if tokenString!.count > 0 {
+                tokenString?.removeLast(2)
+                tokenString?.removeFirst()
+                debugPrint("Authorised token: \(tokenString!)")
+                self.authToke = tokenString!
+                self.userName = lowerCaseUser
+                self.isLoggedin = true
+                completion(true)
+            } else {
+                debugPrint("Authorisation Fail")
+                completion(false)
+            }
+
+        } .resume()
     }
 }

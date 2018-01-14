@@ -45,16 +45,20 @@ struct Person {
                 
                 if isDatesEqual(dateOne: startDate, dateTwo: item.day) { //Нашли начало
                     isStartFound = true
-                    endPeriodObject = PeriodStats(startDate: item.day, endDate: item.day, total: item.total)
+                    var tempDateArray = [Date]()
+                    tempDateArray.append(item.day)
+                    endPeriodObject = PeriodStats(startDate: item.day, endDate: item.day, datesArray: tempDateArray, total: item.total)
                     lastItem = item
                 }
             } else { //Начало уже найдено
                 if isDatesEqual(dateOne: endDate, dateTwo: item.day) { //Если конец найден
                     isEndFound = true
+                    endPeriodObject!.datesArray.append(item.day)
                     endPeriodObject!.total += item.total
                     break
                 } else {
                     endPeriodObject!.total += item.total
+                    endPeriodObject!.datesArray.append(item.day)
                     lastItem = item
                 }
             }
@@ -83,6 +87,7 @@ struct DayStats {
 struct PeriodStats {
     var startDate: Date
     var endDate: Date
+    var datesArray : [Date]
     var total: Int
 }
 

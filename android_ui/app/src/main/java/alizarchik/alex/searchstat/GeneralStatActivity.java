@@ -54,10 +54,6 @@ public class GeneralStatActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         init();
-        initSiteSelect();
-    }
-
-    private void initSiteSelect() {
         ArrayList<String> sites = new ArrayList<>();
         sites.add("site#1");
         sites.add("site#2");
@@ -65,11 +61,11 @@ public class GeneralStatActivity extends AppCompatActivity {
 
         final CharSequence[] sitesArray = sites.toArray(new String[sites.size()]);
 
-        buttonSelectSite = findViewById(R.id.button_select_site);
+        buttonSelectSite = findViewById(R.id.button_select_site_GS);
         buttonSelectSite.setOnClickListener(view -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Select a site");
-            builder.setItems(sitesArray, (DialogInterface.OnClickListener) (DialogInterface dialogInterface, int i) -> {
+            builder.setItems(sitesArray, (DialogInterface.OnClickListener) (dialogInterface, i) -> {
                 // Do something with the selection
             });
             builder.show();

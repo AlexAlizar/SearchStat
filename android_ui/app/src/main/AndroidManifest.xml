@@ -30,6 +30,8 @@
         <activity
             android:name=".DailyStatActivity"
             android:parentActivityName=".MainActivity"/>
+        <activity
+            android:name=".GraphActivity"/>
     </application>
 
 </manifest>

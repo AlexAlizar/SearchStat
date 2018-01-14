@@ -17,7 +17,11 @@ public class PageDAO {
     };
 
     public int insertPage(String url, Site site, Date foundDateTime, Date lastScanDate) {
-        return (Integer) session.save(new Page(url, site, foundDateTime, lastScanDate));
+        Page page = getPageByUrl(url);
+        if (page == null) {
+            return (Integer) session.save(new Page(url, site, foundDateTime, lastScanDate));
+        }
+        return page.getId();
     }
 
     public void updatePageDate(Page page) {
@@ -30,11 +34,27 @@ public class PageDAO {
         return page;
     }
 
+    public Page getPageByUrl(String url) {
+        Page page = (Page) session.get(Page.class, url);
+        return page;
+    }
+
+
     public List<Page> getNonScannedPages() {
 
         SQLQuery query = session.createSQLQuery("SELECT * FROM PAGES WHERE LastScanDate is null");
         query.addEntity(Page.class);
         return query.list();
+    }
+
+    public void resetOldSiteMap(Date currentDate, String type) {
+        String txtSQL = "UPDATE pages set LastScanDate = null where LastScanDate<>'"+currentDate+"'";
+        if (type != "all") {
+            txtSQL+= " AND url LIKE '%'"+type+"'%'";
+        }
+        SQLQuery query = session.createSQLQuery(txtSQL);
+
+        query.executeUpdate();
     }
 
 

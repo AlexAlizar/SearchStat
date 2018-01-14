@@ -14,7 +14,7 @@ public class Main {
         /*/////////   РАБОТА КЛАССА Krauler //////////////*/
 
       Krauler krauler = new Krauler();
-      krauler.Work();
+      krauler.start();
 
         /*////////    КОНЕЦ РАБОТЫ Krauler //////////////*/
 

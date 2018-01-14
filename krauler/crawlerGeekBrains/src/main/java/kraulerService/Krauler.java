@@ -16,7 +16,13 @@ import java.util.List;
 /**
  * Created by alloyer on 02.01.2018.
  */
-public class Krauler {
+
+
+
+public class Krauler extends Thread {
+
+    final int dayDuration = 1000*60*60*24; //длительность дня в миллисекундах
+    final int durationOfWork = 30;          //длительность работы краулера в днях
 
     private DBService dbService;
     private SessionFactory sessionFactory;
@@ -28,30 +34,53 @@ public class Krauler {
         this.dbService = new DBService(sessionFactory);
     }
 
+    @Override
+    public void run() {
+        Work();
+    }
+
     public void Work() {
 
-        addSitePagesWithoutScan();
+        int days = 0;
+        AddLinksThread t2 = null;
 
+        addSitePagesWithoutScan();
         List<Page> pages;
 
-        pages = dbService.getNonScannedPages();
-        int count = pages.size();
-        while (count > 0) {
-            for(Page page: pages) {
-                String url = page.getUrl();
-                if (url.contains("robots.txt")) {
-                    addSiteMapPageFromRobots(page);
-                }
-                else if (url.contains("sitemap")) {
-                    addPageLinksFromSitemap(page);
-                }
-                else addRanksForPersons(page);
-            }
+        while (days <= durationOfWork) {   // краулер работает указанное количество дней
             pages = dbService.getNonScannedPages();
-            count = pages.size();
+            int count = pages.size();
+            while (count > 0) {
+                for (Page page : pages) {
+                    String url = page.getUrl();
+                    if (url.contains("robots.txt")) {
+                        addSiteMapPageFromRobots(page);
+                    } else if (url.contains("sitemap")) {
+//                            addPageLinksFromSitemap(page);
+//                      // запускаем добавление ссылок в параллельном потоке
+
+                        if (t2 == null) {
+                            t2 = new AddLinksThread(page);
+                            t2.start();
+                        } else if (t2 != null && t2.getState() == State.TERMINATED) {
+                            t2 = new AddLinksThread(page);
+                            t2.start();
+                        }
+                    } else addRanksForPersons(page);
+                }
+                pages = dbService.getNonScannedPages();
+                count = pages.size();
+            }
+
+            try {
+                t2.join();                           // ждем когда закончится вытягивание ссылок с сайтмапа
+                Thread.sleep(dayDuration);           // засыпаем на сутки
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            updateLinks("sitemap");
+            days+=1;
         }
-
-
         sessionFactory.close();
     }
 
@@ -117,4 +146,11 @@ public class Krauler {
         dbService.updatePageDate(page);
     }
 
+    /**
+     * метод, сбрасывает ссылки по сайтмапам которые старше текущего дня
+     * @param type = тип урлов для апдейта all/sitemap
+     */
+    private void updateLinks(String type) {
+        dbService.resetOldPages(type);
+    }
 }

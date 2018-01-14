@@ -259,6 +259,21 @@ public class DBService {
         }
     }
 
+
+    public void resetOldPages(String type) {
+
+        try {
+            openSessionAndTransation();
+            PageDAO pageDAO = new PageDAO(session);
+            pageDAO.resetOldSiteMap(new Date(), type);
+            closeSessionAndTransation("commit");
+        } catch (HibernateException e) {
+            closeSessionAndTransation("rollback");
+            System.err.println("!!!HIBERNATE ERROR APPEARED!!!");
+        }
+
+    }
+
     public List<Keyword> getKeywordByPerson(Person person) {
         List<Keyword> keywords = null;
         try {

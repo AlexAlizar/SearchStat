@@ -21,8 +21,8 @@ import java.util.List;
 
 public class Krauler extends Thread {
 
-    final int dayDuration = 1000*5; //длительность дня в миллисекундах
-    final int durationOfWork = 3;          //длительность работы краулера в днях
+    final int dayDuration = 1000*60*60*24; //длительность дня в миллисекундах
+    final int durationOfWork = 30;          //длительность работы краулера в днях
 
     private DBService dbService;
     private SessionFactory sessionFactory;
@@ -42,6 +42,8 @@ public class Krauler extends Thread {
     public void Work() {
 
         int days = 0;
+        AddLinksThread t2 = null;
+
         addSitePagesWithoutScan();
         List<Page> pages;
 
@@ -54,7 +56,16 @@ public class Krauler extends Thread {
                     if (url.contains("robots.txt")) {
                         addSiteMapPageFromRobots(page);
                     } else if (url.contains("sitemap")) {
-                        addPageLinksFromSitemap(page);
+//                            addPageLinksFromSitemap(page);
+//                      // запускаем добавление ссылок в параллельном потоке
+
+                        if (t2 == null) {
+                            t2 = new AddLinksThread(page);
+                            t2.start();
+                        } else if (t2 != null && t2.getState() == State.TERMINATED) {
+                            t2 = new AddLinksThread(page);
+                            t2.start();
+                        }
                     } else addRanksForPersons(page);
                 }
                 pages = dbService.getNonScannedPages();
@@ -62,6 +73,7 @@ public class Krauler extends Thread {
             }
 
             try {
+                t2.join();                           // ждем когда закончится вытягивание ссылок с сайтмапа
                 Thread.sleep(dayDuration);           // засыпаем на сутки
             } catch (InterruptedException e) {
                 e.printStackTrace();

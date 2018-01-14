@@ -2,8 +2,10 @@ package dbService.dao;
 
 import dbService.dataSets.Page;
 import dbService.dataSets.Site;
+import org.hibernate.Criteria;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -36,8 +38,11 @@ public class PageDAO {
     }
 
     public Page getPageByUrl(String url) {
-        Page page = (Page) session.get(Page.class, url);
-        return page;
+        Criteria criteria = session.createCriteria(Page.class);
+
+        Object Object = criteria.add(Restrictions.eq("url", url)).uniqueResult();
+
+        return (Page) Object;
     }
 
 

@@ -16,7 +16,13 @@ import java.util.List;
 /**
  * Created by alloyer on 02.01.2018.
  */
-public class Krauler {
+
+
+
+public class Krauler extends Thread {
+
+    final int dayDuration = 1000*5; //длительность дня в миллисекундах
+    final int durationOfWork = 3;          //длительность работы краулера в днях
 
     private DBService dbService;
     private SessionFactory sessionFactory;
@@ -28,30 +34,41 @@ public class Krauler {
         this.dbService = new DBService(sessionFactory);
     }
 
+    @Override
+    public void run() {
+        Work();
+    }
+
     public void Work() {
 
+        int days = 0;
         addSitePagesWithoutScan();
-
         List<Page> pages;
 
-        pages = dbService.getNonScannedPages();
-        int count = pages.size();
-        while (count > 0) {
-            for(Page page: pages) {
-                String url = page.getUrl();
-                if (url.contains("robots.txt")) {
-                    addSiteMapPageFromRobots(page);
-                }
-                else if (url.contains("sitemap")) {
-                    addPageLinksFromSitemap(page);
-                }
-                else addRanksForPersons(page);
-            }
+        while (days <= durationOfWork) {   // краулер работает указанное количество дней
             pages = dbService.getNonScannedPages();
-            count = pages.size();
+            int count = pages.size();
+            while (count > 0) {
+                for (Page page : pages) {
+                    String url = page.getUrl();
+                    if (url.contains("robots.txt")) {
+                        addSiteMapPageFromRobots(page);
+                    } else if (url.contains("sitemap")) {
+                        addPageLinksFromSitemap(page);
+                    } else addRanksForPersons(page);
+                }
+                pages = dbService.getNonScannedPages();
+                count = pages.size();
+            }
+
+            try {
+                Thread.sleep(dayDuration);           // засыпаем на сутки
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            updateLinks("sitemap");
+            days+=1;
         }
-
-
         sessionFactory.close();
     }
 
@@ -117,4 +134,11 @@ public class Krauler {
         dbService.updatePageDate(page);
     }
 
+    /**
+     * метод, сбрасывает ссылки по сайтмапам которые старше текущего дня
+     * @param type = тип урлов для апдейта all/sitemap
+     */
+    private void updateLinks(String type) {
+        dbService.resetOldPages(type);
+    }
 }

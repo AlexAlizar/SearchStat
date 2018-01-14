@@ -5,6 +5,7 @@ import dbService.dataSets.Site;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -48,9 +49,11 @@ public class PageDAO {
     }
 
     public void resetOldSiteMap(Date currentDate, String type) {
-        String txtSQL = "UPDATE pages set LastScanDate = null where LastScanDate<>'"+currentDate+"'";
+        SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd");
+
+        String txtSQL = "UPDATE pages set LastScanDate = null where LastScanDate<>'"+sdfDate.format(currentDate)+"'";
         if (type != "all") {
-            txtSQL+= " AND url LIKE '%'"+type+"'%'";
+            txtSQL+= " AND url LIKE '%"+type+"%'";
         }
         SQLQuery query = session.createSQLQuery(txtSQL);
 

@@ -23,8 +23,6 @@ class TotalStatisticViewController: UIViewController, UITableViewDelegate, UITab
     override func viewDidLoad() {
         super.viewDidLoad()
         self.initVC()
-        
-        
     }
     
     private func initVC() {
@@ -32,10 +30,8 @@ class TotalStatisticViewController: UIViewController, UITableViewDelegate, UITab
         let siteIndex = UserDefaults.standard.integer(forKey: SITE_INDEX)
         //MARK: Чтение даты обновления данных
         let dateString = UserDefaults.standard.string(forKey: DATA_UPDATE_STRING)
-        
         let site = MainService.instance.siteArray![siteIndex]
         personArray = site.personsArray
-        
         
         nameSourceLabel.text = site.name
         nameDateLabel.text = dateString

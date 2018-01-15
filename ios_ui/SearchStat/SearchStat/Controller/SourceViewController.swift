@@ -55,11 +55,9 @@ class SourceViewController: UIViewController, UITableViewDelegate, UITableViewDa
         return sitesArray.count
     }
 
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell  {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! SourceCell
-    
-        cell.setupCell(site: sitesArray[indexPath.row])
+            cell.setupCell(site: sitesArray[indexPath.row])
         return cell
     }
     

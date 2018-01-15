@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RegistrationViewController: UIViewController {
+class RegistrationViewController: UIViewController, UITextFieldDelegate {
 
     
     @IBAction func closeBtnPressed(_ sender: Any) {
@@ -49,19 +49,32 @@ class RegistrationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+        self.repeatPassTextField.delegate = self
     }
     
     func setupView() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(RegistrationViewController.handleTap))
         view.addGestureRecognizer(tap)
-//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapView(gesture:)))
-//        view.addGestureRecognizer(tapGesture)
+        
+        //??
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapView(gesture:)))
+        view.addGestureRecognizer(tapGesture)
     }
     
     @objc func handleTap() {
         view.endEditing(true)
     }
-    //    Для скорола экрана ввода пароля
+    
+    //MARK: Text field delegate for Done button on keyboard
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        repeatPassTextField.resignFirstResponder()
+        print("Done tapped")
+        //  CODE 
+        return true
+    }
+    
+    
+    //MARK: For scrolling when typing begin
     //===========
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

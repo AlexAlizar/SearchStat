@@ -8,7 +8,9 @@
 
 import UIKit
 
-class LogInViewController: UIViewController {
+class LogInViewController: UIViewController, UITextFieldDelegate{
+    
+    
     
     @IBOutlet weak var emailTextField: CustomTextField!
     @IBOutlet weak var passwordTextField: CustomTextField!
@@ -22,8 +24,7 @@ class LogInViewController: UIViewController {
         //authorization...
         guard let user = emailTextField.text , emailTextField.text != "" else { return }
         guard let pass = passwordTextField.text, passwordTextField.text != "" else { return }
-        
-        
+                
         AuthService.instance.loginUser(user: user, password: pass) { (success) in
             if success {
                 UserDataService.instance.setUserData(name: AuthService.instance.userName)
@@ -40,21 +41,34 @@ class LogInViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-        
+        self.emailTextField.delegate = self
+        self.passwordTextField.delegate = self
     }
     
     func setupView() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(RegistrationViewController.handleTap))
         view.addGestureRecognizer(tap)
+        
+        //??
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapView(gesture:)))
         view.addGestureRecognizer(tapGesture)
     }
-//
+    
     @objc func handleTap() {
         view.endEditing(true)
     }
-    //    Для скорола экрана ввода пароля
-    //===========
+    
+    //MARK: Text field delegate for Done button on keyboard
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        passwordTextField.resignFirstResponder()
+        // CODE
+        print("Done tapped")
+        return true
+    }
+
+    
+    //MARK: For scrolling when typing begin
+    //============
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         addObservers()
@@ -101,6 +115,4 @@ class LogInViewController: UIViewController {
         }
     }
     //===============
-
-
 }

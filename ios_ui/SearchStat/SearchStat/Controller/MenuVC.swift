@@ -12,6 +12,7 @@ class MenuVC: UIViewController {
     //Outlets
     @IBOutlet weak var menuBtn: UIButton!
     @IBOutlet weak var loginBtn: UIButton!
+    @IBOutlet weak var settingBtn: CustomButton!
     
     //Actions
     @IBAction func prepareForUnwind(segue: UIStoryboardSegue) {}
@@ -20,6 +21,7 @@ class MenuVC: UIViewController {
             UserDataService.instance.logoutUser()
             loginBtn.setTitle("Login", for: .normal)
             menuBtn.isHidden = true
+            settingBtn.isHidden = true
         } else {
             performSegue(withIdentifier: TO_LOGIN, sender: nil)
         }
@@ -30,7 +32,7 @@ class MenuVC: UIViewController {
         //MARK: Ширина Бокового меню
         self.revealViewController().rearViewRevealWidth = self.view.frame.size.width - 60
         menuBtn.isHidden = true
-        
+        settingBtn.isHidden = true
         
         
         NotificationCenter.default.addObserver(self, selector: #selector(MenuVC.userDataDidChanged(_:)), name: NOTIF_USER_DID_CHANGED, object: nil)
@@ -47,6 +49,7 @@ class MenuVC: UIViewController {
             DispatchQueue.main.async {
                 self.loginBtn.setTitle(UserDataService.instance.name, for: .normal)
                 self.menuBtn.isHidden = false
+                self.settingBtn.isHidden = false
             }
 
         } else {

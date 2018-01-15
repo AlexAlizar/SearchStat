@@ -136,5 +136,15 @@ class DetailStatisticViewController: UIViewController, UITableViewDelegate, UITa
         }
         return cell
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == TO_DETAIL_CHART {
+            if let destVC: DetailChartViewController = segue.destination as? DetailChartViewController {
+                destVC.currentDate = currentDate
+                destVC.periodDates = periodDates
+                destVC.periodActivate = periodActivated
+            }
+        }
+    }
 }
 

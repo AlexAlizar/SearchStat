@@ -29,21 +29,7 @@ class MainService {
     func beginInit() {
         self.getSites { (sitesSucces) in
             if sitesSucces {
-                debugPrint("Sites Downloaded")
-                self.getPersons(completionHandler: { (personsSucces) in
-                    if personsSucces {
-                        debugPrint("Persons Downloaded")
-                        self.getGeneralStat(forSite: "lenta.ru", completionHandler: { (generalSucces) in
-                            if generalSucces {
-                                debugPrint("general success")
-                            } else {
-                                debugPrint("Gneral fail")
-                            }
-                        })
-                    } else {
-                        debugPrint("Persons Communication error")
-                    }
-                })
+                
                 
             }else {
                 debugPrint("Sites Communication error")
@@ -85,7 +71,7 @@ class MainService {
             if site.name == siteName {
                 for jsonPerson in personsJson {
                     let tempPerson = Person(id: 0, name: jsonPerson.name, total: Int(jsonPerson.rank)!, dayStatsArray: [DayStats]())
-                    site.addPerson(person: tempPerson)
+//                    site.addPerson(person: tempPerson)
                 }
             }
         }
@@ -132,48 +118,6 @@ class MainService {
             
         }
         return siteArray
-        
-    }
-    private func getPersons (completionHandler: @escaping CompletionHandler) {
-//        PersonV2
-        // Request
-        
-        let urlString = PERSONS_LIST_URL + AuthService.instance.authToke
-        guard let url = URL(string: urlString) else {return}
-        
-        URLSession.shared.dataTask(with: url) { (data, response, error) in
-            guard let data = data else {
-                print("No Internet Connection")
-                self.personsArray = self.generateFakePersonArray()
-                completionHandler(false)
-                return
-            }
-            guard error == nil else {return}
-            
-            do {
-                let personsForSearch = try JSONDecoder().decode([PersonV2].self, from: data)
-                self.personsArray = self.generatePersonsV2(personsForSearch)
-                completionHandler(true)
-                
-            } catch let error {
-                print(error)
-                self.personsArray = self.generateFakePersonArray()
-                completionHandler(false)
-            }
-            } .resume()
-        
-    }
-    
-    private func generatePersonsV2(_ json: [PersonV2]) -> [Person] {
-        
-        var personsArray = [Person]()
-        for person in json {
-            let tempPerson = Person(id: Int(person.id)!, name: person.name, total: 0, dayStatsArray: self.generateFakeDayStatsArray())
-            personsArray.append(tempPerson)
-            
-            //fake data for person array!
-        }
-        return personsArray
         
     }
     

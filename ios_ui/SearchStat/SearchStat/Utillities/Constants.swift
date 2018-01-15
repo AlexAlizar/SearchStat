@@ -15,7 +15,6 @@ typealias CompletionHandler = (_ Success: Bool) -> ()
 let BASE_URL = "http://195.110.59.16:8081/"
 let BASE_URLV2 = "\(BASE_URL)restapi-v2/?action="
 let SITE_LIST_URL = "\(BASE_URLV2)get-sites&token="
-let PERSONS_LIST_URL="\(BASE_URLV2)get-persons&token="
 let GENEARAL_STATS_URL = "\(BASE_URLV2)general-statistic&token=<TOKEN>&site=<SITE>"
 let AUTH_URL = "\(BASE_URLV2)auth&"
 

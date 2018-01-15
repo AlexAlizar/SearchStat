@@ -1,5 +1,6 @@
 from django.urls import path
 from .views import admin_interface, statistic, export_as_csv
+import authapp.views as authapp
 from .admin_sites_views import sites_view, sites_edit
 from .admin_persons_views import persons_view, persons_edit
 from .admin_keywords_views import keywords_view, person_keywords_edit
@@ -30,6 +31,7 @@ urlpatterns = [
     path('users/create', user_create, name='user_create'),
     path('users/update/<int:pk>', user_update, name='user_update'),
     path('users/delete/<int:pk>', user_delete, name='user_delete'),
+    path('users/password/', authapp.change_password, name='change_password'),
 
 
 ]

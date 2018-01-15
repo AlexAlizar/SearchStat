@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
+from django.contrib.auth import views as auth_views
 
 # local imports
 from admin_interface.views import admin_interface
@@ -30,6 +31,11 @@ urlpatterns = [
     path('ai/', include('admin_interface.urls', namespace='ai')),
     path('auth/', include('authapp.urls', namespace='auth')),
     path('contacts/', include('contacts.urls', namespace='contacts')),
+    path('password_reset/', auth_views.password_reset,  {'template_name': 'authapp/password_reset_form.html'}, name='password_reset'),
+    path('password_reset/done/', auth_views.password_reset_done, {'template_name': 'authapp/password_reset_done.html'}, name='password_reset_done'),
+    path('reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/',
+        auth_views.password_reset_confirm, {'template_name': 'authapp/password_reset_confirm.html'}, name='password_reset_confirm'),
+    path('reset/done/', auth_views.password_reset_complete, {'template_name': 'authapp/password_reset_complete.html'}, name='password_reset_complete'),
 ]
 
 if settings.DEBUG:

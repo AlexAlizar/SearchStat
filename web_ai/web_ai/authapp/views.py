@@ -1,5 +1,6 @@
 from django.shortcuts import render, HttpResponseRedirect
 from authapp.forms import RegisterForm, LoginForm, EditForm
+from django.contrib.auth.forms import PasswordChangeForm
 
 from django.contrib import auth
 from django.urls import reverse
@@ -58,3 +59,22 @@ def edit(request):
     content = {'title': title, 'edit_form': edit_form}
 
     return render(request, 'authapp/edit.html', content)
+
+def change_password(request):
+    title = 'Изменение пароля'
+
+    if request.method == 'POST':
+        change_password_form = PasswordChangeForm(request.POST, instance=request.user)
+        if change_password_form.is_valid():
+            change_password_form.save()
+            update_session_auth_hash(request, user) 
+            messages.success(request, 'Пароль был успешно обновлен!')
+            return HttpResponseRedirect(reverse('auth:change_password'))
+        else:
+            messages.error(request, 'Пожалуйста, исправьте ошибки ниже.')
+    else:
+        change_password_form = PasswordChangeForm(request.user)
+
+    content = {'title': title, 'change_password_form': change_password_form}
+
+    return render(request, 'authapp/change_password.html', content)

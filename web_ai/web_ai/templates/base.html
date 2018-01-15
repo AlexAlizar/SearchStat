@@ -43,6 +43,9 @@
                         <li class="nav-item">
                             <a class="nav-link {% if request.resolver_match.url_name == 'login' %}active{% endif %}" href="{% url 'auth:login' %}">Войти</a>
                         </li>
+                        <li class="nav-item">
+                         <a class="nav-link" href="{% url 'password_reset' %}">Забыли пароль?</a>
+                          </li>
                     {% else %}
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'auth:logout' %}">Выйти</a>

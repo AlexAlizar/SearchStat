@@ -12,6 +12,10 @@ struct Site {
     var id: Int
     var name: String
     var personsArray: [Person]
+    
+    mutating func addPerson(person: Person) {
+        self.personsArray.append(person)
+    }
 }
 
 struct Person {

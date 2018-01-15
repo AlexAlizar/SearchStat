@@ -8,33 +8,94 @@
 
 import Foundation
 
+protocol MainServiceDelegate {
+    func initCompleated()
+}
+
 class MainService {
     
     static let instance = MainService()
     
+    var delegate: MainServiceDelegate?
+    
     public private(set) var siteArray: [Site]?
     
+    
+    
+    private var personsArray: [Person]?
+    
     var lasSiteIndex: Int = 0
-
-    //userdDefExample
-//    UserDefaults.standard.set(true, forKey: "Key") //Bool
-//    UserDefaults.standard.set(1, forKey: "Key")  //Integer
-//    UserDefaults.standard.set("TEST", forKey: "Key") //setObject
-//    Retrieve
-//
-//    UserDefaults.standard.bool(forKey: "Key")
-//    UserDefaults.standard.integer(forKey: "Key")
-//    UserDefaults.standard.string(forKey: "Key")
-//    Remove
-//
-//    UserDefaults.standard.removeObject(forKey: "Key")
-    //
-
+    
+    func beginInit() {
+        self.getSites { (sitesSucces) in
+            if sitesSucces {
+                debugPrint("Sites Downloaded")
+                self.getPersons(completionHandler: { (personsSucces) in
+                    if personsSucces {
+                        debugPrint("Persons Downloaded")
+                        self.getGeneralStat(forSite: "lenta.ru", completionHandler: { (generalSucces) in
+                            if generalSucces {
+                                debugPrint("general success")
+                            } else {
+                                debugPrint("Gneral fail")
+                            }
+                        })
+                    } else {
+                        debugPrint("Persons Communication error")
+                    }
+                })
+                
+            }else {
+                debugPrint("Sites Communication error")
+            }
+        }
+    }
+    func getGeneralStat(forSite site: String, completionHandler: @escaping CompletionHandler) {
+        
+        // Request
+        
+        let urlString = GENEARAL_STATS_URL.replacingOccurrences(of: "<TOKEN>", with: AuthService.instance.authToke).replacingOccurrences(of: "<SITE>", with: site)
+        print(urlString)
+        guard let url = URL(string: urlString) else {return}
+        
+        //GeneralPersonV2
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
+            guard let data = data else {
+                print("No Internet Connection")
+                self.siteArray = self.generateFakeSites()
+                completionHandler(false)
+                return
+            }
+            guard error == nil else {return}
+            
+            do {
+                let generalPersons = try JSONDecoder().decode([GeneralPersonV2].self, from: data)
+                print(generalPersons)
+                completionHandler(true)
+                
+            } catch let error {
+                print(error)
+                
+                completionHandler(false)
+            }
+        } .resume()
+    }
+    private func addPersonsTo(siteName: String, personsJson: [GeneralPersonV2]) {
+        for site in self.siteArray! {
+            if site.name == siteName {
+                for jsonPerson in personsJson {
+                    let tempPerson = Person(id: 0, name: jsonPerson.name, total: Int(jsonPerson.rank)!, dayStatsArray: [DayStats]())
+                    site.addPerson(person: tempPerson)
+                }
+            }
+        }
+    }
+    
     func getSites(completionHandler: @escaping CompletionHandler) {
         
         // Request
         
-        let urlString = SITE_LIST_URL
+        let urlString = SITE_LIST_URL + AuthService.instance.authToke
         guard let url = URL(string: urlString) else {return}
         
         URLSession.shared.dataTask(with: url) { (data, response, error) in
@@ -47,9 +108,8 @@ class MainService {
             guard error == nil else {return}
             
             do {
-                let siteForSearch = try JSONDecoder().decode(SiteForSearch.self, from: data)
-                print(siteForSearch)
-                self.siteArray = self.generateSiteArrayFromJson(siteForSearch)
+                let siteForSearch = try JSONDecoder().decode([SiteV2].self, from: data)
+                self.siteArray = self.generateSiteArrayV2(siteForSearch)
                 completionHandler(true)
                
             } catch let error {
@@ -58,13 +118,62 @@ class MainService {
                 completionHandler(false)
                 }
             } .resume()
-        
-        
-        
+
         let lastUpdateDateString = DateFormatter.localizedString(from: Date(), dateStyle: .long, timeStyle: .short)
         
         UserDefaults.standard.set(lastUpdateDateString, forKey: DATA_UPDATE_STRING)
+    }
+    
+    private func generateSiteArrayV2(_ json: [SiteV2] ) -> [Site] {
+        var siteArray = [Site]()
+        for site in json {
+            let tempSite = Site(id: Int(site.id)!, name: site.name, personsArray: [Person]())
+            siteArray.append(tempSite)
+            
+        }
+        return siteArray
         
+    }
+    private func getPersons (completionHandler: @escaping CompletionHandler) {
+//        PersonV2
+        // Request
+        
+        let urlString = PERSONS_LIST_URL + AuthService.instance.authToke
+        guard let url = URL(string: urlString) else {return}
+        
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
+            guard let data = data else {
+                print("No Internet Connection")
+                self.personsArray = self.generateFakePersonArray()
+                completionHandler(false)
+                return
+            }
+            guard error == nil else {return}
+            
+            do {
+                let personsForSearch = try JSONDecoder().decode([PersonV2].self, from: data)
+                self.personsArray = self.generatePersonsV2(personsForSearch)
+                completionHandler(true)
+                
+            } catch let error {
+                print(error)
+                self.personsArray = self.generateFakePersonArray()
+                completionHandler(false)
+            }
+            } .resume()
+        
+    }
+    
+    private func generatePersonsV2(_ json: [PersonV2]) -> [Person] {
+        
+        var personsArray = [Person]()
+        for person in json {
+            let tempPerson = Person(id: Int(person.id)!, name: person.name, total: 0, dayStatsArray: self.generateFakeDayStatsArray())
+            personsArray.append(tempPerson)
+            
+            //fake data for person array!
+        }
+        return personsArray
         
     }
     

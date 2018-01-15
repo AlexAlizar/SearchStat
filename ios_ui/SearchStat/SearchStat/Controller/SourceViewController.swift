@@ -23,7 +23,7 @@ class SourceViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         self.view.addGestureRecognizer(self.revealViewController().tapGestureRecognizer())
         
-        
+        MainService.instance.beginInit()
         self.initVC()
         
     }

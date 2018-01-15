@@ -7,7 +7,19 @@
 //
 
 import Foundation
-//сщььше
+
+struct GeneralPersonV2: Codable {
+    var name: String
+    var rank: String
+}
+
+typealias PersonV2 = SiteV2
+
+struct SiteV2: Codable {
+    var id : String
+    var name : String
+}
+
 struct SiteForSearch: Codable {
     var sites: [SitesDescription]
 }

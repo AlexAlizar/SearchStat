@@ -1,9 +1,10 @@
-from django.shortcuts import render, HttpResponseRedirect
-from authapp.forms import RegisterForm, LoginForm, EditForm
+from django.contrib import auth, messages
 from django.contrib.auth.forms import PasswordChangeForm
-
-from django.contrib import auth
+from django.shortcuts import render, HttpResponseRedirect
 from django.urls import reverse
+
+#local imports
+from authapp.forms import RegisterForm, LoginForm, EditForm
 
 
 def login(request):
@@ -32,7 +33,7 @@ def logout(request):
 def register(request):
     title = 'Регистрация'
     if request.method == 'POST':
-        register_form = RegisterForm(request.POST, request.FILES)
+        register_form = RegisterForm(request.POST)
 
         if register_form.is_valid():
             register_form.save()
@@ -49,7 +50,7 @@ def edit(request):
     title = 'Редактирование'
 
     if request.method == 'POST':
-        edit_form = EditForm(request.POST, request.FILES, instance=request.user)
+        edit_form = EditForm(request.POST, instance=request.user)
         if edit_form.is_valid():
             edit_form.save()
             return HttpResponseRedirect(reverse('auth:edit'))
@@ -60,21 +61,22 @@ def edit(request):
 
     return render(request, 'authapp/edit.html', content)
 
+
 def change_password(request):
     title = 'Изменение пароля'
 
     if request.method == 'POST':
-        change_password_form = PasswordChangeForm(request.POST, instance=request.user)
-        if change_password_form.is_valid():
-            change_password_form.save()
-            update_session_auth_hash(request, user) 
+        form = PasswordChangeForm(user=request.user, data=request.POST)
+        if form.is_valid():
+            form.save()
+            auth.update_session_auth_hash(request, request.user)
             messages.success(request, 'Пароль был успешно обновлен!')
-            return HttpResponseRedirect(reverse('auth:change_password'))
+            return render(request, 'auth:change_password')
         else:
             messages.error(request, 'Пожалуйста, исправьте ошибки ниже.')
     else:
-        change_password_form = PasswordChangeForm(request.user)
+        form = PasswordChangeForm(request.user)
 
-    content = {'title': title, 'change_password_form': change_password_form}
+    content = {'title': title, 'form': form}
 
     return render(request, 'authapp/change_password.html', content)

@@ -1,20 +1,18 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <div class="col-sm-9">
+    <div class="col-sm-8">
         <div class="card">
             <form class="" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="card-body">
                     {{ update_form.as_p }}
-
                     <div class="btn-group btn-block">
                         <input class="form-control btn btn-primary col-sm-6" type="submit" value="Сохранить">
                         <a class="btn btn-secondary col-sm-6" href="{% url 'ai:users' %}">Назад</a>
                     </div>
                 </div>
             </form>
-
         </div>
         <br>
     </div>

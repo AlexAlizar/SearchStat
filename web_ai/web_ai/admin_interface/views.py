@@ -36,12 +36,12 @@ def export_as_csv(request):
     response['Content-Disposition'] = 'attachment; filename="pages_links_table.csv"'
     writer = csv.writer(response)
     writer.writerow(['site_name', 'urls'])
+
     for site, urls in request.session['pages_dict'].items():
         data = []
         data.append(site)
         for item in urls:
             data.append(item)
-
         writer.writerow(data)
 
     return response

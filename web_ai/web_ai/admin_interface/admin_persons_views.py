@@ -19,7 +19,7 @@ def persons_view(request):
 @user_passes_test(lambda user: user.is_staff, login_url='/auth/login')
 def persons_edit(request):
     persons = Persons.objects.all()
-    max_num = 5
+    max_num = 10
     extra_fields = count_persons(max_num)
     PersonsModelFormset = modelformset_factory(Persons,
                                                PersonsManageForm,

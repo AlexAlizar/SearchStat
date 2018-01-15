@@ -26,7 +26,6 @@ def keywords_view(request):
 @user_passes_test(lambda user: user.is_staff, login_url='/auth/login')
 def person_keywords_edit(request):
     person = Persons.objects.get(name__iexact=request.session['person'])
-    print(person.name)
     max_num = 6
     extra_fields = count_keywords(max_num, person.pk)
     KeywordsInlineFormset = inlineformset_factory(Persons,

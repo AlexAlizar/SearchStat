@@ -18,6 +18,8 @@ class RegistrationViewController: UIViewController {
     @IBAction func userPhotoBtn(_ sender: UIButton) {
     }
     
+    @IBOutlet weak var registrationScrollViewConst: NSLayoutConstraint!
+    @IBOutlet weak var registrationScrollView: UIScrollView!
     @IBOutlet weak var userImageView: CustomImageView!
     @IBOutlet weak var userPhoto: UIButton!
     @IBOutlet weak var userNameTextField: CustomTextField!
@@ -52,10 +54,60 @@ class RegistrationViewController: UIViewController {
     func setupView() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(RegistrationViewController.handleTap))
         view.addGestureRecognizer(tap)
+//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapView(gesture:)))
+//        view.addGestureRecognizer(tapGesture)
     }
     
     @objc func handleTap() {
         view.endEditing(true)
     }
+    //    Для скорола экрана ввода пароля
+    //===========
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        addObservers()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        removeObservers()
+    }
+    
+    @objc func didTapView(gesture: UITapGestureRecognizer) {
+        view.endEditing(true)
+    }
+    
+    func addObservers() {
+        NotificationCenter.default.addObserver(forName: .UIKeyboardWillShow, object: nil, queue: nil) { notification in
+            self.keyboardWillShow(notification: notification)
+        }
+        NotificationCenter.default.addObserver(forName: .UIKeyboardWillHide, object: nil, queue: nil) { notification in
+            self.keyboardWillHide(notification: notification)
+        }
+    }
+    
+    func removeObservers() {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    func keyboardWillShow(notification: Notification) {
+        guard let userInfo = notification.userInfo,
+            let frame = (userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
+        let contentInset = UIEdgeInsets(top: 0, left: 0, bottom: frame.height  , right: 0)
+        registrationScrollView.contentInset = contentInset
+        registrationScrollViewConst.constant = -180
+        UIScrollView.animate(withDuration: 0.3) {
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+    func keyboardWillHide(notification: Notification) {
+        registrationScrollView.contentInset = UIEdgeInsets.zero
+        registrationScrollViewConst.constant = 0
+        UIScrollView.animate(withDuration: 0.2) {
+            self.view.layoutIfNeeded()
+        }
+    }
+    //===============
     
 }

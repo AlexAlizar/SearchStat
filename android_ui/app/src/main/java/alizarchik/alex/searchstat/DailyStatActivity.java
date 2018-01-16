@@ -146,7 +146,7 @@ public class DailyStatActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.graphics:
-                Intent intent = new Intent(this, GraphActivity.class);
+                Intent intent = new Intent(this, PieChartActivity.class);
                 startActivity(intent);
                 return true;
             default:

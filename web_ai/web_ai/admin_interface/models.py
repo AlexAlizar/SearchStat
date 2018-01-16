@@ -6,20 +6,42 @@
 #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
+from django.contrib.auth.models import AbstractBaseUser, UserManager
 
 
-class Users(models.Model):
-    login = models.CharField(max_length=256)
+class AliasField(models.Field):
+    def contribute_to_class(self, cls, name, virtual_only=False):
+        super(AliasField, self).contribute_to_class(cls, name, private_only=True)
+        setattr(cls, name, self)
+
+    def __get__(self, instance, instance_type=None):
+        return getattr(instance, self.db_column)
+
+
+class Users(AbstractBaseUser):
+
+    login = models.CharField(max_length=255, unique=True)
     password = models.CharField(max_length=2048)
-    email = models.CharField(max_length=255, blank=True, null=True)
+    email = models.CharField(max_length=255, blank=True, null=True, unique=True)
     token = models.CharField(max_length=2048)
     role = models.CharField(max_length=256)
     creation_date = models.DateTimeField()
     last_login_date = models.DateTimeField(blank=True, null=True)
 
+    objects = UserManager()
+
+    username = AliasField(db_column='login')
+    last_login = AliasField(db_column='last_login_date')
+
+    USERNAME_FIELD = 'login'
+    REQUIRED_FIELDS = ('password',)
+
     class Meta:
         managed = False
         db_table = 'users'
+
+    def __str__(self):
+        return str(self.login)
 
 
 class Persons(models.Model):
@@ -80,3 +102,5 @@ class PersonPageRank(models.Model):
     class Meta:
         managed = False
         db_table = 'person_page_rank'
+
+

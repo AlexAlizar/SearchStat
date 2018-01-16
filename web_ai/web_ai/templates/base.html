@@ -47,6 +47,8 @@
                          <a class="nav-link" href="{% url 'password_reset' %}">Забыли пароль?</a>
                           </li>
                     {% else %}
+                        <p>{{ request.user }}</p>
+                        <hr>
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'auth:logout' %}">Выйти</a>
                         </li>

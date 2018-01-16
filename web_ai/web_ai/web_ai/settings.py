@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 
 import os
 
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -95,6 +96,12 @@ DATABASES = {
     }
 }
 
+# User Model
+
+AUTH_USER_MODEL = 'admin_interface.Users'
+
+AUTHENTICATION_BACKENDS = ('authapp.auth_backend.AuthBackend',)
+
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
@@ -147,7 +154,7 @@ EMAIL_FILE_PATH = 'tmp/email-messages/'
 # 3rd party apps
 
 if DEBUG:
-    INTERNAL_IPS = ('127.0.0.1', 'localhost',)
+    INTERNAL_IPS = ('127.0.0.2', '127.0.0.1', 'localhost')
     MIDDLEWARE += (
         'debug_toolbar.middleware.DebugToolbarMiddleware',
     )

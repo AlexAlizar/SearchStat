@@ -2,6 +2,7 @@ from django.contrib import auth, messages
 from django.contrib.auth.forms import PasswordChangeForm
 from django.shortcuts import render, HttpResponseRedirect
 from django.urls import reverse
+from .auth_backend import AuthBackend
 
 #local imports
 from authapp.forms import RegisterForm, LoginForm, EditForm

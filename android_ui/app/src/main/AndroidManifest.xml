@@ -32,6 +32,9 @@
             android:parentActivityName=".MainActivity"/>
         <activity
             android:name=".GraphActivity"/>
+        <activity
+            android:name=".PieChartActivity"
+            android:theme="@style/AppBase"/>
     </application>
 
 </manifest>

@@ -1,9 +1,6 @@
 package alizarchik.alex.searchstat;
 
-import java.util.List;
 
-import alizarchik.alex.searchstat.Model.DailyStatisticsModel;
-import alizarchik.alex.searchstat.Model.GeneralStatisticsModel;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -13,7 +10,15 @@ import retrofit2.http.Query;
  */
 
 public interface IRestApi {
-    // кодирование используем, чтобы передаваемый URL сайта не конфликтовал с URL API
+
+    @GET("?action=auth")
+    Call<String> auth(@Query(value = "login", encoded = true)
+                              String login,
+                      @Query(value = "password", encoded = true)
+                              String password);
+
+}
+    /*// кодирование используем, чтобы передаваемый URL сайта не конфликтовал с URL API
     @GET("sites")
     Call<List<GeneralStatisticsModel>> loadGeneralStatistics(@Query(value = "urlSite", encoded = true)
                                                                      String urlSite);
@@ -26,4 +31,4 @@ public interface IRestApi {
                                                                      String urlSite,
                                                               @Query("startDate") int startDate,
                                                               @Query("finalDate") int finalDate);
-}
+}*/

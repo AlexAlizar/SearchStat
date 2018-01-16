@@ -12,6 +12,7 @@ class FirstScreenVC: UIViewController {
 
     //Outlets
     @IBOutlet weak var menuBtn: UIButton!
+    @IBOutlet weak var ArrowUpImageView: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +24,7 @@ class FirstScreenVC: UIViewController {
 
       
         menuBtn.blink()
+        ArrowUpImageView.blinkImage()
     }
 
 
@@ -39,6 +41,22 @@ extension UIButton {
             options: [.curveEaseInOut, .autoreverse, .repeat],
             animations: { [weak self] in self?.alpha = 0.0 },
             completion: { [weak self] _ in self?.alpha = 1.0 })) : self.layer.removeAllAnimations()
+        if !stopAfter.isEqual(to: 0.0) && enabled {
+            DispatchQueue.main.asyncAfter(deadline: .now() + stopAfter) { [weak self] in
+                self?.layer.removeAllAnimations()
+            }
+        }
+    }
+}
+
+extension UIImageView {
+    
+    func blinkImage(enabled: Bool = true, duration: CFTimeInterval = 0.7, stopAfter: CFTimeInterval = 0.0) {
+        enabled ? (UIView.animate(withDuration: duration,
+            delay: 1.0,
+            options: [.curveEaseInOut, .autoreverse, .repeat],
+            animations: { [weak self] in self?.alpha = 0.0 },
+            completion: { [weak self ] _ in self?.alpha = 1.0 })) : self.layer.removeAllAnimations()
         if !stopAfter.isEqual(to: 0.0) && enabled {
             DispatchQueue.main.asyncAfter(deadline: .now() + stopAfter) { [weak self] in
                 self?.layer.removeAllAnimations()

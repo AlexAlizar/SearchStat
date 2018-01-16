@@ -45,21 +45,32 @@
                                 </constraints>
                                 <state key="normal" image="Logo"/>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Pressed field 2" translatesAutoresizingMaskIntoConstraints="NO" id="xcI-rj-vA4">
+                                <rect key="frame" x="166" y="440" width="43" height="51"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="51" id="MrM-xM-7YZ"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.0039215686274509803" green="0.3411764705882353" blue="0.60784313725490191" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="xcI-rj-vA4" firstAttribute="leading" secondItem="t4Y-xm-MDO" secondAttribute="leading" constant="166" id="598-C2-9FB"/>
                             <constraint firstItem="G5c-yw-g25" firstAttribute="leading" secondItem="t4Y-xm-MDO" secondAttribute="leading" constant="116" id="70H-P1-YYB"/>
+                            <constraint firstItem="t4Y-xm-MDO" firstAttribute="trailing" secondItem="xcI-rj-vA4" secondAttribute="trailing" constant="166" id="CE4-Ir-Rcy"/>
                             <constraint firstItem="G5c-yw-g25" firstAttribute="top" secondItem="t4Y-xm-MDO" secondAttribute="top" constant="229" id="HlK-Sz-CYe"/>
+                            <constraint firstItem="t4Y-xm-MDO" firstAttribute="bottom" secondItem="xcI-rj-vA4" secondAttribute="bottom" constant="176" id="ha6-Wq-VEG"/>
+                            <constraint firstItem="xcI-rj-vA4" firstAttribute="top" secondItem="G5c-yw-g25" secondAttribute="bottom" constant="22" id="oM5-8j-KoW"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="t4Y-xm-MDO"/>
                     </view>
                     <connections>
+                        <outlet property="ArrowUpImageView" destination="xcI-rj-vA4" id="03b-vk-cpw"/>
                         <outlet property="menuBtn" destination="G5c-yw-g25" id="Gl8-ou-BHk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zzg-bN-InQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-703" y="909"/>
+            <point key="canvasLocation" x="-703.20000000000005" y="908.9955022488756"/>
         </scene>
         <!--MenuVC-->
         <scene sceneID="GsZ-Lu-Ood">
@@ -1136,6 +1147,7 @@
         <image name="Back Button" width="73" height="26"/>
         <image name="Logo" width="143" height="169"/>
         <image name="Menu" width="26" height="24"/>
+        <image name="Pressed field 2" width="59" height="75"/>
         <image name="photo icon" width="141" height="141"/>
         <image name="Иконка график" width="27" height="27"/>
     </resources>

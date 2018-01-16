@@ -10,7 +10,7 @@ def admin_interface(request):
     return render(request, 'base.html', {'sites': sites})
 
 
-@user_passes_test(lambda user: user.is_staff, login_url='/auth/login')
+@user_passes_test(lambda user: user.role == 'admin', login_url='/auth/login')
 def statistic(request):
     sites = get_list_or_404(Sites.objects.all())
     agg_pages = Pages.objects.values('site__name').annotate(agg=Count('url'))
@@ -30,7 +30,7 @@ def statistic(request):
                                                  'agg_pages': agg_pages})
 
 
-@user_passes_test(lambda user: user.is_staff, login_url='/auth/login')
+@user_passes_test(lambda user: user.role == 'admin', login_url='/auth/login')
 def export_as_csv(request):
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename="pages_links_table.csv"'

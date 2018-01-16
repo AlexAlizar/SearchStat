@@ -7,6 +7,7 @@
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, UserManager
+import datetime
 
 
 class AliasField(models.Field):
@@ -24,9 +25,9 @@ class Users(AbstractBaseUser):
     password = models.CharField(max_length=2048)
     email = models.CharField(max_length=255, blank=True, null=True, unique=True)
     token = models.CharField(max_length=2048)
-    role = models.CharField(max_length=256)
-    creation_date = models.DateTimeField()
-    last_login_date = models.DateTimeField(blank=True, null=True)
+    role = models.CharField(max_length=255, default='user')
+    creation_date = models.DateTimeField(default=datetime.datetime.now)
+    last_login_date = models.DateTimeField(default=datetime.datetime.now, blank=True, null=True)
 
     objects = UserManager()
 

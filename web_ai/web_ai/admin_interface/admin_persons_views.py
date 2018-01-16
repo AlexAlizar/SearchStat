@@ -10,13 +10,13 @@ def count_persons(max_num):
     return max_num
 
 
-@user_passes_test(lambda user: user.is_staff, login_url='/auth/login')
+@user_passes_test(lambda user: user.role == 'admin', login_url='/auth/login')
 def persons_view(request):
     persons = Persons.objects.all()
     return render(request, 'admin_interface/persons_view.html', {'persons': persons})
 
 
-@user_passes_test(lambda user: user.is_staff, login_url='/auth/login')
+@user_passes_test(lambda user: user.role == 'admin', login_url='/auth/login')
 def persons_edit(request):
     persons = Persons.objects.all()
     max_num = 10

@@ -13,19 +13,35 @@ public class MainTestVVA {
         LogWork.logWrite("Start program\n");
 
 
-        RobotsHandler rh = new RobotsHandler(new File("/home/vva/testgb/print.txt"));
+        RobotsHandler rh = new RobotsHandler(
+                new File("/home/vva/testgb/print.txt"), "https://tlgrm.ru"
+        );
 
-        rh.getSitemap();
+//        String testLink01 = "https://tlgrm.ru/faq";
+//        String testLink01 = "https://tlgrm.ru/";
+        String testLink01 = "https://tlgrm.ru/faq/stickers.html";
 
-
-
-
-
-
-
-
+        System.out.println(testLink01 + "  ->  " + rh.checkLink(testLink01));
 
 
+        System.out.println("\n");
+        // Вывели сайтмапы
+        for (String s: rh.getSiteMaps()) System.out.println("SITE_MAP --- " + s);
+
+        // Вывели номер строки где узерагент
+//        System.out.println("UserAgentStr --- " + rh.getUserAgentStr());
+
+
+        // Проверка пттернов регулярных вырожений
+
+//        String test01 = "tlgrm.ru";
+
+//        System.out.println(RobotsHandler.qwe());
+//        System.out.println(test01 + " --- " + RobotsHandler.prpareLink(test01));
+
+
+//        for (String s: rh.getAllowDirective()) System.out.println("+ " + s);
+//        for (String s: rh.getDisallowDirective()) System.out.println("- " + s);
 
 /*/
 // Тестирую альтернативную библиотеку для парсинга HTML

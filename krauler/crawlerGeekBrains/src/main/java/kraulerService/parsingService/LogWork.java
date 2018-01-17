@@ -36,7 +36,7 @@ public class LogWork {
         }
 
         // debug //
-        System.out.println("LogFile --- " + logFile.getAbsolutePath());
+//        System.out.println("LogFile --- " + logFile.getAbsolutePath());
 
         return true;
     }

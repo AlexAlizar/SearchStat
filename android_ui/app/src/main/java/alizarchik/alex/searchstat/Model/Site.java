@@ -10,26 +10,26 @@ import java.util.ArrayList;
  */
 
 public class Site {
-    @SerializedName("SiteName")
+    @SerializedName("name")
     @Expose
-    private String siteName;
+    private String name;
 
-    public Site(String siteName) {
-        this.siteName = siteName;
+    public Site(String name) {
+        this.name = name;
     }
 
     public String getSiteName() {
-        return siteName;
+        return name;
     }
 
-    public void setSiteName(String siteName) {
-        this.siteName = siteName;
+    public void setSiteName(String name) {
+        this.name = name;
     }
 
     @Override
     public String toString() {
         return "Site{" +
-                "siteName='" + siteName + '\'' +
+                "name='" + name + '\'' +
                 '}';
     }
 }

@@ -1,9 +1,11 @@
 package alizarchik.alex.searchstat;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -11,19 +13,14 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.series.BarGraphSeries;
-import com.jjoe64.graphview.series.DataPoint;
-import com.jjoe64.graphview.series.LineGraphSeries;
-
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -31,6 +28,12 @@ import java.util.List;
 import java.util.Locale;
 
 import alizarchik.alex.searchstat.Model.GenStatDataItem;
+import alizarchik.alex.searchstat.Model.Site;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by Olesia on 10.01.2018.
@@ -44,6 +47,8 @@ public class GeneralStatActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager mLayoutManager;
     private TextView currentDate;
     private Button buttonSelectSite;
+    private ArrayList<String> sites;
+    IRestApi restAPI;
 
     public static final String TAG = "MyLogs";
 
@@ -54,22 +59,9 @@ public class GeneralStatActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         init();
-        ArrayList<String> sites = new ArrayList<>();
-        sites.add("site#1");
-        sites.add("site#2");
-        sites.add("site#3");
-
-        final CharSequence[] sitesArray = sites.toArray(new String[sites.size()]);
 
         buttonSelectSite = findViewById(R.id.button_select_site_GS);
-        buttonSelectSite.setOnClickListener(view -> {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Select a site");
-            builder.setItems(sitesArray, (DialogInterface.OnClickListener) (dialogInterface, i) -> {
-                // Do something with the selection
-            });
-            builder.show();
-        });
+        buttonSelectSite.setOnClickListener((v) -> onClick());
     }
 
     @Override
@@ -80,6 +72,7 @@ public class GeneralStatActivity extends AppCompatActivity {
 
     private void init() {
         List<GenStatDataItem> myDataset = getDataSet();
+        sites = new ArrayList<>();
         mRecyclerView = findViewById(R.id.rvGenStat);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
@@ -123,6 +116,70 @@ public class GeneralStatActivity extends AppCompatActivity {
         }
     }
 
+    public void onClick() {
+        Retrofit retrofit;
+        try {
+            retrofit = new Retrofit.Builder()
+                    .baseUrl("http://195.110.59.16:8081/restapi-v2/?")
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+            restAPI = retrofit.create(IRestApi.class);
+        } catch (Exception io) {
+            Log.d(TAG, "no retrofit: " + io.getMessage());
+            return;
+        }
+        // подготовили вызов на сервер
+        TokenStorage tokenStorage = TokenStorage.getInstance();
+        Log.d(TAG, "token from storage: " + tokenStorage.loadToken(this));
+        Call<List<Site>> call = restAPI.getSites(tokenStorage.loadToken(this));
+        ConnectivityManager connectivityManager =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        assert connectivityManager != null;
+        NetworkInfo networkinfo = connectivityManager.getActiveNetworkInfo();
+        if (networkinfo != null && networkinfo.isConnected()) {
+            // запускаем
+            try {
+                loadSites(call);
+            } catch (IOException e) {
+                e.printStackTrace();
+                Log.d(TAG, "no retrofit: " + e.getMessage());
+            }
+        } else {
+            Log.d(TAG, "Подключите интернет");
+            Toast.makeText(this, "Подключите интернет", Toast.LENGTH_SHORT).show();
+        }
+    }
 
+    private void loadSites(Call<List<Site>> call) throws IOException {
+        call.enqueue(new Callback<List<Site>>() {
+            @Override
+            public void onResponse(Call<List<Site>> call, Response<List<Site>> response) {
+                if (response.isSuccessful()) {
+                    if (response != null && sites.isEmpty()) {
+                        Site site;
+                        for (int i = 0; i < response.body().size(); i++) {
+                            site = response.body().get(i);
+                            Log.d(TAG, "response.body() sites:" + site.getSiteName());
+                            sites.add(site.getSiteName());
+                        }
+                    }
+                } else {
+                    Log.d(TAG, "onResponse error: " + response.code());
+                }
+                final CharSequence[] sitesArray = sites.toArray(new String[sites.size()]);
 
+                AlertDialog.Builder builder = new AlertDialog.Builder(GeneralStatActivity.this);
+                builder.setTitle("Select a site");
+                builder.setItems(sitesArray, (dialogInterface, i) -> {
+                    // Do something with the selection
+                });
+                builder.show();
+            }
+
+            @Override
+            public void onFailure(Call<List<Site>> call, Throwable t) {
+                Log.d(TAG, "onFailure " + t.getMessage());
+            }
+        });
+    }
 }

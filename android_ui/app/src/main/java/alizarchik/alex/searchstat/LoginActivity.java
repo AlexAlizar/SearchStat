@@ -33,6 +33,8 @@ public class LoginActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     public static final String TAG = "MyLogs";
     IRestApi restAPI;
+    TokenStorage tokenStorage;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +47,11 @@ public class LoginActivity extends AppCompatActivity {
 
         signUpButton.setOnClickListener(view -> startNewActivity(SignUpActivity.class));
         loginButton.setOnClickListener((v) -> onClick());
-
+        tokenStorage = TokenStorage.getInstance();
+        if (tokenStorage.loadToken(this) != null){
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
+        }
 
     }
 
@@ -102,8 +108,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     if (response != null) {
                         String token = response.body();
-                        Log.d(TAG, "response.body(): " + token);
-                        TokenStorage tokenStorage = TokenStorage.getInstance();
+                        Log.d(TAG, "response.body() token: " + token);
                         tokenStorage.saveToken(token, LoginActivity.this);
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(intent);

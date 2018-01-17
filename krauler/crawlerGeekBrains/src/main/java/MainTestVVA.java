@@ -1,3 +1,4 @@
+import kraulerService.parsingService.LinkCollector;
 import kraulerService.parsingService.LogWork;
 import kraulerService.parsingService.RobotsHandler;
 import org.jsoup.Jsoup;
@@ -12,21 +13,26 @@ public class MainTestVVA {
     public static void main(String[] args) {
         LogWork.logWrite("Start program\n");
 
+        LinkCollector.collect();
 
+
+
+
+/* debug * /
         RobotsHandler rh = new RobotsHandler(
                 new File("/home/vva/testgb/print.txt"), "https://tlgrm.ru"
         );
-
+/**/
 //        String testLink01 = "https://tlgrm.ru/faq";
 //        String testLink01 = "https://tlgrm.ru/";
-        String testLink01 = "https://tlgrm.ru/faq/stickers.html";
+//        String testLink01 = "https://tlgrm.ru/faq/stickers.html";
 
-        System.out.println(testLink01 + "  ->  " + rh.checkLink(testLink01));
+//        System.out.println(testLink01 + "  ->  " + rh.checkLink(testLink01));
 
 
-        System.out.println("\n");
+//        System.out.println("\n");
         // Вывели сайтмапы
-        for (String s: rh.getSiteMaps()) System.out.println("SITE_MAP --- " + s);
+//        for (String s: rh.getSiteMaps()) System.out.println("SITE_MAP --- " + s);
 
         // Вывели номер строки где узерагент
 //        System.out.println("UserAgentStr --- " + rh.getUserAgentStr());

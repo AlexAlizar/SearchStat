@@ -94,7 +94,7 @@ class ScheludeViewController: UIViewController, ChartViewDelegate {
         
         pieChartView.data = pieChartData
         pieChartView.animate(xAxisDuration: 2.0, yAxisDuration: 2.0)
-        pieChartView.holeColor = UIColor.darkGray
+        pieChartView.holeColor = UIColor.clear
         
         
     }

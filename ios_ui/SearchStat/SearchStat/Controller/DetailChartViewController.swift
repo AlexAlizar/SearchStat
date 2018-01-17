@@ -71,7 +71,7 @@ class DetailChartViewController: UIViewController {
         
         let pieChartData = PieChartData(dataSets: [pieChartDataSet])
         pieChartView.data = pieChartData
-        
+        pieChartView.holeColor = UIColor.clear
        
 
         var dataBarEntry: [BarChartDataEntry] = []

@@ -192,40 +192,6 @@ public class RobotsHandler {
         return result;
     }
 
-    /**
-     * User-agent: SearchStat # Наш юзер агент
-     * User-agent: * # Любой юзер агент, если не указан явно
-     * Disallow: / # Запрещены все страницы
-     *
-     *
-     * Пример (старт) ----------------------------------
-     User-Agent: *
-     Allow: /
-     Allow: /sources
-     Allow: /web
-     Allow: /apps
-     Allow: /faq
-     Allow: /press
-     Allow: /blog
-     Allow: /privacy
-     Allow: /techfaq
-     Allow: /stickers
-     Allow: /sitemap.xml
-     Disallow: /about
-     Disallow: /language
-     Disallow: /manifest.json
-     Disallow: /changelog
-     Host: https://tlgrm.ru
-     Sitemap: https://tlgrm.ru/sitemap.xml
-     * Пример (конец) ----------------------------------
-     *
-     *
-     */
-
-    /**
-     * tmp
-     */
-
     public List<String> getSiteMaps() {
         return siteMaps;
     }
@@ -242,64 +208,4 @@ public class RobotsHandler {
         return disallowDirective;
     }
 
-    /**
-     * Временный метод для эксперементов
-     * @return
-     */
-//    public static boolean qwe() {
-//        //
-//        String regExpPattern01 = "^[a-z0-9_-]{3,15}$";
-//        String regExpPattern02 = "^(.)*(qwe)(.)*$";
-//        String testLink01 = "https://tlgrm.ru/faq";
-//        String testLink02 = "httpsqwwewww";
-//
-//        return LinkHandler.checkLink(testLink02, regExpPattern02);
-//        //
-//    }
-
-
 }
-
-// Временный клас для эксперементов
-class LinkHandler{
-
-
-    /**
-     * Подготовка ссылки для передачи в метод checkLink
-     * @param link
-     */
-//    public static boolean prpareLink(String link) {
-//        Pattern p = Pattern.compile("^(.+)[.]([a-z]{2,6})$");
-//        Matcher m = p.matcher(link);
-//        return m.matches();
-//    }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//

@@ -54,7 +54,7 @@ class ScheludeViewController: UIViewController, ChartViewDelegate {
         pieChartView.chartDescription?.text = ""
         
         var dataEntries: [ChartDataEntry] = []
-        let colors: [UIColor] = [UIColor.blue, UIColor.brown, UIColor.green]
+
         
         for i in 0..<nameArray.count {
             let dataEntry = ChartDataEntry(x: Double(i), y: Double(totalArray[i]))
@@ -66,27 +66,36 @@ class ScheludeViewController: UIViewController, ChartViewDelegate {
         
         for i in 0..<nameArray.count {
             let dataBarEntry = BarChartDataEntry(x: Double(i), y: Double(totalArray[i]))
-//                let dataBarEntry = BarChartDataEntry(x: Double(i), y: Double(totalArray[i]), data: nameArray[i] as AnyObject)
+
             dataBarEntries.append(dataBarEntry)
         }
         
 
         
-        let barChartDataSet = BarChartDataSet(values: dataBarEntries, label: nameArray.description)
-        barChartDataSet.colors = colors
+        let barChartDataSet = BarChartDataSet(values: dataBarEntries, label: "")
+        barChartDataSet.colors = ChartColorTemplates.colorful()
+
         let barChartData = BarChartData(dataSets: [barChartDataSet])
+        
         barChartView.data = barChartData
         barChartView.animate(xAxisDuration: 2.0, yAxisDuration: 2.0)
         barChartView.xAxis.labelPosition = .bottom
+        barChartView.xAxis.valueFormatter = IndexAxisValueFormatter(values: personArray.enumerated().map{index, element in return element.name})
+        barChartView.rightAxis.enabled = false
+        barChartView.drawBarShadowEnabled = false
+
         
         
         
+        let pieChartDataSet = PieChartDataSet(values: dataEntries, label: "")
+        pieChartDataSet.colors = ChartColorTemplates.colorful()
         
-        let pieChartDataSet = PieChartDataSet(values: dataEntries, label: nameArray.description)
         let pieChartData = PieChartData(dataSets: [pieChartDataSet])
+        
         pieChartView.data = pieChartData
         pieChartView.animate(xAxisDuration: 2.0, yAxisDuration: 2.0)
         pieChartView.holeColor = UIColor.darkGray
-        pieChartDataSet.colors = colors
+        
+        
     }
 }

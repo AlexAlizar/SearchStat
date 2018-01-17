@@ -181,8 +181,10 @@
                         <viewLayoutGuide key="safeArea" id="Kph-zR-Yp6"/>
                     </view>
                     <connections>
+                        <outlet property="exitBtn" destination="IFX-nO-70Q" id="GoP-an-mLH"/>
                         <outlet property="loginBtn" destination="L7M-YY-ZCs" id="7u2-28-Fbx"/>
                         <outlet property="menuBtn" destination="thb-FR-D3V" id="32b-i6-U95"/>
+                        <outlet property="myAccountBtn" destination="SOq-tK-hmX" id="2ep-O8-Zwl"/>
                         <outlet property="settingBtn" destination="JuO-1a-oXe" id="xna-Ai-FYA"/>
                         <segue destination="DZq-Vl-2OD" kind="show" identifier="toLogin" id="Iz7-5y-sFH"/>
                     </connections>

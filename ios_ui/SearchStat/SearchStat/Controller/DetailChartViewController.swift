@@ -46,6 +46,7 @@ class DetailChartViewController: UIViewController {
         
         
         pieChartView.chartDescription?.text = ""
+        barChartView.chartDescription?.text = ""
         
         var dataEntries: [ChartDataEntry] = []
         if periodActivate {
@@ -65,11 +66,13 @@ class DetailChartViewController: UIViewController {
             
             
             
-        let pieChartDataSet = PieChartDataSet(values: dataEntries, label: "Site #1")
+        let pieChartDataSet = PieChartDataSet(values: dataEntries, label: "")
+        pieChartDataSet.colors = ChartColorTemplates.colorful()
+        
         let pieChartData = PieChartData(dataSets: [pieChartDataSet])
         pieChartView.data = pieChartData
         
-        barChartView.chartDescription?.text = ""
+       
 
         var dataBarEntry: [BarChartDataEntry] = []
         
@@ -88,10 +91,12 @@ class DetailChartViewController: UIViewController {
             }
         }
         
-        let barChartDataSet = BarChartDataSet(values: dataBarEntry, label: "Site #1")
+        let barChartDataSet = BarChartDataSet(values: dataBarEntry, label: "")
         let barChartData = BarChartData(dataSets: [barChartDataSet])
         barChartView.data = barChartData
-        
+        barChartView.xAxis.labelPosition = .bottom
+        barChartView.xAxis.valueFormatter = IndexAxisValueFormatter(values: personArray.enumerated().map {index, element in return element.name})
+        barChartDataSet.colors = ChartColorTemplates.colorful()
         
         
     }

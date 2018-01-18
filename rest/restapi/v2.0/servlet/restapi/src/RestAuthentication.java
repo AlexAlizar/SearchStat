@@ -1,8 +1,10 @@
 public class RestAuthentication {
+
     private boolean authenticated = false;
     private String id;
     private String login;
     private String password;
+    private String email;
     private String token;
     private String role;
     private String persons;
@@ -13,7 +15,42 @@ public class RestAuthentication {
 
 
     RestAuthentication(String token) {
-        this.token = token;
+        try {
+            String result = db.prepareDB("mySQL");
+            if (result == "DB is ready.") {
+                String query = "SELECT * FROM users WHERE token = " + token;
+                result = db.executeDBQuery("SELECT * FROM users WHERE token = \"" + token + "\"");
+                while (db.rs.next()) {
+                    RestMessages.constructMessage("we are inside");
+                    this.id = db.rs.getString("id");
+                    this.login = db.rs.getString("login");
+                    this.password = db.rs.getString("password");
+                    this.email = db.rs.getString("email");
+                    this.token = db.rs.getString("token");
+                    this.role = db.rs.getString("role");
+                    this.persons = db.rs.getString("persons");
+                    this.creation_date = db.rs.getString("creation_date");
+                    this.last_login_date = db.rs.getString("last_login_date");
+                }
+                if (this.token == null) {
+                    RestMessages.constructMessage(new RestMessages.Error("Wrong token"));
+                    return;
+                } else {
+                    RestMessages.constructMessage("User exist");
+//                    //Here will be method for existence users
+                    if (this.token.equals(token)) {
+                        this.authenticated = true;
+                    } else {
+                        this.authenticated = false;
+                        RestMessages.constructMessage(new RestMessages.Error("Wrong token"));
+                    }
+                }
+            } else {
+                RestMessages.constructMessage(new RestMessages.Error("DB is not ready"));
+            }
+        } catch (Exception e) {
+            RestMessages.constructMessage(new RestMessages.Error(e.toString()));
+        }
         authorization("admin"); //Temporary
     }
 
@@ -28,14 +65,15 @@ public class RestAuthentication {
                 result = db.executeDBQuery("SELECT * FROM users WHERE login = \"" + login + "\"");
                 while (db.rs.next()) {
                     RestMessages.constructMessage("we are inside");
-                    this.id = db.rs.getString(1);
-                    this.login = db.rs.getString(2);
-                    this.password = db.rs.getString(3);
-                    this.token = db.rs.getString(4);
-                    this.role = db.rs.getString(5);
-                    this.persons = db.rs.getString(6);
-                    this.creation_date = db.rs.getString(7);
-                    this.last_login_date = db.rs.getString(8);
+                    this.id = db.rs.getString("id");
+                    this.login = db.rs.getString("login");
+                    this.password = db.rs.getString("password");
+                    this.email = db.rs.getString("email");
+                    this.token = db.rs.getString("token");
+                    this.role = db.rs.getString("role");
+                    this.persons = db.rs.getString("persons");
+                    this.creation_date = db.rs.getString("creation_date");
+                    this.last_login_date = db.rs.getString("last_login_date");
                 }
                 if (this.login == null) {
                     RestMessages.constructMessage(new RestMessages.Error("User doesn\'t exist"));
@@ -47,6 +85,7 @@ public class RestAuthentication {
                     } else {
                         this.authenticated = false;
                         RestMessages.constructMessage(new RestMessages.Error("Wrong password"));
+                        return;
                     }
                 }
             } else {

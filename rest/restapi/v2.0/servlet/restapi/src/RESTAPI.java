@@ -41,20 +41,21 @@ public class RESTAPI extends HttpServlet {
                     auth = new RestAuthentication(login, password);
 //                    out.println(RestMessages.outputJSONMessage);
                     if (auth.isAuthenticated()) {
-
 //                      Need transform to CLASS
                         out.println(RestMessages.constructJSON(auth.getToken()));
 //                      Need transform to CLASS
-
+                        return;
+                    } else {
+                        RestMessages.constructMessage(new RestMessages.Error("Authentication failed"));
+                        out.println(RestMessages.outputJSONMessage);
                         return;
                     }
-                    return;
                 } else {
 //                    out.println("Debug: Action != auth");
                     auth = new RestAuthentication(rToken);
                 }
 
-                if (auth.checkToken()) {
+                if (auth.isAuthenticated()) {
 //                    out.println("Debug: Token is OK");
                     if (auth.getRole() == "user") {
 //                        out.println("Debug: user role = user");

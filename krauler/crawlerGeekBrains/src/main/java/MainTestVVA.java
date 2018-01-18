@@ -1,21 +1,16 @@
-import kraulerService.parsingService.LinkCollector;
 import kraulerService.parsingService.LogWork;
-import kraulerService.parsingService.RobotsHandler;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-
-import java.io.File;
+import kraulerService.parsingService.PageParser;
 
 public class MainTestVVA {
 
     public static void main(String[] args) {
         LogWork.logWrite("Start program\n");
 
-        String URL = "http://developer.alexanderklimov.ru/android";
+//        String URL = "http://developer.alexanderklimov.ru/android";
+//        String URL = "http://developer.alexanderklimov.ru/android/";
+        String URL = "http://developer.alexanderklimov.ru/android/facedetector.php";
 
-        for (String s: LinkCollector.collect(URL)) System.out.println("! - " + s);
+        for (String s: PageParser.collectLinkOnPage(URL)) System.out.println("! - " + s);
 
 
 

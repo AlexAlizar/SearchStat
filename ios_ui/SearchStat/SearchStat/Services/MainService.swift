@@ -18,8 +18,18 @@ class MainService {
     
     var delegate: MainServiceDelegate?
     
-    public private(set) var siteModelArray = [SiteModel]()
+    private var siteModelArray = [SiteModel]()
     private var siteNames: [String]?
+    
+    func getSitesArray() -> [SiteModel] {
+        var filterdSites = [SiteModel]()
+        for item in self.siteModelArray {
+            if item.isVissible {
+                filterdSites.append(item)
+            }
+        }
+        return filterdSites
+    }
     
     
     public private(set) var siteArray: [Site]?
@@ -31,7 +41,7 @@ class MainService {
         let siteCounts = self.siteNames!.count
         let generatedSiteCounts = self.siteModelArray.count
         if siteCounts == generatedSiteCounts {
-            print("!!!Print General Data LOAD !!!")
+            print("!!!General Data LOAD !!!")
             self.delegate?.initCompleated()
         } else {
             print("Data loading, part \(generatedSiteCounts)/\(siteCounts)")
@@ -74,7 +84,7 @@ class MainService {
             
             do {
                 let generalPersons = try JSONDecoder().decode([GeneralPersonV2].self, from: data)
-                print("Get data for site: \(site), \(generalPersons.count) pars")
+                print("Get data for site: \(site), \(generalPersons.count) persons")
                 var tempSite = SiteModel(name: site, perArray: generalPersons)
                 if generalPersons.count <= 0 {
                     tempSite.isVissible = false

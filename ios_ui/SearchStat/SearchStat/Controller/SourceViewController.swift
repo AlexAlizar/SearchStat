@@ -32,15 +32,7 @@ class SourceViewController: UIViewController, UITableViewDelegate, UITableViewDa
     //MARK: Delegate method from MainService
     internal func initCompleated() {
         
-        var filterdSites = [SiteModel]()
-        
-        for item in MainService.instance.siteModelArray {
-            if item.isVissible {
-                filterdSites.append(item)
-            }
-        }
-        
-        self.sitesArray = filterdSites
+        self.sitesArray = MainService.instance.getSitesArray()
         
         
         DispatchQueue.main.async {

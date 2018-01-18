@@ -11,7 +11,7 @@ import Charts
 
 class ScheludeViewController: UIViewController, ChartViewDelegate {
     
-    var personArray: [Person] = []
+    var personArray: [GeneralPersonV2] = []
     
     
     @IBOutlet weak var pieChartView: PieChartView!
@@ -33,12 +33,12 @@ class ScheludeViewController: UIViewController, ChartViewDelegate {
         //MARK: Чтение даты обновления данных
 //        let dateString = UserDefaults.standard.string(forKey: DATA_UPDATE_STRING)
         
-        let site = MainService.instance.siteArray![siteIndex]
+        let site = MainService.instance.getSitesArray()[siteIndex]
         personArray = site.personsArray
 
         
         let totalArray = personArray.enumerated().map{ index, element in
-                return element.total
+                return element.rank
             }
      
         
@@ -57,7 +57,7 @@ class ScheludeViewController: UIViewController, ChartViewDelegate {
 
         
         for i in 0..<nameArray.count {
-            let dataEntry = ChartDataEntry(x: Double(i), y: Double(totalArray[i]))
+            let dataEntry = ChartDataEntry(x: Double(i), y: Double(totalArray[i])!)
            
             dataEntries.append(dataEntry)
         }
@@ -65,7 +65,7 @@ class ScheludeViewController: UIViewController, ChartViewDelegate {
         var dataBarEntries: [BarChartDataEntry] = []
         
         for i in 0..<nameArray.count {
-            let dataBarEntry = BarChartDataEntry(x: Double(i), y: Double(totalArray[i]))
+            let dataBarEntry = BarChartDataEntry(x: Double(i), y: Double(totalArray[i])!)
 
             dataBarEntries.append(dataBarEntry)
         }

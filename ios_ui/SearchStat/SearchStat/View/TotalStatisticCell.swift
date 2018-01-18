@@ -25,8 +25,8 @@ class TotalStatisticCell: UITableViewCell {
         totalStatLabel.layer.borderColor = UIColor.lightGray.cgColor
     }
     
-    func setupTotalCell(person: Person) {
+    func setupTotalCell(person: GeneralPersonV2) {
         personNameLabel.text = person.name
-        totalStatLabel.text = String(person.total)
+        totalStatLabel.text = String(person.rank)
     }
 }

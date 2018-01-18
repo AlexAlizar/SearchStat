@@ -10,7 +10,7 @@ import UIKit
 
 class TotalStatisticViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-    var personArray = [Person]()
+    var personArray = [GeneralPersonV2]()
     
     @IBOutlet weak var nameDateLabel: UILabel!
     @IBOutlet weak var nameSourceLabel: UILabel!
@@ -30,7 +30,7 @@ class TotalStatisticViewController: UIViewController, UITableViewDelegate, UITab
         let siteIndex = UserDefaults.standard.integer(forKey: SITE_INDEX)
         //MARK: Чтение даты обновления данных
         let dateString = UserDefaults.standard.string(forKey: DATA_UPDATE_STRING)
-        let site = MainService.instance.siteArray![siteIndex]
+        let site = MainService.instance.getSitesArray()[siteIndex]
         personArray = site.personsArray
         
         nameSourceLabel.text = site.name

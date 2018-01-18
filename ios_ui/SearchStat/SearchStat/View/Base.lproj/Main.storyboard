@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="wqk-IF-yhv">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="wqk-IF-yhv">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -632,7 +632,7 @@
                                     <rect key="frame" x="16" y="35" width="76" height="23"/>
                                     <state key="normal" image="Back Button"/>
                                     <connections>
-                                        <segue destination="elS-Hb-Zz0" kind="show" id="ZxW-Fm-uqv"/>
+                                        <action selector="backBtnPressed:" destination="sTR-rd-m7G" eventType="touchUpInside" id="mxJ-EG-NFr"/>
                                     </connections>
                                 </button>
                             </subviews>
@@ -661,7 +661,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IGP-M1-uEg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3660" y="-341.37931034482762"/>
+            <point key="canvasLocation" x="3694" y="-341"/>
         </scene>
         <!--Detail Chart View Controller-->
         <scene sceneID="EMW-fd-Ve0">
@@ -1182,6 +1182,5 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="Wqv-b7-KZ8"/>
-        <segue reference="ZxW-Fm-uqv"/>
     </inferredMetricsTieBreakers>
 </document>

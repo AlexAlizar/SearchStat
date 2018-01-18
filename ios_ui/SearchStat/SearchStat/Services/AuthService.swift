@@ -8,6 +8,12 @@
 
 import Foundation
 //commit
+//{
+//    "error": "Authentication failed"
+//}
+struct AuthError: Codable {
+    var error: String
+}
 
 class AuthService {
     
@@ -72,17 +78,29 @@ class AuthService {
                 completion(false)
                 return
             }
-            guard error == nil else {return}
+            guard error == nil else {
+                print("Error in response")
+                
+                completion(false)
+                return
+            }
+            
             
             var tokenString = String(data: data, encoding: String.Encoding.utf8)
             if tokenString!.count > 0 {
                 tokenString?.removeLast(2)
                 tokenString?.removeFirst()
-                debugPrint("Authorised token: \(tokenString!)")
-                self.authToke = tokenString!
-                self.userName = lowerCaseUser
-                self.isLoggedin = true
-                completion(true)
+                if Int(tokenString!) != nil {
+                    debugPrint("Authorised token: \(tokenString!)")
+                    self.authToke = tokenString!
+                    self.userName = lowerCaseUser
+                    self.isLoggedin = true
+                    completion(true)
+                } else {
+                    debugPrint("Authorisation Fail")
+                    completion(false)
+                }
+                
             } else {
                 debugPrint("Authorisation Fail")
                 completion(false)

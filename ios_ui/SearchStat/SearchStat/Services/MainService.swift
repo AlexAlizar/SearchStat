@@ -31,6 +31,10 @@ class MainService {
         return filterdSites
     }
     
+    func clearData() {
+        siteModelArray.removeAll()
+        siteNames?.removeAll()
+    }
     
     public private(set) var siteArray: [Site]?
     private var personsArray: [Person]?

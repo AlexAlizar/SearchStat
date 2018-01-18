@@ -24,6 +24,7 @@ class UserDataService {
         AuthService.instance.isLoggedin = false
         AuthService.instance.userName = ""
         AuthService.instance.authToke = ""
+        MainService.instance.clearData()
     }
     
     

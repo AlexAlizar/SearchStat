@@ -18,18 +18,36 @@ class MainService {
     
     var delegate: MainServiceDelegate?
     
+    public private(set) var siteModelArray = [SiteModel]()
+    private var siteNames: [String]?
+    
+    
     public private(set) var siteArray: [Site]?
-    
-    
-    
     private var personsArray: [Person]?
     
     var lasSiteIndex: Int = 0
     
+    func isInitDone() {
+        let siteCounts = self.siteNames!.count
+        let generatedSiteCounts = self.siteModelArray.count
+        if siteCounts == generatedSiteCounts {
+            print("!!!Print General Data LOAD !!!")
+            self.delegate?.initCompleated()
+        } else {
+            print("Data loading, part \(generatedSiteCounts)/\(siteCounts)")
+        }
+    }
+    
     func beginInit() {
         self.getSites { (sitesSucces) in
             if sitesSucces {
-                
+                for item in self.siteNames! {
+                    self.getGeneralStat(forSite: item, completionHandler: { (generalStatsSucces) in
+                        if generalStatsSucces {
+                            self.isInitDone()
+                        }
+                    })
+                }
                 
             }else {
                 debugPrint("Sites Communication error")
@@ -56,7 +74,13 @@ class MainService {
             
             do {
                 let generalPersons = try JSONDecoder().decode([GeneralPersonV2].self, from: data)
-                print(generalPersons)
+                print("Get data for site: \(site), \(generalPersons.count) pars")
+                var tempSite = SiteModel(name: site, perArray: generalPersons)
+                if generalPersons.count <= 0 {
+                    tempSite.isVissible = false
+                }
+                
+                self.siteModelArray.append(tempSite)
                 completionHandler(true)
                 
             } catch let error {
@@ -95,7 +119,11 @@ class MainService {
             
             do {
                 let siteForSearch = try JSONDecoder().decode([SiteV2].self, from: data)
-                self.siteArray = self.generateSiteArrayV2(siteForSearch)
+                var sitesStringArray = [String]()
+                for item in siteForSearch {
+                    sitesStringArray.append(item.name)
+                }
+                self.siteNames = sitesStringArray
                 completionHandler(true)
                
             } catch let error {

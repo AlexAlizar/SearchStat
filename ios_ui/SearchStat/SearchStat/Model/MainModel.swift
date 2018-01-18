@@ -7,6 +7,19 @@
 //
 
 import Foundation
+//Model v2
+struct SiteModel {
+    var name: String
+    var personsArray: [GeneralPersonV2]
+    var isVissible = true
+    
+    init(name: String, perArray: [GeneralPersonV2]) {
+        self.name = name
+        self.personsArray = perArray
+    }
+}
+
+//model v1
 
 struct Site {
     var id: Int

@@ -17,13 +17,11 @@ class SourceCell: UITableViewCell {
         super.awakeFromNib()
         siteLbl.layer.borderColor = UIColor.lightGray.cgColor
         siteLbl.layer.borderWidth = 1
-//            textLabel?.textAlignment = .center
-//            detailTextLabel?.textAlignment = .center
-//            textLabel?.textColor = UIColor.white
+
         
     }
     
-    func setupCell(site: Site) {
+    func setupCell(site: SiteModel) {
         siteLbl.text = site.name
     }
 

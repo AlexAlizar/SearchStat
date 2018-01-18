@@ -8,9 +8,9 @@
 
 import UIKit
 
-class SourceViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class SourceViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, MainServiceDelegate {
     
-    var sitesArray: [Site] = []
+    var sitesArray: [SiteModel] = []
 
     @IBOutlet weak var menuBtn: UIButton!
     @IBOutlet weak var sourceTableView: UITableView!
@@ -24,32 +24,53 @@ class SourceViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.view.addGestureRecognizer(self.revealViewController().tapGestureRecognizer())
         
         MainService.instance.beginInit()
-        self.initVC()
+        MainService.instance.delegate = self
+        
+//        self.initVC()
+        
+    }
+    //MARK: Delegate method from MainService
+    internal func initCompleated() {
+        
+        var filterdSites = [SiteModel]()
+        
+        for item in MainService.instance.siteModelArray {
+            if item.isVissible {
+                filterdSites.append(item)
+            }
+        }
+        
+        self.sitesArray = filterdSites
+        
+        
+        DispatchQueue.main.async {
+            self.sourceTableView.reloadData()
+        }
         
     }
     
-    private func initVC() {
-        if MainService.instance.siteArray == nil {
-            MainService.instance.getSites { (result) in
-                if result {
-                    self.sitesArray = MainService.instance.siteArray!
-                    DispatchQueue.main.async {
-                        self.sourceTableView.reloadData()
-                    }
-                } else {
-                    //ошибка в сервисе используем фейковые данные
-                    //выводим предупреждение
-                    self.sitesArray = MainService.instance.siteArray!
-                    
-                    DispatchQueue.main.async {
-                        self.sourceTableView.reloadData()
-                    }
-                }
-            }
-        } else {
-            self.sitesArray = MainService.instance.siteArray!
-        }
-    }
+//    private func initVC() {
+//        if MainService.instance.siteArray == nil {
+//            MainService.instance.getSites { (result) in
+//                if result {
+//                    self.sitesArray = MainService.instance.siteArray!
+//                    DispatchQueue.main.async {
+//                        self.sourceTableView.reloadData()
+//                    }
+//                } else {
+//                    //ошибка в сервисе используем фейковые данные
+//                    //выводим предупреждение
+//                    self.sitesArray = MainService.instance.siteArray!
+//
+//                    DispatchQueue.main.async {
+//                        self.sourceTableView.reloadData()
+//                    }
+//                }
+//            }
+//        } else {
+//            self.sitesArray = MainService.instance.siteArray!
+//        }
+//    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return sitesArray.count

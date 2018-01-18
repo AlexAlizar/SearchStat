@@ -45,6 +45,7 @@
 		E78870E61FEAA130004E57C6 /* DetailStatisticViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78870E51FEAA130004E57C6 /* DetailStatisticViewController.swift */; };
 		E7AF352320010CBF00CFD6AC /* DetailChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7AF352220010CBF00CFD6AC /* DetailChartViewController.swift */; };
 		E7BB79101FE98F07004FFC83 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7BB790F1FE98F07004FFC83 /* CustomButton.swift */; };
+		FF2850DD2010DEE200B07367 /* DetailStatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2850DC2010DEE200B07367 /* DetailStatService.swift */; };
 		FF39B5A320060662002AFE40 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF39B5A220060662002AFE40 /* SWRevealViewController.m */; };
 		FF39B5A720060A25002AFE40 /* FirstScreenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF39B5A620060A25002AFE40 /* FirstScreenVC.swift */; };
 		FF39B5A920060A37002AFE40 /* MenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF39B5A820060A37002AFE40 /* MenuVC.swift */; };
@@ -117,6 +118,7 @@
 		E78870E51FEAA130004E57C6 /* DetailStatisticViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailStatisticViewController.swift; sourceTree = "<group>"; };
 		E7AF352220010CBF00CFD6AC /* DetailChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailChartViewController.swift; sourceTree = "<group>"; };
 		E7BB790F1FE98F07004FFC83 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
+		FF2850DC2010DEE200B07367 /* DetailStatService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailStatService.swift; sourceTree = "<group>"; };
 		FF39B5A120060662002AFE40 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
 		FF39B5A220060662002AFE40 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
 		FF39B5A420060720002AFE40 /* SWRevealBridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SWRevealBridgingHeader.h; sourceTree = "<group>"; };
@@ -303,6 +305,7 @@
 				612B421D1FECC44400604393 /* Struct.swift */,
 				FF39B5AA20062F94002AFE40 /* AuthService.swift */,
 				FF39B5AC200634D8002AFE40 /* UserDataService.swift */,
+				FF2850DC2010DEE200B07367 /* DetailStatService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -454,6 +457,7 @@
 				611654A01FF339ED00D7A5D3 /* FSCalendarScopeHandle.m in Sources */,
 				E71F0D4F1FE7E2DB001F311D /* MainViewController.swift in Sources */,
 				6116547E1FF339C900D7A5D3 /* FSCalendar.m in Sources */,
+				FF2850DD2010DEE200B07367 /* DetailStatService.swift in Sources */,
 				611654AC1FF339ED00D7A5D3 /* FSCalendarCollectionViewLayout.m in Sources */,
 				FF39B5AB20062F94002AFE40 /* AuthService.swift in Sources */,
 				611654A81FF339ED00D7A5D3 /* FSCalendarCalculator.m in Sources */,

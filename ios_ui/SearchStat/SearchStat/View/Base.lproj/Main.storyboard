@@ -988,7 +988,6 @@
                                     <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="calendarDetailTapped:" destination="s7Q-Zt-Au8" eventType="touchUpInside" id="HWb-56-M3m"/>
                                     <segue destination="Wuc-4s-PnR" kind="presentation" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="iIQ-z1-SEL"/>
                                 </connections>
                             </button>
@@ -1181,6 +1180,7 @@
         <image name="Иконка график" width="27" height="27"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="Ukb-PI-8Rt"/>
         <segue reference="Wqv-b7-KZ8"/>
     </inferredMetricsTieBreakers>
 </document>

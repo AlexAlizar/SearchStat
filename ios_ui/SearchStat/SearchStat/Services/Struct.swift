@@ -8,6 +8,11 @@
 
 import Foundation
 
+struct DaylyStatsV2: Codable {
+    var date : String
+    var countOfPages: String
+}
+
 struct GeneralPersonV2: Codable {
     var name: String
     var rank: String

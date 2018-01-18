@@ -12,10 +12,18 @@ import UIKit
 typealias CompletionHandler = (_ Success: Bool) -> ()
 
 //URL Constants
-let BASE_URL = "http://195.110.59.16:8081/"
-let BASE_URLV2 = "\(BASE_URL)restapi-v2/?action="
+let URL_SCHEME = "http"
+let URL_HOST = "195.110.59.16"
+let URL_PORT = 8081
+let URL_PATH = "/restapi-v2/"
+
+//let BASE_URL = "http://195.110.59.16:8081/"
+let BASE_URL = "\(URL_SCHEME)://\(URL_HOST):\(URL_PORT)"
+let BASE_URLV2 = "\(BASE_URL)\(URL_PATH)?action="
 let SITE_LIST_URL = "\(BASE_URLV2)get-sites&token="
 let GENEARAL_STATS_URL = "\(BASE_URLV2)general-statistic&token=<TOKEN>&site=<SITE>"
+let DAILY_STATS_URL = "\(BASE_URLV2)daily-statistic&person=<PERSON>&date1=<DATE1>&date2=<DATE2>&token=<TOKEN>&site=<SITE>"
+
 let AUTH_URL = "\(BASE_URLV2)auth&"
 
 

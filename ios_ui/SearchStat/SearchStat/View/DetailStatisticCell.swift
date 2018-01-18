@@ -26,32 +26,27 @@ class DetailStatisticCell: UITableViewCell {
         
     }
     
-    func setupDetailCell(person: Person, forDate date: Date) {
+    func setupDetailCell(person: GeneralPersonV2, forDate date: Date) {
         nameLabel.text = person.name
-        
-        if let stats = person.filteredStats(filteredDate: date) {
-            dayStatlabel.text = String(stats.total)
-        } else {
-            dayStatlabel.text = "NoDataForSelectedDate"
-        }
-    }
-    
-    func setupDetailCellWith(period periodArray: [Date], person: Person) {
-        nameLabel.text = person.name
-        let arrayCount = periodArray.count
-        if let stats = person.filteredPeriodStats(startDate: periodArray[0], endDate: periodArray[arrayCount - 1]) {
-            dayStatlabel.text = String(stats.total)
-            
-        } else {
-            dayStatlabel.text = "PeriodDataNotFound"
-        }
-
         
 //        if let stats = person.filteredStats(filteredDate: date) {
 //            dayStatlabel.text = String(stats.total)
 //        } else {
 //            dayStatlabel.text = "NoDataForSelectedDate"
 //        }
+    }
+    
+    func setupDetailCellWith(period periodArray: [Date], person: GeneralPersonV2) {
+        nameLabel.text = person.name
+        let arrayCount = periodArray.count
+//        if let stats = person.filteredPeriodStats(startDate: periodArray[0], endDate: periodArray[arrayCount - 1]) {
+//            dayStatlabel.text = String(stats.total)
+//            
+//        } else {
+//            dayStatlabel.text = "PeriodDataNotFound"
+//        }
+
+
     }
     
 }

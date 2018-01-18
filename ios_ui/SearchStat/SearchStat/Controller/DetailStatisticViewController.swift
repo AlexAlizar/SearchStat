@@ -29,7 +29,7 @@ class DetailStatisticViewController: UIViewController, UITableViewDelegate, UITa
         }
     }
     
-    var personsArray = [Person]()
+    var personsArray = [GeneralPersonV2]()
     var periodActivated = false
     var periodDates = [Date]() {
         didSet {
@@ -66,12 +66,13 @@ class DetailStatisticViewController: UIViewController, UITableViewDelegate, UITa
     }
     
 
-    @IBAction func calendarDetailTapped(_ sender: UIButton) {
-        // Надо ли оно здесь?
-    }
+//    @IBAction func calendarDetailTapped(_ sender: UIButton) {
+//        // Надо ли оно здесь?
+//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.initVC()
     }
     
@@ -111,7 +112,7 @@ class DetailStatisticViewController: UIViewController, UITableViewDelegate, UITa
         //MARK: Чтение выбранного сайта
         let siteIndex = UserDefaults.standard.integer(forKey: SITE_INDEX)
         
-        let site = MainService.instance.siteArray![siteIndex]
+        let site = MainService.instance.getSitesArray()[siteIndex]
         personsArray = site.personsArray
         
         self.nameSourceLabel.text = site.name

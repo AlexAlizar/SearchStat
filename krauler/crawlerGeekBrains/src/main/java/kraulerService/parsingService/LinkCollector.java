@@ -4,6 +4,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class LinkCollector {
@@ -11,6 +12,7 @@ public class LinkCollector {
 //    public static void collect(String URL) {
     public static List<String> collect(String URL) {
         List<String> links;
+        List<String> result = new ArrayList<>();
         Document doc = null;
 
         try {
@@ -33,15 +35,16 @@ public class LinkCollector {
 
         System.out.println("links.size before --- " + links.size());
 
-        for (int i = 0; i < links.size(); i++) {
-            if (!links.get(i).startsWith(URL)) {
-                links.remove(i);
-                System.out.println("Remove 1 String -=- " + links.get(i));
+//        for (int i = 0; i < links.size(); i++) {
+        for (String s: links) {
+            if (s.startsWith(URL)) {
+                result.add(s);
+//                System.out.println("Remove 1 String -=- " + links.get(i));
             }
         }
 
         System.out.println("links.size after --- " + links.size());
 
-        return links;
+        return result;
     }
 }

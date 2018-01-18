@@ -1,9 +1,10 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserChangeForm
-from .models import Sites, Persons, Keywords
-from authapp.forms import EditForm
 
+from .models import Sites, Persons, Keywords, Users
+
+from authapp.forms import EditForm
 
 
 class SitesManageForm(forms.ModelForm):
@@ -51,6 +52,5 @@ class KeywordsAddForm(forms.Form):
 
 class UserAdminEditForm(UserChangeForm):
     class Meta:
-        model = User
-        fields = '__all__'
-        exclude = ('id', 'user_permissions', )
+        model = Users
+        exclude = ('last_login_date', 'last_login', 'username' ,'token')

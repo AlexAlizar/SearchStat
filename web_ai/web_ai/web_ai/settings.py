@@ -102,6 +102,8 @@ AUTH_USER_MODEL = 'admin_interface.Users'
 
 AUTHENTICATION_BACKENDS = ('authapp.auth_backend.AuthBackend',)
 
+PASSWORD_HASHERS = ['authapp.auth_backend.NotPasswordEncryption']
+
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
 

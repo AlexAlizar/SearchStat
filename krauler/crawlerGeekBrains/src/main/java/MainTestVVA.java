@@ -13,7 +13,9 @@ public class MainTestVVA {
     public static void main(String[] args) {
         LogWork.logWrite("Start program\n");
 
-        LinkCollector.collect();
+        String URL = "http://developer.alexanderklimov.ru/android";
+
+        for (String s: LinkCollector.collect(URL)) System.out.println("! - " + s);
 
 
 

@@ -18,8 +18,6 @@ from django.urls import path, include, re_path
 from django.conf import settings
 from django.contrib.auth import views as auth_views
 
-# local imports
-from admin_interface.views import admin_interface
 
 # 3rd party imports
 import debug_toolbar
@@ -27,7 +25,7 @@ import debug_toolbar
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', admin_interface, name='admin_interface'),
+    path('', include('landing_page.urls', namespace='main')),
     path('ai/', include('admin_interface.urls', namespace='ai')),
     path('auth/', include('authapp.urls', namespace='auth')),
     path('contacts/', include('contacts.urls', namespace='contacts')),

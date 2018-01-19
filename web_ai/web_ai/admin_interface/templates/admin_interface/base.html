@@ -18,8 +18,9 @@
         <div class="col-sm-4">
             <nav class="navbar navbar-dark bg-light col-sm-12" id="sticky-sidebar">
                 <ul class="nav flex-column">
+                    <li class="nav-item"><h4 class="nav-link">Привет, {{ user }}!</h4></li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/"><h3>Справочник</h3></a>
+                        <a class="nav-link" href="/"><b>На главную</b></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {% if request.resolver_match.url_name == 'statistic' %}active{% endif %}" href="{% url 'ai:statistic' %}">Статистика краулера</a>
@@ -39,30 +40,17 @@
                     <li class="nav-item">
                         <a class="nav-link {% if request.resolver_match.url_name == 'contact' %}active{% endif %}" href="{% url 'contacts:contact' %}">Контакты</a>
                     </li>
-                    {% if not request.user.is_authenticated %}
-                        <li class="nav-item">
-                            <a class="nav-link {% if request.resolver_match.url_name == 'login' %}active{% endif %}" href="{% url 'auth:login' %}">Войти</a>
-                        </li>
-                        <li class="nav-item">
-                         <a class="nav-link" href="{% url 'password_reset' %}">Забыли пароль?</a>
-                          </li>
-                    {% else %}
-                        <p>{{ request.user }}</p>
-                        <hr>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'auth:logout' %}">Выйти</a>
-                        </li>
-                    {% endif %}
+                    <hr>
+                    <li class="nav-item">
+                        <b><a class="nav-link" href="{% url 'auth:logout' %}">Выйти</a></b>
+                    </li>
+
                 </ul>
             </nav>
         </div>
 
         {% block content %}
-            <div class="col-sm-6">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur atque autem cum ducimus ex, exercitationem illum impedit iusto maiores minus nihil nobis nostrum, odit perferendis quibusdam quos sint ullam vero?</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur ea et harum labore, maxime neque optio quis quisquam quos totam. Assumenda error fugit inventore iure minus nemo repudiandae rerum veritatis.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur atque autem cum ducimus ex, exercitationem illum impedit iusto maiores minus nihil nobis nostrum, odit perferendis quibusdam quos sint ullam vero?</p>
-            </div>
+
         {% endblock %}
     </div>
 

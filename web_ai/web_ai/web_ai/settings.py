@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'admin_interface',
     'authapp',
     'contacts',
+    'landing_page',
 
 ]
 

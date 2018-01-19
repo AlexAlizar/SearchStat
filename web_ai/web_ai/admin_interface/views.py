@@ -5,11 +5,6 @@ from django.contrib.auth.decorators import user_passes_test
 import csv
 
 
-def admin_interface(request):
-    sites = get_list_or_404(Sites.objects.all())
-    return render(request, 'base.html', {'sites': sites})
-
-
 @user_passes_test(lambda user: user.role == 'admin', login_url='/auth/login')
 def statistic(request):
     sites = get_list_or_404(Sites.objects.all())

@@ -1,0 +1,215 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>SearchStat</title>
+    <link rel="stylesheet" href="{% static "css/style.css" %}">
+    <link rel="stylesheet" href="{% static "css/font-awesome.min.css" %}">
+    <script src={% static "js/searchStat.js" %} defer></script>
+
+</head>
+
+<body>
+<div class="container">
+    <div class="header">
+
+        <div class="box-left box-left--style">
+            <div class="headerText-wrapper">
+                <p class="header-title"> Search Stat </p>
+                <br><br>
+                <p class="header-text">
+                    Мы молодая IT-компания, у которой есть свой собственный продукт – универсальный инструмент, который позволяет определить популярность кого угодно, и где угодно. Например, мы можем узнать, кто популярнее на новостном сайте «Путин, Медведев, или Навальный».
+                <div>{{ auth_user.role }}</div>
+                </p>
+            </div>
+        </div>
+
+        <div class="box-right box-right--style">
+            {% if not user.is_authenticated %}
+                <form method="post" class="header-form">
+                    {% csrf_token %}
+                    <fieldset>
+                        <legend class="form-title--style"> Вход в личный кабинет</legend>
+
+                        <p class="form-text--style"><label for="login"> Логин </label>
+                            {{ form.username }}
+                        </p>
+                        <p class="form-text--style"><label for="password">  Ваш пароль </label>
+                            {{ form.password }}
+                            <br>
+                        </p> <span onclick="modalWindow.showWinForgotPass()" id="forgotPass">Восстановить пароль</span>
+                    </fieldset>
+                    <input type="submit" value="Войти" id="login" class="button">
+                    <input type="button" value="Регистрация" id="registration" class="button" onclick="modalWindow.showWinReg()">
+                </form>
+            {% else %}
+                <br>
+                <ul class="list-group">
+                    <li class="list-group-item">Привет, {{ user.username }}!</li>
+                    <li class="list-group-item">
+                        <div class="btn-group">
+                            <a  class="btn btn-primary" href="{% url 'ai:statistic' %}">Статистика</a>
+                            <a  class="btn btn-secondary" href="{% url 'auth:logout' %}"> Выйти</a>
+                        </div>
+                    </li>
+
+                </ul>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="slider">
+        <div class="slide1-title--wrapper">
+            <p class="slide1-title"> HD Team </p>
+        </div>
+
+        <div id="slider">
+            <div id="line">
+
+                <div class="team-block">
+                    <div class="team-block-pic">
+                        1
+                    </div>
+                </div>
+
+                <div class="team-block">
+                    <div class="team-block-pic">
+                        2
+                    </div>
+                </div>
+
+                <div class="team-block">
+                    <div class="team-block-pic">
+                        3
+                    </div>
+                </div>
+
+                <div class="team-block">
+                    <div class="team-block-pic">
+                        4
+                    </div>
+                </div>
+
+                <div class="team-block">
+                    <div class="team-block-pic">
+                        5
+                    </div>
+                </div>
+
+                <div class="team-block">
+                    <div class="team-block-pic">
+                        6
+                    </div>
+                </div>
+
+                <div class="team-block">
+                    <div class="team-block-pic">
+                        7
+                    </div>
+                </div>
+
+                <div class="team-block">
+                    <div class="team-block-pic">
+                        8
+                    </div>
+                </div>
+
+                <div class="team-block">
+                    <div class="team-block-pic">
+                        9
+                    </div>
+                </div>
+
+                <div class="team-block">
+                    <div class="team-block-pic">
+                        10
+                    </div>
+                </div>
+
+                <div class="team-block">
+                    <div class="team-block-pic">
+                        11
+                    </div>
+                </div>
+
+                <div class="team-block">
+                    <div class="team-block-pic">
+                        12
+                    </div>
+                </div>
+
+                <div class="team-block">
+                    <div class="team-block-pic">
+                        13
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="slider-button--wrapper">
+            <button id="slider-next"> Дальше </button>
+        </div>
+    </div>
+
+
+
+    <div class="slide2">
+        <iframe width=100% height=100% src="https://www.youtube.com/embed/3rwArn4RmnI" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
+
+    </div>
+
+    <div class="slide3">
+        <div class="slide3-title--wrapper">
+            <p class="slide3-title"> Что люди говорят о нас: </p>
+        </div>
+        <div class="comment-block--wrapper">
+            <div class="comment-block comment-text--style">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Temporibus aperiam, labore, quasi, hic perferendis ducimus ipsum illo quo cum assumenda repellendus sequi iure aliquid, minima sed ullam! Cum dicta, rem.</div>
+            <div class="comment-block comment-text--style">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia, aspernatur eaque consequatur.</div>
+            <div class="comment-block comment-text--style">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facilis hic omnis, incidunt dignissimos! Quos alias dolorem tenetur voluptate dignissimos, molestiae quas culpa!</div>
+            <div class="comment-block comment-text--style">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestias ullam tempore aut hic, natus debitis deserunt iusto, laboriosam illo adipisci aspernatur dolorum minus maiores beatae.
+            </div>
+        </div>
+    </div>
+
+    <div class="slide4">
+        <div class="pay-block--wrapper">
+
+            <div class="pay-leftBlock">
+                <div class="pay-blockTitle"> Заплатил </div>
+                <div class="pay-whiteBlock pay-text--style">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure dolor, necessitatibus eveniet sapiente quis nisi eaque nobis eius earum recusandae! Amet dolore fugiat cum sapiente similique! Quasi unde vero autem!
+                </div>
+            </div>
+
+            <div class="pay-rightBlock">
+                <div class="pay-blockTitle"> Не заплатил </div>
+                <div class="pay-whiteBlock pay-text--style">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit illo officiis cum enim earum nostrum deserunt, nisi, recusandae. Quo similique esse voluptatem cupiditate rem ipsa nobis inventore dicta amet. Inventore?
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="footer footer--style">
+        <div class="footer-inforText">
+        </div>
+        <form action="#" class="footer-form">
+            <p class="form-text--style"> Готов искать?
+                <input type="button" value="HD связь" id="contactUs" class="button footer-button--style" onclick="modalWindow.showWinFeedBack()">
+            </p>
+        </form>
+    </div>
+
+
+
+
+</div>
+
+</body>
+
+</html>

@@ -1,5 +1,8 @@
 import kraulerService.parsingService.LogWork;
 import kraulerService.parsingService.PageParser;
+import kraulerService.parsingService.RobotsHandler;
+
+import java.io.File;
 
 public class MainTestVVA {
 
@@ -10,14 +13,21 @@ public class MainTestVVA {
 //        String URL = "http://developer.alexanderklimov.ru/android/";
         String URL = "http://developer.alexanderklimov.ru/android/facedetector.php";
 
-        for (String s: PageParser.collectLinkOnPage(URL)) System.out.println("! - " + s);
+        for (String s: PageParser.collectLinkOnPage(URL))
+            System.out.println("! - " + s);
 
 
 
 
-/* debug * /
+
+
+
+
+/* debug */
         RobotsHandler rh = new RobotsHandler(
-                new File("/home/vva/testgb/print.txt"), "https://tlgrm.ru"
+                new File("/home/vva/testgb/print.txt"),
+                "https://tlgrm.ru",
+                false
         );
 /**/
 //        String testLink01 = "https://tlgrm.ru/faq";

@@ -579,8 +579,10 @@ public class PageParser {
 
         links = doc.select("a").eachAttr("href");
 
+        String startAddr = URL.replaceAll("\\.[a-z]*/.*$","");
+
         for (String s: links) {
-            if (s.startsWith(URL)) {
+            if (s.startsWith(startAddr)) {
                 result.add(s);
             }
         }

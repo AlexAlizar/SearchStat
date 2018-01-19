@@ -14,23 +14,42 @@ public class RobotsHandler {
     private int userAgentStr = -1;
     private List<String> allowDirective = new ArrayList<>();
     private List<String> disallowDirective = new ArrayList<>();
+    private String userAgentSearchStat = "searchstat";
+    private boolean delFile = true;
+    private String verificationTemplateForLinks;
 
     /**
-     * Конструктор RobotsHandler
+     * Конструкторы RobotsHandler
+     * Передаваемый файл, после обработки, по умолчанию, удаляется
      * @param robots
      */
     public RobotsHandler(File robots, String siteAddr) {
         this.robots = robots;
         this.siteAddr = siteAddr;
         this.siteMaps = getSitemap();
-        this.userAgentStr = searchUserAgent();
+        this.userAgentStr = searchUserAgent(this.userAgentSearchStat);
         this.searchDirective();
+        this.verificationTemplateForLinks = buildPattern();
 
         // robots.txt после обработки удалить
-//        robots.delete();
+        robots.delete();
     }
 
-    public String getPattern() {
+    public RobotsHandler(File robots, String siteAddr, boolean delFile) {
+        this(robots,siteAddr);
+        this.delFile = delFile;
+
+        // robots.txt после обработки удалить
+        if (this.delFile)
+            robots.delete();
+    }
+
+    /**
+     * Метод строит регулярное вырожение на основе деректив allow / disallow из секции с найденным User-Agent
+     * для проверки ссылок (разрешил ли robots.txt обращаться к этим ссылкам)
+     * @return
+     */
+    private String buildPattern() {
 
         StringBuilder sb = new StringBuilder();
 
@@ -65,17 +84,13 @@ public class RobotsHandler {
         return sb.toString();
     }
 
+    /**
+     * Проверка передоваемой ссылки на соответсвие дерективам allow / disallow из секции с найденным User-Agent
+     * @param link
+     * @return true / false
+     */
     public boolean checkLink(String link) {
-        String regExp = getPattern();
-
-/* debug * /
-        System.out.println("   ---   link - - -    " + link);
-        System.out.println("   ---   regExp ---    " + regExp);
-
-/**/
-//        Pattern pattern = Pattern.compile("^(https://tlgrm\\.ru)(?! |/about|/language|/manifest\\.json|/changelog)(/|/sources.*|/web.*|/apps.*|/faq.*|/press.*|/blog.*|/privacy.*|/techfaq.*|/stickers.*|/sitemap\\.xml.*)$");
-//        Pattern pattern = Pattern.compile("^(https://tlgrm\\.ru)(?! |/about|/language|/manifest\\.json|/changelog)(/|/sources.*|/web.*|/apps.*|/faq.*|/press.*|/blog.*|/privacy.*|/techfaq.*|/stickers.*|/sitemap\\.xml.*)$");
-//                                         ^(https://tlgrm\\.ru)(?! |/about|/language|/manifest\\.json|/changelog)(/|/sources.*|/web.*|/apps.*|/faq.*|/press.*|/blog.*|/privacy.*|/techfaq.*|/stickers.*|/sitemap\\.xml.*)$
+        String regExp = this.verificationTemplateForLinks;
         Pattern pattern = Pattern.compile(regExp);
         Matcher matcher = pattern.matcher(link);
         return matcher.matches();
@@ -83,8 +98,9 @@ public class RobotsHandler {
 
     /**
      * Поиск деректив (allow / disallow) для User-Agent найденного в searchUserAgent
+     * Метод заполняет внутренние списки объекта класса найденными дерективами
      */
-    public void searchDirective() {
+    private void searchDirective() {
         String allow = "allow";
         String disallow = "disallow";
 
@@ -112,10 +128,8 @@ public class RobotsHandler {
      * Поиск строки с юзер агентом
      * @return номер строки
      */
-    private int searchUserAgent() {
+    private int searchUserAgent(String userAgentSearchStat) {
         String keyUserAgent = "user-agent:";
-        String userAgentSearchStat = "searchstat";
-                                   // SearchStat
         String userAgentAny = "*";
         int userAgentStr = -1;
 
@@ -129,18 +143,8 @@ public class RobotsHandler {
                 // Ищим UserAgent
                 if(tmpLine.startsWith(keyUserAgent)){
                     for (String o: tmpArr) {
-//                        System.out.println("str 45 --- " + o);
+
                         // Если нашли агента searchstat (что очень мало вероятно, но на всякий случай)
-//                        if(o.startsWith("searchstat")) {
-//                            userAgentStr = i;
-//                        }
-
-/* debug* /
-                        System.out.println("o - " + o + "|");
-                        System.out.println("userAgentSearchStat - " + userAgentSearchStat + "|");
-                        System.out.println("userAgentAny - " + userAgentAny + "|\n");
-/**/
-
                         if(o.trim().equalsIgnoreCase(userAgentSearchStat)) {
                             userAgentStr = i;
                             break;
@@ -158,7 +162,6 @@ public class RobotsHandler {
         } catch (IOException e) {
             LogWork.myPrintStackTrace(e);
         }
-
         return userAgentStr;
     }
 

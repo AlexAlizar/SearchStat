@@ -1,31 +1,38 @@
 package alizarchik.alex.searchstat.Model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by Olesia on 29.12.2017.
  */
 
 public class GenStatDataItem {
+    @SerializedName("name")
+    @Expose
     private String name;
-    private int mentions;
+    @SerializedName("rank")
+    @Expose
+    private int rank;
 
-    public GenStatDataItem(String name, int mentions) {
+    public GenStatDataItem(String name, int rank) {
         this.name = name;
-        this.mentions = mentions;
+        this.rank = rank;
     }
 
     public String getName() {
         return name;
     }
 
-    public int getMentions() {
-        return mentions;
+    public int getRank() {
+        return rank;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public void setMentions(int mentions) {
-        this.mentions = mentions;
+    public void setRank(int rank) {
+        this.rank = rank;
     }
 }

@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import user_passes_test
-from django.shortcuts import render, render_to_response, redirect
+from django.shortcuts import render, redirect
 from django.forms import modelformset_factory
 from .models import Sites
 from .forms import SitesManageForm
@@ -14,10 +14,10 @@ def count_sites(max_num):
 def sites_view(request):
     sites = Sites.objects.all()
     if sites:
-        return render_to_response('admin_interface/sites_view.html', {'sites': sites})
+        return render(request, 'admin_interface/sites_view.html', {'sites': sites})
     else:
         message = 'Nothing to display'
-        return render_to_response('admin_interface/sites_view.html', {'message': message})
+        return render(request, 'admin_interface/sites_view.html', {'message': message})
 
 
 @user_passes_test(lambda user: user.role == 'admin', login_url='/auth/login')

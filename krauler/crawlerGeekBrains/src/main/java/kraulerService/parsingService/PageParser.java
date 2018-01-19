@@ -576,7 +576,6 @@ public class PageParser {
             LogWork.myPrintStackTrace(e);
         }
         assert doc != null;
-
         links = doc.select("a").eachAttr("href");
 
         String startAddr = URL.replaceAll("\\.[a-z]*/.*$","");

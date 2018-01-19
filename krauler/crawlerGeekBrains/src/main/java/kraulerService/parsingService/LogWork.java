@@ -13,7 +13,6 @@ public class LogWork {
     private static String pathLog = "logs";
     private static File folderPathLog = new File(pathLog);
     private static String nameLogFile = "SearchStat";
-    //    private static File logFile = new File("../" + nameLogFile + "_" + formatForLogName.format(new Date()) + ".log");
     private static File logFile = new File(pathLog + "/" +nameLogFile + "_" + formatForLogName.format(new Date()) + ".log");
 
     /**
@@ -34,10 +33,6 @@ public class LogWork {
                 return false;
             }
         }
-
-        // debug //
-//        System.out.println("LogFile --- " + logFile.getAbsolutePath());
-
         return true;
     }
 

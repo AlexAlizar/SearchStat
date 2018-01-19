@@ -170,7 +170,6 @@ public class RobotsHandler {
      * @return
      */
     private List<String> getSitemap () {
-
         String keySiteMap = "sitemap:";
         List<String> result = new ArrayList<>();
 

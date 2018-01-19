@@ -28,7 +28,7 @@
                 </configuration>
             </plugin>
 
-            <!-- My IDEA take jdk 1.5 without this plugin (vorobey) -->
+            <!-- My IDEA take jdk 1.5 without this plugin ( vorobey ) -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -37,7 +37,6 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
-
         </plugins>
     </build>
 

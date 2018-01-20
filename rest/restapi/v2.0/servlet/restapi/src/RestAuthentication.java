@@ -34,7 +34,7 @@ public class RestAuthentication {
                 }
                 if (this.token == null) {
                     RestMessages.constructMessage(new RestMessages.Error("Wrong token"));
-                    return;
+//                    return;
                 } else {
                     RestMessages.constructMessage("User exist");
 //                    //Here will be method for existence users
@@ -45,14 +45,15 @@ public class RestAuthentication {
                         RestMessages.constructMessage(new RestMessages.Error("Wrong token"));
                     }
                 }
+                db.closeDB();
             } else {
                 RestMessages.constructMessage(new RestMessages.Error("DB is not ready"));
             }
-            db.closeDB();
+
         } catch (Exception e) {
             RestMessages.constructMessage(new RestMessages.Error(e.toString()));
         }
-        authorization("admin"); //Temporary
+//        authorization("admin"); //Temporary
     }
 
     RestAuthentication(String login, String password) {
@@ -86,25 +87,26 @@ public class RestAuthentication {
                     } else {
                         this.authenticated = false;
                         RestMessages.constructMessage(new RestMessages.Error("Wrong password"));
-                        return;
+//                        return;
                     }
                 }
+                db.closeDB();
             } else {
                 RestMessages.constructMessage(new RestMessages.Error("DB is not ready"));
             }
         } catch (Exception e) {
             RestMessages.constructMessage(new RestMessages.Error(e.toString()));
         }
-        authorization("admin"); //Temporary
+//        authorization("admin"); //Temporary
     }
 
     public boolean isAuthenticated() {
         return authenticated;
     }
 
-    public void authorization(String role) {
-        this.role = role;
-    }
+//    public void authorization(String role) {
+//        this.role = role;
+//    }
 
     public boolean checkToken() {
 //            //checkToken the token:

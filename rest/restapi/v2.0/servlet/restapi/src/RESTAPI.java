@@ -60,12 +60,12 @@ public class RESTAPI extends HttpServlet {
 
                 if (auth.isAuthenticated()) {
 //                    out.println("Debug: Token is OK");
-                    if (auth.getRole() == "user") {
+                    if (auth.getRole().equals("user")) {
 //                        out.println("Debug: user role = user");
-                        out.println(
-                                new RestActions().userActionExecute(rAction, request)
-                        );
-                    } else if (auth.getRole() == "admin") {
+//                        out.println(new RestActions().userActionExecute(rAction, request));
+                        Object result = new RestActions().userActionExecute(rAction, request);
+                        out.println(RestMessages.outputJSONMessage);
+                    } else if (auth.getRole().equals("admin")) {
 //                        out.println("Debug: user role = admin");
                         Object result = new RestActions().adminActionExecute(rAction, request);
                         out.println(RestMessages.outputJSONMessage);

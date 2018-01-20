@@ -25,7 +25,9 @@ public class RestActions {
 
     private String userActions[] = {
             "general-statistic",
-            "daily-statistic"
+            "daily-statistic",
+            "get-persons",
+            "get-sites"
     };
 
     private ArrayList<String> adminActionsL = new ArrayList<String>(Arrays.asList(adminActions));
@@ -114,7 +116,7 @@ public class RestActions {
                             String name = request.getParameter("name");
                             if (name != null) {
                                 return db.executeDBQueryUpdate(
-                                        "INSERT INTO `persons` (`id`, `name`) VALUES (NULL, '" + name +"')");
+                                        "INSERT INTO `persons` (`id`, `name`) VALUES (NULL, '" + name + "')");
                             } else {
                                 return "Not enough parameters";
                             }
@@ -157,7 +159,7 @@ public class RestActions {
                             String name = request.getParameter("name");
                             if (name != null) {
                                 return db.executeDBQueryUpdate(
-                                        "INSERT INTO `sites` (`id`, `name`) VALUES (NULL, '" + name +"')");
+                                        "INSERT INTO `sites` (`id`, `name`) VALUES (NULL, '" + name + "')");
                             } else {
                                 return "Not enough parameters";
                             }
@@ -203,7 +205,7 @@ public class RestActions {
                             person_id = (person_id != null) ? person_id : "NULL";
                             if (name != null) {
                                 return db.executeDBQueryUpdate(
-                                        "INSERT INTO keywords (id, name, person_id) VALUES (NULL, \"" + name + "\", " + person_id +")");
+                                        "INSERT INTO keywords (id, name, person_id) VALUES (NULL, \"" + name + "\", " + person_id + ")");
                             } else {
                                 return "Not enough parameters";
                             }
@@ -226,21 +228,120 @@ public class RestActions {
                             return e.toString();
                         }
                     default:
-
-                        return "Failed!"; //temporary
+                        return "Debug: Failed!";
                 }
             } else {
                 return result;
             }
 
         } else {
-            return  "Action not found."; //Temporary - need to return somehow RestError message
+            RestMessages.constructMessage(new RestMessages.Error("Action is not allowed to the user."));
+            return "Action is not allowed to the user.";
         }
     }
 
+    public Object userActionExecute(String action, HttpServletRequest request) {
 
-    public String userActionExecute(String action, HttpServletRequest request) {
+        String person;
+        String date1;
+        String date2;
+        String site;
 
-        return "userActionExecute response"; //temporary
+        List<RestGeneralStatistic> generalStatisticList = new ArrayList<>();
+        List<RestDailyStatistic> dailyStatisticList = new ArrayList<>();
+        List<RestPersons> personsList = new ArrayList<>();
+        List<RestSites> sitesList = new ArrayList<>();
+        List<RestKeywords> keywordsList = new ArrayList<>();
+
+        if (userActionsL.contains(action)) {
+            String result = db.prepareDB("mySQL");
+            if (result == "DB is ready.") {
+                switch (action) {
+                    case "general-statistic":
+                        site = "\"" + request.getParameter("site") + "\"";
+                        if (site != null) {
+                            try {
+                                result = db.executeDBQuery(new RestActionsSQLQueries.GeneralStatisticQuery(site).query);
+                                while (db.rs.next()) {
+                                    String person_name = db.rs.getString(1);
+                                    String rank = db.rs.getString(2);
+                                    generalStatisticList.add(new RestGeneralStatistic(person_name, rank));
+                                }
+//START: Return result to the client
+                                RestMessages.constructMessage(generalStatisticList);
+                                return generalStatisticList;
+//END: Return result to the client
+                            } catch (Exception e) {
+                                return e.toString();
+                            }
+                        } else {
+                            return "Not enough parameters";
+                        }
+                    case "daily-statistic":
+                        person = "\"" + request.getParameter("person") + "\"";
+                        date1 = "\"" + request.getParameter("date1") + "\"";
+                        date2 = "\"" + request.getParameter("date2") + "\"";
+                        site = "\"" + request.getParameter("site") + "\"";
+                        if ((person != null) && (date1 != null) && (date2 != null) && (site != null)) {
+                            try {
+                                result = db.executeDBQuery(
+                                        new RestActionsSQLQueries.DailyStatisticQuery(person, date1, date2, site).query);
+                                while (db.rs.next()) {
+                                    String date = db.rs.getString(1);
+                                    String countOfPages = db.rs.getString(2);
+                                    dailyStatisticList.add(new RestDailyStatistic(date, countOfPages));
+                                }
+//START: Return result to the client
+                                RestMessages.constructMessage(dailyStatisticList);
+                                return dailyStatisticList;
+//END: Return result to the client
+                            } catch (Exception e) {
+                                return e.toString();
+                            }
+                        } else {
+                            return "Not enough parameters";
+                        }
+                    case "get-persons":
+                        try {
+                            result = db.executeDBQuery(
+                                    new RestActionsSQLQueries.GetPersonsQuery().query);
+                            while (db.rs.next()) {
+                                String id = db.rs.getString(1);
+                                String name = db.rs.getString(2);
+                                personsList.add(new RestPersons(id, name));
+                            }
+//START: Return result to the client
+                            RestMessages.constructMessage(personsList);
+                            return personsList;
+//END: Return result to the client
+                        } catch (Exception e) {
+                            return e.toString();
+                        }
+                    case "get-sites":
+                        try {
+                            result = db.executeDBQuery(
+                                    new RestActionsSQLQueries.GetSitesQuery().query);
+                            while (db.rs.next()) {
+                                String id = db.rs.getString(1);
+                                String name = db.rs.getString(2);
+                                sitesList.add(new RestSites(id, name));
+                            }
+//START: Return result to the client
+                            RestMessages.constructMessage(sitesList);
+                            return sitesList;
+//END: Return result to the client
+                        } catch (Exception e) {
+                            return e.toString();
+                        }
+                    default:
+                        return "Debug: Failed!";
+                }
+            } else {
+                return result;
+            }
+        } else {
+            RestMessages.constructMessage(new RestMessages.Error("Action is not allowed to the user."));
+            return "Action is not allowed to the user.";
+        }
     }
 }

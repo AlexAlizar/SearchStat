@@ -11,7 +11,7 @@
             <hr>
             <div class="card">
                 <div class="card-header">
-                    <span class="card-text {% if not object.is_active %}not_active{% endif %}">Статус: {% if object.is_superuser %}Администратор{% else %}Пользователь{% endif %}</span>
+                    <span class="card-text {% if not object.is_active %}not_active{% endif %}">Статус: {{ object.role }}</span>
                     <div class="btn-group float-sm-right">
                         <a class="btn btn-primary" href="{% url 'ai:user_update' object.pk %}">редактировать</a>
                         <a class="btn btn-danger" href="{% url 'ai:user_delete' object.pk %}">удалить</a>

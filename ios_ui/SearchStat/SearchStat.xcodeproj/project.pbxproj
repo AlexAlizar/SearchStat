@@ -634,11 +634,11 @@
 				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = CVT437WHU7;
+				DEVELOPMENT_TEAM = CH6GQXAMK3;
 				INFOPLIST_FILE = "$(SRCROOT)/SearchStat/Supporting/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = SearchStatTim;
+				PRODUCT_BUNDLE_IDENTIFIER = SearchStatTrg;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "SearchStat/Supporting/FSCalendar/SearchStat-Bridging-Header.h";
@@ -656,11 +656,11 @@
 				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = CVT437WHU7;
+				DEVELOPMENT_TEAM = CH6GQXAMK3;
 				INFOPLIST_FILE = "$(SRCROOT)/SearchStat/Supporting/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = SearchStatTim;
+				PRODUCT_BUNDLE_IDENTIFIER = SearchStatTrg;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "SearchStat/Supporting/FSCalendar/SearchStat-Bridging-Header.h";

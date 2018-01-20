@@ -99,7 +99,32 @@ struct Person {
 struct DayStats {
     var day: Date
     var total: Int
+    
+    
 }
+
+struct DayStatsV2 {
+    var siteName: String
+    var personName: String
+    var day: Date
+    var total: Int
+    
+    init(site: String, person: String ,dateString: String, countOfPages: String) {
+        //(date: "2017-12-29 00:00:00.0", countOfPages: "2")
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss.s"
+        dateFormatter.timeZone = TimeZone(abbreviation: "UTC") //Current time zone of server
+//        dateFormatter.timeZone = TimeZone(abbreviation: "GMT-5:00") //Current time zone of server
+        let date = dateFormatter.date(from: dateString)
+        let shrinkDateUnix = Int(date!.timeIntervalSince1970 / 86400) * 86400
+        self.siteName = site
+        self.personName = person
+        self.day = Date(timeIntervalSince1970: TimeInterval(shrinkDateUnix))
+        self.total = Int(countOfPages)!
+        
+    }
+}
+
 
 struct PeriodStats {
     var startDate: Date

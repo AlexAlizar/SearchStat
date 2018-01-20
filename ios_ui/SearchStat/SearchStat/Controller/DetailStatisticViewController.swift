@@ -8,7 +8,51 @@
 
 import UIKit
 
-class DetailStatisticViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class DetailStatisticViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, DetailStatServiceDelegate {
+    
+    func dataLoadSingleCompleated(day: DayStatsV2) {
+        print("Delegate return data for singl day")
+        statsArray.append(day)
+        print(day)
+        reloadCellforName(day.personName)
+    }
+    
+    func dataReturnNil(day: DayStatsV2) {
+        print("Delegate return NIL")
+        statsArray.append(day)
+        print(day)
+        reloadCellforName(day.personName)
+    }
+    
+    func reloadCellforName(_ name: String) {
+        DispatchQueue.main.async {
+            var i = 0
+            var index = 0
+            for item in self.personNames{
+                if item == name {
+                    index = i
+                    break
+                }
+                i += 1
+            }
+            let indexPath = IndexPath(row: index, section: 0)
+            
+            self.detailTableView.reloadRows(at: [indexPath], with: .automatic)
+        }
+    }
+    
+//    func testDetailData() {
+//        var unixDay = TimeInterval(86400)
+//        let currentDate = Date()
+//
+//
+//        let dateOne = Date(timeIntervalSince1970: TimeInterval(1514505600)) // 29.12.2017
+//        let dateTwo = Date(timeIntervalSince1970: TimeInterval(1514592000)) // 30.12.2017
+//
+//        DetailStatService.instance.requestSingleDetail(forPerson: "Путин", forSite: "meduza.io", date: dateOne)
+//
+//
+//    }
 
     var unixDay = TimeInterval(86400)
     
@@ -20,16 +64,26 @@ class DetailStatisticViewController: UIViewController, UITableViewDelegate, UITa
         formatter.dateFormat = "dd.MM.yyyy"
         return formatter
     }()
-    
+    var currentSite: SiteModel?
     var currentDate = Date() {
         didSet {
             self.periodActivated = false
             self.calendarButton.setTitle(self.formatter.string(from: currentDate), for: .normal)
-            self.detailTableView.reloadData()
+            self.requestData()
         }
     }
     
+    private func requestData() {
+        for item in personNames {
+            DetailStatService.instance.requestSingleDetail(forPerson: item, forSite: currentSite!.name, date: currentDate)
+        }
+    }
+    
+    var personNames = [String]()
+    var statsArray = [DayStatsV2]()
+    
     var personsArray = [GeneralPersonV2]()
+    
     var periodActivated = false
     var periodDates = [Date]() {
         didSet {
@@ -72,8 +126,10 @@ class DetailStatisticViewController: UIViewController, UITableViewDelegate, UITa
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        DetailStatService.instance.delegate = self
         
         self.initVC()
+        
     }
     
     // MARK: Получаем данные с CalendarVC
@@ -112,10 +168,19 @@ class DetailStatisticViewController: UIViewController, UITableViewDelegate, UITa
         //MARK: Чтение выбранного сайта
         let siteIndex = UserDefaults.standard.integer(forKey: SITE_INDEX)
         
-        let site = MainService.instance.getSitesArray()[siteIndex]
-        personsArray = site.personsArray
+        self.currentSite = MainService.instance.getSitesArray()[siteIndex]
+        //MARK: заполняем таблицу имен для сайта
+        for item in (self.currentSite?.personsArray)! {
+            personNames.append(item.name)
+        }
+        //MARK: запрашиваю сервис на предмет первоначальных данных
         
-        self.nameSourceLabel.text = site.name
+        self.requestData()
+        
+        
+        personsArray = self.currentSite!.personsArray //To del?
+        
+        self.nameSourceLabel.text = currentSite!.name
         
         let currentDateStringFormatted = formatter.string(from: Date())
         
@@ -123,7 +188,7 @@ class DetailStatisticViewController: UIViewController, UITableViewDelegate, UITa
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return personsArray.count
+        return personNames.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -133,7 +198,17 @@ class DetailStatisticViewController: UIViewController, UITableViewDelegate, UITa
         if periodActivated {
             cell.setupDetailCellWith(period: periodDates, person: personsArray[indexPath.row])
         } else {
-            cell.setupDetailCell(person: personsArray[indexPath.row], forDate: currentDate)
+            
+            
+           let personName = personNames[indexPath.row]
+            var generalPerson = GeneralPersonV2(name: personName, rank: "NIL")
+            for item in self.statsArray {
+                if item.personName == personName {
+                    generalPerson.rank = "\(item.total)"
+                }
+            }
+            cell.setupDetailCellWithPerson(generalPerson)
+            
         }
         return cell
     }

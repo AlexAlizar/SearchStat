@@ -20,30 +20,11 @@ class TotalStatisticViewController: UIViewController, UITableViewDelegate, UITab
         self.dismiss(animated: true, completion: nil)
     }
     
-    //test func need to delete
-    func testDetailData() {
-        var unixDay = TimeInterval(86400)
-        let currentDate = Date()
-        
-
-        let dateOne = Date(timeIntervalSince1970: TimeInterval(1514505600)) // 29.12.2017
-        let dateTwo = Date(timeIntervalSince1970: TimeInterval(1514592000)) // 30.12.2017
-        DetailStatService.instance.requestDetail(forPerson: "Путин", forSite: "meduza.io", startDate: dateOne, endDate: dateTwo) { (success) in
-            if success {
-                print("test success")
-            } else {
-                print("test faild")
-            }
-        }
-        
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.initVC()
         
-        //test func need to delete
-        self.testDetailData()
     }
     
     private func initVC() {

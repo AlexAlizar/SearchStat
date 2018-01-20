@@ -26,6 +26,13 @@ class DetailStatisticCell: UITableViewCell {
         
     }
     
+    
+    func setupDetailCellWithPerson(_ person: GeneralPersonV2) {
+        nameLabel.text = person.name
+        dayStatlabel.text = person.rank
+        
+    }
+    
     func setupDetailCell(person: GeneralPersonV2, forDate date: Date) {
         nameLabel.text = person.name
         

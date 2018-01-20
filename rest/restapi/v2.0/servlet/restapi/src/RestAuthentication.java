@@ -48,6 +48,7 @@ public class RestAuthentication {
             } else {
                 RestMessages.constructMessage(new RestMessages.Error("DB is not ready"));
             }
+            db.closeDB();
         } catch (Exception e) {
             RestMessages.constructMessage(new RestMessages.Error(e.toString()));
         }

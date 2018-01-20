@@ -106,6 +106,13 @@ public class RestDB {
     }
 
 
-
-
+    public void closeDB() {
+        try {
+            rs.close();
+            stmt.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

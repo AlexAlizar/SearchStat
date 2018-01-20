@@ -14,6 +14,7 @@ import java.sql.Statement;
 
 public class RESTAPI extends HttpServlet {
     public String json = null;
+    private RestDB db = RestDB.getInstance();
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("application/json; charset=utf-8");
@@ -44,12 +45,14 @@ public class RESTAPI extends HttpServlet {
 //                      Need transform to CLASS
                         out.println(RestMessages.constructJSON(auth.getToken()));
 //                      Need transform to CLASS
-                        return;
+//                        return;
                     } else {
                         RestMessages.constructMessage(new RestMessages.Error("Authentication failed"));
                         out.println(RestMessages.outputJSONMessage);
-                        return;
+//                        return;
                     }
+                    db.closeDB();
+                    return;
                 } else {
 //                    out.println("Debug: Action != auth");
                     auth = new RestAuthentication(rToken);
@@ -90,6 +93,7 @@ public class RESTAPI extends HttpServlet {
                     )
             ); // "Token is not found."
         }
+        db.closeDB();
     }
 
 

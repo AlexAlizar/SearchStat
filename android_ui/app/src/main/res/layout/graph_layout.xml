@@ -10,15 +10,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <com.jjoe64.graphview.GraphView
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/pie_chart"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/graph_with_statistics"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"/>
 
-    <lecho.lib.hellocharts.view.PieChartView
-        android:id="@+id/pie_chart"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
+
 </LinearLayout>

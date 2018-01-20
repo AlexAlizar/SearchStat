@@ -42,4 +42,5 @@ dependencies {
     implementation 'com.android.support:recyclerview-v7:27.0.2'
     compile 'com.jjoe64:graphview:4.2.1'
     compile 'com.github.lecho:hellocharts-android:v1.5.8'
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
 }

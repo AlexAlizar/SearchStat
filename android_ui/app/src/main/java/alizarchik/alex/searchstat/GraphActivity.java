@@ -1,21 +1,24 @@
 package alizarchik.alex.searchstat;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.Toast;
 
-import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.series.DataPoint;
-import com.jjoe64.graphview.series.LineGraphSeries;
+import com.github.mikephil.charting.animation.Easing;
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.PercentFormatter;
+import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
+import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
-import java.util.List;
-
-import lecho.lib.hellocharts.listener.PieChartOnValueSelectListener;
-import lecho.lib.hellocharts.model.PieChartData;
-import lecho.lib.hellocharts.model.SliceValue;
-import lecho.lib.hellocharts.util.ChartUtils;
-import lecho.lib.hellocharts.view.PieChartView;
 
 /**
  * Created by aoalizarchik.
@@ -23,9 +26,8 @@ import lecho.lib.hellocharts.view.PieChartView;
 
 public class GraphActivity extends AppCompatActivity {
 
-    private PieChartView chart;
-    private PieChartData data;
-    GraphView graph;
+    private PieChart mPieChart;
+    private BarChart mBarChart;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -38,52 +40,97 @@ public class GraphActivity extends AppCompatActivity {
     }
 
     private void initPieChart() {
-        chart = findViewById(R.id.pie_chart);
-        chart.setOnValueTouchListener(new ValueTouchListener());
+        mPieChart = findViewById(R.id.pie_chart);
+        mPieChart.setUsePercentValues(true);
 
-        generateData();
+        mPieChart.setRotationAngle(0);
+        mPieChart.setRotationEnabled(true);
+        mPieChart.setHighlightPerTapEnabled(false);
+        mPieChart.getLegend().setEnabled(false);
 
+        setData(4, 100);
+        mPieChart.setDrawHoleEnabled(false);
+
+        mPieChart.animateY(1400, Easing.EasingOption.EaseInOutQuad);
+    }
+
+    private void setData(int count, float range) {
+
+        ArrayList<PieEntry> entries = new ArrayList<PieEntry>();
+
+        entries.add(new PieEntry(10, "first"));
+        entries.add(new PieEntry(20, "second"));
+        entries.add(new PieEntry(30, "third"));
+        entries.add(new PieEntry(40, "fourth"));
+
+        PieDataSet dataSet = new PieDataSet(entries, "Election Results");
+
+        ArrayList<Integer> colors = new ArrayList<>();
+
+        for (int c : ColorTemplate.VORDIPLOM_COLORS)
+            colors.add(c);
+
+        for (int c : ColorTemplate.JOYFUL_COLORS)
+            colors.add(c);
+
+        for (int c : ColorTemplate.COLORFUL_COLORS)
+            colors.add(c);
+
+        for (int c : ColorTemplate.LIBERTY_COLORS)
+            colors.add(c);
+
+        for (int c : ColorTemplate.PASTEL_COLORS)
+            colors.add(c);
+
+        colors.add(ColorTemplate.getHoloBlue());
+
+        dataSet.setColors(colors);
+
+        PieData data = new PieData(dataSet);
+        data.setValueFormatter(new PercentFormatter());
+        data.setValueTextSize(11f);
+        data.setValueTextColor(Color.BLACK);
+        mPieChart.setData(data);
+
+        mPieChart.invalidate();
     }
 
     private void initGraph() {
-        graph = (GraphView) findViewById(R.id.graph_with_statistics);
-        LineGraphSeries<DataPoint> series = new LineGraphSeries<DataPoint>(new DataPoint[] {
-                new DataPoint(0, 1),
-                new DataPoint(1, 5),
-                new DataPoint(2, 3),
-                new DataPoint(3, 2),
-                new DataPoint(4, 6)
-        });
-        graph.addSeries(series);
+
+        mBarChart = (BarChart) findViewById(R.id.graph_with_statistics);
+
+        mBarChart.getDescription().setEnabled(false);
+        mBarChart.setMaxVisibleValueCount(10);
+        mBarChart.setPinchZoom(false);
+        mBarChart.setDrawBarShadow(false);
+        mBarChart.setDrawGridBackground(false);
+        XAxis xAxis = mBarChart.getXAxis();
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+
+        // add a nice and smooth animation
+        mBarChart.animateY(2500);
+
+        mBarChart.getLegend().setEnabled(true);
+
+        ArrayList<BarEntry> entries = new ArrayList<>();
+        entries.add(new BarEntry(0, 10, "first"));
+        entries.add(new BarEntry(1, 20, "second"));
+        entries.add(new BarEntry(2, 30, "third"));
+        entries.add(new BarEntry(3, 40, "fourth"));
+
+        BarDataSet d = new BarDataSet(entries, "New DataSet");
+        d.setColors(ColorTemplate.VORDIPLOM_COLORS);
+        d.setBarShadowColor(Color.rgb(203, 203, 203));
+
+        ArrayList<IBarDataSet> sets = new ArrayList<>();
+        sets.add(d);
+
+        BarData cd = new BarData(sets);
+        cd.setBarWidth(0.9f);
+
+
+        mBarChart.setData(cd);
+
+        mBarChart.invalidate();
     }
-
-    private void generateData() {
-        int numValues = 6;
-
-        List<SliceValue> values = new ArrayList<SliceValue>();
-        for (int i = 0; i < numValues; ++i) {
-            SliceValue sliceValue = new SliceValue((float) Math.random() * 30 + 15, ChartUtils.pickColor());
-            values.add(sliceValue);
-        }
-
-        data = new PieChartData(values);
-        data.setHasLabels(true);
-
-        chart.setPieChartData(data);
-    }
-
-
-    private class ValueTouchListener implements PieChartOnValueSelectListener {
-
-        @Override
-        public void onValueSelected(int arcIndex, SliceValue value) {
-            Toast.makeText(GraphActivity.this, "Selected: " + value, Toast.LENGTH_SHORT).show();
-        }
-
-        @Override
-        public void onValueDeselected() {
-            // TODO Auto-generated method stub
-        }
-    }
-
 }

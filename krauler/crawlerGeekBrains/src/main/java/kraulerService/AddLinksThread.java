@@ -28,7 +28,9 @@ public class AddLinksThread extends Thread {
         System.out.println(page+" - ADD LINKS PROCESS STARTED");
 
         addPageLinksFromSitemap();
-        sessionFactory.close();
+  //      sessionFactory.close();
+
+        System.out.println(page+" - ADD LINKS PROCESS FINISHED");
     }
 
     /**

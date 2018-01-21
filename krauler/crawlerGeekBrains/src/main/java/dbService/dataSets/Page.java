@@ -21,15 +21,15 @@ public class Page {
     private String url;
 
     @ManyToOne
-    @JoinColumn(name="SiteID")
+    @JoinColumn(name="site_id")
     private Site site;
 
 
-    @Column (name = "FoundDateTime")
+    @Column (name = "found_date_time")
     @Temporal(value=TemporalType.TIMESTAMP)
     private Date foundDateTime;
 
-    @Column (name = "LastScanDate")
+    @Column (name = "last_scan_date")
     @Temporal(value=TemporalType.DATE)
     private Date lastScanDate;
 

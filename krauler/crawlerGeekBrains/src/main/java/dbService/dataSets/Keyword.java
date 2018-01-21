@@ -19,7 +19,7 @@ public class Keyword {
     private String name;
 
     @ManyToOne
-    @JoinColumn (name="PersonID")
+    @JoinColumn (name="person_id")
     private Person person;
 
     public Keyword() {

@@ -14,13 +14,15 @@
         android:id="@+id/pie_chart"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_weight="1"
+        android:layout_marginTop="4dp"/>
 
     <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/graph_with_statistics"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_weight="1"
+        android:layout_marginBottom="4dp"/>
 
 
 </LinearLayout>

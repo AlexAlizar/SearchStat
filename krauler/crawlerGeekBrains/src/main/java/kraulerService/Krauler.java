@@ -41,13 +41,14 @@ public class Krauler extends Thread {
 
     public void Work() {
 
-        int days = 0;
+        int days = 1;
         AddLinksThread t2 = null;
 
         addSitePagesWithoutScan();
         List<Page> pages;
 
         while (days <= durationOfWork) {   // краулер работает указанное количество дней
+            System.out.println("DAY "+days+" BEGAN");
             pages = dbService.getNonScannedPages();
             int count = pages.size();
             while (count > 0) {
@@ -68,12 +69,26 @@ public class Krauler extends Thread {
                         }
                     } else addRanksForPersons(page);
                 }
+
+                // приостанавливаем на чуть-чуть
+                try {
+                    sleep(5000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                // и еще раз вытаскиваем список неотсканированных страниц
                 pages = dbService.getNonScannedPages();
-                count = pages.size();
+                if (pages != null) {
+                    count = pages.size();
+                }
+                else count = 0;
             }
 
             try {
-                t2.join();                           // ждем когда закончится вытягивание ссылок с сайтмапа
+                if (t2 != null) {
+                    t2.join();     // ждем когда закончится вытягивание ссылок с сайтмапа
+                }
                 Thread.sleep(dayDuration);           // засыпаем на сутки
             } catch (InterruptedException e) {
                 e.printStackTrace();

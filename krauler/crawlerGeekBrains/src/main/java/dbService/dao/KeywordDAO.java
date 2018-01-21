@@ -28,7 +28,7 @@ public class KeywordDAO {
     }
 
     public List<Keyword> getKeywordByPerson(Person person) {
-        SQLQuery query = session.createSQLQuery("SELECT * FROM keywords where personID="+person.getId());
+        SQLQuery query = session.createSQLQuery("SELECT * FROM keywords where person_id="+person.getId());
         query.addEntity(Keyword.class);
         return query.list();
     }

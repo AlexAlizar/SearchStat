@@ -20,13 +20,13 @@ public class PersonPageRankDAO {
 
     public int insertRank(Person person, Page page, int rank) {
     //    return (Integer) session.save(new PersonPageRank(person, page, rank));
-        SQLQuery query = session.createSQLQuery("INSERT into PersonPageRank(personID, pageID, rank) VALUES ("+person.getId()+" , "+page.getId()+", "+rank+")");
+        SQLQuery query = session.createSQLQuery("INSERT into searchstat_crawler_testdrive.person_page_rank(person_id, page_id, rank) VALUES ("+person.getId()+" , "+page.getId()+", "+rank+")");
         return query.executeUpdate();
 
     }
 
     public PersonPageRank getPersonPageRank(Person person, Page page) {
-        SQLQuery query = session.createSQLQuery("SELECT * FROM personPageRank where personID="+person.getId()+" AND pageID="+page.getId());
+        SQLQuery query = session.createSQLQuery("SELECT * FROM searchstat_crawler_testdrive.person_page_rank where person_id="+person.getId()+" AND page_id="+page.getId());
         query.addEntity(PersonPageRank.class);
         List<PersonPageRank> resultList = query.list();
         if (resultList.size()>0) {
@@ -37,7 +37,7 @@ public class PersonPageRankDAO {
     }
 
     public void updateRank(Person person, Page page, int rank) {
-        SQLQuery query = session.createSQLQuery("UPDATE personPageRank set rank="+rank+" where personID="+person.getId()+" AND pageID="+page.getId());
+        SQLQuery query = session.createSQLQuery("UPDATE searchstat_crawler_testdrive.person_page_rank set rank="+rank+" where person_id="+person.getId()+" AND page_id="+page.getId());
         query.executeUpdate();
     }
 }

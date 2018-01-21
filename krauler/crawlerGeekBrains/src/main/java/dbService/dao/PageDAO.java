@@ -48,7 +48,7 @@ public class PageDAO {
 
     public List<Page> getNonScannedPages() {
 
-        SQLQuery query = session.createSQLQuery("SELECT * FROM PAGES WHERE LastScanDate is null");
+        SQLQuery query = session.createSQLQuery("SELECT * FROM searchstat_crawler_testdrive.pages WHERE last_scan_date is null");
         query.addEntity(Page.class);
         return query.list();
     }
@@ -56,7 +56,7 @@ public class PageDAO {
     public void resetOldSiteMap(Date currentDate, String type) {
         SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd");
 
-        String txtSQL = "UPDATE pages set LastScanDate = null where LastScanDate<>'"+sdfDate.format(currentDate)+"'";
+        String txtSQL = "UPDATE searchstat_crawler_testdrive.pages set last_scan_date = null where last_scan_date<>'"+sdfDate.format(currentDate)+"'";
         if (type != "all") {
             txtSQL+= " AND url LIKE '%"+type+"%'";
         }

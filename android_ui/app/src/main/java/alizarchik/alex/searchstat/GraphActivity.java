@@ -1,6 +1,8 @@
 package alizarchik.alex.searchstat;
 
 import android.graphics.Color;
+import android.graphics.ColorMatrix;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
@@ -31,15 +33,30 @@ public class GraphActivity extends AppCompatActivity {
 
     private PieChart mPieChart;
     private BarChart mBarChart;
+    ArrayList<Integer> colors = new ArrayList<Integer>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.graph_layout);
 
+        initColorPalette();
+
         initGraph();
 
         initPieChart();
+    }
+
+    private void initColorPalette() {
+        colors.add(Color.rgb(1, 87, 150));
+        colors.add(Color.LTGRAY);
+        colors.add(Color.rgb(87, 149, 198));
+        colors.add(Color.rgb(127, 68, 179));
+        for (int c : ColorTemplate.PASTEL_COLORS)
+            colors.add(c);
+
+
+
     }
 
     private void initPieChart() {
@@ -69,7 +86,7 @@ public class GraphActivity extends AppCompatActivity {
         entries.add(new PieEntry(40, "fourth"));
 
         PieDataSet dataSet = new PieDataSet(entries, "Election Results");
-        dataSet.setColors(ColorTemplate.VORDIPLOM_COLORS);
+        dataSet.setColors(colors);
 
         PieData data = new PieData(dataSet);
         data.setValueFormatter(new PercentFormatter());
@@ -111,7 +128,7 @@ public class GraphActivity extends AppCompatActivity {
         entries.add(new BarEntry(3, 40, "fourth"));
 
         BarDataSet d = new BarDataSet(entries, "New DataSet");
-        d.setColors(ColorTemplate.VORDIPLOM_COLORS);
+        d.setColors(colors);
         d.setBarShadowColor(Color.rgb(203, 203, 203));
 
         ArrayList<IBarDataSet> sets = new ArrayList<>();

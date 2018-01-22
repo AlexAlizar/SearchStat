@@ -1,0 +1,54 @@
+.background_blue {
+    -fx-background-color: #01579B;
+}
+
+.background-white {
+    -fx-background-color: white;
+}
+
+.label_white {
+    -fx-text-fill: white;
+}
+
+.label-blue {
+    -fx-text-fill: #01579B;
+}
+
+.table-view {
+    -fx-base: white;
+    -fx-control-inner-background: white;
+    -fx-background-color: white;
+    -fx-text-fill: #01579B;
+    -fx-table-cell-border-color: #01579B;
+    -fx-table-header-border-color: #01579B;
+    -fx-padding: 5;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: #01579B;
+}
+
+.button {
+    -fx-padding: 5 22 5 22;   
+    -fx-border-color: white;
+    -fx-border-width: 2;
+    -fx-background-radius: 0;
+    -fx-background-color: #4a4a4a;
+    -fx-text-fill: white;
+    -fx-background-insets: 0 0 0 0, 0, 1, 2;
+}
+
+.button:hover {
+    -fx-background-color: gray;
+}
+
+.button:pressed, .button:default:hover:pressed {
+  -fx-background-color: lightgray;
+  -fx-text-fill: white;
+}
+
+.circle {
+    -fx-fill: #01579B;
+    -fx-stroke: white;
+    -fx-stroke-width: 4;
+}

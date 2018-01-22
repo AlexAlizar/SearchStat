@@ -3,9 +3,10 @@ package alizarchik.alex.searchstat;
 
 import java.util.List;
 
-import alizarchik.alex.searchstat.Model.GenStatDataItem;
-import alizarchik.alex.searchstat.Model.GeneralStatisticsModel;
-import alizarchik.alex.searchstat.Model.Site;
+import alizarchik.alex.searchstat.model.DailyStatisticsModel;
+import alizarchik.alex.searchstat.model.GenStatDataItem;
+import alizarchik.alex.searchstat.model.Person;
+import alizarchik.alex.searchstat.model.Site;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -26,12 +27,27 @@ public interface IRestApi {
     Call<List<Site>> getSites(@Query(value = "token")
                                       String token);
 
+    @GET("?action=get-persons")
+    Call<List<Person>> getPersons(@Query(value = "token")
+                                          String token);
+
     // кодирование используем, чтобы передаваемый URL сайта не конфликтовал с URL API
     @GET("?action=general-statistic")
     Call<List<GenStatDataItem>> getGeneralStatistic(@Query(value = "token")
-                                                 String token,
+                                                            String token,
                                                     @Query(value = "site", encoded = true)
-                                                 String site);
+                                                            String site);
 
+    @GET("?action=daily-statistic")
+    Call<List<DailyStatisticsModel>> getDailyStatistic(@Query(value = "token")
+                                                               String token,
+                                                       @Query(value = "person")
+                                                               String person,
+                                                       @Query(value = "date1")
+                                                               String date1,
+                                                       @Query(value = "date2")
+                                                               String date2,
+                                                       @Query(value = "site", encoded = true)
+                                                               String site);
 }
 

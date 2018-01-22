@@ -19,6 +19,8 @@ import java.util.Calendar;
 
 public class DatePickerStart extends DialogFragment implements DatePickerDialog.OnDateSetListener {
 
+    private String date1;
+
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
@@ -50,6 +52,9 @@ public class DatePickerStart extends DialogFragment implements DatePickerDialog.
                           int month, int day) {
 
         Button tv = getActivity().findViewById(R.id.start_date);
-        tv.setText(day + "." + month + "." + year);
+        tv.setText(day + "." + (month + 1) + "." + year);
+        date1 = tv.getText().toString();
+        DailyStatActivity dailyStatActivity = (DailyStatActivity)getActivity();
+        dailyStatActivity.setDate1(date1);
     }
 }

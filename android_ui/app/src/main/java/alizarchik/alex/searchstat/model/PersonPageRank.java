@@ -1,4 +1,4 @@
-package alizarchik.alex.searchstat.Model;
+package alizarchik.alex.searchstat.model;
 
 /**
  * Created by aoalizarchik.

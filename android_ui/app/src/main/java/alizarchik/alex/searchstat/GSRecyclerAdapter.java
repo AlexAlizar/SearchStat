@@ -6,11 +6,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import alizarchik.alex.searchstat.Model.GenStatDataItem;
+import alizarchik.alex.searchstat.model.GenStatDataItem;
 
 /**
  * Created by Olesia on 29.12.2017.

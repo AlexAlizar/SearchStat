@@ -1,7 +1,6 @@
 package alizarchik.alex.searchstat;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -29,8 +28,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import alizarchik.alex.searchstat.Model.GenStatDataItem;
-import alizarchik.alex.searchstat.Model.Site;
+import alizarchik.alex.searchstat.model.GenStatDataItem;
+import alizarchik.alex.searchstat.model.Site;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

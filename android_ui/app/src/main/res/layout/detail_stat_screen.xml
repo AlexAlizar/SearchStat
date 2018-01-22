@@ -9,42 +9,39 @@
         layout="@layout/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+    <ProgressBar
+        android:id="@+id/progressBar_DS"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
         <Button
             android:id="@+id/button_select_site_DS"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:layout_marginTop="8dp"
-            android:text="select a site"
-            android:textSize="20sp" />
+            android:layout_margin="16dp"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_weight="1"
+            android:textColor="#000"
+            android:text="Select a site"
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/button_select_person"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_margin="16dp"
             android:layout_weight="1"
+            android:textColor="#000"
             android:text="@string/select_a_person"
-            android:textSize="14sp" />
-
-        <Button
-            android:id="@+id/button_select_site"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:layout_margin="16dp"
-            android:layout_weight="1"
-            android:text="select a site"
-            android:textSize="14sp" />
+            android:textSize="18sp" />
 
     </LinearLayout>
 
@@ -56,9 +53,9 @@
 
         <Button
             android:id="@+id/start_date"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="8dp"
+            android:layout_margin="@dimen/activity_vertical_margin"
             android:layout_weight="1"
             android:text="Start date"
             android:textColor="#000"
@@ -66,9 +63,9 @@
 
         <Button
             android:id="@+id/end_date"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="8dp"
+            android:layout_margin="@dimen/activity_vertical_margin"
             android:layout_weight="1"
             android:text="End date"
             android:textColor="#000"
@@ -76,6 +73,7 @@
     </LinearLayout>
 
     <Button
+        android:id="@+id/button_show_statistic_DS"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_gravity="center_horizontal"
@@ -95,7 +93,7 @@
             android:layout_marginTop="@dimen/activity_vertical_margin"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="@string/person"
+            android:text="Date"
             android:textSize="24sp" />
 
         <TextView

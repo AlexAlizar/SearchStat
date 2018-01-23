@@ -30,6 +30,8 @@ import alizarchik.alex.searchstat.model.DailyStatisticsModel;
 import alizarchik.alex.searchstat.model.GenStatDataItem;
 import alizarchik.alex.searchstat.model.Person;
 import alizarchik.alex.searchstat.model.Site;
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -139,10 +141,14 @@ public class DailyStatActivity extends AppCompatActivity {
     }
 
     public void onClickBtnSite() {
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
         Retrofit retrofit;
         try {
             retrofit = new Retrofit.Builder()
                     .baseUrl("http://195.110.59.16:8081/restapi-v3/?")
+                    .client(client)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
             restAPI = retrofit.create(IRestApi.class);
@@ -210,10 +216,14 @@ public class DailyStatActivity extends AppCompatActivity {
     }
 
     public void onClickBtnPerson() {
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
         Retrofit retrofit;
         try {
             retrofit = new Retrofit.Builder()
                     .baseUrl("http://195.110.59.16:8081/restapi-v3/?")
+                    .client(client)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
             restAPI = retrofit.create(IRestApi.class);
@@ -281,10 +291,14 @@ public class DailyStatActivity extends AppCompatActivity {
     }
 
     public void onClickShowDailyStat(String site, String person, String date1, String date2) {
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
         Retrofit retrofit;
         try {
             retrofit = new Retrofit.Builder()
                     .baseUrl("http://195.110.59.16:8081/restapi-v3/?")
+                    .client(client)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
             restAPI = retrofit.create(IRestApi.class);

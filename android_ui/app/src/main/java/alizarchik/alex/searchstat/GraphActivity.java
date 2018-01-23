@@ -22,7 +22,11 @@ import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import alizarchik.alex.searchstat.model.DailyStatisticsModel;
 import alizarchik.alex.searchstat.model.GenStatDataItem;
@@ -110,7 +114,17 @@ public class GraphActivity extends AppCompatActivity {
             }
 
             for (int i = 0; i < listDS.size(); i++) {
-                entries.add(new PieEntry(listDS.get(i).getCountOfPages() * 100 / max, listDS.get(i).getDate()));
+                SimpleDateFormat sdfIn = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                SimpleDateFormat sdfOut = new SimpleDateFormat("dd-MM-yyyy");
+                String input = listDS.get(i).getDate();
+                Date date = null;
+                try {
+                    date = sdfIn.parse(input);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                String outputText = sdfOut.format(date);
+                entries.add(new PieEntry(listDS.get(i).getCountOfPages() * 100 / max, outputText));
             }
         }
 
@@ -159,7 +173,17 @@ public class GraphActivity extends AppCompatActivity {
             }
         } else {
             for (int i = 0; i < listDS.size(); i++) {
-                entries.add(new BarEntry(i + 1, listDS.get(i).getCountOfPages(), listDS.get(i).getDate()));
+                SimpleDateFormat sdfIn = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                SimpleDateFormat sdfOut = new SimpleDateFormat("dd-MM-yyyy");
+                String input = listDS.get(i).getDate();
+                Date date = null;
+                try {
+                    date = sdfIn.parse(input);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                String outputText = sdfOut.format(date);
+                entries.add(new BarEntry(i + 1, listDS.get(i).getCountOfPages(), outputText));
             }
         }
 

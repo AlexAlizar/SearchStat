@@ -3,11 +3,13 @@ package alizarchik.alex.searchstat.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 /**
  * Created by Olesia on 25.12.2017.
  */
 
-public class DailyStatisticsModel {
+public class DailyStatisticsModel implements Serializable{
     @SerializedName("date")
     @Expose
     private String date;

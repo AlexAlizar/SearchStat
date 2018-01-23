@@ -1,15 +1,13 @@
 package alizarchik.alex.searchstat;
 
 import android.graphics.Color;
-import android.graphics.ColorMatrix;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
@@ -18,12 +16,14 @@ import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
+
+import alizarchik.alex.searchstat.model.DailyStatisticsModel;
+import alizarchik.alex.searchstat.model.GenStatDataItem;
 
 /**
  * Created by aoalizarchik.
@@ -34,11 +34,23 @@ public class GraphActivity extends AppCompatActivity {
     private PieChart mPieChart;
     private BarChart mBarChart;
     ArrayList<Integer> colors = new ArrayList<Integer>();
+    private ArrayList<GenStatDataItem> listGS;
+    private ArrayList<DailyStatisticsModel> listDS;
+    boolean general = true;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.graph_layout);
+        String activity = getIntent().getStringExtra("activity");
+        if (activity.equals("general")) {
+            general = true;
+        } else {
+            general = false;
+        }
+        Log.i("TAG", "general = " + general);
+        listGS = (ArrayList<GenStatDataItem>) getIntent().getSerializableExtra("dataGeneral");
+        listDS = (ArrayList<DailyStatisticsModel>) getIntent().getSerializableExtra("dataDaily");
 
         initColorPalette();
 
@@ -54,7 +66,6 @@ public class GraphActivity extends AppCompatActivity {
         colors.add(Color.rgb(127, 68, 179));
         for (int c : ColorTemplate.PASTEL_COLORS)
             colors.add(c);
-
 
 
     }
@@ -80,10 +91,26 @@ public class GraphActivity extends AppCompatActivity {
 
         ArrayList<PieEntry> entries = new ArrayList<PieEntry>();
 
-        entries.add(new PieEntry(10, "first"));
-        entries.add(new PieEntry(20, "second"));
-        entries.add(new PieEntry(30, "third"));
-        entries.add(new PieEntry(40, "fourth"));
+        if (general) {
+            int max = 0;
+            for (int i = 0; i < listGS.size(); i++) {
+                max += listGS.get(i).getRank();
+            }
+
+            for (int i = 0; i < listGS.size(); i++) {
+                entries.add(new PieEntry(listGS.get(i).getRank() / max, listGS.get(i).getName()));
+            }
+        } else {
+            int max = 0;
+            for (int i = 0; i < listDS.size(); i++) {
+                max += listDS.get(i).getCountOfPages();
+            }
+
+            for (int i = 0; i < listDS.size(); i++) {
+                entries.add(new PieEntry(listDS.get(i).getCountOfPages() / max, listDS.get(i).getDate()));
+            }
+        }
+
 
         PieDataSet dataSet = new PieDataSet(entries, "Election Results");
         dataSet.setColors(colors);
@@ -122,10 +149,16 @@ public class GraphActivity extends AppCompatActivity {
         mBarChart.getLegend().setEnabled(false);
 
         ArrayList<BarEntry> entries = new ArrayList<>();
-        entries.add(new BarEntry(0, 10, "first"));
-        entries.add(new BarEntry(1, 20, "second"));
-        entries.add(new BarEntry(2, 30, "third"));
-        entries.add(new BarEntry(3, 40, "fourth"));
+
+        if (general) {
+            for (int i = 0; i < listGS.size(); i++) {
+                entries.add(new BarEntry(i + 1, listGS.get(i).getRank(), listGS.get(i).getName()));
+            }
+        } else {
+            for (int i = 0; i < listDS.size(); i++) {
+                entries.add(new BarEntry(i + 1, listDS.get(i).getCountOfPages(), listDS.get(i).getDate()));
+            }
+        }
 
         BarDataSet d = new BarDataSet(entries, "New DataSet");
         d.setColors(colors);
@@ -135,19 +168,15 @@ public class GraphActivity extends AppCompatActivity {
         sets.add(d);
 
         BarData cd = new BarData(sets);
-        cd.setValueFormatter(new PercentFormatter());
         cd.setValueTextColor(Color.BLACK);
         cd.setBarWidth(0.9f);
 
 
         mBarChart.setData(cd);
 
-        xAxis.setValueFormatter(new IAxisValueFormatter() {
-            @Override
-            public String getFormattedValue(float value, AxisBase axis) {
-                int pos = (int) value;
-                return entries.get(pos).getData().toString();
-            }
+        xAxis.setValueFormatter((value, axis) -> {
+            int pos = (int) value;
+            return entries.get(pos).getData().toString();
         });
 
         mBarChart.invalidate();

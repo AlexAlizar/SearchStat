@@ -3,11 +3,13 @@ package alizarchik.alex.searchstat.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 /**
  * Created by Olesia on 29.12.2017.
  */
 
-public class GenStatDataItem {
+public class GenStatDataItem implements Serializable{
     @SerializedName("name")
     @Expose
     private String name;

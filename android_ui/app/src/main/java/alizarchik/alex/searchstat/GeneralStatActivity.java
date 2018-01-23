@@ -104,6 +104,8 @@ public class GeneralStatActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.graphics:
                 Intent intent = new Intent(this, GraphActivity.class);
+                intent.putExtra("activity", "general");
+                intent.putExtra("dataGeneral", listGS);
                 startActivity(intent);
                 return true;
             default:

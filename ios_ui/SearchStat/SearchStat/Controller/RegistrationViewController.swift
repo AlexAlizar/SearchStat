@@ -16,6 +16,7 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func userPhotoBtn(_ sender: UIButton) {
+        
     }
     
     @IBOutlet weak var registrationScrollViewConst: NSLayoutConstraint!
@@ -28,6 +29,10 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var repeatPassTextField: CustomTextField!
     
     @IBAction func createUserBtn(_ sender: CustomButton) {
+        createUser()
+    }
+    
+    func createUser() {
         guard let name = userNameTextField.text , userNameTextField.text != "" else { return }
         guard let email = emailTextField.text , emailTextField.text != "" else {return }
         guard let pass = passwordTextField.text, passwordTextField.text != "" else { return }
@@ -48,17 +53,19 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setupView()
-        self.repeatPassTextField.delegate = self
+        userNameTextField.delegate = self
+        emailTextField.delegate = self
+        passwordTextField.delegate = self
+        repeatPassTextField.delegate = self
+        
     }
     
     func setupView() {
+        
         let tap = UITapGestureRecognizer(target: self, action: #selector(RegistrationViewController.handleTap))
         view.addGestureRecognizer(tap)
-        
-        //??
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapView(gesture:)))
-        view.addGestureRecognizer(tapGesture)
     }
     
     @objc func handleTap() {
@@ -67,15 +74,27 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
     
     //MARK: Text field delegate for Done button on keyboard
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        repeatPassTextField.resignFirstResponder()
-        print("Done tapped")
-        //  CODE 
+        
+        if textField == userNameTextField {
+            textField.resignFirstResponder()
+            emailTextField.becomeFirstResponder()
+        } else if textField == emailTextField {
+            textField.resignFirstResponder()
+            passwordTextField.becomeFirstResponder()
+        } else if textField == passwordTextField {
+            textField.resignFirstResponder()
+            repeatPassTextField.becomeFirstResponder()
+        } else if textField == repeatPassTextField {
+            textField.resignFirstResponder()
+            createUser()
+        }
         return true
     }
+}
+
+//MARK: For scrolling when typing begin
+extension RegistrationViewController {
     
-    
-    //MARK: For scrolling when typing begin
-    //===========
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         addObservers()
@@ -85,11 +104,7 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
         super.viewWillDisappear(animated)
         removeObservers()
     }
-    
-    @objc func didTapView(gesture: UITapGestureRecognizer) {
-        view.endEditing(true)
-    }
-    
+
     func addObservers() {
         NotificationCenter.default.addObserver(forName: .UIKeyboardWillShow, object: nil, queue: nil) { notification in
             self.keyboardWillShow(notification: notification)
@@ -106,21 +121,19 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
     func keyboardWillShow(notification: Notification) {
         guard let userInfo = notification.userInfo,
             let frame = (userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
-        let contentInset = UIEdgeInsets(top: 0, left: 0, bottom: frame.height  , right: 0)
-        registrationScrollView.contentInset = contentInset
-        registrationScrollViewConst.constant = -180
-        UIScrollView.animate(withDuration: 0.3) {
-            self.view.layoutIfNeeded()
+            let contentInset = UIEdgeInsets(top: 0, left: 0, bottom: frame.height  , right: 0)
+            registrationScrollView.contentInset = contentInset
+            registrationScrollViewConst.constant = -100
+            UIScrollView.animate(withDuration: 0.3) {
+                self.view.layoutIfNeeded()
         }
     }
     
     func keyboardWillHide(notification: Notification) {
         registrationScrollView.contentInset = UIEdgeInsets.zero
         registrationScrollViewConst.constant = 0
-        UIScrollView.animate(withDuration: 0.2) {
+        UIScrollView.animate(withDuration: 0.3) {
             self.view.layoutIfNeeded()
         }
     }
-    //===============
-    
 }

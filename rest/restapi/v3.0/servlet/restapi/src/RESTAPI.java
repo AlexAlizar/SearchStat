@@ -65,6 +65,7 @@ public class RESTAPI extends HttpServlet {
 //                        out.println(new RestActions().userActionExecute(rAction, request));
                         Object result = new RestActions().userActionExecute(rAction, request);
                         out.println(RestMessages.outputJSONMessage);
+//                        out.println(constructJSON(result));
                     } else if (auth.getRole().equals("admin")) {
 //                        out.println("Debug: user role = admin");
                         Object result = new RestActions().adminActionExecute(rAction, request);

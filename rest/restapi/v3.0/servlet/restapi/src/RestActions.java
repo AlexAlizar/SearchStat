@@ -332,8 +332,8 @@ public class RestActions {
             if (result == "DB is ready.") {
                 switch (action) {
                     case "general-statistic":
-                        site = "\"" + request.getParameter("site") + "\"";
-                        if (site != null) {
+                        site = request.getParameter("site");
+                        if (!com.mysql.jdbc.StringUtils.isEmptyOrWhitespaceOnly(site) && site != null) {
                             try {
                                 result = db.executeDBQuery(new RestActionsSQLQueries.GeneralStatisticQuery(site).query);
                                 while (db.rs.next()) {
@@ -346,9 +346,11 @@ public class RestActions {
                                 return generalStatisticList;
 //END: Return result to the client
                             } catch (Exception e) {
+                                RestMessages.constructMessage( new RestMessages.Error(e.toString()));
                                 return e.toString();
                             }
                         } else {
+                            RestMessages.constructMessage( new RestMessages.Error("Not enough parameters"));
                             return "Not enough parameters";
                         }
                     case "daily-statistic":

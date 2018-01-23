@@ -30,6 +30,8 @@ import java.util.Locale;
 
 import alizarchik.alex.searchstat.model.GenStatDataItem;
 import alizarchik.alex.searchstat.model.Site;
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -114,10 +116,14 @@ public class GeneralStatActivity extends AppCompatActivity {
     }
 
     public void onClick() {
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
         Retrofit retrofit;
         try {
             retrofit = new Retrofit.Builder()
                     .baseUrl("http://195.110.59.16:8081/restapi-v3/?")
+                    .client(client)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
             restAPI = retrofit.create(IRestApi.class);
@@ -185,10 +191,14 @@ public class GeneralStatActivity extends AppCompatActivity {
     }
 
     public void onClickShowStat(String site) {
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
         Retrofit retrofit;
         try {
             retrofit = new Retrofit.Builder()
                     .baseUrl("http://195.110.59.16:8081/restapi-v3/?")
+                    .client(client)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
             restAPI = retrofit.create(IRestApi.class);

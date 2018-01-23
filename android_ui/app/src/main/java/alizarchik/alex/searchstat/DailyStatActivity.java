@@ -142,7 +142,7 @@ public class DailyStatActivity extends AppCompatActivity {
         Retrofit retrofit;
         try {
             retrofit = new Retrofit.Builder()
-                    .baseUrl("http://195.110.59.16:8081/restapi-v2/?")
+                    .baseUrl("http://195.110.59.16:8081/restapi-v3/?")
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
             restAPI = retrofit.create(IRestApi.class);
@@ -213,7 +213,7 @@ public class DailyStatActivity extends AppCompatActivity {
         Retrofit retrofit;
         try {
             retrofit = new Retrofit.Builder()
-                    .baseUrl("http://195.110.59.16:8081/restapi-v2/?")
+                    .baseUrl("http://195.110.59.16:8081/restapi-v3/?")
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
             restAPI = retrofit.create(IRestApi.class);
@@ -284,7 +284,7 @@ public class DailyStatActivity extends AppCompatActivity {
         Retrofit retrofit;
         try {
             retrofit = new Retrofit.Builder()
-                    .baseUrl("http://195.110.59.16:8081/restapi-v2/?")
+                    .baseUrl("http://195.110.59.16:8081/restapi-v3/?")
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
             restAPI = retrofit.create(IRestApi.class);
@@ -301,6 +301,7 @@ public class DailyStatActivity extends AppCompatActivity {
         Log.d(TAG, "date2: " + date2);
 
         Call<List<DailyStatisticsModel>> call = restAPI.getDailyStatistic(tokenStorage.loadToken(this), person, date1, date2, site);
+        Log.d(TAG, "call: " + call.toString());
         ConnectivityManager connectivityManager =
                 (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         assert connectivityManager != null;

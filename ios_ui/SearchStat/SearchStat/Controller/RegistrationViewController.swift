@@ -66,6 +66,8 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(RegistrationViewController.handleTap))
         view.addGestureRecognizer(tap)
+//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapView(gesture:)))
+//        view.addGestureRecognizer(tapGesture)
     }
     
     @objc func handleTap() {
@@ -104,6 +106,10 @@ extension RegistrationViewController {
         super.viewWillDisappear(animated)
         removeObservers()
     }
+    
+//    @objc func didTapView(gesture: UITapGestureRecognizer) {
+//        view.endEditing(true)
+//    }
 
     func addObservers() {
         NotificationCenter.default.addObserver(forName: .UIKeyboardWillShow, object: nil, queue: nil) { notification in

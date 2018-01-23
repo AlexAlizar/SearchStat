@@ -54,9 +54,11 @@ class LogInViewController: UIViewController, UITextFieldDelegate{
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(RegistrationViewController.handleTap))
             view.addGestureRecognizer(tap)
-
+        
+//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapView(gesture:)))
+//        view.addGestureRecognizer(tapGesture)
     }
-    
+
     @objc func handleTap() {
         
         view.endEditing(true)
@@ -88,6 +90,10 @@ extension LogInViewController {
         super.viewWillDisappear(animated)
         removeObservers()
     }
+    
+//    @objc func didTapView(gesture: UITapGestureRecognizer) {
+//        view.endEditing(true)
+//    }
 
     func addObservers() {
         NotificationCenter.default.addObserver(forName: .UIKeyboardWillShow, object: nil, queue: nil) { notification in

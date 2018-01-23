@@ -684,8 +684,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <connections>
-                                    <action selector="backToDetailStat:" destination="szv-fr-ZNd" eventType="touchUpInside" id="GmL-1a-EuP"/>
-                                    <segue destination="s7Q-Zt-Au8" kind="show" id="Wqv-b7-KZ8"/>
+                                    <action selector="backBtnPressed:" destination="szv-fr-ZNd" eventType="touchUpInside" id="Jqa-yo-vsr"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -1179,8 +1178,4 @@
         <image name="photo icon" width="141" height="141"/>
         <image name="Иконка график" width="27" height="27"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="Ukb-PI-8Rt"/>
-        <segue reference="Wqv-b7-KZ8"/>
-    </inferredMetricsTieBreakers>
 </document>

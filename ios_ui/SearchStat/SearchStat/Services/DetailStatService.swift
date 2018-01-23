@@ -125,18 +125,10 @@ class DetailStatService {
         // Just for test TIMEZONES
         let shrinkedDate = self.shrinkDate(date)
         
-        if let dayData = findDetailInArray(forDate: shrinkedDate, ofPerson: person, atSite: site) {
-            //отправить делегат с данными
-            self.delegate?.dataLoadSingleCompleated(day: dayData)
-        } else {
-            self.requestDetailFromService(forPerson: person, forSite: site, startDate: shrinkedDate, endDate: shrinkedDate, completionHandler: { (success) in
+        self.requestDetailFromService(forPerson: person, forSite: site, startDate: shrinkedDate, endDate: shrinkedDate, completionHandler: { (success) in
                 if success {
-                    //данные пришли, отправить делегат с данными
-                    //рекурсивный вызов, тк данные уже в массиве
-                    self.requestSingleDetail(forPerson: person, forSite: site, date: shrinkedDate)
-                    
+//                    self.delegate?.dataLoadSingleCompleated(day: <#T##DayStatsV2#>)
                 } else {
-                    //данных нет, отправить делегат о тм что данных на сервере нет
                     //просто заглушка с датой
                     var nilDataDay = DayStatsV2(site: site, person: person, dateString: "2017-12-29 00:00:00.0" , countOfPages: "0")
                     nilDataDay.day = date
@@ -144,7 +136,6 @@ class DetailStatService {
                     self.delegate?.dataReturnNil(day: nilDataDay)
                 }
             })
-        }
         
     }
     private func findDetailPeriod(forDates datesInputArray: [Date], ofPerson person: String, atSite site: String) -> [DayStatsV2]? {
@@ -239,13 +230,15 @@ class DetailStatService {
             }.resume()
     }
 //for proxy
-    private func requestDetailFromServiceV2(forPerson person: String, forSite site: String, startDate: Date, endDate: Date, compleation: @escaping DetailStatCompletion ) {
+    func requestDetailFromServiceV2(forPerson person: String, forSite site: String, startDate: Date, endDate: Date, compleation: @escaping DetailStatCompletion ) {
         
         // Request
         
+        let dateOne = self.shrinkDate(startDate)
+        let dateTwo = self.shrinkDate(endDate)
         
-        let formatedDateOneString = self.formatter.string(from: startDate)
-        let formatedDateTwoString = self.formatter.string(from: endDate)
+        let formatedDateOneString = self.formatter.string(from: dateOne)
+        let formatedDateTwoString = self.formatter.string(from: dateTwo)
         
         guard let url = encodeUrl(person: person, dateOne: formatedDateOneString, dateTwo: formatedDateTwoString, site: site) else {return}
         print(url)
@@ -344,5 +337,13 @@ class DetailStatService {
         return nil
         
     }
-    
+   
+    private static func shrinkDate(_ date: Date) -> Date {
+        let myOffset = TimeInterval(TimeZone.current.secondsFromGMT())
+        let tempDate = date + myOffset
+        
+        let shrinkDateUnix = Int(tempDate.timeIntervalSince1970 / 86400) * 86400
+        let shrinkedDate = Date(timeIntervalSince1970: TimeInterval(shrinkDateUnix))
+        return shrinkedDate
+    }
 }

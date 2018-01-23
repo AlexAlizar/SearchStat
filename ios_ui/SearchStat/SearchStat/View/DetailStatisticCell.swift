@@ -43,9 +43,13 @@ class DetailStatisticCell: UITableViewCell {
 //        }
     }
     
-    func setupDetailCellWith(period periodArray: [Date], person: GeneralPersonV2) {
-        nameLabel.text = person.name
-        let arrayCount = periodArray.count
+    func setupDetailCellWithPeriod(person: String, total: Int?) {
+        nameLabel.text = person
+        if total == nil {
+            dayStatlabel.text = "PeriodDataNotFound"
+        } else {
+            dayStatlabel.text = String(total!)
+        }
 //        if let stats = person.filteredPeriodStats(startDate: periodArray[0], endDate: periodArray[arrayCount - 1]) {
 //            dayStatlabel.text = String(stats.total)
 //            

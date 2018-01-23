@@ -8,6 +8,7 @@ import android.util.Log;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
@@ -16,6 +17,7 @@ import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
@@ -91,23 +93,24 @@ public class GraphActivity extends AppCompatActivity {
 
         ArrayList<PieEntry> entries = new ArrayList<PieEntry>();
 
+        int max = 0;
+
         if (general) {
-            int max = 0;
+
             for (int i = 0; i < listGS.size(); i++) {
                 max += listGS.get(i).getRank();
             }
 
             for (int i = 0; i < listGS.size(); i++) {
-                entries.add(new PieEntry(listGS.get(i).getRank() / max, listGS.get(i).getName()));
+                entries.add(new PieEntry(listGS.get(i).getRank() * 100 / max, listGS.get(i).getName()));
             }
         } else {
-            int max = 0;
             for (int i = 0; i < listDS.size(); i++) {
                 max += listDS.get(i).getCountOfPages();
             }
 
             for (int i = 0; i < listDS.size(); i++) {
-                entries.add(new PieEntry(listDS.get(i).getCountOfPages() / max, listDS.get(i).getDate()));
+                entries.add(new PieEntry(listDS.get(i).getCountOfPages() * 100 / max, listDS.get(i).getDate()));
             }
         }
 
@@ -174,9 +177,12 @@ public class GraphActivity extends AppCompatActivity {
 
         mBarChart.setData(cd);
 
-        xAxis.setValueFormatter((value, axis) -> {
-            int pos = (int) value;
-            return entries.get(pos).getData().toString();
+        xAxis.setValueFormatter(new IAxisValueFormatter() {
+            @Override
+            public String getFormattedValue(float value, AxisBase axis) {
+                int pos = (int) value - 1;
+                return entries.get(pos).getData().toString();
+            }
         });
 
         mBarChart.invalidate();

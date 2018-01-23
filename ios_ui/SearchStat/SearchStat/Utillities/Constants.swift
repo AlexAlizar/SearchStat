@@ -10,12 +10,14 @@ import Foundation
 import UIKit
 
 typealias CompletionHandler = (_ Success: Bool) -> ()
+typealias DetailStatResponse = (success: Bool, error: String?, result: [DayStatsV2]?)
+typealias DetailStatCompletion = (_ Response: DetailStatResponse) -> ()
 
 //URL Constants
 let URL_SCHEME = "http"
 let URL_HOST = "195.110.59.16"
 let URL_PORT = 8081
-let URL_PATH = "/restapi-v2/"
+let URL_PATH = "/restapi-v3/"
 
 //let BASE_URL = "http://195.110.59.16:8081/"
 let BASE_URL = "\(URL_SCHEME)://\(URL_HOST):\(URL_PORT)"

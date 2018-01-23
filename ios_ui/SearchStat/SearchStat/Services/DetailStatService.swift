@@ -10,8 +10,32 @@ import Foundation
 
 protocol DetailStatServiceDelegate {
     
+    func dataArrayCompleated(array: [DayStatsV2], requestID: String)
+    func dataArrayReturnZero(array: [DayStatsV2], requestID: String)
+    
     func dataLoadSingleCompleated(day: DayStatsV2)
     func dataReturnNil(day: DayStatsV2)
+}
+
+struct detailRequest {
+    var ident = ""
+    var person = ""
+    var site = ""
+    var isStarting = false
+    var isDone = false
+    var inputArray = [Date]()
+    var outputArray = [DayStatsV2]()
+    
+    init(site: String, person: String, dateArray: [Date]) {
+        self.ident = "\(site)_\(person)_\(dateArray.first!)_\(dateArray.last!)"
+        self.person = person
+        self.site = site
+        self.inputArray = dateArray
+    }
+    
+    func startRequest() {
+        DetailStatService.instance.requestPeriodDetail(forPerson: person, forSite: site, dateArray: inputArray)
+    }
 }
 
 class DetailStatService {
@@ -20,6 +44,9 @@ class DetailStatService {
     
     var dayStatsArray: [DayStatsV2]?
     var delegate: DetailStatServiceDelegate?
+    
+    var requestedDates = 0
+    var respondedDates = 0
     
     fileprivate let formatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -30,14 +57,73 @@ class DetailStatService {
         return formatter
     }()
     
-    func requestSingleDetail(forPerson person: String, forSite site: String, date: Date) {
-        // Just for test
-        let myOffset = TimeInterval(TimeZone.current.secondsFromGMT())
-        let dateOne = date + myOffset
+    //for proxy
+    func requestPeriodDetail(forPerson person: String, forSite site: String, dateArray: [Date], requestID: String) {
+        let dateStart = dateArray.first!
+        let dateEnd = dateArray.last!
+        self.requestDetailFromServiceV2(forPerson: person, forSite: site, startDate: dateStart, endDate: dateEnd) { (succes, error, data) in
+            if succes {
+                self.delegate?.dataArrayCompleated(array: data!, requestID: requestID)
+                
+            } else {
+                print(error ?? "error nil")
+            }
+        }
+    }
+    
+    func requestPeriodDetail(forPerson person: String, forSite site: String, dateArray: [Date]) {
+        var shrinkedArray = [Date]()
+        for item in dateArray {
+            shrinkedArray.append(self.shrinkDate(item))
+        }
+        let shrinkedDateStart = self.shrinkDate(dateArray.first!)
+        let shrinkedDateEnd = self.shrinkDate(dateArray.last!)
         
-        let shrinkDateUnix = Int(dateOne.timeIntervalSince1970 / 86400) * 86400
+        if let array = self.findDetailPeriod(forDates: shrinkedArray, ofPerson: person, atSite: site){
+            //отправить делегат с данными с периодом
+            print("Period Will delegate")
+            
+            
+            
+        } else {
+            requestedDates = shrinkedArray.count
+            self.requestDetailFromService(forPerson: person, forSite: site, startDate: shrinkedDateStart, endDate: shrinkedDateEnd) { (success) in
+                if success {
+                    print("period detail success")
+                    
+                    //данные пришли, отправить делегат с данными
+                    //рекурсивный вызов, тк данные уже в массиве
+                    self.requestPeriodDetail(forPerson: person, forSite: site, dateArray: dateArray)
+                    
+                } else {
+                    print("period have problems")
+                    //данных нет, отправить делегат о тм что данных на сервере нет
+                    //просто заглушка с датой
+//                    var nilDataDay = DayStatsV2(site: site, person: person, dateString: "2017-12-29 00:00:00.0" , countOfPages: "0")
+                    
+                    
+                    
+                }
+            }
+        }
+        
+        
+        
+        
+        
+    }
+    private func shrinkDate(_ date: Date) -> Date {
+        let myOffset = TimeInterval(TimeZone.current.secondsFromGMT())
+        let tempDate = date + myOffset
+        
+        let shrinkDateUnix = Int(tempDate.timeIntervalSince1970 / 86400) * 86400
         let shrinkedDate = Date(timeIntervalSince1970: TimeInterval(shrinkDateUnix))
-
+        return shrinkedDate
+    }
+    
+    func requestSingleDetail(forPerson person: String, forSite site: String, date: Date) {
+        // Just for test TIMEZONES
+        let shrinkedDate = self.shrinkDate(date)
         
         if let dayData = findDetailInArray(forDate: shrinkedDate, ofPerson: person, atSite: site) {
             //отправить делегат с данными
@@ -61,6 +147,32 @@ class DetailStatService {
         }
         
     }
+    private func findDetailPeriod(forDates datesInputArray: [Date], ofPerson person: String, atSite site: String) -> [DayStatsV2]? {
+        var returnArray = [DayStatsV2]()
+        guard self.dayStatsArray != nil else {
+            return nil
+        }
+        
+        let inputArrayCount = datesInputArray.count
+        var i = 0
+        
+        for date in datesInputArray {
+            
+            if let item = findDetailInArray(forDate: date, ofPerson: person, atSite: site) {
+                returnArray.append(item)
+                i += 1
+            }
+            
+        }
+        let delta = requestedDates - respondedDates
+        if inputArrayCount == i + delta {
+            //zna4it vse dannie est v massive
+            return returnArray
+        } else {
+            //nushno zaprashivat
+            return nil
+        }
+    }
     
     private func findDetailInArray(forDate date: Date, ofPerson person: String, atSite site: String) -> DayStatsV2? {
         guard let array = self.dayStatsArray else {
@@ -76,6 +188,8 @@ class DetailStatService {
         }
         return returnItem
     }
+    
+    
     
     private func requestDetailFromService(forPerson person: String, forSite site: String, startDate: Date, endDate: Date, completionHandler: @escaping CompletionHandler) {
         
@@ -109,9 +223,10 @@ class DetailStatService {
                     if self.dayStatsArray == nil {
                         self.dayStatsArray = convertedArray
                     } else {
-                        self.dayStatsArray?.append(contentsOf: convertedArray)
+                        self.dayStatsArrayTryToAppend(convertedArray)
+//                        self.dayStatsArray?.append(contentsOf: convertedArray)
                     }
-                    
+                    self.respondedDates = convertedArray.count
                     completionHandler(true)
                     
                 }
@@ -123,7 +238,80 @@ class DetailStatService {
             }
             }.resume()
     }
-
+//for proxy
+    private func requestDetailFromServiceV2(forPerson person: String, forSite site: String, startDate: Date, endDate: Date, compleation: @escaping DetailStatCompletion ) {
+        
+        // Request
+        
+        
+        let formatedDateOneString = self.formatter.string(from: startDate)
+        let formatedDateTwoString = self.formatter.string(from: endDate)
+        
+        guard let url = encodeUrl(person: person, dateOne: formatedDateOneString, dateTwo: formatedDateTwoString, site: site) else {return}
+        print(url)
+        
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
+            guard let data = data else {
+                print("No Internet Connection")
+                let response = DetailStatResponse(false, "No Internet Connection", nil)
+                compleation(response)
+                return
+            }
+            guard error == nil else {return}
+            
+            do {
+                let detailData = try JSONDecoder().decode([DaylyStatsV2].self, from: data)
+                print(detailData)
+                if detailData.count == 0 {
+                    //zero for this date
+                    print("no data for selected dates")
+                    let response = DetailStatResponse(true, nil, [DayStatsV2]())
+                    compleation(response)
+                } else {
+                    let convertedArray = self.convertJsonToDayStats(siteName: site, personName: person, array: detailData)
+                    
+                    self.respondedDates = convertedArray.count
+                    let response = DetailStatResponse(true, nil, convertedArray)
+                    compleation(response)
+                    
+                }
+                
+            } catch let error {
+                print(error)
+                
+                let response = DetailStatResponse(false, error.localizedDescription, nil)
+                compleation(response)
+            }
+        }.resume()
+    }
+    
+    private func isDataExistInArray(day: DayStatsV2) -> Bool {
+        var isExist = false
+        for item in self.dayStatsArray! {
+            if item.siteName == day.siteName && item.personName == day.personName &&
+                item.day == day.day {
+                //все совпадает, значит такое значение уже есть
+                isExist = true
+                break
+            } else {
+                isExist = false
+                continue
+            }
+        }
+        return isExist
+    }
+    
+    private func dayStatsArrayTryToAppend(_ inputArray: [DayStatsV2]) {
+        for inputItem in inputArray {
+            
+            if isDataExistInArray(day: inputItem) {
+                continue
+            } else {
+                self.dayStatsArray?.append(inputItem)
+            }
+        }
+    }
+    
     private func convertJsonToDayStats(siteName: String, personName: String, array: [DaylyStatsV2]) -> [DayStatsV2] {
         var outputArray = [DayStatsV2]()
         for item in array {
@@ -132,6 +320,7 @@ class DetailStatService {
         }
         return outputArray
     }
+    
     func encodeUrl(person: String, dateOne: String, dateTwo: String, site: String) -> URL? {
         
         var queryItems = [URLQueryItem]()

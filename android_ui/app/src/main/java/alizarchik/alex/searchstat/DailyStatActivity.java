@@ -102,7 +102,7 @@ public class DailyStatActivity extends AppCompatActivity {
             case R.id.graphics:
                 Intent intent = new Intent(this, GraphActivity.class);
 
-                intent.putExtra("activity", "general");
+                intent.putExtra("activity", "daily");
                 intent.putExtra("dataDaily", listDS);
                 startActivity(intent);
                 return true;

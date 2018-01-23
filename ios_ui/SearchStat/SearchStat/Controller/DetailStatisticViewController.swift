@@ -9,6 +9,14 @@
 import UIKit
 
 class DetailStatisticViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, DetailStatServiceDelegate {
+    func dataArrayCompleated(array: [DayStatsV2], requestID: String) {
+        print("H")
+    }
+    
+    func dataArrayReturnZero(array: [DayStatsV2], requestID: String) {
+        print("h")
+    }
+    
     
     func dataLoadSingleCompleated(day: DayStatsV2) {
         print("Delegate return data for singl day")
@@ -75,7 +83,12 @@ class DetailStatisticViewController: UIViewController, UITableViewDelegate, UITa
     
     private func requestData() {
         for item in personNames {
-            DetailStatService.instance.requestSingleDetail(forPerson: item, forSite: currentSite!.name, date: currentDate)
+            if periodActivated {
+                DetailStatService.instance.requestPeriodDetail(forPerson: item, forSite: currentSite!.name, dateArray: periodDates)
+            } else {
+                DetailStatService.instance.requestSingleDetail(forPerson: item, forSite: currentSite!.name, date: currentDate)
+
+            }
         }
     }
     
@@ -92,7 +105,10 @@ class DetailStatisticViewController: UIViewController, UITableViewDelegate, UITa
                 let startDate = self.formatter.string(from: periodDates[0])
                 let endDate = self.formatter.string(from: periodDates.last!)
                 self.calendarButton.setTitle("\(startDate) - \(endDate)", for: .normal)
-                self.detailTableView.reloadData()
+                //тут будет запрос с передачей массива [Date]
+                self.requestData()
+                
+//                self.detailTableView.reloadData()
             }
         }
     }
@@ -126,7 +142,7 @@ class DetailStatisticViewController: UIViewController, UITableViewDelegate, UITa
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        DetailStatService.instance.delegate = self
+//        DetailStatService.instance.delegate = self
         
         self.initVC()
         

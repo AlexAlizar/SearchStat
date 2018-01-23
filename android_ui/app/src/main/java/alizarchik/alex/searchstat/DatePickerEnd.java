@@ -12,6 +12,7 @@ import android.widget.TextView;
 import java.util.Calendar;
 
 import java.util.Calendar;
+import java.util.Locale;
 
 /**
  * Created by aoalizarchik.
@@ -24,6 +25,8 @@ public class DatePickerEnd extends DialogFragment implements DatePickerDialog.On
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
+        Locale locale = new Locale("en");
+        Locale.setDefault(locale);
         // определяем текущую дату
         final Calendar c = Calendar.getInstance();
         int year = c.get(Calendar.YEAR);
@@ -31,10 +34,8 @@ public class DatePickerEnd extends DialogFragment implements DatePickerDialog.On
         int day = c.get(Calendar.DAY_OF_MONTH);
 
         // создаем DatePickerDialog и возвращаем его
-        Dialog picker = new DatePickerDialog(getActivity(), this,
+        Dialog picker = new DatePickerDialog(getActivity(), R.style.DialogTheme,this,
                 year, month, day);
-        picker.setTitle(getResources().getString(R.string.choose_date));
-
         return picker;
     }
     @Override

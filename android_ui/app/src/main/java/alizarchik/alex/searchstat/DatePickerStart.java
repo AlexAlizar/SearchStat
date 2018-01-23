@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.widget.Button;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import java.util.Calendar;
 
 import java.util.Calendar;
+import java.util.Locale;
 
 /**
  * Created by aoalizarchik.
@@ -24,6 +26,8 @@ public class DatePickerStart extends DialogFragment implements DatePickerDialog.
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
+        Locale locale = new Locale("en");
+        Locale.setDefault(locale);
         // определяем текущую дату
         final Calendar c = Calendar.getInstance();
         int year = c.get(Calendar.YEAR);
@@ -31,10 +35,8 @@ public class DatePickerStart extends DialogFragment implements DatePickerDialog.
         int day = c.get(Calendar.DAY_OF_MONTH);
 
         // создаем DatePickerDialog и возвращаем его
-        Dialog picker = new DatePickerDialog(getActivity(), this,
+        Dialog picker = new DatePickerDialog(getActivity(), R.style.DialogTheme, this,
                 year, month, day);
-        picker.setTitle(getResources().getString(R.string.choose_date));
-
         return picker;
     }
     @Override

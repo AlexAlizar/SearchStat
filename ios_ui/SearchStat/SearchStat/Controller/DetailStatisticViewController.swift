@@ -8,29 +8,29 @@
 
 import UIKit
 
-class DetailStatisticViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, DetailStatServiceDelegate {
-    func dataArrayCompleated(array: [DayStatsV2], requestID: String) {
-        print("H")
-    }
-    
-    func dataArrayReturnZero(array: [DayStatsV2], requestID: String) {
-        print("h")
-    }
-    
-    
-    func dataLoadSingleCompleated(day: DayStatsV2) {
-        print("Delegate return data for singl day")
-        statsArray.append(day)
-        print(day)
-        reloadCellforName(day.personName)
-    }
-    
-    func dataReturnNil(day: DayStatsV2) {
-        print("Delegate return NIL")
-        statsArray.append(day)
-        print(day)
-        reloadCellforName(day.personName)
-    }
+class DetailStatisticViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+//    func dataArrayCompleated(array: [DayStatsV2], requestID: String) {
+//        print("H")
+//    }
+//
+//    func dataArrayReturnZero(array: [DayStatsV2], requestID: String) {
+//        print("h")
+//    }
+//
+//
+//    func dataLoadSingleCompleated(day: DayStatsV2) {
+//        print("Delegate return data for singl day")
+//        statsArray.append(day)
+//        print(day)
+//        reloadCellforName(day.personName)
+//    }
+//
+//    func dataReturnNil(day: DayStatsV2) {
+//        print("Delegate return NIL")
+//        statsArray.append(day)
+//        print(day)
+//        reloadCellforName(day.personName)
+//    }
     
     func reloadCellforName(_ name: String) {
         DispatchQueue.main.async {
@@ -48,19 +48,6 @@ class DetailStatisticViewController: UIViewController, UITableViewDelegate, UITa
             self.detailTableView.reloadRows(at: [indexPath], with: .automatic)
         }
     }
-    
-//    func testDetailData() {
-//        var unixDay = TimeInterval(86400)
-//        let currentDate = Date()
-//
-//
-//        let dateOne = Date(timeIntervalSince1970: TimeInterval(1514505600)) // 29.12.2017
-//        let dateTwo = Date(timeIntervalSince1970: TimeInterval(1514592000)) // 30.12.2017
-//
-//        DetailStatService.instance.requestSingleDetail(forPerson: "Путин", forSite: "meduza.io", date: dateOne)
-//
-//
-//    }
 
     var unixDay = TimeInterval(86400)
     
@@ -81,12 +68,70 @@ class DetailStatisticViewController: UIViewController, UITableViewDelegate, UITa
         }
     }
     
+    
+    private func requestSingle(person: String, site: String, date: Date) {
+        DetailStatService.instance.requestDetailFromServiceV2(forPerson: person, forSite: site, startDate: date, endDate: date) { (success, error, result) in
+            guard error == nil else {
+                print(error!)
+                return
+            }
+            if success {
+                print(result!)
+                if result!.count == 0 {
+                    print("No data for: \(person) for: \(date)")
+                    self.reloadCellforName(person)
+                }else {
+                    self.statsArray.append((result?.first)!)
+                    self.reloadCellforName(person)
+                }
+            }else {
+                print("no error, but succes is false")
+            }
+        }
+    }
+    
+    var periodResult = [String : Int?]()
+    
+    private func requestPeriod(person: String, site: String, dateArray: [Date]) {
+        DetailStatService.instance.requestDetailFromServiceV2(forPerson: person, forSite: site, startDate: periodDates.first! , endDate: periodDates.last!) { (success, error, result) in
+            guard error == nil else {
+                print(error!)
+                return
+            }
+            if success {
+                print(result!)
+                if result!.count == 0 {
+                    print("No PERIOD data for: \(person) for: \(self.calendarButton.currentTitle!)")
+                    self.periodResult = [person : nil]
+                    self.reloadCellforName(person)
+                }else {
+                    var total = 0
+                    for item in result! {
+                        total += item.total
+                    }
+                    self.periodResult[person] = total
+                    self.reloadCellforName(person)
+
+                }
+            }else {
+                print("no error, but succes is false")
+            }
+        }
+    }
     private func requestData() {
         for item in personNames {
+            self.statsArray.removeAll()
+            self.periodResult.removeAll()
+            DispatchQueue.main.async {
+                self.detailTableView.reloadData()
+            }
+            
             if periodActivated {
-                DetailStatService.instance.requestPeriodDetail(forPerson: item, forSite: currentSite!.name, dateArray: periodDates)
+               self.requestPeriod(person: item, site: currentSite!.name, dateArray: periodDates)
             } else {
-                DetailStatService.instance.requestSingleDetail(forPerson: item, forSite: currentSite!.name, date: currentDate)
+                
+                self.requestSingle(person: item, site: currentSite!.name, date: currentDate)
+//                DetailStatService.instance.requestSingleDetail(forPerson: item, forSite: currentSite!.name, date: currentDate)
 
             }
         }
@@ -211,12 +256,17 @@ class DetailStatisticViewController: UIViewController, UITableViewDelegate, UITa
         let cell = tableView.dequeueReusableCell(withIdentifier: "detailcell", for: indexPath)  as! DetailStatisticCell
         
         //MARK: Single date OR Period
+        let personName = personNames[indexPath.row]
         if periodActivated {
-            cell.setupDetailCellWith(period: periodDates, person: personsArray[indexPath.row])
+            
+            if let total = periodResult[personName] {
+                cell.setupDetailCellWithPeriod(person: personName, total: total)
+            } else {
+                cell.setupDetailCellWithPeriod(person: personName, total: nil)
+            }
+            
         } else {
-            
-            
-           let personName = personNames[indexPath.row]
+
             var generalPerson = GeneralPersonV2(name: personName, rank: "NIL")
             for item in self.statsArray {
                 if item.personName == personName {

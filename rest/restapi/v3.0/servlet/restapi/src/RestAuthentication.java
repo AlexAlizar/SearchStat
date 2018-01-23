@@ -1,3 +1,11 @@
+import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Date;
+
+import static jdk.nashorn.internal.objects.NativeDate.getTime;
+
 public class RestAuthentication {
 
     private boolean authenticated = false;
@@ -84,6 +92,9 @@ public class RestAuthentication {
 //                    //Here will be method for existence users
                     if (this.password.equals(password)) {
                         this.authenticated = true;
+                        this.token = generateToken();
+                        db.executeDBQueryUpdate(
+                                "UPDATE users SET token = '" + this.token + "' WHERE login = '" + this.login + "'");
                     } else {
                         this.authenticated = false;
                         RestMessages.constructMessage(new RestMessages.Error("Wrong password"));
@@ -98,6 +109,18 @@ public class RestAuthentication {
             RestMessages.constructMessage(new RestMessages.Error(e.toString()));
         }
 //        authorization("admin"); //Temporary
+    }
+
+    private String generateToken() {
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            byte[] hash = md.digest(new Date().toString().getBytes(StandardCharsets.UTF_8));
+            return String.format("%064x", new BigInteger(1, hash));
+//            return hash;
+        } catch (Exception e) {
+            RestMessages.constructMessage(new RestMessages.Error(e.toString()));
+            return e.toString();
+        }
     }
 
     public boolean isAuthenticated() {

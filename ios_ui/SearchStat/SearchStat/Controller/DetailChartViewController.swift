@@ -16,10 +16,16 @@ class DetailChartViewController: UIViewController {
     @IBOutlet weak var barChartView: BarChartView!
     
     
-    var personArray = [Person]()
-    var periodDates = [Date]()
-    var currentDate = Date()
+//    var personArray = [Person]()
+//    var periodDates = [Date]()
+//    var currentDate = Date()
+    
     var periodActivate: Bool!
+    var periodResult = [String : Int?]()
+    var namesArray = [String]()
+    var statsArray = [DayStatsV2]()
+    
+    
     
     
     @IBAction func backToDetailStat(_ sender: Any) {
@@ -31,17 +37,16 @@ class DetailChartViewController: UIViewController {
         
         initVCandUpdateCharts()
     }
-    
 
     
     func initVCandUpdateCharts() {
         
-        let siteIndex = UserDefaults.standard.integer(forKey: SITE_INDEX)
+//        let siteIndex = UserDefaults.standard.integer(forKey: SITE_INDEX)
         //MARK: Чтение даты обновления данных
         //        let dateString = UserDefaults.standard.string(forKey: DATA_UPDATE_STRING)
         
-        let site = MainService.instance.siteArray![siteIndex]
-        personArray = site.personsArray
+//        let site = MainService.instance.siteArray![siteIndex]
+//        personArray = site.personsArray
         
         
         
@@ -49,18 +54,45 @@ class DetailChartViewController: UIViewController {
         barChartView.chartDescription?.text = ""
         
         var dataEntries: [ChartDataEntry] = []
+        var dataBarEntry: [BarChartDataEntry] = []
+        
         if periodActivate {
             
-            for i in 0..<personArray.count {
-                let dataEntry = ChartDataEntry(x: Double(i), y: Double((personArray[i].filteredPeriodStats(startDate: periodDates[0], endDate: periodDates[periodDates.count - 1])?.total)!))
+            for i in 0..<namesArray.count {
+                
+                let yItemName = namesArray[i]
+                var convertedTotal = 0.0
+                if let yItemTotal = periodResult[yItemName] {
+                    convertedTotal = Double(yItemTotal!)
+                } else {
+                    convertedTotal = 0.0
+                }
+                
+                let dataEntry = ChartDataEntry(x: Double(i), y: convertedTotal)
                 dataEntries.append(dataEntry)
+                dataBarEntry.append(dataEntry)
             }
             
         } else {
             
-            for i in 0..<personArray.count {
-                let dataEntry = ChartDataEntry(x: Double(i), y: Double((personArray[i].filteredStats(filteredDate: currentDate)?.total)!))
+            for i in 0..<statsArray.count {
+                
+                let yItemName = namesArray[i]
+                var convertedTotal = 0.0
+                
+                var total = 0
+                for item in statsArray{
+                    if item.personName == yItemName {
+                        total = item.total
+                        convertedTotal = Double(total)
+                    }
+                }
+                
+                
+                
+                let dataEntry = ChartDataEntry(x: Double(i), y: convertedTotal)
                 dataEntries.append(dataEntry)
+                dataBarEntry.append(dataEntry)
             }
         }
             
@@ -74,7 +106,7 @@ class DetailChartViewController: UIViewController {
         pieChartView.holeColor = UIColor.clear
        
 
-        var dataBarEntry: [BarChartDataEntry] = []
+        
         
         if periodActivate {
             

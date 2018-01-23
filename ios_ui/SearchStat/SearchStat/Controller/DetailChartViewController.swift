@@ -12,6 +12,10 @@ import Charts
 
 class DetailChartViewController: UIViewController {
     
+    @IBAction func backBtnPressed(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     @IBOutlet weak var pieChartView: PieChartView!
     @IBOutlet weak var barChartView: BarChartView!
     
@@ -69,8 +73,9 @@ class DetailChartViewController: UIViewController {
                 }
                 
                 let dataEntry = ChartDataEntry(x: Double(i), y: convertedTotal)
+                let dataBarEnt = BarChartDataEntry(x: Double(i), y: convertedTotal)
                 dataEntries.append(dataEntry)
-                dataBarEntry.append(dataEntry)
+                dataBarEntry.append(dataBarEnt)
             }
             
         } else {
@@ -91,8 +96,9 @@ class DetailChartViewController: UIViewController {
                 
                 
                 let dataEntry = ChartDataEntry(x: Double(i), y: convertedTotal)
+                let dataBarEnt = BarChartDataEntry(x: Double(i), y: convertedTotal)
                 dataEntries.append(dataEntry)
-                dataBarEntry.append(dataEntry)
+                dataBarEntry.append(dataBarEnt)
             }
         }
             
@@ -108,26 +114,27 @@ class DetailChartViewController: UIViewController {
 
         
         
-        if periodActivate {
-            
-            for i in 0..<personArray.count {
-                let dataEntry = BarChartDataEntry(x: Double(i), y: Double((personArray[i].filteredPeriodStats(startDate: periodDates[0], endDate: periodDates[periodDates.count - 1])?.total)!))
-                dataBarEntry.append(dataEntry)
-            }
-            
-        } else {
-            
-            for i in 0..<personArray.count {
-                let dataEntry = BarChartDataEntry(x: Double(i), y: Double((personArray[i].filteredStats(filteredDate: currentDate)?.total)!))
-                dataBarEntry.append(dataEntry)
-            }
-        }
+//        if periodActivate {
+//
+//            for i in 0..<personArray.count {
+//                let dataEntry = BarChartDataEntry(x: Double(i), y: Double((personArray[i].filteredPeriodStats(startDate: periodDates[0], endDate: periodDates[periodDates.count - 1])?.total)!))
+//                dataBarEntry.append(dataEntry)
+//            }
+//
+//        } else {
+//
+//            for i in 0..<personArray.count {
+//                let dataEntry = BarChartDataEntry(x: Double(i), y: Double((personArray[i].filteredStats(filteredDate: currentDate)?.total)!))
+//                dataBarEntry.append(dataEntry)
+//            }
+//        }
         
         let barChartDataSet = BarChartDataSet(values: dataBarEntry, label: "")
         let barChartData = BarChartData(dataSets: [barChartDataSet])
         barChartView.data = barChartData
         barChartView.xAxis.labelPosition = .bottom
-        barChartView.xAxis.valueFormatter = IndexAxisValueFormatter(values: personArray.enumerated().map {index, element in return element.name})
+        barChartView.xAxis.valueFormatter =  IndexAxisValueFormatter(values: namesArray)
+//        barChartView.xAxis.valueFormatter = IndexAxisValueFormatter(values: personArray.enumerated().map {index, element in return element.name})
         barChartDataSet.colors = ChartColorTemplates.colorful()
         
         

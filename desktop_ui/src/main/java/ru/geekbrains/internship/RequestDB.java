@@ -13,7 +13,6 @@ public class RequestDB implements ConnectionDBConst{
 
     private ObservableList<TotalStatistics> totalStatisticsList;
     private ObservableList<DailyStatistics> dailyStatisticsList;
-    private ObservableList<StringList> stringList;
 
     public String checkAuthorization(String DBStringURL, String login, String password) {
 
@@ -26,7 +25,14 @@ public class RequestDB implements ConnectionDBConst{
                 new AlertHandler(Alert.AlertType.ERROR, "Ошибка",
                         "Внимание!", "Ошибка формирования запроса");
                 return "";
-                //e.printStackTrace();
+            } catch (IllegalStateException e) {
+                new AlertHandler(Alert.AlertType.ERROR, "Ошибка",
+                    "Внимание!", "Ошибка в полученных данных");
+                return "";
+            } catch (Exception e) {
+                new AlertHandler(Alert.AlertType.ERROR, "Ошибка",
+                    "Внимание!", "Ошибка подключения к базе данных");
+                return "";
             }
         } else {
             return "00";
@@ -47,7 +53,15 @@ public class RequestDB implements ConnectionDBConst{
             } catch (UnsupportedEncodingException e) {
                 new AlertHandler(Alert.AlertType.ERROR, "Ошибка",
                         "Внимание!", "Ошибка формирования запроса");
-                //e.printStackTrace();
+            } catch (IllegalStateException e) {
+                new AlertHandler(Alert.AlertType.ERROR, "Ошибка",
+                        "Внимание!", "Ошибка в полученных данных");
+            } catch (UnsupportedOperationException e) {
+                new AlertHandler(Alert.AlertType.ERROR, "Ошибка",
+                        "Внимание!", "Ошибка разборки данных");
+            } catch (Exception e) {
+                new AlertHandler(Alert.AlertType.ERROR, "Ошибка",
+                        "Внимание!", "Ошибка подключения к базе данных");
             }
         } else {
             new FakeData().getFakeTotalStatistics(totalStatisticsList);
@@ -78,7 +92,15 @@ public class RequestDB implements ConnectionDBConst{
             } catch (UnsupportedEncodingException e) {
                 new AlertHandler(Alert.AlertType.ERROR, "Ошибка",
                         "Внимание!", "Ошибка формирования запроса");
-                //e.printStackTrace();
+            } catch (IllegalStateException e) {
+                new AlertHandler(Alert.AlertType.ERROR, "Ошибка",
+                        "Внимание!", "Ошибка в полученных данных");
+            } catch (UnsupportedOperationException e) {
+                new AlertHandler(Alert.AlertType.ERROR, "Ошибка",
+                        "Внимание!", "Ошибка разборки данных");
+            } catch (Exception e) {
+                new AlertHandler(Alert.AlertType.ERROR, "Ошибка",
+                        "Внимание!", "Ошибка подключения к базе данных");
             }
         } else {
             new FakeData().getFakeDailyStatistics(dailyStatisticsList, beginDate, endDate);
@@ -86,10 +108,9 @@ public class RequestDB implements ConnectionDBConst{
         return dailyStatisticsList;
     }
 
-    public ObservableList clearDailyStatisticsList() {
+    public void clearDailyStatisticsList() {
         dailyStatisticsList = FXCollections.observableArrayList();
         dailyStatisticsList.clear();
-        return dailyStatisticsList;
     }
 
     public int getDailyStatisticsTotal() {
@@ -111,7 +132,7 @@ public class RequestDB implements ConnectionDBConst{
 
     public ObservableList getList(String DBStringURL, String getList, String token) {
         ObservableList<String> list = FXCollections.observableArrayList();
-        stringList = FXCollections.observableArrayList();
+        ObservableList<StringList> stringList = FXCollections.observableArrayList();
         if (!DBStringURL.toUpperCase().equals(FAKEDB.toUpperCase())) {
             try {
                 String actionToken = String.format(ACTION_TOKEN, URLEncoder.encode(token, "UTF-8"));
@@ -123,7 +144,15 @@ public class RequestDB implements ConnectionDBConst{
             } catch (UnsupportedEncodingException e) {
                 new AlertHandler(Alert.AlertType.ERROR, "Ошибка",
                     "Внимание!", "Ошибка формирования запроса");
-                //e.printStackTrace();
+            } catch (IllegalStateException e) {
+                new AlertHandler(Alert.AlertType.ERROR, "Ошибка",
+                    "Внимание!", "Ошибка в полученных данных");
+            } catch (UnsupportedOperationException e) {
+                new AlertHandler(Alert.AlertType.ERROR, "Ошибка",
+                    "Внимание!", "Ошибка разборки данных");
+            } catch (Exception e) {
+                new AlertHandler(Alert.AlertType.ERROR, "Ошибка",
+                    "Внимание!", "Ошибка подключения к базе данных");
             }
         } else {
             new FakeData().getFakeList(list, getList);

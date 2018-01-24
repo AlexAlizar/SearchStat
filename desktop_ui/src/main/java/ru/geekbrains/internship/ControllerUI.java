@@ -17,6 +17,7 @@ public class ControllerUI implements Initializable, ConnectionDBConst {
     private Command exitToMainMenuCommand;
     private Command exitToOSCommand;
     private Command aboutCommand;
+    private Command changePasswordCommand;
 
     @FXML
     private ChoiceBox<String> totalStatisticsSite;
@@ -46,6 +47,8 @@ public class ControllerUI implements Initializable, ConnectionDBConst {
     private PieChart totalStatisticsChart;
     @FXML
     private LineChart<String, Number> dailyStatisticsChart;
+    @FXML
+    private MenuItem userName;
 
     public void setMainApp(StartWindow mainApp) {
         getTotalStatisticsCommand = new GetTotalStatisticsCommand(mainApp, totalStatisticsSite,
@@ -56,22 +59,11 @@ public class ControllerUI implements Initializable, ConnectionDBConst {
         exitToMainMenuCommand = new ExitToMainMenuCommand(mainApp);
         exitToOSCommand = new ExitToOSCommand(mainApp);
         aboutCommand = new AboutCommand(mainApp);
+        changePasswordCommand = new ChangePasswordCommand();
         fillLists(mainApp);
-        totalStatisticsSite.valueProperty().addListener(new ChangeListener<String>() {
-            @Override public void changed(ObservableValue ov, String t, String t1) {
-                getTotalStatisticsCommand.execute();
-            }
-        });
-        dailyStatisticsSite.valueProperty().addListener(new ChangeListener<String>() {
-            @Override public void changed(ObservableValue ov, String t, String t1) {
-                getDailylStatisticsCommand.execute();
-            }
-        });
-        dailyStatisticsName.valueProperty().addListener(new ChangeListener<String>() {
-            @Override public void changed(ObservableValue ov, String t, String t1) {
-                getDailylStatisticsCommand.execute();
-            }
-        });
+        totalStatisticsSite.valueProperty().addListener((ov, t, t1) -> getTotalStatisticsCommand.execute());
+        dailyStatisticsSite.valueProperty().addListener((ov, t, t1) -> getDailylStatisticsCommand.execute());
+        dailyStatisticsName.valueProperty().addListener((ov, t, t1) -> getDailylStatisticsCommand.execute());
     }
 
     public void onActionDailyStatisticsBeginDate() {
@@ -94,6 +86,10 @@ public class ControllerUI implements Initializable, ConnectionDBConst {
         aboutCommand.execute();
     }
 
+    public void onActionChangePassword() {
+        changePasswordCommand.execute();
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         tstColumnName.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
@@ -110,6 +106,7 @@ public class ControllerUI implements Initializable, ConnectionDBConst {
         dailyStatisticsSite.setItems(sites);
         dailyStatisticsName.setItems(mainApp.getRequestDB().getList(mainApp.getDBStringURL(),
                 ACTION_GET_PERSONS, mainApp.getToken()));
+        userName.setText("Пользователь: " + mainApp.getUserName());
     }
 
 }

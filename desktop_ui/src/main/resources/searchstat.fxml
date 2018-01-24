@@ -11,6 +11,7 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
@@ -168,7 +169,10 @@
         <menus>
           <Menu mnemonicParsing="false" text="Главная">
             <items>
+                  <MenuItem fx:id="userName" disable="true" mnemonicParsing="false" text="Пользователь" />
+                  <MenuItem fx:id="changePassword" mnemonicParsing="false" onAction="#onActionChangePassword" text="Сменить пароль" />
               <MenuItem fx:id="exitToMainMenu" mnemonicParsing="false" onAction="#onActionExitToMainMenu" text="Выход в основное меню" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem fx:id="exitToOS" mnemonicParsing="false" onAction="#onActionExitToOS" text="Выход из программы" />
             </items>
           </Menu>

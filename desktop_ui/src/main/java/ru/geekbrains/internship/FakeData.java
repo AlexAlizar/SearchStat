@@ -3,7 +3,7 @@ package ru.geekbrains.internship;
 import javafx.collections.ObservableList;
 import java.time.LocalDate;
 
-public class FakeData implements ConnectionDBConst{
+class FakeData implements ConnectionDBConst{
 
     public void getFakeList(ObservableList<String> list, String getList) {
         if (getList.equals(ACTION_GET_PERSONS)) {

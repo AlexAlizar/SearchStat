@@ -2,7 +2,7 @@ package ru.geekbrains.internship;
 
 import javafx.scene.control.Alert;
 
-public class RestorePasswordCommand implements Command {
+public class ChangePasswordCommand implements Command {
 
     @Override
     public void execute() {

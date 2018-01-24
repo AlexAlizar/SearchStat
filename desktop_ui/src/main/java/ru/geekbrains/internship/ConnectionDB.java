@@ -19,17 +19,30 @@ class ConnectionDB {
 
     public String readDBResult() {
         StringBuilder out = new StringBuilder();
+        BufferedReader in = null;
+        String inputLine;
         try {
-            BufferedReader in = new BufferedReader(new InputStreamReader(dBCon.getInputStream(), "UTF-8"));
-            String inputLine;
-            while ((inputLine = in.readLine()) != null) {
-                out.append(inputLine);
-            }
-            in.close();
+            in = new BufferedReader(new InputStreamReader(dBCon.getInputStream(), "UTF-8"));
         } catch (IOException e) {
             new AlertHandler(Alert.AlertType.ERROR,
                     "Ошибка", "Внимание!", "Ошибка чтения данных из БД");
-            //e.printStackTrace();
+            return "";
+        }
+        try {
+            while ((inputLine = in.readLine()) != null) {
+                out.append(inputLine);
+            }
+        } catch (IOException e) {
+            new AlertHandler(Alert.AlertType.ERROR,
+                    "Ошибка", "Внимание!", "Ошибка ввода-вывода");
+            return "";
+        } finally {
+            try {
+                in.close();
+            } catch (IOException e) {
+                new AlertHandler(Alert.AlertType.ERROR,
+                        "Ошибка", "Внимание!", "Ошибка ввода-вывода");
+            }
         }
         return out.toString();
     }

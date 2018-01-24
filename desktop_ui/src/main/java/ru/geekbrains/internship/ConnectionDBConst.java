@@ -2,7 +2,7 @@ package ru.geekbrains.internship;
 
 interface ConnectionDBConst {
     String DBSTRINGURL = "http://195.110.59.16:8081";
-    String DBSTRINGURLAPI = "/restapi-v2/?";
+    String DBSTRINGURLAPI = "/restapi-v3/?";
     String ACTION_GET_AUTH = "action=auth";
     String ACTION_GET_AUTH_PARAMS = "&login=%s&password=%s";
     String ACTION_GET_TOTALSTATISTICS = "&action=general-statistic";
@@ -13,5 +13,6 @@ interface ConnectionDBConst {
     String ACTION_GET_PERSONS = "&action=get-persons";
     String ACTION_TOKEN = "token=%s";
     String FAKEDB = "demo";
+    String AUTH_FAILED = "{  \"error\": \"Authentication failed\"}";
 
 }

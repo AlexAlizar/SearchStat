@@ -28,7 +28,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="@dimen/activity_vertical_margin"
         android:layout_marginTop="60dp"
-        android:text="General statistics"
+        android:text="@string/general_stat"
         android:textSize="24sp" />
     <Button
         android:id="@+id/button_DS"
@@ -39,7 +39,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="20dp"
-        android:text="Daily statistics"
+        android:text="@string/detail_stat"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="24sp" />
 

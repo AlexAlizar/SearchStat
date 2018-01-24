@@ -178,7 +178,7 @@ public class DailyStatActivity extends AppCompatActivity {
             }
         } else {
             Log.d(TAG, "Подключите интернет");
-            Toast.makeText(this, "Подключите интернет", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.turn_on_internet, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -202,7 +202,7 @@ public class DailyStatActivity extends AppCompatActivity {
                 final CharSequence[] sitesArray = sites.toArray(new String[sites.size()]);
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(DailyStatActivity.this);
-                builder.setTitle("Select a site");
+                builder.setTitle(R.string.select_a_site);
                 builder.setItems(sitesArray, (dialogInterface, i) -> {
                     buttonSelectSite.setText(sitesArray[i]);
                     site = sitesArray[i].toString();
@@ -253,7 +253,7 @@ public class DailyStatActivity extends AppCompatActivity {
             }
         } else {
             Log.d(TAG, "Подключите интернет");
-            Toast.makeText(this, "Подключите интернет", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.turn_on_internet, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -277,7 +277,7 @@ public class DailyStatActivity extends AppCompatActivity {
                 final CharSequence[] sitesArray = persons.toArray(new String[persons.size()]);
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(DailyStatActivity.this);
-                builder.setTitle("Select a person");
+                builder.setTitle(R.string.select_a_person);
                 builder.setItems(sitesArray, (dialogInterface, i) -> {
                     buttonSelectPerson.setText(sitesArray[i]);
                     person = sitesArray[i].toString();
@@ -334,7 +334,7 @@ public class DailyStatActivity extends AppCompatActivity {
             }
         } else {
             Log.d(TAG, "Подключите интернет");
-            Toast.makeText(this, "Подключите интернет", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.turn_on_internet, Toast.LENGTH_SHORT).show();
         }
     }
 

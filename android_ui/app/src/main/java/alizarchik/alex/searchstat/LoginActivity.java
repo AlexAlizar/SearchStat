@@ -97,7 +97,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         } else {
             Log.d(TAG, "Подключите интернет");
-            Toast.makeText(this, "Подключите интернет", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.turn_on_internet, Toast.LENGTH_SHORT).show();
         }
     }
 

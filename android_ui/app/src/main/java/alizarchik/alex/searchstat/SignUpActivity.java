@@ -104,10 +104,10 @@ public class SignUpActivity extends AppCompatActivity{
                 }
             } else {
                 Log.d(TAG, "Подключите интернет");
-                Toast.makeText(this, "Подключите интернет", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.turn_on_internet, Toast.LENGTH_SHORT).show();
             }
         }else {
-            Toast.makeText(this, "Enter the password again", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.enter_password_again, Toast.LENGTH_SHORT).show();
         }
     }
 

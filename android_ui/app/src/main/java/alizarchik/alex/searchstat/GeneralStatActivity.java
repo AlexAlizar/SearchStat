@@ -97,8 +97,8 @@ public class GeneralStatActivity extends AppCompatActivity {
         mRecyclerView.addItemDecoration(divider);
         currentDate = findViewById(R.id.tvCurrentDate);
         Date dateNow = new Date();
-        SimpleDateFormat formatForDateNow = new SimpleDateFormat("E, MMM d, ''yy", Locale.ENGLISH);
-        currentDate.setText("Current date: " + formatForDateNow.format(dateNow));
+        SimpleDateFormat formatForDateNow = new SimpleDateFormat("MMM d, E");
+        currentDate.setText(formatForDateNow.format(dateNow));
     }
 
     @Override
@@ -150,7 +150,7 @@ public class GeneralStatActivity extends AppCompatActivity {
             }
         } else {
             Log.d(TAG, "Подключите интернет");
-            Toast.makeText(this, "Подключите интернет", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.turn_on_internet, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -174,7 +174,7 @@ public class GeneralStatActivity extends AppCompatActivity {
                 final CharSequence[] sitesArray = sites.toArray(new String[sites.size()]);
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(GeneralStatActivity.this);
-                builder.setTitle("Select a site");
+                builder.setTitle(R.string.select_a_site);
                 builder.setItems(sitesArray, (dialogInterface, i) -> {
                     buttonSelectSite.setText(sitesArray[i]);
                     site = sitesArray[i].toString();
@@ -227,7 +227,7 @@ public class GeneralStatActivity extends AppCompatActivity {
             }
         } else {
             Log.d(TAG, "Подключите интернет");
-            Toast.makeText(this, "Подключите интернет", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.turn_on_internet, Toast.LENGTH_SHORT).show();
         }
     }
 

@@ -39,6 +39,7 @@ WHAT'S NEXT
 -----------
 
 Version 0.4 – signing up and login with your own username and password + recover your password
+
 Version 0.5 – Search statistic of anyone’s popularity on different sites
 
 Team

@@ -31,7 +31,7 @@
             android:layout_marginRight="8dp"
             android:layout_marginTop="@dimen/activity_vertical_margin"
             android:layout_weight="1"
-            android:text="Select a site"
+            android:text="@string/select_a_site"
             android:textColor="#000"
             android:textSize="20sp" />
 
@@ -63,9 +63,9 @@
             android:layout_marginLeft="8dp"
             android:layout_weight="1"
             android:background="@drawable/back"
-            android:text="Start date"
+            android:text="@string/start_date"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="20sp" />
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/end_date"
@@ -74,9 +74,9 @@
             android:layout_margin="@dimen/activity_vertical_margin"
             android:layout_weight="1"
             android:background="@drawable/back"
-            android:text="End date"
+            android:text="@string/end_date"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="20sp" />
+            android:textSize="18sp" />
     </LinearLayout>
 
     <Button
@@ -87,10 +87,11 @@
         android:layout_marginBottom="@dimen/activity_vertical_margin"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:text="Show statistic"
+        android:text="@string/show_statistic"
         android:textSize="20sp" />
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:background="@color/colorPrimaryDark"
@@ -98,20 +99,21 @@
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="Date"
-            android:textSize="24sp" />
+            android:text="@string/date"
+            android:layout_margin="4dp"
+            android:textSize="22sp"/>
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
+            android:layout_margin="4dp"
             android:gravity="center"
             android:text="@string/number_of_new_pages"
-            android:textSize="24sp" />
+            android:textSize="22sp" />
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView

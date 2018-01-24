@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">SearchStat</string>
+
+    <string name="password">Пароль</string>
+    <string name="repeat_password">Повторите пароль</string>
+    <string name="login">Войти</string>
+    <string name="username">Имя пользователя</string>
+    <string name="detailed_stat">Ежедневная статистика</string>
+    <string name="general_stat">Общая статистика</string>
+    <string name="detail_stat">Ежедневная статистика</string>
+    <string name="name">Имя</string>
+    <string name="mentions">Упоминания</string>
+    <string name="person">Человек</string>
+    <string name="number_of_new_pages">Кол-во страниц</string>
+    <string name="select_a_person">Выберите человека</string>
+    <string name="graphics">Графики</string>
+    <string name="choose_date">Выберите дату</string>
+    <string name="ready">Готово</string>
+
+    <string-array name="sitelist">
+        <item>Сайт 1</item>
+        <item>Сайт 2</item>
+        <item>Сайт 3</item>
+        <item>Сайт 4</item>
+    </string-array>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="email">Почтовый адрес</string>
+    <string name="date">Дата</string>
+    <string name="select_a_site">Выберите сайт</string>
+    <string name="start_date">Начальная дата</string>
+    <string name="end_date">Конечная дата</string>
+    <string name="current_date">Дата</string>
+    <string name="show_statistic">Показать статистику</string>
+    <string name="sign_up">Зарегистрироваться</string>
+    <string name="turn_on_internet">Подключите интернет</string>
+    <string name="enter_password_again">Введите пароль ещё раз</string>
+
+</resources>

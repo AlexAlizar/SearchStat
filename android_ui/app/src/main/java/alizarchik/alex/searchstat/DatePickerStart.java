@@ -26,8 +26,6 @@ public class DatePickerStart extends DialogFragment implements DatePickerDialog.
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
-        Locale locale = new Locale("en");
-        Locale.setDefault(locale);
         // определяем текущую дату
         final Calendar c = Calendar.getInstance();
         int year = c.get(Calendar.YEAR);

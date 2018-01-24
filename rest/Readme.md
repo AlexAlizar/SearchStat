@@ -1,10 +1,10 @@
 Current version:
 
-REST API v3.0
+REST API v4.0
 URL:
-  http://searchstat.cf:8081/restapi-v3/?
+  http://searchstat.cf:8081/restapi-v4/?
   или по IP адресу
-  http://195.110.59.16:8081/restapi-v3/?
+  http://195.110.59.16:8081/restapi-v4/?
 Метод: GET
 Ответ: "application/json; charset=utf-8"
 
@@ -17,7 +17,7 @@ URL:
 Работа с сервисом:
 action == auth
 - Запрос:
-http://195.110.59.16:8081/restapi-v3/?action=auth&login=admin&password=admin
+http://195.110.59.16:8081/restapi-v4/?action=auth&login=admin&password=admin
 - Ответ:
 "9876543210"
 - Дополнительно:
@@ -26,7 +26,7 @@ http://195.110.59.16:8081/restapi-v3/?action=auth&login=admin&password=admin
 
 action == general-statistic
 - Запрос:
-http://195.110.59.16:8081/restapi-v3/?token=9876543210&action=general-statistic&site=lenta.ru
+http://195.110.59.16:8081/restapi-v4/?token=9876543210&action=general-statistic&site=lenta.ru
 - Параметры:
 --site - Обязательный. Поле "name" из таблицы БД "sites"
 - Пример ответа:
@@ -47,7 +47,7 @@ http://195.110.59.16:8081/restapi-v3/?token=9876543210&action=general-statistic&
 
 action == daily-statistic
 - Запрос:
-http://195.110.59.16:8081/restapi-v3/?token=9876543210&action=daily-statistic&person=Путин&date1=2017-12-29&date2=2017-12-30&site=meduza.io
+http://195.110.59.16:8081/restapi-v4/?token=9876543210&action=daily-statistic&person=Путин&date1=2017-12-29&date2=2017-12-30&site=meduza.io
 - Параметры:
 -- person - Обязательный. Поле "name" из таблицы БД "persons"
 -- date1 - Обязательный. Начальная дата периода выборки
@@ -67,7 +67,7 @@ http://195.110.59.16:8081/restapi-v3/?token=9876543210&action=daily-statistic&pe
 
 action == get-persons
 - Запрос:
-http://195.110.59.16:8081/restapi-v3/?token=9876543210&action=get-persons
+http://195.110.59.16:8081/restapi-v4/?token=9876543210&action=get-persons
 - Ответ:
 [
   {
@@ -87,35 +87,35 @@ http://195.110.59.16:8081/restapi-v3/?token=9876543210&action=get-persons
 
 action == add-person
 - Запрос:
-http://195.110.59.16:8081/restapi-v3/?token=9876543210&action=add-person&name=Somebody
+http://195.110.59.16:8081/restapi-v4/?token=9876543210&action=add-person&name=Somebody
 - Параметры:
 -- name - Обязательный.
 
 action == remove-person
 - Запрос:
-http://195.110.59.16:8081/restapi-v3/?token=9876543210&action=remove-person&id=13
+http://195.110.59.16:8081/restapi-v4/?token=9876543210&action=remove-person&id=13
 - Параметры:
 -- id - Обязательный. Поле "id" из таблицы БД "persons"
 
 action == get-sites
 - Запрос:
-http://195.110.59.16:8081/restapi-v3/?token=9876543210&action=get-sites
+http://195.110.59.16:8081/restapi-v4/?token=9876543210&action=get-sites
 
 action == add-site
 - Запрос:
-http://195.110.59.16:8081/restapi-v3/?token=9876543210&action=add-site&name=blahblah.ru
+http://195.110.59.16:8081/restapi-v4/?token=9876543210&action=add-site&name=blahblah.ru
 - Параметры:
 -- name - Обязательный.
 
 action == remove-site
 - Запрос:
-http://195.110.59.16:8081/restapi-v3/?token=9876543210&action=remove-site&id=3
+http://195.110.59.16:8081/restapi-v4/?token=9876543210&action=remove-site&id=3
 - Параметры:
 -- id - Обязательный. Поле "id" из таблицы БД "sites"
 
 action == get-keywords
 - Запрос:
-http://195.110.59.16:8081/restapi-v3/?token=9876543210&action=get-keywords
+http://195.110.59.16:8081/restapi-v4/?token=9876543210&action=get-keywords
 
 action == add-keyword
 - Запрос:
@@ -132,11 +132,11 @@ http://195.110.59.16:8081/rest-v2/?token=1&action=remove-keyword&id=2
 
 action == get-users
 - Запрос:
-http://195.110.59.16:8081/restapi-v3/?token=9876543210&action=get-users
+http://195.110.59.16:8081/restapi-v4/?token=9876543210&action=get-users
 
 action == add-user
 - Запрос:
-http://195.110.59.16:8081/restapi-v3/?token=9876543210&action=add-user&login=test&password=test&email=test@test.ru&role=user
+http://195.110.59.16:8081/restapi-v4/?token=9876543210&action=add-user&login=test&password=test&email=test@test.ru&role=user
 - Параметры:
 -- login - Обязательный. Уникальный
 -- password - Обязательный.
@@ -145,7 +145,7 @@ http://195.110.59.16:8081/restapi-v3/?token=9876543210&action=add-user&login=tes
 
 action == delete-user
 - Запрос:
-http://195.110.59.16:8081/restapi-v3/?token=9876543210&action=delete-user&id=9
+http://195.110.59.16:8081/restapi-v4/?token=9876543210&action=delete-user&id=9
 - Параметры:
 -- id - Обязательный. Поле "id" из таблицы БД "users"
 
@@ -153,8 +153,17 @@ http://195.110.59.16:8081/restapi-v3/?token=9876543210&action=delete-user&id=9
 --Ответ: 
   { "error" : "Описание ошибки"}
   
+  action == passreset
+- Запрос:
+http://195.110.59.16:8081/restapi-v4/?action=passreset&login=user
+- Параметры:
+-- login - Обязательный. Поле "login" из таблицы БД "users"
+
+-Обработка ошибок:
+--Ответ: 
+  { "error" : "Описание ошибки"}
+  
 What`s new:
-Добавлены команды для работы с пользователями:
-"get-users",
-"add-user",
-"delete-user"
+Добавлена команда для восстановления пароля:
+action == passreset
+http://195.110.59.16:8081/restapi-v4/?action=passreset&login=user

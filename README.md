@@ -9,11 +9,9 @@ SearchStat reached version 0.3
 INSTALLATION
 ------------
 
-SearchStat has program components for:
--WEB
--IOS
--Desktop
--Android
+SearchStat has program components for: WEB, IOS, Desktop, Android
+
+Hiden components that were used: crauler, web-service, MySQL database.
 
 REQUIREMENTS
 ------------

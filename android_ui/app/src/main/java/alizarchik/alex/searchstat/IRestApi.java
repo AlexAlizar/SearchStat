@@ -7,8 +7,12 @@ import alizarchik.alex.searchstat.model.DailyStatisticsModel;
 import alizarchik.alex.searchstat.model.GenStatDataItem;
 import alizarchik.alex.searchstat.model.Person;
 import alizarchik.alex.searchstat.model.Site;
+import alizarchik.alex.searchstat.model.User;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Query;
 
 /**
@@ -49,5 +53,8 @@ public interface IRestApi {
                                                                String date2,
                                                        @Query(value = "site", encoded = true)
                                                                String site);
+
+    @POST("?action=add-user")
+    Call<User> createUser(@Body User user);
 }
 

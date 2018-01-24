@@ -40,6 +40,45 @@ public class RestActions {
     private ArrayList<String> adminActionsL = new ArrayList<String>(Arrays.asList(adminActions));
     private ArrayList<String> userActionsL = new ArrayList<String>(Arrays.asList(userActions));
 
+    public Object registrationActionExecute(HttpServletRequest request, boolean directRegistration) {
+        String result = db.prepareDB("mySQL");
+        if (result.equals("DB is ready.")) {
+            String login = request.getParameter("login");
+            String password = request.getParameter("password");
+            String email = request.getParameter("email");
+            String role = null;
+            if (directRegistration) {
+                role = "user";
+            } else {
+                role = request.getParameter("role");
+            }
+            if (!com.mysql.jdbc.StringUtils.isNullOrEmpty(login)
+                    && !com.mysql.jdbc.StringUtils.isNullOrEmpty(password)
+                    && !com.mysql.jdbc.StringUtils.isNullOrEmpty(email)
+                    && !com.mysql.jdbc.StringUtils.isNullOrEmpty(role)) {
+                return addUser(login, password, email, role);
+            } else {
+                RestMessages.constructMessage(new RestMessages.Error("Not enough parameters"));
+                return "Not enough parameters";
+            }
+        } else {
+            return result;
+        }
+    }
+
+    private String addUser(String login, String password, String email, String role) {
+        try {
+            String dbExecuteResult = db.executeDBQueryUpdate(
+                        "INSERT INTO `users` (`id`, `login`, `password`, `email`, `role`) " +
+                                "VALUES (NULL, '" + login + "', '" + password + "', '" + email + "', '" + role + "')");
+            RestMessages.constructMessage(dbExecuteResult);
+            return dbExecuteResult;
+        } catch (Exception e) {
+            RestMessages.constructMessage(new RestMessages.Error(e.toString()));
+            return e.toString();
+        }
+
+    }
 
     public Object adminActionExecute(String action, HttpServletRequest request) {
 
@@ -255,29 +294,7 @@ public class RestActions {
                             return e.toString();
                         }
                     case "add-user":
-                        try {
-                            String login = request.getParameter("login");
-                            String password = request.getParameter("password");
-                            String email = request.getParameter("email");
-                            String role = request.getParameter("role");
-
-                            if (!com.mysql.jdbc.StringUtils.isNullOrEmpty(login)
-                                && !com.mysql.jdbc.StringUtils.isNullOrEmpty(password)
-                                && !com.mysql.jdbc.StringUtils.isNullOrEmpty(email)
-                                && !com.mysql.jdbc.StringUtils.isNullOrEmpty(role)) {
-                                String dbExecuteResult = db.executeDBQueryUpdate(
-                                        "INSERT INTO `users` (`id`, `login`, `password`, `email`, `role`) " +
-                                                "VALUES (NULL, '" + login + "', '" + password + "', '" + email + "', '" + role + "')");
-//                                RestMessages.constructMessage(dbExecuteResult);
-                                return result;
-                            } else {
-                                RestMessages.constructMessage(new RestMessages.Error("Not enough parameters"));
-                                return "Not enough parameters";
-                            }
-                        } catch (Exception e) {
-                            RestMessages.constructMessage(new RestMessages.Error(e.toString()));
-                            return e.toString();
-                        }
+                        registrationActionExecute(request, false);
                     case "edit-user":
                         try {
 

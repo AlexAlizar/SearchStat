@@ -25,6 +25,13 @@ public class RESTAPI extends HttpServlet {
         String rAction = request.getParameter("action");
         String authAction = "auth";
 
+        if (rAction.equals("registration")) {
+            Object directRegistration = new RestActions().registrationActionExecute(request, true);
+//            RestMessages.constructMessage("Direct registration - successful!");
+            out.println(RestMessages.outputJSONMessage);
+            return;
+        }
+
         if ((rToken != null) || (rAction != null)) {
 //            out.println("Debug: Token or Action exist");
             if (rAction != null) {

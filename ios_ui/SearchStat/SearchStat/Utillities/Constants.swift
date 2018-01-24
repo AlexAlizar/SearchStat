@@ -49,6 +49,7 @@ let TO_LOGIN = "toLogin"
 let UNWIND = "unwindToMenu"
 let TO_DETAIL_CHART = "toDetailChart"
 let TO_SOURCE = "toSourceVC"
+let TO_FIRST_VC = "backToFirstScreen"
 
 //let TO_CREATE_ACCOUNT = "toCreateAccount"
 //let TO_AVATAR_PICKER = "toAvatarPicker"

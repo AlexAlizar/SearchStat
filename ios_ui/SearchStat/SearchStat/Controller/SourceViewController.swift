@@ -27,8 +27,14 @@ class SourceViewController: UIViewController, UITableViewDelegate, UITableViewDa
         MainService.instance.delegate = self
         
 //        self.initVC()
+        NotificationCenter.default.addObserver(self, selector: #selector(SourceViewController.userDataDidChanged(_:)), name: NOTIF_USER_DID_CHANGED, object: nil)
         
     }
+    @objc func userDataDidChanged(_ notif: Notification) {
+        
+        self.performSegue(withIdentifier: TO_FIRST_VC, sender: nil)
+    }
+    
     //MARK: Delegate method from MainService
     internal func initCompleated() {
         

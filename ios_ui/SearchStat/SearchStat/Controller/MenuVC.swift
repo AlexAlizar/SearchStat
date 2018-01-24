@@ -20,10 +20,11 @@ class MenuVC: UIViewController {
     @IBAction func exitBtnPressed(_ sender: Any) {
         if AuthService.instance.isLoggedin {
             UserDataService.instance.logoutUser()
-            loginBtn.setTitle("Login", for: .normal)
-            menuBtn.isHidden = true
-            exitBtn.isHidden = true
-            myAccountBtn.isHidden = true
+            NotificationCenter.default.post(name: NOTIF_USER_DID_CHANGED, object: nil)
+//            loginBtn.setTitle("Login", for: .normal)
+//            menuBtn.isHidden = true
+//            exitBtn.isHidden = true
+//            myAccountBtn.isHidden = true
 //            settingBtn.isHidden = true
         }
     }
@@ -61,7 +62,7 @@ class MenuVC: UIViewController {
         if AuthService.instance.isLoggedin {
             DispatchQueue.main.async {
                 self.loginBtn.setTitle(UserDataService.instance.name, for: .normal)
-                self.menuBtn.isHidden = false
+//                self.menuBtn.isHidden = false
                 self.exitBtn.isHidden = false
 //                self.settingBtn.isHidden = false
                 self.performSegue(withIdentifier: TO_SOURCE, sender: nil)
@@ -70,7 +71,7 @@ class MenuVC: UIViewController {
         } else {
             DispatchQueue.main.async {
                 self.loginBtn.setTitle("Login", for: .normal)
-                self.menuBtn.isHidden = true
+//                self.menuBtn.isHidden = true
                 self.exitBtn.isHidden = true
                 self.myAccountBtn.isHidden = true
 //                self.settingBtn.isHidden = true

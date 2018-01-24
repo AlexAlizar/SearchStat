@@ -127,7 +127,7 @@
                                     <constraint firstAttribute="height" constant="50" id="NhF-CF-c4S"/>
                                     <constraint firstAttribute="width" constant="245" id="dEb-3c-Gve"/>
                                 </constraints>
-                                <state key="normal" title="Выйти">
+                                <state key="normal" title="Log Out">
                                     <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
@@ -415,7 +415,7 @@
                                             <action selector="logInBtn:" destination="DZq-Vl-2OD" eventType="touchUpInside" id="sV6-2U-Xno"/>
                                         </connections>
                                     </button>
-                                    <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="email" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="w1I-cv-74D">
+                                    <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="user name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="w1I-cv-74D">
                                         <rect key="frame" x="65" y="337" width="245" height="30"/>
                                         <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
@@ -447,7 +447,7 @@
                                             <segue destination="LEH-mq-CP1" kind="presentation" id="lnb-RR-QR7"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kMC-aS-V2H">
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kMC-aS-V2H">
                                         <rect key="frame" x="224" y="415" width="86" height="24"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="86" id="dIG-d6-A7b"/>
@@ -610,6 +610,7 @@
                     <connections>
                         <outlet property="menuBtn" destination="u8k-wi-gy0" id="gkL-fY-Xi5"/>
                         <outlet property="sourceTableView" destination="CjO-DA-LgG" id="Cv5-fO-bfS"/>
+                        <segue destination="Qtw-Kz-bvB" kind="custom" identifier="backToFirstScreen" customClass="SWRevealViewControllerSeguePushController" id="CMc-o3-Wb1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3LO-Hv-la3" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1193,4 +1194,7 @@
         <image name="photo icon" width="141" height="141"/>
         <image name="Иконка график" width="27" height="27"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="CMc-o3-Wb1"/>
+    </inferredMetricsTieBreakers>
 </document>

@@ -11,20 +11,32 @@ import UIKit
 class LogInViewController: UIViewController, UITextFieldDelegate{
     
     
-    
+    @IBOutlet weak var loginScrollView: UIScrollView!
+    @IBOutlet weak var scrollViewConst: NSLayoutConstraint!
     @IBOutlet weak var emailTextField: CustomTextField!
     @IBOutlet weak var passwordTextField: CustomTextField!
     
     @IBAction func restorePasswordBtn(_ sender: UIButton) {
     }
-    @IBOutlet weak var loginScrollView: UIScrollView!
     
-    @IBOutlet weak var scrollViewConst: NSLayoutConstraint!
     @IBAction func logInBtn(_ sender: CustomButton) {
+        
+        authorization()
+    }
+        
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        setupView()
+        emailTextField.delegate = self
+        passwordTextField.delegate = self
+    }
+    
+    func authorization() {
         //authorization...
         guard let user = emailTextField.text , emailTextField.text != "" else { return }
         guard let pass = passwordTextField.text, passwordTextField.text != "" else { return }
-                
+        
         AuthService.instance.loginUser(user: user, password: pass) { (success) in
             if success {
                 UserDataService.instance.setUserData(name: AuthService.instance.userName)
@@ -37,38 +49,38 @@ class LogInViewController: UIViewController, UITextFieldDelegate{
             }
         }
     }
-        
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setupView()
-        self.emailTextField.delegate = self
-        self.passwordTextField.delegate = self
-    }
     
     func setupView() {
-        let tap = UITapGestureRecognizer(target: self, action: #selector(RegistrationViewController.handleTap))
-        view.addGestureRecognizer(tap)
         
-        //??
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapView(gesture:)))
-        view.addGestureRecognizer(tapGesture)
+        let tap = UITapGestureRecognizer(target: self, action: #selector(RegistrationViewController.handleTap))
+            view.addGestureRecognizer(tap)
+        
+//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapView(gesture:)))
+//        view.addGestureRecognizer(tapGesture)
     }
-    
+
     @objc func handleTap() {
+        
         view.endEditing(true)
     }
     
     //MARK: Text field delegate for Done button on keyboard
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        passwordTextField.resignFirstResponder()
-        // CODE
-        print("Done tapped")
+        
+        if textField == emailTextField {
+            textField.resignFirstResponder()
+            passwordTextField.becomeFirstResponder()
+        } else if textField == passwordTextField {
+            textField.resignFirstResponder()
+            authorization()
+        }
         return true
     }
+}
 
+//MARK: For scrolling when typing begin
+extension LogInViewController {
     
-    //MARK: For scrolling when typing begin
-    //============
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         addObservers()
@@ -79,10 +91,10 @@ class LogInViewController: UIViewController, UITextFieldDelegate{
         removeObservers()
     }
     
-    @objc func didTapView(gesture: UITapGestureRecognizer) {
-        view.endEditing(true)
-    }
-    
+//    @objc func didTapView(gesture: UITapGestureRecognizer) {
+//        view.endEditing(true)
+//    }
+
     func addObservers() {
         NotificationCenter.default.addObserver(forName: .UIKeyboardWillShow, object: nil, queue: nil) { notification in
             self.keyboardWillShow(notification: notification)
@@ -91,7 +103,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate{
             self.keyboardWillHide(notification: notification)
         }
     }
-
+    
     func removeObservers() {
         NotificationCenter.default.removeObserver(self)
     }
@@ -101,18 +113,17 @@ class LogInViewController: UIViewController, UITextFieldDelegate{
             let frame = (userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
             let contentInset = UIEdgeInsets(top: 0, left: 0, bottom: frame.height  , right: 0)
             loginScrollView.contentInset = contentInset
-            scrollViewConst.constant = -160
-        UIScrollView.animate(withDuration: 0.3) {
-            self.view.layoutIfNeeded()
+            scrollViewConst.constant = -100
+            UIScrollView.animate(withDuration: 0.3) {
+                self.view.layoutIfNeeded()
         }
     }
     
     func keyboardWillHide(notification: Notification) {
         loginScrollView.contentInset = UIEdgeInsets.zero
         scrollViewConst.constant = 0
-        UIScrollView.animate(withDuration: 0.2) {
+        UIScrollView.animate(withDuration: 0.3) {
             self.view.layoutIfNeeded()
         }
     }
-    //===============
 }

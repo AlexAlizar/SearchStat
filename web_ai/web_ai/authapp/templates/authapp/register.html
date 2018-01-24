@@ -1,13 +1,36 @@
-{% extends 'authapp/base.html' %}
-{% load staticfiles %}
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../../../favicon.ico">
 
+    <title>Регистрация</title>
 
-{% block content %}
-    <form class="form-horizontal" action="{% url 'auth:register' %}" method="post" enctype="multipart/form-data">
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{% static 'css/register.css'%}" rel="stylesheet">
+</head>
+
+<body class="text-center">
+    <form class="form-signin" method="post">
         {% csrf_token %}
-        {{ register_form.as_p }}
+        <a href="/"><img class="mb-4" src="{% static 'img/logo.png' %}" alt="" width="300" height=""></a>
+        <h1 class="h3 mb-3 font-weight-normal">Регистрация</h1>
+        {% for field in register_form %}
+            <label class="sr-only" for="{{ field.name }}">{{ field.label }}</label>
+            {{ field }}
+        {% endfor %}
         <br>
-        <input class="form-control" type="submit" value="Зарегестрироваться">
-    </form>
+        <input class="btn btn-lg btn-primary btn-block" type="submit" value="Зарегистрироваться">
+        <p class="mt-5 mb-3 text-muted">&copy;SearchStat team  2017-2018</p>
+</form>
+</body>
+</html>
 
-{% endblock %}
+

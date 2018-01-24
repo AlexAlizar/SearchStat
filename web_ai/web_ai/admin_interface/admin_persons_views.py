@@ -24,7 +24,8 @@ def persons_edit(request):
     PersonsModelFormset = modelformset_factory(Persons,
                                                PersonsManageForm,
                                                can_delete=True,
-                                               extra=extra_fields)
+                                               extra=extra_fields,
+                                               exclude=('user',),)
     if request.method == 'POST':
         formset = PersonsModelFormset(request.POST)
         if formset.is_valid():

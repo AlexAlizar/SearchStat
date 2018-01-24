@@ -53,4 +53,35 @@ class KeywordsAddForm(forms.Form):
 class UserAdminEditForm(UserChangeForm):
     class Meta:
         model = Users
-        exclude = ('last_login_date', 'last_login', 'username' ,'token')
+        exclude = ('last_login_date', 'last_login', 'username', 'token')
+
+
+class AdminPasswordChangeForm(forms.Form):
+
+    error_messages = {
+        'password_mismatch': "The two password fields didn't match.",
+    }
+    password1 = forms.CharField(label="Пароль",
+                                widget=forms.PasswordInput)
+    password2 = forms.CharField(label="Повторите пароль",
+                                widget=forms.PasswordInput)
+
+    def __init__(self, user, *args, **kwargs):
+        self.user = user
+        super(AdminPasswordChangeForm, self).__init__(*args, **kwargs)
+
+    def clean_password2(self):
+        password1 = self.cleaned_data.get('password1')
+        password2 = self.cleaned_data.get('password2')
+        if password1 and password2:
+            if password1 != password2:
+                raise forms.ValidationError(
+                    self.error_messages['password_mismatch'])
+        return password2
+
+    def save(self, commit=True):
+
+        self.user.set_password(self.cleaned_data["password1"])
+        if commit:
+            self.user.save()
+        return self.user

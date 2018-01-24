@@ -5,7 +5,7 @@
 
     <div class="col-sm-6">
         <br>
-        <a  class="btn btn-primary" href="{% url 'ai:user_create' %}">новый пользователь</a>
+        <a  class="btn btn-dark" href="{% url 'ai:user_create' %}">новый пользователь</a>
 
         {% for object in objects %}
             <hr>
@@ -13,7 +13,7 @@
                 <div class="card-header">
                     <span class="card-text {% if not object.is_active %}not_active{% endif %}">Статус: {{ object.role }}</span>
                     <div class="btn-group float-sm-right">
-                        <a class="btn btn-primary" href="{% url 'ai:user_update' object.pk %}">редактировать</a>
+                        <a class="btn btn-dark" href="{% url 'ai:user_update' object.pk %}">редактировать</a>
                         <a class="btn btn-danger" href="{% url 'ai:user_delete' object.pk %}">удалить</a>
                     </div>
                 </div>

@@ -44,6 +44,10 @@ class Users(AbstractBaseUser):
     def __str__(self):
         return str(self.login)
 
+    def set_password(self, raw_password):
+        self.password = raw_password
+
+
 
 class Persons(models.Model):
     name = models.CharField(max_length=2048, blank=True, null=True)

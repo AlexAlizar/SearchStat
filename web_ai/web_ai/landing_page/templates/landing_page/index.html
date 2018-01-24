@@ -44,7 +44,8 @@
                         </p> <span onclick="modalWindow.showWinForgotPass()" id="forgotPass">Восстановить пароль</span>
                     </fieldset>
                     <input type="submit" value="Войти" id="login" class="button">
-                    <input type="button" value="Регистрация" id="registration" class="button" onclick="modalWindow.showWinReg()">
+                    <a style="text-decoration: none; font-weight: bold; color: whitesmoke; font-size: large" href="{% url 'auth:register' %}">Регистрация</a>
+                    <!-- <input type="button" value="Регистрация" id="registration" class="button" onclick="modalWindow.showWinReg()"> -->
                 </form>
             {% else %}
                 <br>

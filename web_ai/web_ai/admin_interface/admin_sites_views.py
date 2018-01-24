@@ -30,7 +30,8 @@ def sites_edit(request):
                                              can_delete=True,
                                              extra=extra_fields,
                                              validate_min=1,
-                                             min_num=1
+                                             min_num=1,
+                                             exclude=('user',),
                                              )
     if request.method == 'POST':
         formset = SitesModelFormset(request.POST)

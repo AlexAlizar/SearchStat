@@ -1,11 +1,11 @@
 from django.shortcuts import get_list_or_404, render, HttpResponse
 from .models import Sites, Pages
 from django.db.models import Count
-from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth.decorators import user_passes_test, login_required
 import csv
 
 
-@user_passes_test(lambda user: user.role == 'admin', login_url='/auth/login')
+@login_required(login_url='/')
 def statistic(request):
     sites = get_list_or_404(Sites.objects.all())
     agg_pages = Pages.objects.values('site__name').annotate(agg=Count('url'))

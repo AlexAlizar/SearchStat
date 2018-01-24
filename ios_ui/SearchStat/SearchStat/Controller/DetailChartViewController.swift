@@ -109,6 +109,7 @@ class DetailChartViewController: UIViewController {
         
         let pieChartData = PieChartData(dataSets: [pieChartDataSet])
         pieChartView.data = pieChartData
+        pieChartView.animate(xAxisDuration: 2.0, yAxisDuration: 2.0)
         pieChartView.holeColor = UIColor.clear
        
 
@@ -132,6 +133,7 @@ class DetailChartViewController: UIViewController {
         let barChartDataSet = BarChartDataSet(values: dataBarEntry, label: "")
         let barChartData = BarChartData(dataSets: [barChartDataSet])
         barChartView.data = barChartData
+        barChartView.animate(xAxisDuration: 2.0, yAxisDuration: 2.0)
         barChartView.xAxis.labelPosition = .bottom
         barChartView.xAxis.valueFormatter =  IndexAxisValueFormatter(values: namesArray)
 //        barChartView.xAxis.valueFormatter = IndexAxisValueFormatter(values: personArray.enumerated().map {index, element in return element.name})

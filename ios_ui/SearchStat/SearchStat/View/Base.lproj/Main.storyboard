@@ -41,6 +41,8 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G5c-yw-g25">
                                 <rect key="frame" x="116" y="249" width="143" height="169"/>
                                 <constraints>
+                                    <constraint firstAttribute="height" constant="169" id="ajj-vT-o9A"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="143" id="ky7-Dr-ClN"/>
                                     <constraint firstAttribute="width" constant="143" id="yml-JF-s1o"/>
                                 </constraints>
                                 <state key="normal" image="Logo"/>
@@ -58,7 +60,9 @@
                             <constraint firstItem="G5c-yw-g25" firstAttribute="leading" secondItem="t4Y-xm-MDO" secondAttribute="leading" constant="116" id="70H-P1-YYB"/>
                             <constraint firstItem="t4Y-xm-MDO" firstAttribute="trailing" secondItem="xcI-rj-vA4" secondAttribute="trailing" constant="166" id="CE4-Ir-Rcy"/>
                             <constraint firstItem="G5c-yw-g25" firstAttribute="top" secondItem="t4Y-xm-MDO" secondAttribute="top" constant="229" id="HlK-Sz-CYe"/>
+                            <constraint firstItem="xcI-rj-vA4" firstAttribute="centerX" secondItem="IQq-Od-udS" secondAttribute="centerX" id="avP-RY-8R7"/>
                             <constraint firstItem="t4Y-xm-MDO" firstAttribute="bottom" secondItem="xcI-rj-vA4" secondAttribute="bottom" constant="176" id="ha6-Wq-VEG"/>
+                            <constraint firstItem="G5c-yw-g25" firstAttribute="centerX" secondItem="IQq-Od-udS" secondAttribute="centerX" id="nXE-fV-LJY"/>
                             <constraint firstItem="xcI-rj-vA4" firstAttribute="top" secondItem="G5c-yw-g25" secondAttribute="bottom" constant="22" id="oM5-8j-KoW"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="t4Y-xm-MDO"/>
@@ -638,12 +642,14 @@
                             </subviews>
                             <constraints>
                                 <constraint firstItem="2vL-3z-eps" firstAttribute="leading" secondItem="aQC-J1-SB8" secondAttribute="leading" id="8Kn-Ab-dAt"/>
+                                <constraint firstItem="f56-6W-vzK" firstAttribute="top" secondItem="aQC-J1-SB8" secondAttribute="top" constant="35" id="8cH-2E-TQo"/>
                                 <constraint firstAttribute="trailing" secondItem="f56-6W-vzK" secondAttribute="trailing" constant="283" id="AaZ-eX-OTo"/>
                                 <constraint firstAttribute="bottom" secondItem="2vL-3z-eps" secondAttribute="bottom" id="Bar-Pa-WMo"/>
                                 <constraint firstAttribute="trailing" secondItem="urR-iI-LC1" secondAttribute="trailing" id="J8r-OK-EQM"/>
                                 <constraint firstAttribute="trailing" secondItem="2vL-3z-eps" secondAttribute="trailing" id="K1E-ZB-jls"/>
                                 <constraint firstItem="urR-iI-LC1" firstAttribute="top" secondItem="f56-6W-vzK" secondAttribute="bottom" constant="33" id="O3R-XG-Du6"/>
                                 <constraint firstItem="f56-6W-vzK" firstAttribute="leading" secondItem="aQC-J1-SB8" secondAttribute="leading" constant="16" id="UOj-rK-FMh"/>
+                                <constraint firstItem="f56-6W-vzK" firstAttribute="leading" secondItem="aQC-J1-SB8" secondAttribute="leading" constant="16" id="ZSS-O4-IfY"/>
                                 <constraint firstItem="2vL-3z-eps" firstAttribute="top" secondItem="urR-iI-LC1" secondAttribute="bottom" constant="15" id="bbt-Ot-Wo5"/>
                                 <constraint firstItem="f56-6W-vzK" firstAttribute="top" secondItem="aQC-J1-SB8" secondAttribute="top" constant="35" id="bpU-L9-HeR"/>
                                 <constraint firstItem="2vL-3z-eps" firstAttribute="top" secondItem="urR-iI-LC1" secondAttribute="bottom" constant="15" id="cJd-iN-eGM"/>
@@ -667,44 +673,50 @@
         <scene sceneID="EMW-fd-Ve0">
             <objects>
                 <viewController id="szv-fr-ZNd" customClass="DetailChartViewController" customModule="SearchStat" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="VqI-PP-fxD">
+                    <visualEffectView key="view" opaque="NO" contentMode="scaleToFill" id="DI0-Sn-gFC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TzX-1M-4ew" customClass="PieChartView" customModule="Charts">
-                                <rect key="frame" x="0.0" y="91" width="375" height="243"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FeD-MH-QdH" customClass="BarChartView" customModule="Charts">
-                                <rect key="frame" x="0.0" y="349" width="375" height="318"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </view>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fca-m6-B5J">
-                                <rect key="frame" x="16" y="35" width="76" height="23"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <connections>
-                                    <action selector="backBtnPressed:" destination="szv-fr-ZNd" eventType="touchUpInside" id="Jqa-yo-vsr"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="FeD-MH-QdH" firstAttribute="bottom" secondItem="fXo-qA-aWu" secondAttribute="bottom" id="1IO-wv-Hgx"/>
-                            <constraint firstItem="FeD-MH-QdH" firstAttribute="top" secondItem="VqI-PP-fxD" secondAttribute="top" constant="349" id="3Yl-ss-Iyx"/>
-                            <constraint firstItem="FeD-MH-QdH" firstAttribute="leading" secondItem="fXo-qA-aWu" secondAttribute="leading" id="Qzz-6Q-ixl"/>
-                            <constraint firstItem="FeD-MH-QdH" firstAttribute="leading" secondItem="TzX-1M-4ew" secondAttribute="leading" id="TRt-bb-E9g"/>
-                            <constraint firstItem="TzX-1M-4ew" firstAttribute="trailing" secondItem="fXo-qA-aWu" secondAttribute="trailing" id="Yb4-Eh-F41"/>
-                            <constraint firstItem="FeD-MH-QdH" firstAttribute="top" secondItem="TzX-1M-4ew" secondAttribute="bottom" constant="15" id="Z2k-p9-aFW"/>
-                            <constraint firstItem="FeD-MH-QdH" firstAttribute="top" secondItem="TzX-1M-4ew" secondAttribute="bottom" constant="15" id="g30-IE-nGR"/>
-                            <constraint firstItem="FeD-MH-QdH" firstAttribute="top" secondItem="TzX-1M-4ew" secondAttribute="bottom" constant="15" id="iYu-Ls-ihD"/>
-                            <constraint firstItem="FeD-MH-QdH" firstAttribute="trailing" secondItem="fXo-qA-aWu" secondAttribute="trailing" id="kaS-fX-og3"/>
-                            <constraint firstItem="TzX-1M-4ew" firstAttribute="top" secondItem="fXo-qA-aWu" secondAttribute="top" constant="71" id="nFG-VF-WCz"/>
-                            <constraint firstItem="FeD-MH-QdH" firstAttribute="trailing" secondItem="TzX-1M-4ew" secondAttribute="trailing" id="oAw-Y4-CmC"/>
-                            <constraint firstItem="TzX-1M-4ew" firstAttribute="leading" secondItem="fXo-qA-aWu" secondAttribute="leading" id="seh-6t-Myj"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="fXo-qA-aWu"/>
-                    </view>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="YQZ-Y9-pi3">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TzX-1M-4ew" customClass="PieChartView" customModule="Charts">
+                                    <rect key="frame" x="0.0" y="91" width="375" height="243"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </view>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FeD-MH-QdH" customClass="BarChartView" customModule="Charts">
+                                    <rect key="frame" x="0.0" y="349" width="375" height="318"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </view>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fca-m6-B5J">
+                                    <rect key="frame" x="16" y="35" width="73" height="26"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="73" id="65n-5S-ddt"/>
+                                        <constraint firstAttribute="height" constant="26" id="c7F-MQ-Unf"/>
+                                    </constraints>
+                                    <state key="normal" title="Button" image="Back Button"/>
+                                    <connections>
+                                        <action selector="backBtnPressed:" destination="szv-fr-ZNd" eventType="touchUpInside" id="Jqa-yo-vsr"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="trailing" secondItem="FeD-MH-QdH" secondAttribute="trailing" id="EmG-Kg-Y3A"/>
+                                <constraint firstItem="FeD-MH-QdH" firstAttribute="leading" secondItem="YQZ-Y9-pi3" secondAttribute="leading" id="WNY-Yl-FvD"/>
+                                <constraint firstAttribute="bottom" secondItem="FeD-MH-QdH" secondAttribute="bottom" id="Wdl-eN-0hg"/>
+                                <constraint firstItem="fca-m6-B5J" firstAttribute="top" secondItem="YQZ-Y9-pi3" secondAttribute="top" constant="35" id="a10-Ag-YtH"/>
+                                <constraint firstItem="FeD-MH-QdH" firstAttribute="top" secondItem="TzX-1M-4ew" secondAttribute="bottom" constant="15" id="a4Y-k1-v9z"/>
+                                <constraint firstItem="TzX-1M-4ew" firstAttribute="leading" secondItem="YQZ-Y9-pi3" secondAttribute="leading" id="gQw-F5-WcR"/>
+                                <constraint firstItem="FeD-MH-QdH" firstAttribute="centerX" secondItem="YQZ-Y9-pi3" secondAttribute="centerX" id="hNJ-Vl-uGx"/>
+                                <constraint firstAttribute="trailing" secondItem="TzX-1M-4ew" secondAttribute="trailing" id="jwR-PG-Lr8"/>
+                                <constraint firstItem="fca-m6-B5J" firstAttribute="leading" secondItem="YQZ-Y9-pi3" secondAttribute="leading" constant="16" id="l97-ep-xDF"/>
+                                <constraint firstAttribute="bottom" secondItem="TzX-1M-4ew" secondAttribute="bottom" constant="333" id="mBe-FQ-Aee"/>
+                                <constraint firstItem="TzX-1M-4ew" firstAttribute="centerX" secondItem="YQZ-Y9-pi3" secondAttribute="centerX" id="mcY-D4-mQt"/>
+                                <constraint firstItem="TzX-1M-4ew" firstAttribute="top" secondItem="YQZ-Y9-pi3" secondAttribute="top" constant="91" id="oKC-C7-AWo"/>
+                            </constraints>
+                        </view>
+                        <blurEffect style="light"/>
+                    </visualEffectView>
                     <connections>
                         <outlet property="barChartView" destination="FeD-MH-QdH" id="gMb-jy-eGh"/>
                         <outlet property="pieChartView" destination="TzX-1M-4ew" id="Bix-g2-VQH"/>
@@ -1028,7 +1040,7 @@
                                 </constraints>
                                 <state key="normal" image="Иконка график"/>
                                 <connections>
-                                    <segue destination="szv-fr-ZNd" kind="show" identifier="toDetailChart" id="Ukb-PI-8Rt"/>
+                                    <segue destination="szv-fr-ZNd" kind="presentation" identifier="toDetailChart" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="Ukb-PI-8Rt"/>
                                 </connections>
                             </button>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pDI-ot-bhW" userLabel="MenuButton">

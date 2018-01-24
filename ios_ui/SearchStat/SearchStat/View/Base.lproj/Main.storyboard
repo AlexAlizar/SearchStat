@@ -1178,10 +1178,4 @@
         <image name="photo icon" width="141" height="141"/>
         <image name="Иконка график" width="27" height="27"/>
     </resources>
-<<<<<<< HEAD
-=======
-    <inferredMetricsTieBreakers>
-        <segue reference="Wqv-b7-KZ8"/>
-    </inferredMetricsTieBreakers>
->>>>>>> origin/Tim-Dev
 </document>

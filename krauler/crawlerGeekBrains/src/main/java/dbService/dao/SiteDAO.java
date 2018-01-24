@@ -37,7 +37,7 @@ public class SiteDAO {
 
     public List<Site> getAllSiteWithoutPage() {
 
-        SQLQuery query = session.createSQLQuery("SELECT * FROM SITES WHERE ID NOT IN (SELECT DISTINCT SiteID FROM PAGES)");
+        SQLQuery query = session.createSQLQuery("SELECT * FROM sites WHERE ID NOT IN (SELECT DISTINCT Site_id FROM pages)");
         query.addEntity(Site.class);
         return query.list();
     }

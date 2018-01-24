@@ -7,18 +7,18 @@ import java.io.Serializable;
  * Created by User on 22.12.2017.
  */
 @Entity
-@Table (name="personPageRank")
+@Table (name="person_page_rank")
 @IdClass(RankKey.class)
 public class PersonPageRank implements Serializable {
 
     @Id
     @ManyToOne
-    @JoinColumn (name = "personID")
+    @JoinColumn (name = "person_id")
     private Person person;
 
     @Id
     @ManyToOne
-    @JoinColumn (name = "pageID")
+    @JoinColumn (name = "page_id")
     private Page page;
 
     @Column(name="rank")

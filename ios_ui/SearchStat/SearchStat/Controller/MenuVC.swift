@@ -64,6 +64,7 @@ class MenuVC: UIViewController {
                 self.menuBtn.isHidden = false
                 self.exitBtn.isHidden = false
 //                self.settingBtn.isHidden = false
+                self.performSegue(withIdentifier: TO_SOURCE, sender: nil)
             }
 
         } else {

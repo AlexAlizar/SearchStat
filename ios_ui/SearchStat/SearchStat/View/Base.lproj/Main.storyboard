@@ -88,7 +88,7 @@
                                 <rect key="frame" x="34" y="103" width="100" height="30"/>
                                 <state key="normal" title="MAIN SCREEN"/>
                                 <connections>
-                                    <segue destination="IPT-hT-L9Z" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="ZWV-lr-cdc"/>
+                                    <segue destination="IPT-hT-L9Z" kind="custom" identifier="toSourceVC" customClass="SWRevealViewControllerSeguePushController" id="ZWV-lr-cdc"/>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="photo icon" translatesAutoresizingMaskIntoConstraints="NO" id="DlX-99-vS2" customClass="CustomImageView" customModule="SearchStat" customModuleProvider="target">

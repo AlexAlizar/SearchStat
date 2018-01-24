@@ -75,7 +75,7 @@ public class SignUpActivity extends AppCompatActivity{
         Retrofit retrofit = null;
         try {
             retrofit = new Retrofit.Builder()
-                    .baseUrl("http://195.110.59.16:8081/restapi-v3/?")
+                    .baseUrl("http://195.110.59.16:8081/restapi-v4/?")
                     .client(client)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
@@ -85,10 +85,8 @@ public class SignUpActivity extends AppCompatActivity{
             return;
         }
         // подготовили вызов на сервер
-        String role = "user";
-        User user = new User(login.getText().toString(),  password.getText().toString(), email.getText().toString(), role);
         if (password.getText().toString().equals(password2.getText().toString())) {
-            Call<User> call = restAPI.createUser(user);
+            Call<String> call = restAPI.createUser(login.getText().toString(),  password.getText().toString(), email.getText().toString());
             ConnectivityManager connectivityManager =
                     (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
             assert connectivityManager != null;
@@ -111,13 +109,14 @@ public class SignUpActivity extends AppCompatActivity{
         }
     }
 
-    private void registration(Call<User> call) throws IOException {
-        call.enqueue(new Callback<User>() {
+    private void registration(Call<String> call) throws IOException {
+        call.enqueue(new Callback<String>() {
             @Override
-            public void onResponse(Call<User> call, Response<User> response) {
+            public void onResponse(Call<String> call, Response<String> response) {
                 if (response.isSuccessful()) {
                     if (response != null) {
-                        Log.d(TAG, "response.body() sign up: " + response.body());
+                        String data = response.body();
+                        Log.d(TAG, "response.body() user: " + data);
                         Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
                         startActivity(intent);
                     }
@@ -128,7 +127,7 @@ public class SignUpActivity extends AppCompatActivity{
             }
 
             @Override
-            public void onFailure(Call<User> call, Throwable t) {
+            public void onFailure(Call<String> call, Throwable t) {
                 Log.d(TAG, "onFailure " + t.getMessage());
                 progressBar.setVisibility(View.GONE);
             }

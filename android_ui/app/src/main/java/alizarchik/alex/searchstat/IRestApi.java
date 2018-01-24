@@ -54,7 +54,12 @@ public interface IRestApi {
                                                        @Query(value = "site", encoded = true)
                                                                String site);
 
-    @POST("?action=add-user")
-    Call<User> createUser(@Body User user);
+    @GET("?action=registration")
+    Call<String> createUser(@Query(value = "login")
+                                  String login,
+                          @Query(value = "password")
+                                  String password,
+                          @Query(value = "email")
+                                  String email);
 }
 

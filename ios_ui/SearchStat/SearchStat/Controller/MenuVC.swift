@@ -17,16 +17,23 @@ class MenuVC: UIViewController {
     @IBOutlet weak var myAccountBtn: CustomButton!
     
     //Actions
-    @IBAction func prepareForUnwind(segue: UIStoryboardSegue) {}
-    @IBAction func loginBtnPressed(_ sender: Any) {
+    @IBAction func exitBtnPressed(_ sender: Any) {
         if AuthService.instance.isLoggedin {
             UserDataService.instance.logoutUser()
             loginBtn.setTitle("Login", for: .normal)
             menuBtn.isHidden = true
-            settingBtn.isHidden = true
-        } else {
+            exitBtn.isHidden = true
+            myAccountBtn.isHidden = true
+//            settingBtn.isHidden = true
+        }
+    }
+    @IBAction func prepareForUnwind(segue: UIStoryboardSegue) {}
+    @IBAction func loginBtnPressed(_ sender: Any) {
+        if !AuthService.instance.isLoggedin {
             performSegue(withIdentifier: TO_LOGIN, sender: nil)
         }
+        
+        
     }
     
     override func viewDidLoad() {
@@ -35,6 +42,10 @@ class MenuVC: UIViewController {
         self.revealViewController().rearViewRevealWidth = self.view.frame.size.width - 60
         menuBtn.isHidden = true
         settingBtn.isHidden = true
+        exitBtn.isHidden = true
+        myAccountBtn.isHidden = true
+        
+        
 
         
         NotificationCenter.default.addObserver(self, selector: #selector(MenuVC.userDataDidChanged(_:)), name: NOTIF_USER_DID_CHANGED, object: nil)
@@ -51,14 +62,17 @@ class MenuVC: UIViewController {
             DispatchQueue.main.async {
                 self.loginBtn.setTitle(UserDataService.instance.name, for: .normal)
                 self.menuBtn.isHidden = false
-                self.settingBtn.isHidden = false
+                self.exitBtn.isHidden = false
+//                self.settingBtn.isHidden = false
             }
 
         } else {
             DispatchQueue.main.async {
                 self.loginBtn.setTitle("Login", for: .normal)
                 self.menuBtn.isHidden = true
-                self.settingBtn.isHidden = true
+                self.exitBtn.isHidden = true
+                self.myAccountBtn.isHidden = true
+//                self.settingBtn.isHidden = true
             }
         }
     }

@@ -12,7 +12,7 @@ INSTALLATION
 SearchStat has program components for:
 -WEB
 -IOS
--Desctop
+-Desktop
 -Android
 
 REQUIREMENTS

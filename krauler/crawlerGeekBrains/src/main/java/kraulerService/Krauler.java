@@ -49,6 +49,7 @@ public class Krauler extends Thread {
 
         while (days <= durationOfWork) {   // краулер работает указанное количество дней
             System.out.println("DAY "+days+" BEGAN");
+            updateLinks("sitemap");
             pages = dbService.getNonScannedPages();
             int count = pages.size();
             while (count > 0) {
@@ -93,7 +94,7 @@ public class Krauler extends Thread {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            updateLinks("sitemap");
+         //   updateLinks("sitemap");
             days+=1;
         }
         sessionFactory.close();
@@ -119,8 +120,9 @@ public class Krauler extends Thread {
     private void addSiteMapPageFromRobots(Page page) {
         List<String> foundedSitemapLinks = PageParser.searchSiteMap(Downloader.download(page.getUrl()));
         dbService.updatePageDate(page);
+        Date todayDate = new Date();
         for (String link : foundedSitemapLinks) {
-            dbService.addPage(link, page.getSite(), page.getFoundDateTime(), null);
+            dbService.addPage(link, page.getSite(), todayDate, null);
         }
     }
 
@@ -132,8 +134,9 @@ public class Krauler extends Thread {
     private void addPageLinksFromSitemap(Page page) {
         List<String> allLinksFromSitemap = PageParser.getLinkPagesFromSiteMap(page.getUrl());
         dbService.updatePageDate(page);
+        Date todayDate = new Date();
         for (String link : allLinksFromSitemap) {
-            dbService.addPage(link, page.getSite(), page.getFoundDateTime(), null);
+            dbService.addPage(link, page.getSite(), todayDate, null);
         }
     }
 

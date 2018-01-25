@@ -6,6 +6,7 @@ import dbService.dataSets.Page;
 import kraulerService.parsingService.PageParser;
 import org.hibernate.SessionFactory;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -39,9 +40,10 @@ public class AddLinksThread extends Thread {
     private void addPageLinksFromSitemap() {
         List<String> allLinksFromSitemap = PageParser.getLinkPagesFromSiteMap(page.getUrl());
         dbService.updatePageDate(page);
+        Date todayDate = new Date();
         for (String link : allLinksFromSitemap) {
             System.out.println("INSERT LINK "+link);
-            dbService.addPage(link, page.getSite(), page.getFoundDateTime(), null);
+            dbService.addPage(link, page.getSite(), todayDate, null);
         }
     }
 }

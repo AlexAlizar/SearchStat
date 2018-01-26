@@ -8,9 +8,9 @@
     android:layout_marginRight="@dimen/activity_horizontal_margin">
 
     <TextView
-        android:id="@+id/gs_name_item"
-        android:text="@string/name"
-        android:layout_width="match_parent"
+        android:id="@+id/ds_date_item"
+        android:text="@string/date"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textSize="24sp"
@@ -24,9 +24,9 @@
         android:background="@color/colorPrimaryDark" />
 
     <TextView
-        android:id="@+id/gs_mentions_item"
-        android:text="@string/mentions"
-        android:layout_width="match_parent"
+        android:id="@+id/ds_number_new_pages"
+        android:text="@string/number_of_new_pages"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textColor="@color/colorPrimaryDark"

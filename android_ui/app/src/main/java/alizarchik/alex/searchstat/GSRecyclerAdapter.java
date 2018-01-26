@@ -6,9 +6,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.Collections;
 import java.util.List;
 
-import alizarchik.alex.searchstat.Model.GenStatDataItem;
+import alizarchik.alex.searchstat.model.GenStatDataItem;
 
 /**
  * Created by Olesia on 29.12.2017.
@@ -16,10 +17,11 @@ import alizarchik.alex.searchstat.Model.GenStatDataItem;
 
 public class GSRecyclerAdapter extends RecyclerView.Adapter<GSRecyclerAdapter.ViewHolder> {
 
-    private List<GenStatDataItem> mDataset;
+    private List<GenStatDataItem> mDataset = Collections.emptyList();
 
-    public GSRecyclerAdapter(List<GenStatDataItem> mDataset) {
+    public void setDataset(List<GenStatDataItem> mDataset) {
         this.mDataset = mDataset;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -32,7 +34,7 @@ public class GSRecyclerAdapter extends RecyclerView.Adapter<GSRecyclerAdapter.Vi
     public void onBindViewHolder(ViewHolder holder, int position) {
         GenStatDataItem genStatDataItem = mDataset.get(position);
         holder.name.setText(genStatDataItem.getName());
-        holder.mentions.setText(Integer.toString(genStatDataItem.getMentions()));
+        holder.mentions.setText(Integer.toString(genStatDataItem.getRank()));
 
     }
 

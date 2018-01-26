@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -18,17 +19,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
 
+import alizarchik.alex.searchstat.model.DailyStatisticsModel;
 import alizarchik.alex.searchstat.model.GenStatDataItem;
+import alizarchik.alex.searchstat.model.Person;
 import alizarchik.alex.searchstat.model.Site;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -42,34 +42,52 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Created by Olesia on 10.01.2018.
  */
 
-public class GeneralStatActivity extends AppCompatActivity {
+public class DailyStatActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
     private RecyclerView mRecyclerView;
-    private GSRecyclerAdapter mAdapter;
+    private DSRecyclerAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private TextView currentDate;
     private Button buttonSelectSite;
+    private Button buttonSelectPerson;
     private Button buttonShowStatistic;
+    private Button startDate;
+    private Button endDate;
     private ProgressBar progressBar;
     private ArrayList<String> sites;
-    private ArrayList<GenStatDataItem> listGS;
+    private ArrayList<String> persons;
     private String site;
+    private String person;
+    private String date1;
+    private String date2;
+    private ArrayList<DailyStatisticsModel> listDS;
+
     IRestApi restAPI;
 
     public static final String TAG = "MyLogs";
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.general_stat_screen);
+        setContentView(R.layout.detail_stat_screen);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         init();
-        buttonSelectSite = findViewById(R.id.button_select_site_GS);
-        buttonShowStatistic = findViewById(R.id.button_show_statistic_GS);
-        buttonSelectSite.setOnClickListener((v) -> onClick());
-        buttonShowStatistic.setOnClickListener((v) -> onClickShowStat(site));
+        buttonSelectSite = findViewById(R.id.button_select_site_DS);
+        buttonSelectPerson = findViewById(R.id.button_select_person);
+        buttonShowStatistic = findViewById(R.id.button_show_statistic_DS);
+        buttonSelectSite.setOnClickListener((v) -> onClickBtnSite());
+        buttonSelectPerson.setOnClickListener((v) -> onClickBtnPerson());
+        buttonShowStatistic.setOnClickListener((v)-> onClickShowDailyStat(site, person, date1, date2));
+
+    }
+
+    public void setDate1(String date1) {
+        this.date1 = date1;
+    }
+
+    public void setDate2(String date2) {
+        this.date2 = date2;
     }
 
     @Override
@@ -78,15 +96,42 @@ public class GeneralStatActivity extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.graphics:
+                Intent intent = new Intent(this, GraphActivity.class);
+
+                intent.putExtra("activity", "daily");
+                intent.putExtra("dataDaily", listDS);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
     private void init() {
+        listDS = new ArrayList<>();
         sites = new ArrayList<>();
-        listGS = new ArrayList<>();
-        progressBar = findViewById(R.id.progressBar_GS);
-        mRecyclerView = findViewById(R.id.rvGenStat);
+        persons = new ArrayList<>();
+        startDate = findViewById(R.id.start_date);
+        startDate.setOnClickListener(view -> {
+            DialogFragment dateDialog = new DatePickerStart();
+            dateDialog.show(getSupportFragmentManager(), "datePickerStart");
+        });
+        endDate = findViewById(R.id.end_date);
+
+        endDate.setOnClickListener(view -> {
+            DialogFragment dateDialog = new DatePickerEnd();
+            dateDialog.show(getSupportFragmentManager(), "datePickerEnd");
+        });
+
+        mRecyclerView = findViewById(R.id.rvDailyStat);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mAdapter = new GSRecyclerAdapter();
+        mAdapter = new DSRecyclerAdapter();
         mRecyclerView.setAdapter(mAdapter);
         // рисую линию вокруг элемента списка
         DividerItemDecoration divider = new
@@ -95,27 +140,10 @@ public class GeneralStatActivity extends AppCompatActivity {
         divider.setDrawable(ContextCompat.getDrawable(this,
                 R.drawable.line_divider));
         mRecyclerView.addItemDecoration(divider);
-        currentDate = findViewById(R.id.tvCurrentDate);
-        Date dateNow = new Date();
-        SimpleDateFormat formatForDateNow = new SimpleDateFormat("MMM d, E");
-        currentDate.setText(formatForDateNow.format(dateNow));
+        progressBar = findViewById(R.id.progressBar_DS);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.graphics:
-                Intent intent = new Intent(this, GraphActivity.class);
-                intent.putExtra("activity", "general");
-                intent.putExtra("dataGeneral", listGS);
-                startActivity(intent);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
-    public void onClick() {
+    public void onClickBtnSite() {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
@@ -173,7 +201,7 @@ public class GeneralStatActivity extends AppCompatActivity {
                 progressBar.setVisibility(View.GONE);
                 final CharSequence[] sitesArray = sites.toArray(new String[sites.size()]);
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(GeneralStatActivity.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(DailyStatActivity.this);
                 builder.setTitle(R.string.select_a_site);
                 builder.setItems(sitesArray, (dialogInterface, i) -> {
                     buttonSelectSite.setText(sitesArray[i]);
@@ -190,7 +218,82 @@ public class GeneralStatActivity extends AppCompatActivity {
         });
     }
 
-    public void onClickShowStat(String site) {
+    public void onClickBtnPerson() {
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
+        Retrofit retrofit;
+        try {
+            retrofit = new Retrofit.Builder()
+                    .baseUrl("http://195.110.59.16:8081/restapi-v3/?")
+                    .client(client)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+            restAPI = retrofit.create(IRestApi.class);
+        } catch (Exception io) {
+            Log.d(TAG, "no retrofit: " + io.getMessage());
+            return;
+        }
+        // подготовили вызов на сервер
+        TokenStorage tokenStorage = TokenStorage.getInstance();
+        Log.d(TAG, "token from storage: " + tokenStorage.loadToken(this));
+        Call<List<Person>> call = restAPI.getPersons(tokenStorage.loadToken(this));
+        ConnectivityManager connectivityManager =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        assert connectivityManager != null;
+        NetworkInfo networkinfo = connectivityManager.getActiveNetworkInfo();
+        if (networkinfo != null && networkinfo.isConnected()) {
+            // запускаем
+            try {
+                progressBar.setVisibility(View.VISIBLE);
+                loadPersons(call);
+            } catch (IOException e) {
+                e.printStackTrace();
+                Log.d(TAG, "no retrofit: " + e.getMessage());
+            }
+        } else {
+            Log.d(TAG, "Подключите интернет");
+            Toast.makeText(this, R.string.turn_on_internet, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void loadPersons(Call<List<Person>> call) throws IOException {
+        call.enqueue(new Callback<List<Person>>() {
+            @Override
+            public void onResponse(Call<List<Person>> call, Response<List<Person>> response) {
+                if (response.isSuccessful()) {
+                    if (response != null && persons.isEmpty()) {
+                        Person person;
+                        for (int i = 0; i < response.body().size(); i++) {
+                            person = response.body().get(i);
+                            Log.d(TAG, "response.body() persons:" + person.getName());
+                            persons.add(person.getName());
+                        }
+                    }
+                } else {
+                    Log.d(TAG, "onResponse error: " + response.code());
+                }
+                progressBar.setVisibility(View.GONE);
+                final CharSequence[] sitesArray = persons.toArray(new String[persons.size()]);
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(DailyStatActivity.this);
+                builder.setTitle(R.string.select_a_person);
+                builder.setItems(sitesArray, (dialogInterface, i) -> {
+                    buttonSelectPerson.setText(sitesArray[i]);
+                    person = sitesArray[i].toString();
+                });
+                builder.show();
+            }
+
+            @Override
+            public void onFailure(Call<List<Person>> call, Throwable t) {
+                Log.d(TAG, "onFailure " + t.getMessage());
+                progressBar.setVisibility(View.GONE);
+            }
+        });
+    }
+
+    public void onClickShowDailyStat(String site, String person, String date1, String date2) {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
@@ -210,8 +313,12 @@ public class GeneralStatActivity extends AppCompatActivity {
         TokenStorage tokenStorage = TokenStorage.getInstance();
         Log.d(TAG, "token from storage: " + tokenStorage.loadToken(this));
         Log.d(TAG, "site: " + site);
+        Log.d(TAG, "person: " + person);
+        Log.d(TAG, "date1: " + date1);
+        Log.d(TAG, "date2: " + date2);
 
-        Call<List<GenStatDataItem>> call = restAPI.getGeneralStatistic(tokenStorage.loadToken(this), site);
+        Call<List<DailyStatisticsModel>> call = restAPI.getDailyStatistic(tokenStorage.loadToken(this), person, date1, date2, site);
+        Log.d(TAG, "call: " + call.toString());
         ConnectivityManager connectivityManager =
                 (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         assert connectivityManager != null;
@@ -220,7 +327,7 @@ public class GeneralStatActivity extends AppCompatActivity {
             // запускаем
             try {
                 progressBar.setVisibility(View.VISIBLE);
-                loadGeneralStatistic(call);
+                loadDailyStatistic(call);
             } catch (IOException e) {
                 e.printStackTrace();
                 Log.d(TAG, "no retrofit: " + e.getMessage());
@@ -231,33 +338,33 @@ public class GeneralStatActivity extends AppCompatActivity {
         }
     }
 
-    private void loadGeneralStatistic(Call<List<GenStatDataItem>> call) throws IOException {
-        listGS.clear();
-        call.enqueue(new Callback<List<GenStatDataItem>>() {
+    private void loadDailyStatistic(Call<List<DailyStatisticsModel>> call) throws IOException {
+        call.enqueue(new Callback<List<DailyStatisticsModel>>() {
             @Override
-            public void onResponse(Call<List<GenStatDataItem>> call, Response<List<GenStatDataItem>> response) {
+            public void onResponse(Call<List<DailyStatisticsModel>> call, Response<List<DailyStatisticsModel>> response) {
                 if (response.isSuccessful()) {
-                    if (response != null) {
-                        GenStatDataItem genStatDataItem;
+                    if (response != null && listDS.isEmpty()) {
+                        DailyStatisticsModel dailyStatisticsModel;
                         for (int i = 0; i < response.body().size(); i++) {
-                            genStatDataItem = response.body().get(i);
-                            Log.d(TAG, "response.body() GS name:" + genStatDataItem.getName());
-                            Log.d(TAG, "response.body() GS rank:" + genStatDataItem.getRank());
-                            listGS.add(genStatDataItem);
+                            dailyStatisticsModel = response.body().get(i);
+                            Log.d(TAG, "response.body() DS date:" + dailyStatisticsModel.getDate());
+                            Log.d(TAG, "response.body() DS page:" + dailyStatisticsModel.getCountOfPages());
+                            listDS.add(dailyStatisticsModel);
                         }
                     }
                 } else {
                     Log.d(TAG, "onResponse error: " + response.code());
                 }
-                mAdapter.setDataset(listGS);
+                mAdapter.setDailyStatistics(listDS);
                 progressBar.setVisibility(View.GONE);
             }
 
             @Override
-            public void onFailure(Call<List<GenStatDataItem>> call, Throwable t) {
+            public void onFailure(Call<List<DailyStatisticsModel>> call, Throwable t) {
                 Log.d(TAG, "onFailure " + t.getMessage());
                 progressBar.setVisibility(View.GONE);
             }
         });
     }
+
 }

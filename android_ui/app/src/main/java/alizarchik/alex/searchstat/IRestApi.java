@@ -1,10 +1,18 @@
 package alizarchik.alex.searchstat;
 
+
 import java.util.List;
 
-import alizarchik.alex.searchstat.Model.DailyStatisticsModel;
+import alizarchik.alex.searchstat.model.DailyStatisticsModel;
+import alizarchik.alex.searchstat.model.GenStatDataItem;
+import alizarchik.alex.searchstat.model.Person;
+import alizarchik.alex.searchstat.model.Site;
+import alizarchik.alex.searchstat.model.User;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Query;
 
 /**
@@ -12,17 +20,46 @@ import retrofit2.http.Query;
  */
 
 public interface IRestApi {
-    // кодирование используем, чтобы передаваемый URL сайта не конфликтовал с URL API
-    @GET("sites")
-    Call<List<GeneralStatisticsModel>> loadGeneralStatistics(@Query(value = "urlSite", encoded = true)
-                                                                     String urlSite);
-    // для теста
-    @GET("sites")
-    Call<GeneralStatisticsModel> loadSite();
 
-    @GET("sites")
-    Call<List<DailyStatisticsModel>> loadDailyStatisticsModel(@Query(value = "urlSite", encoded = true)
-                                                                     String urlSite,
-                                                              @Query("startDate") int startDate,
-                                                              @Query("finalDate") int finalDate);
+    @GET("?action=auth")
+    Call<String> auth(@Query(value = "login")
+                              String login,
+                      @Query(value = "password")
+                              String password);
+
+    @GET("?action=get-sites")
+    Call<List<Site>> getSites(@Query(value = "token")
+                                      String token);
+
+    @GET("?action=get-persons")
+    Call<List<Person>> getPersons(@Query(value = "token")
+                                          String token);
+
+    // кодирование используем, чтобы передаваемый URL сайта не конфликтовал с URL API
+    @GET("?action=general-statistic")
+    Call<List<GenStatDataItem>> getGeneralStatistic(@Query(value = "token")
+                                                            String token,
+                                                    @Query(value = "site", encoded = true)
+                                                            String site);
+
+    @GET("?action=daily-statistic")
+    Call<List<DailyStatisticsModel>> getDailyStatistic(@Query(value = "token")
+                                                               String token,
+                                                       @Query(value = "person")
+                                                               String person,
+                                                       @Query(value = "date1")
+                                                               String date1,
+                                                       @Query(value = "date2")
+                                                               String date2,
+                                                       @Query(value = "site", encoded = true)
+                                                               String site);
+
+    @GET("?action=registration")
+    Call<String> createUser(@Query(value = "login")
+                                  String login,
+                          @Query(value = "password")
+                                  String password,
+                          @Query(value = "email")
+                                  String email);
 }
+

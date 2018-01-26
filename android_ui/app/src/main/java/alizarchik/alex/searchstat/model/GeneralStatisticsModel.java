@@ -1,11 +1,9 @@
-package alizarchik.alex.searchstat;
+package alizarchik.alex.searchstat.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
-
-import alizarchik.alex.searchstat.Model.Site;
 
 /**
  * Created by Olesia on 25.12.2017.

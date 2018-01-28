@@ -10,6 +10,7 @@ import kraulerService.parsingService.Downloader;
 import kraulerService.parsingService.PageParser;
 import org.hibernate.SessionFactory;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -118,7 +119,7 @@ public class Krauler extends Thread {
      * @param page
      */
     private void addSiteMapPageFromRobots(Page page) {
-        List<String> foundedSitemapLinks = PageParser.searchSiteMap(Downloader.download(page.getUrl()));
+        List<String> foundedSitemapLinks = PageParser.searchSiteMap(Downloader.download(page.getUrl(),"UTF-8"));
         dbService.updatePageDate(page);
         Date todayDate = new Date();
         for (String link : foundedSitemapLinks) {
@@ -144,24 +145,64 @@ public class Krauler extends Thread {
      * метод, который считает Rank для каждой персоны считает количесвто упоминаний на переданной странице
      * @param page
      */
+//    private void addRanksForPersons(Page page) {
+//        List<Person> persons = dbService.getAllPerson();
+//
+//        for (Person person : persons) {
+//            int rank = 0;
+//            List<Keyword> keywordList = dbService.getKeywordByPerson(person);
+//            String HTMLString = Downloader.download(page.getUrl(),"UTF-8");
+//            if (HTMLString.equals("windows-1251")) {
+//                HTMLString = Downloader.download(page.getUrl(),"windows-1251");
+//            }
+//            for (int i = 0; i < keywordList.size(); i++) {
+//                String keyword = keywordList.get(i).getName();
+//                rank += PageParser.parsePage(HTMLString, keyword);
+//            }
+//            dbService.writeRank(
+//                    person,
+//                    page,
+//                    rank
+//            );
+//        }
+//        dbService.updatePageDate(page);
+//    }
     private void addRanksForPersons(Page page) {
         List<Person> persons = dbService.getAllPerson();
+        List<Keyword> keywordsObject = dbService.getAllKeywords();
+        ArrayList<String> keywords = new ArrayList<>();
+        int[] ranks;
+        int[] ranksByPerson = new int[persons.size()];
+        int index;
+        Person person;
 
-        for (Person person : persons) {
-            int rank = 0;
-            List<Keyword> keywordList = dbService.getKeywordByPerson(person);
-            String HTMLString = Downloader.download(page.getUrl());
-            for (int i = 0; i < keywordList.size(); i++) {
-                String keyword = keywordList.get(i).getName();
-                rank += PageParser.parsePage(HTMLString, keyword);
-            }
-            dbService.writeRank(
-                    person,
-                    page,
-                    rank
-            );
+        for (Keyword keyword : keywordsObject) {
+            keywords.add(keyword.getName().trim().toLowerCase());
         }
-        dbService.updatePageDate(page);
+
+        String HTMLString = Downloader.download(page.getUrl(), "UTF-8");
+
+        if (HTMLString.equals("windows-1251")) {
+            HTMLString = Downloader.download(page.getUrl(), "windows-1251");
+        }
+
+        ranks = PageParser.parsePageSuper(HTMLString, keywords);
+
+        // преобразовываем массив по кейвордам в массив по персонам
+        for (int i = 0; i<ranks.length; i++) {
+            // определяем индекс
+            person = keywordsObject.get(i).getPerson();
+            index = persons.indexOf(person);
+            ranksByPerson[index] += ranks[i];
+        }
+
+        for (int i = 0; i < persons.size(); i++) {
+            dbService.writeRank(
+                    persons.get(i),
+                    page,
+                    ranksByPerson[i]);
+        }
+         dbService.updatePageDate(page);
     }
 
     /**

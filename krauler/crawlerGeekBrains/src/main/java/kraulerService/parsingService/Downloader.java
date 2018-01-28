@@ -17,17 +17,17 @@ public class Downloader {
     final static String DEFAULT_PROTOCOL = "https://";
     final static String ALTERNATIVE_PROTOCOL = "http://";
 
-    public static String download(String url) {
+    public static String download(String url, String Encode) {
 
         String content;
 
         url = url.toLowerCase();
         if (hasProtocol(url)) {
-            content = getContent(url);
+            content = getContent(url, Encode);
         } else {
-            content = getContent(DEFAULT_PROTOCOL + url);
+            content = getContent(DEFAULT_PROTOCOL + url, Encode);
             if (!checkContent(content)) {
-                content = getContent(ALTERNATIVE_PROTOCOL + url);
+                content = getContent(ALTERNATIVE_PROTOCOL + url, Encode);
                 if (!checkContent(content)) {
                     return "Указан некорректный веб-адрес";
                 }
@@ -37,16 +37,24 @@ public class Downloader {
     }
 
 
-    public static String getContent(String url) {
+    public static String getContent(String url, String Encode) {
+
 
         BufferedReader reader = null;
         StringBuilder result = new StringBuilder();
         try {
             URL site = new URL(url);
+            if (Encode.equals("UTF-8"))
             reader = new BufferedReader(new InputStreamReader(site.openStream()));
+            else reader = new BufferedReader(new InputStreamReader(site.openStream(), "windows-1251"));
             String line;
 
             while ((line = reader.readLine()) != null) {
+
+                if (Encode.equals("UTF-8"))
+                    if (line.contains("windows-1251")) {
+                        return "windows-1251";
+                    }
                 result.append(line);
                 result.append(" ");
             }

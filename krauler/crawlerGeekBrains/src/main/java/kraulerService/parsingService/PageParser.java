@@ -1,5 +1,6 @@
 package kraulerService.parsingService;
 
+import dbService.dataSets.Keyword;
 import org.jsoup.Jsoup;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
@@ -354,12 +355,25 @@ public class PageParser {
         int count = 0;
 
         String preparedSearchString = searchString.trim().toLowerCase();
-        List<String> words = new ArrayList<String>();
+
 
         for (String s : page.split("[\\s,.;:!?« »<=>\"–\\-]")) { // Между ковычками не пробел, это какойто другой не видимый символ
-            if(s.trim().toLowerCase().equals(preparedSearchString)) count++;
+            if(s.trim().toLowerCase().equals(preparedSearchString))     count++;
         }
         return count;
+    }
+
+    public static int[] parsePageSuper(String page, ArrayList<String> keywords) {
+        int[] ranks = new int[keywords.size()];
+        int index;
+
+        for (String s : page.split("[\\s,.;:!?« »<=>\"–\\-]")) { // Между ковычками не пробел, это какойто другой не видимый символ
+
+                index = keywords.indexOf(s.trim().toLowerCase());
+                if (index>=0)
+                    ranks[index]++;
+        }
+        return ranks;
     }
 
 

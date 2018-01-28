@@ -2,6 +2,8 @@ package dbService.dao;
 
 import dbService.dataSets.Keyword;
 import dbService.dataSets.Person;
+import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 
@@ -31,5 +33,10 @@ public class KeywordDAO {
         SQLQuery query = session.createSQLQuery("SELECT * FROM keywords where person_id="+person.getId());
         query.addEntity(Keyword.class);
         return query.list();
+    }
+
+    public List<Keyword> getAllKeywords() throws HibernateException{
+        Criteria criteria = session.createCriteria(Keyword.class);
+        return criteria.list();
     }
 }

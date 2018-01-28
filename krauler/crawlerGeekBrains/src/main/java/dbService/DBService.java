@@ -289,6 +289,21 @@ public class DBService {
         }
     }
 
+    public List<Keyword> getAllKeywords() {
+        List<Keyword> keywords = null;
+        try {
+            openSessionAndTransation();
+            KeywordDAO keyywordDAO = new KeywordDAO(session);
+            keywords = keyywordDAO.getAllKeywords();
+            closeSessionAndTransation("commit");
+        } catch (HibernateException e) {
+            closeSessionAndTransation("rollback");
+            System.err.println("!!!HIBERNATE ERROR APPEARED!!!");
+        } finally {
+            return keywords;
+        }
+    }
+
     public List<Person> getAllPerson() {
         List<Person> persons = null;
         try{

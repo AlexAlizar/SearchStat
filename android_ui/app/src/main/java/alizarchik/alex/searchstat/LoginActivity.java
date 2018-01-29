@@ -48,11 +48,10 @@ public class LoginActivity extends AppCompatActivity {
         signUpButton.setOnClickListener(view -> startNewActivity(SignUpActivity.class));
         loginButton.setOnClickListener((v) -> onClick());
         tokenStorage = TokenStorage.getInstance();
-        if (tokenStorage.loadToken(this) != null){
+        if (!tokenStorage.loadToken(this).isEmpty()){
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
         }
-
     }
 
     private void initView() {
@@ -123,6 +122,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onFailure(Call<String> call, Throwable t) {
                 Log.d(TAG, "onFailure " + t.getMessage());
                 progressBar.setVisibility(View.GONE);
+                Toast.makeText(LoginActivity.this, "You need to register.", Toast.LENGTH_SHORT).show();
             }
         });
     }

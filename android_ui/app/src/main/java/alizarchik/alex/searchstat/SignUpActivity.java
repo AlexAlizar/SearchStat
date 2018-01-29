@@ -117,7 +117,7 @@ public class SignUpActivity extends AppCompatActivity{
                     if (response != null) {
                         String data = response.body();
                         Log.d(TAG, "response.body() user: " + data);
-                        Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
+                        Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
                         startActivity(intent);
                     }
                 } else {

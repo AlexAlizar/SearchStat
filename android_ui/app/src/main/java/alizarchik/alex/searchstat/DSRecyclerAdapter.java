@@ -33,7 +33,7 @@ public class DSRecyclerAdapter extends RecyclerView.Adapter<DSRecyclerAdapter.Vi
     @Override
     public void onBindViewHolder(DSRecyclerAdapter.ViewHolder holder, int position) {
         DailyStatisticsModel dailyStatisticsModel = dailyStatistics.get(position);
-        holder.date.setText(dailyStatisticsModel.getDate());
+        holder.date.setText(dailyStatisticsModel.getDate().substring(0, 10));
         holder.page.setText(Integer.toString(dailyStatisticsModel.getCountOfPages()));
 
     }

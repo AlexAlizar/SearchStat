@@ -353,36 +353,7 @@ public class PageParser {
      */
     public static int parsePage(String page, String searchString) {
         int count = 0;
-
-        // Определяем кодировку переданной страницы (windows-1251 / UTF-8)
-        org.jsoup.nodes.Document doc = null;
-        doc  = Jsoup.parse(page);
-        assert doc != null;
-        String charset = "";
-
-        List<String> tmpList = doc.select("meta").eachAttr("charset");
-
-        if (tmpList.size() > 0) {
-            charset = tmpList.get(0);
-        } else {
-            tmpList = doc.select("meta").eachAttr("content");
-            for (String s: tmpList)
-                if (s.contains("charset"))
-                    for (String a: s.split("[\\s;=]"))
-                        if (a.equalsIgnoreCase("windows-1251"))
-                            charset = a;
-        }
-
-        if (charset.equalsIgnoreCase("windows-1251")) {
-            Charset charset1 = Charset.forName("windows-1251");
-            ByteBuffer byteBuffer = charset1.encode(searchString);
-            byte[] bytes = byteBuffer.array();
-            searchString = new String(bytes);
-        }
-
         String preparedSearchString = searchString.trim();
-        List<String> words = new ArrayList<String>();
-
         for (String s : page.split("[\\s,.;:!?« »<=>\"–\\-]")) { // Между ковычками не пробел, это какойто другой не видимый символ
             if(s.trim().equalsIgnoreCase(preparedSearchString)) count++;
         }

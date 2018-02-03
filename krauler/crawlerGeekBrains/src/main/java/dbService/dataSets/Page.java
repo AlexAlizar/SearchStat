@@ -17,8 +17,14 @@ public class Page {
     @Column(name = "id")
     private int id;
 
-    @Column(name="url", length = 2048)
+    @Column(name="url", length = 400)
     private String url;
+
+    @Column(name="type_page", length = 10)
+    private String type_page;
+
+    @Column(name="long_url", length = 2048)
+    private String long_url;
 
     @ManyToOne
     @JoinColumn(name="site_id")
@@ -36,11 +42,29 @@ public class Page {
     public Page() {
     }
 
-    public Page(String url, Site site, Date foundDateTime, Date lastScanDate) {
+    public String getType_page() {
+        return type_page;
+    }
+
+    public void setType_page(String type_page) {
+        this.type_page = type_page;
+    }
+
+    public String getLong_url() {
+        return long_url;
+    }
+
+    public void setLong_url(String long_url) {
+        this.long_url = long_url;
+    }
+
+    public Page(String url, Site site, Date foundDateTime, Date lastScanDate, String type_page, String long_url) {
         this.url = url;
         this.site = site;
         this.foundDateTime = foundDateTime;
         this.lastScanDate = lastScanDate;
+        this.type_page = type_page;
+        this.long_url = long_url;
     }
 
     public Page(int id) {

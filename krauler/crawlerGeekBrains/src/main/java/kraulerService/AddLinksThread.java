@@ -43,7 +43,7 @@ public class AddLinksThread extends Thread {
         Date todayDate = new Date();
         for (String link : allLinksFromSitemap) {
             System.out.println("INSERT LINK "+link);
-            dbService.addPage(link, page.getSite(), todayDate, null);
+            dbService.addPage(link, page.getSite(), todayDate, null, "link");
         }
     }
 }

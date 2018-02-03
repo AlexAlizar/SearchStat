@@ -19,10 +19,21 @@ public class PageDAO {
         this.session = session;
     };
 
-    public int insertPage(String url, Site site, Date foundDateTime, Date lastScanDate) {
-        Page page = getPageByUrl(url);
+    public int insertPage(String url, Site site, Date foundDateTime, Date lastScanDate, String type_page) {
+        Page page;
+        String long_url;
+
+        if (url.length()>400) {
+            long_url = url;
+            page = getPageByLongUrl(url);
+        }
+        else {
+            long_url = "";
+            page = getPageByUrl(url);
+        }
+
         if (page == null) {
-            return (Integer) session.save(new Page(url, site, foundDateTime, lastScanDate));
+            return (Integer) session.save(new Page(url, site, foundDateTime, lastScanDate, type_page, long_url));
         }
         return page.getId();
     }
@@ -45,6 +56,13 @@ public class PageDAO {
         return (Page) Object;
     }
 
+    public Page getPageByLongUrl(String url) {
+        Criteria criteria = session.createCriteria(Page.class);
+
+        Object Object = criteria.add(Restrictions.eq("long_url", url)).uniqueResult();
+
+        return (Page) Object;
+    }
 
     public List<Page> getNonScannedPages() {
 

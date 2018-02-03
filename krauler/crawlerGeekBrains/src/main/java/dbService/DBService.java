@@ -131,12 +131,12 @@ public class DBService {
      * @param lastScanDate
      * @return id добавленной Page или -1 если операция не удалась
      */
-    public int addPage(String url, Site site, Date foundDateTime, Date lastScanDate){
+    public int addPage(String url, Site site, Date foundDateTime, Date lastScanDate, String type_page){
         int id = -1;
         try {
             openSessionAndTransation();
             PageDAO pageDAO = new PageDAO(session);
-            id = pageDAO.insertPage(url, site, foundDateTime, lastScanDate);
+            id = pageDAO.insertPage(url, site, foundDateTime, lastScanDate, type_page);
             closeSessionAndTransation("commit");
         } catch (HibernateException e) {
             closeSessionAndTransation("rollback");

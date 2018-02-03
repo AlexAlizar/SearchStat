@@ -22,9 +22,6 @@ import java.util.List;
 
 public class Krauler extends Thread {
 
-    final int dayDuration = 1000*60*60*24; //длительность дня в миллисекундах
-    final int durationOfWork = 30;          //длительность работы краулера в днях
-
     private DBService dbService;
     private SessionFactory sessionFactory;
 
@@ -42,20 +39,21 @@ public class Krauler extends Thread {
 
     public void Work() {
 
-        int days = 1;
         AddLinksThread t2 = null;
 
         addSitePagesWithoutScan();
         List<Page> pages;
 
-        while (days <= durationOfWork) {   // краулер работает указанное количество дней
-            System.out.println("DAY "+days+" BEGAN");
             updateLinks("sitemap");
             pages = dbService.getNonScannedPages();
             int count = pages.size();
             while (count > 0) {
                 for (Page page : pages) {
                     String url = page.getUrl();
+                    if (count % 100 == 0) {
+                        System.out.println("Analyze " + url);
+                        System.out.println("Left links:" + count);
+                    }
                     if (url.contains("robots.txt")) {
                         addSiteMapPageFromRobots(page);
                     } else if (url.contains("sitemap")) {
@@ -89,15 +87,12 @@ public class Krauler extends Thread {
 
             try {
                 if (t2 != null) {
+                    System.out.println("Waiting while t2 been complete.");
                     t2.join();     // ждем когда закончится вытягивание ссылок с сайтмапа
                 }
-                Thread.sleep(dayDuration);           // засыпаем на сутки
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-         //   updateLinks("sitemap");
-            days+=1;
-        }
         sessionFactory.close();
     }
 
@@ -109,7 +104,7 @@ public class Krauler extends Thread {
         List<Site> sitesWithoutPages = dbService.gettAllSiteWithoutPage();
         Date todayDate = new Date();
         for (Site site: sitesWithoutPages) {
-            dbService.addPage(site.getName()+"/robots.txt", site, todayDate, null);
+            dbService.addPage(site.getName()+"/robots.txt", site, todayDate, null, "robots");
         }
     }
 
@@ -123,7 +118,7 @@ public class Krauler extends Thread {
         dbService.updatePageDate(page);
         Date todayDate = new Date();
         for (String link : foundedSitemapLinks) {
-            dbService.addPage(link, page.getSite(), todayDate, null);
+            dbService.addPage(link, page.getSite(), todayDate, null, "sitemap");
         }
     }
 
@@ -137,7 +132,7 @@ public class Krauler extends Thread {
         dbService.updatePageDate(page);
         Date todayDate = new Date();
         for (String link : allLinksFromSitemap) {
-            dbService.addPage(link, page.getSite(), todayDate, null);
+            dbService.addPage(link, page.getSite(), todayDate, null, "link");
         }
     }
 
@@ -146,10 +141,12 @@ public class Krauler extends Thread {
      * @param page
      */
 //    private void addRanksForPersons(Page page) {
+//        System.out.println("Start old function:"+new Date().toString());
 //        List<Person> persons = dbService.getAllPerson();
 //
 //        for (Person person : persons) {
 //            int rank = 0;
+//
 //            List<Keyword> keywordList = dbService.getKeywordByPerson(person);
 //            String HTMLString = Downloader.download(page.getUrl(),"UTF-8");
 //            if (HTMLString.equals("windows-1251")) {
@@ -165,9 +162,13 @@ public class Krauler extends Thread {
 //                    rank
 //            );
 //        }
+//
 //        dbService.updatePageDate(page);
+//        System.out.println("End old function:"+new Date().toString());
+//        addRanksForPersonsNew(page);
 //    }
     private void addRanksForPersons(Page page) {
+        //System.out.println("Start new function:"+new Date().toString());
         List<Person> persons = dbService.getAllPerson();
         List<Keyword> keywordsObject = dbService.getAllKeywords();
         ArrayList<String> keywords = new ArrayList<>();
@@ -203,6 +204,7 @@ public class Krauler extends Thread {
                     ranksByPerson[i]);
         }
          dbService.updatePageDate(page);
+        //System.out.println("End new function:"+new Date().toString());
     }
 
     /**

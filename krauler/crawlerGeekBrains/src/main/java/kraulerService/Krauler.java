@@ -40,7 +40,7 @@ public class Krauler extends Thread {
     public void Work() {
 
         AddLinksThread t2 = null;
-        
+
 
         addSitePagesWithoutScan();
         List<Page> pages;
@@ -115,7 +115,7 @@ public class Krauler extends Thread {
      * @param page
      */
     private void addSiteMapPageFromRobots(Page page) {
-        List<String> foundedSitemapLinks = PageParser.searchSiteMap(Downloader.download(page.getUrl(),"UTF-8"));
+        List<String> foundedSitemapLinks = PageParser.searchSiteMap(Downloader.download(page.getUrl()));
         dbService.updatePageDate(page);
         Date todayDate = new Date();
         for (String link : foundedSitemapLinks) {
@@ -182,11 +182,7 @@ public class Krauler extends Thread {
             keywords.add(keyword.getName().trim().toLowerCase());
         }
 
-        String HTMLString = Downloader.download(page.getUrl(), "UTF-8");
-
-        if (HTMLString.equals("windows-1251")) {
-            HTMLString = Downloader.download(page.getUrl(), "windows-1251");
-        }
+        String HTMLString = Downloader.download(page.getUrl());
 
         if (HTMLString.equals("Page not found!")) {
             dbService.updatePageDateAndType(page, "deleted");

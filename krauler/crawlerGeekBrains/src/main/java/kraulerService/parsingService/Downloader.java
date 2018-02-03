@@ -3,6 +3,7 @@ package kraulerService.parsingService;
 /**
  * Created by User on 21.12.2017.
  */
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -45,7 +46,7 @@ public class Downloader {
         try {
             URL site = new URL(url);
             if (Encode.equals("UTF-8"))
-            reader = new BufferedReader(new InputStreamReader(site.openStream()));
+                reader = new BufferedReader(new InputStreamReader(site.openStream()));
             else reader = new BufferedReader(new InputStreamReader(site.openStream(), "windows-1251"));
             String line;
 
@@ -58,11 +59,14 @@ public class Downloader {
                 result.append(line);
                 result.append(" ");
             }
+        } catch (java.io.FileNotFoundException e) {
+            return "Page not found!";
         } catch (java.io.IOException e) {
             e.printStackTrace();
+
         } finally {
             try {
-                reader.close();
+                if (reader != null)  reader.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -82,7 +86,7 @@ public class Downloader {
 
 
     private static boolean checkContent(String content) {
-        if (content.indexOf("<title>301 Moved Permanently</title></head>")>0) {
+        if (content.indexOf("<title>301 Moved Permanently</title></head>") > 0) {
             return false;
         } else {
             return true;

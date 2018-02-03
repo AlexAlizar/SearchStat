@@ -40,6 +40,7 @@ public class Krauler extends Thread {
     public void Work() {
 
         AddLinksThread t2 = null;
+        
 
         addSitePagesWithoutScan();
         List<Page> pages;
@@ -187,24 +188,31 @@ public class Krauler extends Thread {
             HTMLString = Downloader.download(page.getUrl(), "windows-1251");
         }
 
-        ranks = PageParser.parsePageSuper(HTMLString, keywords);
-
-        // преобразовываем массив по кейвордам в массив по персонам
-        for (int i = 0; i<ranks.length; i++) {
-            // определяем индекс
-            person = keywordsObject.get(i).getPerson();
-            index = persons.indexOf(person);
-            ranksByPerson[index] += ranks[i];
+        if (HTMLString.equals("Page not found!")) {
+            dbService.updatePageDateAndType(page, "deleted");
         }
+        else {
 
-        for (int i = 0; i < persons.size(); i++) {
-            dbService.writeRank(
-                    persons.get(i),
-                    page,
-                    ranksByPerson[i]);
+            ranks = PageParser.parsePageSuper(HTMLString, keywords);
+
+            // преобразовываем массив по кейвордам в массив по персонам
+            for (int i = 0; i < ranks.length; i++) {
+                // определяем индекс
+                person = keywordsObject.get(i).getPerson();
+                index = persons.indexOf(person);
+                ranksByPerson[index] += ranks[i];
+            }
+
+            for (int i = 0; i < persons.size(); i++) {
+                dbService.writeRank(
+                        persons.get(i),
+                        page,
+                        ranksByPerson[i]);
+            }
+            dbService.updatePageDate(page);
+
+            //System.out.println("End new function:"+new Date().toString());
         }
-         dbService.updatePageDate(page);
-        //System.out.println("End new function:"+new Date().toString());
     }
 
     /**

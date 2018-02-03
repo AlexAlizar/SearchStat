@@ -26,6 +26,7 @@ public class PageDAO {
         if (url.length()>400) {
             long_url = url;
             page = getPageByLongUrl(url);
+            url = url.substring(0,399);
         }
         else {
             long_url = "";
@@ -42,6 +43,13 @@ public class PageDAO {
         page.setLastScanDate(new Date());
         session.update(page);
     }
+
+    public void updatePageDateAndType(Page page, String type) {
+        page.setLastScanDate(new Date());
+        page.setType_page(type);
+        session.update(page);
+    }
+
 
     public Page getPageById(int id) {
         Page page = (Page) session.get(Page.class, id);

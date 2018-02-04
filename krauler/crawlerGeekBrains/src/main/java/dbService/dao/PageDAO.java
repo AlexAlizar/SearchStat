@@ -34,6 +34,10 @@ public class PageDAO {
         }
 
         if (page == null) {
+            if (type_page.equals("link"))
+                System.out.println("            t1:"+url.substring(0,50)+" - INSERT LINK");
+            else
+                System.out.println("t0:"+url.substring(0,50)+" - INSERT LINK");
             return (Integer) session.save(new Page(url, site, foundDateTime, lastScanDate, type_page, long_url));
         }
         return page.getId();
@@ -84,7 +88,7 @@ public class PageDAO {
 
         String txtSQL = "UPDATE pages set last_scan_date = null where last_scan_date<>'"+sdfDate.format(currentDate)+"'";
         if (type != "all") {
-            txtSQL+= " AND url LIKE '%"+type+"%'";
+            txtSQL+= " AND type_page = '%"+type+"%'";
         }
         SQLQuery query = session.createSQLQuery(txtSQL);
 

@@ -26,23 +26,24 @@ public class AddLinksThread extends Thread {
 
     @Override
     public void run() {
-        System.out.println(page+" - ADD LINKS PROCESS STARTED");
+        System.out.println("            t1:"+page.getId()+" - ADD LINKS PROCESS STARTED");
 
         addPageLinksFromSitemap();
   //      sessionFactory.close();
 
-        System.out.println(page+" - ADD LINKS PROCESS FINISHED");
+        System.out.println("            t1:"+page.getId()+" - ADD LINKS PROCESS FINISHED");
     }
 
     /**
      * метод, который добавляет в Pages все найденные ссылки на web-страницы из sitemap-ов
      */
     private void addPageLinksFromSitemap() {
+        System.out.println("            t1:"+page.getId()+" - SEARCH LINKS FOR SITEMAP");
         List<String> allLinksFromSitemap = PageParser.getLinkPagesFromSiteMap(page.getUrl());
+        System.out.println("            t1:"+page.getId()+" - FOUND "+allLinksFromSitemap.size());
         dbService.updatePageDate(page);
         Date todayDate = new Date();
         for (String link : allLinksFromSitemap) {
-            System.out.println("INSERT LINK "+link);
             dbService.addPage(link, page.getSite(), todayDate, null, "link");
         }
     }

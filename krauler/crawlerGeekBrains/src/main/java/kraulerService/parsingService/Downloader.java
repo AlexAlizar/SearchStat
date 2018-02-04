@@ -11,7 +11,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
-import java.nio.CharBuffer;
 import java.util.List;
 
 /**
@@ -94,14 +93,14 @@ public class Downloader {
     }
 
     // функция получает html-страницу в заданной кодировке
-    public static String loadPage(String url, String Encode) {
+    public static String loadPage(String url, String encode) {
 
-
+        System.out.println("Encode:"+encode+" for url:"+url);
         BufferedReader reader = null;
         StringBuilder result = new StringBuilder();
         try {
             URL site = new URL(url);
-            reader = new BufferedReader(new InputStreamReader(site.openStream(), Encode));
+            reader = new BufferedReader(new InputStreamReader(site.openStream(), encode));
             String line;
 
             while ((line = reader.readLine()) != null) {
@@ -121,7 +120,11 @@ public class Downloader {
                 e.printStackTrace();
             }
         }
-        return result.toString();
+
+        if (result.toString().equals(""))
+            return "Page not found!";
+        else
+            return result.toString();
 
     }
 

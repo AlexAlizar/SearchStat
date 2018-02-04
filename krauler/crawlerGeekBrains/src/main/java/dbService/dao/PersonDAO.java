@@ -14,7 +14,7 @@ public class PersonDAO {
 
     public PersonDAO(Session session) {
         this.session = session;
-    };
+    }
 
     public int insertPerson(String name) throws HibernateException {
         return (Integer) session.save(new Person(name));

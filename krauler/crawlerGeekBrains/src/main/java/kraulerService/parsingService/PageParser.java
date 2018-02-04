@@ -1,6 +1,6 @@
 package kraulerService.parsingService;
 
-import dbService.dataSets.Keyword;
+
 import org.jsoup.Jsoup;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
@@ -14,10 +14,8 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
+
 
 public class PageParser {
 
@@ -156,7 +154,7 @@ public class PageParser {
             sitemapList = searchSiteMapInXmlString(sitemapFile.getPath());
 
             for (String s : sitemapList) {
-                System.out.println("str 143 --- " + s);
+//                System.out.println("str 143 --- " + s);
 
                 resultList.addAll(getLinkPagesFromSiteMap(s));
 
@@ -372,16 +370,49 @@ public class PageParser {
     public static int[] parsePageSuper(String page, ArrayList<String> keywords) {
         int[] ranks = new int[keywords.size()];
         int index;
+        int c = 0;
 
         for (String s : page.split("[\\s,.;:!?« »<=>\"–\\-]")) { // Между ковычками не пробел, это какойто другой не видимый символ
-
+                c++;
                 index = keywords.indexOf(s.trim().toLowerCase());
                 if (index>=0)
                     ranks[index]++;
         }
+   //     System.out.println("Count iterations: "+c);
         return ranks;
     }
 
+    public static int[] parsePageSuperPuper(String page, ArrayList<String> keywords) {
+        int[] ranks = new int[keywords.size()];
+        int index;
+        int startIndex = page.length();
+        int c = 0;
+
+        page = page.toLowerCase();
+
+        for (int i = 0; i<keywords.size(); i++) {
+
+            index = page.indexOf(keywords.get(i));
+            if (index>0 && index<startIndex) startIndex = index;
+        }
+
+        if (startIndex< page.length()) {
+
+            page = page.substring(startIndex);
+
+            while (page.contains("  "))
+            page = page.replaceAll("\\s* \\s*"," ");
+
+            for (String s : page.split("[\\s,.;:!?« »<=>\"–\\-]")) { // Между ковычками не пробел, это какойто другой не видимый символ
+                c++;
+                index = keywords.indexOf(s.trim());
+                if (index >= 0)
+                    ranks[index]++;
+            }
+        }
+       // System.out.println("Count iterations: "+c);
+        return ranks;
+    }
 
     /**
      * Проверка строки на соответствие формату xml через прямое подключение

@@ -44,7 +44,7 @@ public class LogWork {
 
         StackTraceElement[] ste = Thread.currentThread().getStackTrace();
         int callString = ste[ste.length - 2].getLineNumber();
-        String className = ste[ste.length - 2].getClassName();
+        String className = ste[ste.length - 2].getClassName().split("[.]")[ste[ste.length - 2].getClassName().split("[.]").length - 1];
         String methodName = ste[ste.length - 2].getMethodName();
 //        Thread.currentThread().getStackTrace()[2].getLineNumber();
 

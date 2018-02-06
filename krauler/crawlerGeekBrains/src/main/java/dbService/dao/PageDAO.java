@@ -88,7 +88,7 @@ public class PageDAO {
 
         String txtSQL = "UPDATE pages set last_scan_date = null where last_scan_date<>'"+sdfDate.format(currentDate)+"'";
         if (type != "all") {
-            txtSQL+= " AND type_page = '%"+type+"%'";
+            txtSQL+= " AND type_page = '"+type+"'";
         }
         SQLQuery query = session.createSQLQuery(txtSQL);
 

@@ -42,9 +42,16 @@ public class LogWork {
      */
     public static void logWrite (String logMsg) {
 
+        StackTraceElement[] ste = Thread.currentThread().getStackTrace();
+        int callString = ste[ste.length - 2].getLineNumber();
+        String className = ste[ste.length - 2].getClassName();
+        String methodName = ste[ste.length - 2].getMethodName();
+//        Thread.currentThread().getStackTrace()[2].getLineNumber();
+
         if (checkLogExist(logFile)) {
             try (FileWriter fileWriter = new FileWriter(logFile,true)) {
                 fileWriter.write(formatForCurDate.format(new Date()) + "    ");
+                fileWriter.write("(" + className + " " + methodName + " str: " + callString + ")" + "    ");
                 fileWriter.write(logMsg + "\n");
             }
             catch (IOException e) {

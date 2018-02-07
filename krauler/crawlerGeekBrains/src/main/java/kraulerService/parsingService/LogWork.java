@@ -77,5 +77,4 @@ public class LogWork {
         }
         e.printStackTrace();
     }
-
 }

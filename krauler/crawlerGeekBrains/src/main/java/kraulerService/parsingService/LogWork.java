@@ -42,9 +42,23 @@ public class LogWork {
      */
     public static void logWrite (String logMsg) {
 
+        // Получаем массив stak trace элементов
+        StackTraceElement[] ste = Thread.currentThread().getStackTrace();
+
+        // Получаем номер строки в которой вызван метод logWrite
+        int callString = ste[ste.length - 2].getLineNumber();
+
+        // Получаем имя класса в котором вызван метод logWrite (берём только имя класса, без полного пути до него)
+        String className = ste[ste.length - 2].getClassName().split("[.]")[ste[ste.length - 2].getClassName().split("[.]").length - 1];
+
+        // Получаем имя метода в отором вызван метод logWrite
+        String methodName = ste[ste.length - 2].getMethodName();
+
+        // Собираем сообщение в одну строку
         if (checkLogExist(logFile)) {
             try (FileWriter fileWriter = new FileWriter(logFile,true)) {
                 fileWriter.write(formatForCurDate.format(new Date()) + "    ");
+                fileWriter.write("(" + className + " " + methodName + " str: " + callString + ")" + "    ");
                 fileWriter.write(logMsg + "\n");
             }
             catch (IOException e) {
@@ -63,4 +77,5 @@ public class LogWork {
         }
         e.printStackTrace();
     }
+
 }

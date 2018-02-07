@@ -23,6 +23,15 @@ public class PageParser {
 
     private static String WORK_FOLDER_PATH = "workFileStorage";
 
+    private static int logLevel = 0;
+
+    public static void setLogLevel(int logLevel) {
+        PageParser.logLevel = logLevel;
+    }
+
+    public static int getLogLevel() {
+        return logLevel;
+    }
 
     public static String getWorkFolderPath() {
         return WORK_FOLDER_PATH;
@@ -583,19 +592,23 @@ public class PageParser {
 
         try {
             doc  = Jsoup.connect(URL).get();
+            // Логирование кода
+            if (logLevel >= 1) LogWork.logWrite("doc = " + doc.title());
         } catch (IOException e) {
             LogWork.myPrintStackTrace(e);
         }
-        assert doc != null;
-        links = doc.select("a").eachAttr("href");
+//        assert doc != null;
+        if (doc != null) {
+            links = doc.select("a").eachAttr("href");
 
-        String startAddr = URL.replaceAll("\\.[a-z]*/.*$","");
+            String startAddr = URL.replaceAll("\\.[a-z]*/.*$", "");
 
-        for (String s: links) {
-            if (s.startsWith(startAddr)) {
-                result.add(s);
+            for (String s : links) {
+                if (s.startsWith(startAddr) || s.startsWith("/"))
+                    result.add(s);
             }
         }
         return result;
     }
+    
 }

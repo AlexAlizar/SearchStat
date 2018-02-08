@@ -14,7 +14,7 @@ public class Site {
     @Column(name="name", length = 256)
     private String name;
 
-    private Site() {
+    public Site() {
     }
 
     public Site(String name) {

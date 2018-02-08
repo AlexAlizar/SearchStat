@@ -1,6 +1,5 @@
 package dbService.dataSets;
 
-
 import javax.persistence.*;
 
 @Entity

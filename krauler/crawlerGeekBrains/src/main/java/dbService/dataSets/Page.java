@@ -1,5 +1,7 @@
 package dbService.dataSets;
 
+
+
 import javax.persistence.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -27,7 +29,7 @@ public class Page {
     private String long_url;
 
     @ManyToOne
-    @JoinColumn(name="site_id")
+    @JoinColumn(name = "site_id")
     private Site site;
 
 

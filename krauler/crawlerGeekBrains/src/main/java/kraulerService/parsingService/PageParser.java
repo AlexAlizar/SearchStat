@@ -3,6 +3,7 @@ package kraulerService.parsingService;
 
 import org.jsoup.Jsoup;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -14,6 +15,8 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+
 import java.util.*;
 
 
@@ -93,38 +96,38 @@ public class PageParser {
      * @param robotsFile
      * @return List<String> searchSiteMap
      */
-    public static List<String> searchSiteMap(File robotsFile) {
-        String keyForSearch = "sitemap:";                   // ключ для поиска ссылки на saitmap
-        List<String> siteMapXmlLinks = new ArrayList<String>();   // результирующий список для вывода из метода найденных ссылок
-
-        try {
-            FileInputStream fileInputStream = new FileInputStream(WORK_FOLDER_PATH + "/" + robotsFile);
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(fileInputStream));
-
-            String tmpStr;
-
-            while ((tmpStr = bufferedReader.readLine()) != null) {
-
-                System.out.println("---  В ЦИКЛЕ   ---");
-
-                if (tmpStr.toLowerCase().contains(keyForSearch)) {
-
-                    System.out.println("tmpStr   ---   " + tmpStr);
-
-
-                    tmpStr.substring(keyForSearch.length() - 1, tmpStr.length() - 1);
-                }
-            }
-
-            fileInputStream.close();
-            bufferedReader.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return siteMapXmlLinks;
-    }
+//    public static List<String> searchSiteMap(File robotsFile) {
+//        String keyForSearch = "sitemap:";                   // ключ для поиска ссылки на saitmap
+//        List<String> siteMapXmlLinks = new ArrayList<String>();   // результирующий список для вывода из метода найденных ссылок
+//
+//        try {
+//            FileInputStream fileInputStream = new FileInputStream(WORK_FOLDER_PATH + "/" + robotsFile);
+//            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(fileInputStream));
+//
+//            String tmpStr;
+//
+//            while ((tmpStr = bufferedReader.readLine()) != null) {
+//
+//                System.out.println("---  В ЦИКЛЕ   ---");
+//
+//                if (tmpStr.toLowerCase().contains(keyForSearch)) {
+//
+//                    System.out.println("tmpStr   ---   " + tmpStr);
+//
+//
+//                    tmpStr.substring(keyForSearch.length() - 1, tmpStr.length() - 1);
+//                }
+//            }
+//
+//            fileInputStream.close();
+//            bufferedReader.close();
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        return siteMapXmlLinks;
+//    }
 
 
     /**
@@ -151,7 +154,7 @@ public class PageParser {
 
            // File sitemapXml = getFileByUrl(sitemap);
 
-            sitemapList = searchSiteMapInXmlString(sitemapFile.getPath());
+            sitemapList = searchLinkPagesInXml(sitemapFile.getPath());
 
             for (String s : sitemapList) {
 //                System.out.println("str 143 --- " + s);
@@ -189,33 +192,64 @@ public class PageParser {
      */
     public static List<String> searchLinkPagesInXml(String xml) {
 
+        System.out.println("Analyze :"+xml);
         if (!xml.contains("\\")) {
             xml = WORK_FOLDER_PATH + "/" + xml;
         }
 
-        List<String> links = new LinkedList<String>();
+        List<String> links = new LinkedList<>();
+        boolean flag = false;
+
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+
+        String compareDate = df.format(new Date()).toString().substring(0,10);
+
         try {
             DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 
             Document document = documentBuilder.parse(xml);               // Скачиваем страницу
 
-            Node root = document.getDocumentElement();                    // Получаем корневой элемент xml документа
+            Element root = document.getDocumentElement();                    // Получаем корневой элемент xml документа
 
 
-            NodeList nodeList = root.getChildNodes();                     // Получаем список дочерних элиментов
+            NodeList locList = root.getElementsByTagName("loc");
+            // проверяем есть ли в файле lastmod
+            NodeList lastmodList = root.getElementsByTagName("lastmod");
 
-            for (int i = 0; i < nodeList.getLength(); i++) {              //
-                Node node = nodeList.item(i);                             //
 
-                NodeList nodeList1 = node.getChildNodes();                //
-                for (int j = 0; j < nodeList1.getLength(); j++) {
 
-                    if (nodeList1.item(j).getNodeName().equals("loc")) {  // ищем узлы "loc" и заносим значиения из этих узлов в результирующий список
-                        links.add(nodeList1.item(j).getTextContent());
-//                        System.out.println();
+            if (lastmodList.getLength() == 0) flag = true; // если lastmod нет, то добавляем все ссылки
+
+            System.out.println("Found "+locList.getLength()+ " nodes");
+            for (int i = 0; i < locList.getLength(); i++) {
+                //  System.out.println("Verify "+i+" node");
+                Node locNode = locList.item(i);
+
+                if (! flag) {
+                    Node lastmodListNode = lastmodList.item(i);
+                    if (compareDate.equals(lastmodListNode.getTextContent().substring(0,10))) {
+                        System.out.println("Put node "+i+ "in list:"+locNode.getTextContent());
+                        links.add(locNode.getTextContent());
                     }
                 }
+                else links.add(locNode.getTextContent());
             }
+
+
+//            NodeList nodeList = root.getChildNodes();                     // Получаем список дочерних элиментов
+//
+//            for (int i = 0; i < nodeList.getLength(); i++) {              //
+//                Node node = nodeList.item(i);                             //
+//
+//                NodeList nodeList1 = node.getChildNodes();                //
+//                for (int j = 0; j < nodeList1.getLength(); j++) {
+//
+//                    if (nodeList1.item(j).getNodeName().equals("loc")) {  // ищем узлы "loc" и заносим значиения из этих узлов в результирующий список
+//                        links.add(nodeList1.item(j).getTextContent());
+////                        System.out.println();
+//                    }
+//                }
+//            }
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
         } catch (SAXException e) {
@@ -223,7 +257,10 @@ public class PageParser {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        if(links.isEmpty()) System.out.println("Ссылок не найдено!");
+        if(links.isEmpty())
+            System.out.println("Ссылок не найдено!");
+        else
+            System.out.println(links.size()+" cсылок найдено!");
         return links;
     }
 
@@ -233,38 +270,38 @@ public class PageParser {
      * @param xml
      * @return Список ссылок из входного sitemap
      */
-    public static List<String> searchSiteMapInXmlString(String xml) {
-
-        if (!xml.contains("\\")) {
-            xml = WORK_FOLDER_PATH + "/" + xml;
-        }
-
-        List<String> links = new LinkedList<String>();
-        try {
-            DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-            Document document = documentBuilder.parse(xml);     // Скачиваем страницу
-            Node root = document.getDocumentElement();                    // Получаем корневой элемент xml документа
-            NodeList nodeList = root.getChildNodes();                     // Получаем список дочерних элиментов
-            for (int i = 0; i < nodeList.getLength(); i++) {              //
-                Node node = nodeList.item(i);                             //
-                NodeList nodeList1 = node.getChildNodes();                //
-                for (int j = 0; j < nodeList1.getLength(); j++) {
-                    if (nodeList1.item(j).getNodeName().equals("loc")) {  // ищем узлы "loc" и заносим значиения из этих узлов в результирующий список
-                        links.add(nodeList1.item(j).getTextContent());
-//                        System.out.println();
-                    }
-                }
-            }
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
-        } catch (SAXException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        if(links.isEmpty()) System.out.println("Ссылок не найдено!");
-        return links;
-    }
+//    public static List<String> searchSiteMapInXmlString(String xml) {
+//
+//        if (!xml.contains("\\")) {
+//            xml = WORK_FOLDER_PATH + "/" + xml;
+//        }
+//
+//        List<String> links = new LinkedList<String>();
+//        try {
+//            DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+//            Document document = documentBuilder.parse(xml);     // Скачиваем страницу
+//            Node root = document.getDocumentElement();                    // Получаем корневой элемент xml документа
+//            NodeList nodeList = root.getChildNodes();                     // Получаем список дочерних элиментов
+//            for (int i = 0; i < nodeList.getLength(); i++) {              //
+//                Node node = nodeList.item(i);                             //
+//                NodeList nodeList1 = node.getChildNodes();                //
+//                for (int j = 0; j < nodeList1.getLength(); j++) {
+//                    if (nodeList1.item(j).getNodeName().equals("loc")) {  // ищем узлы "loc" и заносим значиения из этих узлов в результирующий список
+//                        links.add(nodeList1.item(j).getTextContent());
+////                        System.out.println();
+//                    }
+//                }
+//            }
+//        } catch (ParserConfigurationException e) {
+//            e.printStackTrace();
+//        } catch (SAXException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        if(links.isEmpty()) System.out.println("Ссылок не найдено!");
+//        return links;
+//    }
 
 
     /**
@@ -272,32 +309,32 @@ public class PageParser {
      * @param pathToXml
      * @return Список ссылок из входного sitemap
      */
-    private static List<String> searchSiteMapInXmlFile(String pathToXml) {
-        List<String> links = new LinkedList<String>();
-        try {
-            DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-            Document document = documentBuilder.parse(pathToXml);     // Скачиваем страницу
-            Node root = document.getDocumentElement();                    // Получаем корневой элемент xml документа
-            NodeList nodeList = root.getChildNodes();                     // Получаем список дочерних элиментов
-            for (int i = 0; i < nodeList.getLength(); i++) {              //
-                Node node = nodeList.item(i);                             //
-                NodeList nodeList1 = node.getChildNodes();                //
-                for (int j = 0; j < nodeList1.getLength(); j++) {
-                    if (nodeList1.item(j).getNodeName().equals("loc")) {  // ищем узлы "loc" и заносим значиения из этих узлов в результирующий список
-                        links.addAll(parseSiteMap(nodeList1.item(j).getTextContent()));
-                    }
-                }
-            }
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
-        } catch (SAXException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        if(links.isEmpty()) System.out.println("Ссылок не найдено!");
-        return links;
-    }
+//    private static List<String> searchSiteMapInXmlFile(String pathToXml) {
+//        List<String> links = new LinkedList<String>();
+//        try {
+//            DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+//            Document document = documentBuilder.parse(pathToXml);     // Скачиваем страницу
+//            Node root = document.getDocumentElement();                    // Получаем корневой элемент xml документа
+//            NodeList nodeList = root.getChildNodes();                     // Получаем список дочерних элиментов
+//            for (int i = 0; i < nodeList.getLength(); i++) {              //
+//                Node node = nodeList.item(i);                             //
+//                NodeList nodeList1 = node.getChildNodes();                //
+//                for (int j = 0; j < nodeList1.getLength(); j++) {
+//                    if (nodeList1.item(j).getNodeName().equals("loc")) {  // ищем узлы "loc" и заносим значиения из этих узлов в результирующий список
+//                        links.addAll(parseSiteMap(nodeList1.item(j).getTextContent()));
+//                    }
+//                }
+//            }
+//        } catch (ParserConfigurationException e) {
+//            e.printStackTrace();
+//        } catch (SAXException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        if(links.isEmpty()) System.out.println("Ссылок не найдено!");
+//        return links;
+//    }
 
 
     /**
@@ -343,44 +380,44 @@ public class PageParser {
      * @param url
      * @return списо ссылок на страницы
      */
-    public static List<String> parseSiteMap(String url) {
-        if (isXml(url)) {              // если файл имеет формат xml
-            return searchSiteMapInXmlString(url);
-        } else {                          // парсим как обычный текст
-            return getStringsByUrl(url);
-        }
-    }
+//    public static List<String> parseSiteMap(String url) {
+//        if (isXml(url)) {              // если файл имеет формат xml
+//            return searchSiteMapInXmlString(url);
+//        } else {                          // парсим как обычный текст
+//            return getStringsByUrl(url);
+//        }
+//    }
 
 
-    /**
-     * Поиск целевых строк в странице и подсчёт их количества
-     * @param page
-     * @param searchString
-     * @return колличество найденных вхождений переданной строки
-     */
-    public static int parsePage(String page, String searchString) {
-        int count = 0;
-        String preparedSearchString = searchString.trim();
-        for (String s : page.split("[\\s,.;:!?« »<=>\"–\\-]")) { // Между ковычками не пробел, это какойто другой не видимый символ
-            if(s.trim().equalsIgnoreCase(preparedSearchString)) count++;
-        }
-        return count;
-    }
+//    /**
+//     * Поиск целевых строк в странице и подсчёт их количества
+//     * @param page
+//     * @param searchString
+//     * @return колличество найденных вхождений переданной строки
+//     */
+//    public static int parsePage(String page, String searchString) {
+//        int count = 0;
+//        String preparedSearchString = searchString.trim();
+//        for (String s : page.split("[\\s,.;:!?« »<=>\"–\\-]")) { // Между ковычками не пробел, это какойто другой не видимый символ
+//            if(s.trim().equalsIgnoreCase(preparedSearchString)) count++;
+//        }
+//        return count;
+//    }
 
-    public static int[] parsePageSuper(String page, ArrayList<String> keywords) {
-        int[] ranks = new int[keywords.size()];
-        int index;
-        int c = 0;
-
-        for (String s : page.split("[\\s,.;:!?« »<=>\"–\\-]")) { // Между ковычками не пробел, это какойто другой не видимый символ
-                c++;
-                index = keywords.indexOf(s.trim().toLowerCase());
-                if (index>=0)
-                    ranks[index]++;
-        }
-   //     System.out.println("Count iterations: "+c);
-        return ranks;
-    }
+//    public static int[] parsePageSuper(String page, ArrayList<String> keywords) {
+//        int[] ranks = new int[keywords.size()];
+//        int index;
+//        int c = 0;
+//
+//        for (String s : page.split("[\\s,.;:!?« »<=>\"–\\-]")) { // Между ковычками не пробел, это какойто другой не видимый символ
+//                c++;
+//                index = keywords.indexOf(s.trim().toLowerCase());
+//                if (index>=0)
+//                    ranks[index]++;
+//        }
+//   //     System.out.println("Count iterations: "+c);
+//        return ranks;
+//    }
 
     public static int[] parsePageSuperPuper(String page, ArrayList<String> keywords) {
         int[] ranks = new int[keywords.size()];
@@ -419,31 +456,31 @@ public class PageParser {
      * @param urlStr
      * @return true / false
      */
-    private static boolean isXml(String urlStr) {
-
-        String adr= urlStr;
-        StringBuilder stringBuilder = new StringBuilder();
-        URL url = null; //создаем URL
-        BufferedReader br;
-        String str = null;
-
-
-
-        try {
-            url = new URL(adr);
-            HttpURLConnection conn = (HttpURLConnection)url.openConnection(); //открываем соединение
-            br = new BufferedReader(new InputStreamReader(conn.getInputStream())); // используем объект класса BufferedReader для работы со строками
-            str = br.readLine();
-
-            br.close(); //закрываем поток
-            conn.disconnect(); //закрываем соединение
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return str.contains("<?xml");
-    }
+//    private static boolean isXml(String urlStr) {
+//
+//        String adr= urlStr;
+//        StringBuilder stringBuilder = new StringBuilder();
+//        URL url = null; //создаем URL
+//        BufferedReader br;
+//        String str = null;
+//
+//
+//
+//        try {
+//            url = new URL(adr);
+//            HttpURLConnection conn = (HttpURLConnection)url.openConnection(); //открываем соединение
+//            br = new BufferedReader(new InputStreamReader(conn.getInputStream())); // используем объект класса BufferedReader для работы со строками
+//            str = br.readLine();
+//
+//            br.close(); //закрываем поток
+//            conn.disconnect(); //закрываем соединение
+//        } catch (MalformedURLException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        return str.contains("<?xml");
+//    }
 
 
     /**

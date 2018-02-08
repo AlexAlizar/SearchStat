@@ -53,8 +53,10 @@ public class Downloader {
         if (!page.equals("Page not found!")) {
             // определяем кодировку скачанной страницы
             String encode = getEncode(page);
-            if (!encode.equals(DEFAULT_ENCODE)) {
-                page = loadPage(url, encode);
+            if (!encode.equals("")) {
+                if (!encode.equals(DEFAULT_ENCODE)) {
+                    page = loadPage(url, encode);
+                }
             }
         }
 
@@ -95,7 +97,7 @@ public class Downloader {
     // функция получает html-страницу в заданной кодировке
     public static String loadPage(String url, String encode) {
 
-        System.out.println("Encode:"+encode+" for url:"+url);
+     //   System.out.println("Encode:"+encode+" for url:"+url);
         BufferedReader reader = null;
         StringBuilder result = new StringBuilder();
         try {

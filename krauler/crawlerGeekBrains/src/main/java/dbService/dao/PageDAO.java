@@ -23,6 +23,10 @@ public class PageDAO {
         Page page;
         String long_url;
 
+        int n;
+
+        if (url.length()>50) n =50; else n = url.length();
+
         if (url.length()>400) {
             long_url = url;
             page = getPageByLongUrl(url);
@@ -34,11 +38,14 @@ public class PageDAO {
         }
 
         if (page == null) {
-            if (type_page.equals("link"))
-                System.out.println("            t1:"+url.substring(0,50)+" - INSERT LINK");
-            else
-                System.out.println("t0:"+url.substring(0,50)+" - INSERT LINK");
+            if (type_page.equals("link")) {
+                System.out.println("            t1:" + url.substring(0, n) + " - INSERT LINK");
+            }
+            else {
+                System.out.println("t0:" + url.substring(0, n) + " - INSERT LINK");
+            }
             return (Integer) session.save(new Page(url, site, foundDateTime, lastScanDate, type_page, long_url));
+
         }
         return page.getId();
     }

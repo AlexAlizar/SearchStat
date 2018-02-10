@@ -251,11 +251,11 @@ public class PageParser {
 //                }
 //            }
         } catch (ParserConfigurationException e) {
-            e.printStackTrace();
+            LogWork.myPrintStackTrace(e);
         } catch (SAXException e) {
-            e.printStackTrace();
+            LogWork.myPrintStackTrace(e);
         } catch (IOException e) {
-            e.printStackTrace();
+            LogWork.myPrintStackTrace(e);
         }
         if(links.isEmpty())
             System.out.println("Ссылок не найдено!");
@@ -364,22 +364,22 @@ public class PageParser {
                     return 2;
                 }
             } catch (ParserConfigurationException e) {
-                e.printStackTrace();
+                LogWork.myPrintStackTrace(e);
             } catch (SAXException e) {
-                e.printStackTrace();
+                LogWork.myPrintStackTrace(e);
             } catch (IOException e) {
-                e.printStackTrace();
+                LogWork.myPrintStackTrace(e);
             }
         }
         return 0;
     }
 
 
-    /**
-     * Принемает ссылку на файл и обробатывет его в зависимости от фйормата (xml или нет)
-     * @param url
-     * @return списо ссылок на страницы
-     */
+//    /**
+//     * Принемает ссылку на файл и обробатывет его в зависимости от фйормата (xml или нет)
+//     * @param url
+//     * @return списо ссылок на страницы
+//     */
 //    public static List<String> parseSiteMap(String url) {
 //        if (isXml(url)) {              // если файл имеет формат xml
 //            return searchSiteMapInXmlString(url);
@@ -500,7 +500,7 @@ public class PageParser {
             fileInputStream.close();
             bufferedReader.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            LogWork.myPrintStackTrace(e);
         }
         return str.contains("<?xml");
     }
@@ -531,9 +531,9 @@ public class PageParser {
             conn.disconnect(); //закрываем соединение
 
         } catch (MalformedURLException e) {
-            e.printStackTrace();
+            LogWork.myPrintStackTrace(e);
         } catch (IOException e) {
-            e.printStackTrace();
+            LogWork.myPrintStackTrace(e);
         }
         return resultList;
     }
@@ -582,7 +582,7 @@ public class PageParser {
         try {
             resultFile.createNewFile();
         } catch (IOException e) {
-            e.printStackTrace();
+            LogWork.myPrintStackTrace(e);
         }
 
         try {
@@ -601,7 +601,7 @@ public class PageParser {
 
             fileOutputStream.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            LogWork.myPrintStackTrace(e);
         }
 
         return randomName;

@@ -49,38 +49,45 @@ public class RobotsHandler {
      * @return
      */
     private String buildPattern() {
-
-        StringBuilder sb = new StringBuilder();
+        StringBuilder sbDisallow = new StringBuilder();
+        StringBuilder sbAllow = new StringBuilder();
+        StringBuilder sbStart = new StringBuilder();
 
         // Собираем начало регулярки
-        sb.append("^(");
-        sb.append(siteAddr.replace(".","\\."));
-        sb.append(")");
+        sbStart.append("^(");
+        sbStart.append(siteAddr.replace(".","\\."));
+        sbStart.append(")");
 
         // Собираем запрещающую часть регулярки
         if(disallowDirective.size() > 0) {
-            sb.append("(?! ");
+            sbDisallow.append("(?! ");
             for (String s : disallowDirective) {
-                if(s.equalsIgnoreCase("/")) continue;
-                sb.append("|");
-                sb.append(s.replace(".","\\."));
+                if(s.equalsIgnoreCase("/"))
+                    continue;
+                sbDisallow.append("|");
+                sbDisallow.append(((s.replace(".","\\.")).replace("*", ".*")).replace("?","\\?"));
             }
-            sb.append(")");
+            sbDisallow.append(")");
         }
 
         // Собираем разрешающую часть регулярки
         if(allowDirective.size() > 0) {
-            sb.append("(/");
+            sbAllow.append("(/");
             for (String s : allowDirective) {
-                if(s.equalsIgnoreCase("/")) continue;
-                sb.append("|");
-                sb.append(s.replace(".","\\."));
-                sb.append(".*");
+                if(s.equalsIgnoreCase("/"))
+                    continue;
+                sbAllow.append("|");
+                sbAllow.append(s.replace(".","\\."));
+                sbAllow.append(".*");
             }
-            sb.append(")$");
-        }
+            sbAllow.append(")");
+        } else
+            sbAllow.append("(.*)");
 
-        return sb.toString();
+        if (sbAllow.toString().equals("(/)"))
+            sbAllow = new StringBuilder("(.*)");
+
+        return sbStart.toString() + sbDisallow.toString() + sbAllow.toString() + "$";
     }
 
     /**
@@ -89,9 +96,15 @@ public class RobotsHandler {
      * @return true / false
      */
     public boolean checkLink(String link) {
+        String tmpStr;
+        if (!link.startsWith(siteAddr)) {
+            tmpStr = siteAddr + link;
+        } else {
+            tmpStr = link;
+        }
         String regExp = this.verificationTemplateForLinks;
         Pattern pattern = Pattern.compile(regExp);
-        Matcher matcher = pattern.matcher(link);
+        Matcher matcher = pattern.matcher(tmpStr);
         return matcher.matches();
     }
 

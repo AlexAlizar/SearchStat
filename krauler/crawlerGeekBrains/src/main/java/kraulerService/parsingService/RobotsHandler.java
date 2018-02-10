@@ -15,7 +15,7 @@ public class RobotsHandler {
     private List<String> allowDirective = new ArrayList<>();
     private List<String> disallowDirective = new ArrayList<>();
     private String userAgentSearchStat = "searchstat";
-    private boolean delFile = true;
+
     private String verificationTemplateForLinks;
 
     /**
@@ -37,10 +37,9 @@ public class RobotsHandler {
 
     public RobotsHandler(File robots, String siteAddr, boolean delFile) {
         this(robots,siteAddr);
-        this.delFile = delFile;
 
         // robots.txt после обработки удалить
-        if (this.delFile)
+        if (delFile)
             robots.delete();
     }
 

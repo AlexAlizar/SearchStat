@@ -16,10 +16,10 @@ public class ArchiveWorker {
         gzipFile = pathFile + "/" + gzipFile;
 
         try {
-            String newFile = pathFile + "/" + nameOutFile;
+            nameOutFile = pathFile + "/" + nameOutFile;
             FileInputStream fis = new FileInputStream(gzipFile);
             GZIPInputStream gis = new GZIPInputStream(fis);
-            FileOutputStream fos = new FileOutputStream(newFile);
+            FileOutputStream fos = new FileOutputStream(nameOutFile);
             byte[] buffer = new byte[1024];
             int len;
             while((len = gis.read(buffer)) != -1){
@@ -31,7 +31,7 @@ public class ArchiveWorker {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return nameOutFile;
+          return nameOutFile;
     }
 
     public static File decompressGzipFile(String gzipFile, String pathFile, boolean returnFile) {

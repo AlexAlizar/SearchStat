@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import statistic, export_as_csv
+from .views import statistic, export_as_csv, get_data
 import authapp.views as authapp
 from .admin_sites_views import sites_view, sites_edit
 from .admin_persons_views import persons_view, persons_edit
@@ -11,7 +11,8 @@ app_name = 'admin_interface'
 urlpatterns = [
     # statistic_views
     path('statistic', statistic, name='statistic'),
-    path('statistic/export', export_as_csv, name='export_as_csv' ),
+    path('statistic/export', export_as_csv, name='export_as_csv'),
+    path('statistic/api/data/', get_data, name='api-data'),
 
     # sites_manage_views
     path('sites', sites_view, name='sites_view'),

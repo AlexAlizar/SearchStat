@@ -111,13 +111,13 @@ var modalWindow = {
         _winReg.style.width = "400px"; //Установим ширину окна
         _winReg.style.height = "300px"; //Установим ширину окна
         _winReg.style.display = 'inline'; //Зададим CSS-свойство
-        
-        
+
+
 // тестовая форма на отправку регистрации
 // она создается каждый раз при нажатие кнопки, потом она же и вы зывается, это позволяет экономить вермя и память.
 // тут я прописал в форме и метод добавил атрибут action. Вообще, это должно быть все в функции ниже. Но у меня получился такой франкинштейн, что...
-    // В общем, скорее всего надо сюда добавить твой файл и метод, как мне кажется, упаковывается все в JSON
-        
+        // В общем, скорее всего надо сюда добавить твой файл и метод, как мне кажется, упаковывается все в JSON
+
         _winReg.innerHTML = '<div id="modal-window--wrapper">' +
             '<form class="feedback-form" id="test  action="#" method="POST">' +
             '<label for="name">Ваше имя:</label>' +
@@ -222,37 +222,42 @@ var modalWindow = {
 }
 
 //  функция на отарвку формы с переводом значений полей в JSON
-  
+// using jQuery
+
+
 var ops = function() {
     function JSONString(form) {
-      var obj = {};
-      var elements = form.querySelectorAll("input");
-      for (var i = 0; i < elements.length; ++i) {
-        var element = elements[i];
-        var name = element.name;
-        var value = element.value;
+        var obj = {};
+        var elements = form.querySelectorAll("input");
+        for (var i = 0; i < elements.length; ++i) {
+            var element = elements[i];
+            var name = element.name;
+            var value = element.value;
 
-        if (name) {
-          obj[name] = value;
+            if (name) {
+                obj[name] = value;
+            }
         }
-      }
 
-      return JSON.stringify(obj);
+        return JSON.stringify(obj);
     }
 
     document.addEventListener("DOMContentLoaded", function() {
-      var form = document.getElementById("test");
+        var form = document.getElementById("test");
 //      var output = document.getElementById("output");
-      form.addEventListener("submit", function(e) {
-        e.preventDefault();
-        var json = JSONString(this);
+        form.addEventListener("submit", function(e) {
+            e.preventDefault();
+            var json = JSONString(this);
 //        output.innerHTML = json;
 
-      }, false);
+            //token попробовал запихнуть сюда ------------------------
+
+
+        }, false);
 
     });
 
-  };
+};
 ops();
 
 //   здесь этот френки кончается

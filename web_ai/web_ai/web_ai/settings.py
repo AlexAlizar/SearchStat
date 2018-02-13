@@ -85,10 +85,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         # 'HOST':  'localhost',
-        'HOST': '195.110.59.16',
+        'HOST': '51.15.55.90',
         'PORT': '3306',
-        'NAME': 'searchstat_django_testdrive',
-        'USER': 'django_unchained',
+        'NAME': 'searchstat',
+        'USER': 'django_dev',
         'PASSWORD': 'testpass',
         'OPTIONS': {
             # 'read_default_file': '/etc/mysql/my.cnf',

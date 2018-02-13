@@ -1,7 +1,9 @@
-{% extends 'base.html' %}
+{% extends 'admin_interface/base.html' %}
+{% load static %}
+
 
 {% block content %}
-    <div class="col-sm-6">
+    <div class="col-sm-9">
         <div class="container">
             <p>Общая статистика:</p>
             <span><b>Всего сайтов: </b> {{ total_sites }}</span>
@@ -10,26 +12,24 @@
             <hr>
             {% for site in agg_pages %}
                 <div>
-                <span> <b>{{ site.site__name }}</b>:</span>
-                <span> {{ site.agg }} страниц для обхода</span>
+                    <span> <b>{{ site.site__name }}</b>:</span>
+                    <span> {{ site.agg }} страниц для обхода</span>
 
                 </div>
             {% endfor %}
             <br>
+            <hr>
+            <form id="ajax-form" action="" method="post" class="">
+                {% csrf_token %}
+                <label for="datepicker-here">Выбрать даты</label>
+                <input type="text" name='date' placeholder="03.02.2018 - 15.02.2018" data-range="true" data-multiple-dates-separator=" - " class="datepicker-here" required/>
+                {{ site_choice }}
+                <input type="submit" value="Отправить" name="submit">
+            </form>
         </div>
-        <hr>
-        {% for site, pages in pages_dict.items %}
-            <div class="container">
-                <ul class="list-group">
+        <div class="container">
 
-                    <li class="list-group-item bg-secondary"><b class="text-white">{{site}}</b></li>
-                    {% for page in pages %}
-                        <li class="list-group-item">{{ page }}</li>
-                    {% endfor %}
-
-                </ul>
-            </div>
-            <br>
-        {% endfor %}
+        </div>
     </div>
 {% endblock %}
+

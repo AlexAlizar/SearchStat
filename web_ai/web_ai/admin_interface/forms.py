@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserChangeForm
 
 from .models import Sites, Persons, Keywords, Users
+from datetime import datetime
 
 from authapp.forms import EditForm
 
@@ -85,3 +86,11 @@ class AdminPasswordChangeForm(forms.Form):
         if commit:
             self.user.save()
         return self.user
+
+
+class ChoiceSiteForm(forms.Form):
+    site_name = forms.ModelChoiceField(queryset=None, required=True)
+
+    def __init__(self, *args, **kwargs):
+        super(ChoiceSiteForm, self).__init__(*args, **kwargs)
+        self.fields['site_name'] = forms.ModelChoiceField(queryset=Sites.objects.all())

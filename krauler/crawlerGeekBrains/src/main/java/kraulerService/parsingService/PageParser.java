@@ -1,6 +1,7 @@
 package kraulerService.parsingService;
 
 
+import dbService.dataSets.Page;
 import org.jsoup.Jsoup;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -650,14 +651,15 @@ public class PageParser {
 
     /**
      * Метод находит все ссылки на странице которые начинаются с сылки переданной методу
-     * @param URL
+     * @param page
      * @return список ссылок со страницы
      */
-    public static List<String> collectLinkOnPage(String URL) {
+    public static List<String> collectLinkOnPage(Page page) {
         List<String> links;
         List<String> result = new ArrayList<>();
         org.jsoup.nodes.Document doc = null;
 
+        String URL = page.getUrl();
         try {
             doc  = Jsoup.connect(URL).get();
             // Логирование кода
@@ -672,8 +674,16 @@ public class PageParser {
             String startAddr = URL.replaceAll("\\.[a-z]*/.*$", "");
 
             for (String s : links) {
-                if (s.startsWith(startAddr) || s.startsWith("/"))
+                if (s.startsWith(startAddr)) {
                     result.add(s);
+                }
+                else if (s.startsWith("/")) {
+                    result.add(URL+s);
+                }
+                else if (s.contains(page.getSite().getName()) && s.startsWith("http") ) {
+                    result.add(s);
+                }
+
             }
         }
         return result;

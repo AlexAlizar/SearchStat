@@ -7,6 +7,7 @@ import dbService.dataSets.Page;
 import dbService.dataSets.Person;
 import dbService.dataSets.Site;
 import kraulerService.parsingService.Downloader;
+import kraulerService.parsingService.LogWork;
 import kraulerService.parsingService.PageParser;
 import org.hibernate.SessionFactory;
 
@@ -38,12 +39,13 @@ public class Krauler extends Thread {
     public void Work() {
 
         AddLinksThread t2 = null;
-
+        LogWork.logWrite("Start program");
         System.out.println("t0: Started");
         addSitePagesWithoutScan();
         List<Page> pages;
         System.out.println("t0: Update links began");
         updateLinks("sitemap");
+        updateLinks("direct");
         System.out.println("t0: Update links complete");
         System.out.println("t0: Search pages for analyze...");
         pages = dbService.getNonScannedPages();
@@ -53,9 +55,9 @@ public class Krauler extends Thread {
         while (count > 0) {
             for (Page page : pages) {
                 String url = page.getUrl();
-                if (url.contains("robots.txt")) {
+                if (page.getType_page().equals("robots")) {
                     addSiteMapPageFromRobots(page);
-                } else if (url.contains("sitemap")) {
+                } else if (page.getType_page().equals("sitemap") || page.getType_page().equals("direct")) {
 //                            addPageLinksFromSitemap(page);
 //                      // запускаем добавление ссылок в параллельном потоке
 
@@ -67,13 +69,6 @@ public class Krauler extends Thread {
                         t2.start();
                     }
                 } else addRanksForPersons(page);
-            }
-
-            // приостанавливаем на чуть-чуть
-            try {
-                sleep(5000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
             }
 
             // и еще раз вытаскиваем список неотсканированных страниц
@@ -95,6 +90,7 @@ public class Krauler extends Thread {
             e.printStackTrace();
         }
         System.out.println("Complete all threads successful!");
+        LogWork.logWrite("Complete all threads successful!");
         sessionFactory.close();
     }
 
@@ -116,12 +112,16 @@ public class Krauler extends Thread {
      *
      * @param page
      */
-    private void addSiteMapPageFromRobots(Page page) {
+    public void addSiteMapPageFromRobots(Page page) {
         List<String> foundedSitemapLinks = PageParser.searchSiteMap(Downloader.download(page.getUrl()));
         dbService.updatePageDate(page);
         Date todayDate = new Date();
-        for (String link : foundedSitemapLinks) {
-            dbService.addPage(link, page.getSite(), todayDate, null, "sitemap");
+        if (foundedSitemapLinks.size() != 0) { //сайтмапы найдены
+            for (String link : foundedSitemapLinks) {
+                dbService.addPage(link, page.getSite(), todayDate, null, "sitemap");
+            }
+        } else { //сайтмапы не найдены
+            dbService.addPage("https://"+page.getSite().getName(), page.getSite(), todayDate, null, "direct");
         }
     }
 
@@ -193,7 +193,7 @@ public class Krauler extends Thread {
         } else {
 
 
-                ranks = PageParser.parsePageSuperPuper(HTMLString, keywords);
+            ranks = PageParser.parsePageSuperPuper(HTMLString, keywords);
 
             // преобразовываем массив по кейвордам в массив по персонам
             for (int i = 0; i < ranks.length; i++) {
@@ -212,7 +212,7 @@ public class Krauler extends Thread {
             dbService.updatePageDate(page);
             Date EndDate = new Date();
 
-            System.out.println("t0: Calculation ranks for " + page.getId() + " complete in "+(EndDate.getTime()-StartDate.getTime())/1000+" sec.");
+            System.out.println("t0: Calculation ranks for " + page.getId() + " complete in " + (EndDate.getTime() - StartDate.getTime()) / 1000 + " sec.");
             //System.out.println("End new function:"+new Date().toString());
         }
     }

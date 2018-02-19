@@ -54,11 +54,9 @@ class LogInViewController: UIViewController, UITextFieldDelegate{
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(RegistrationViewController.handleTap))
             view.addGestureRecognizer(tap)
-        
-//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapView(gesture:)))
-//        view.addGestureRecognizer(tapGesture)
     }
-
+    
+    
     @objc func handleTap() {
         
         view.endEditing(true)

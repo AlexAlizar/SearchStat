@@ -50,17 +50,47 @@ class AuthService {
         }
     }
     
-    func registerUser(email: String, password: String, completion: @escaping CompletionHandler) {
+    func registerUser(user: String, email: String, password: String, completion: @escaping CompletionHandler) {
         
         let lowerCaseEmail = email.lowercased()
+        let lowerCaseUser = user.lowercased()
 
-        if usersArray[lowerCaseEmail] == nil {
-            usersArray[lowerCaseEmail] = password
+        // Request
+        
+        let urlString = "\(REG_URL)login=\(lowerCaseUser)&password=\(password)&email=\(lowerCaseEmail)"
+        
+        guard let url = URL(string: urlString) else {return}
+        
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
+            guard let data = data else {
+                print("No Internet Connection")
+                
+                completion(false)
+                return
+            }
+            guard error == nil else {
+                print("Error in response")
+                
+                completion(false)
+                return
+            }
+            //"Updated"
+            var resultString = String(data: data, encoding: String.Encoding.utf8)
+            if resultString!.count > 0 {
+                if (resultString?.contains("Updated"))! {
+                    debugPrint("User created")
+                    completion(true)
+                } else {
+                    debugPrint("userCreate Error")
+                    completion(false)
+                }
+                
+            } else {
+                debugPrint("Authorisation Fail")
+                completion(false)
+            }
             
-            completion(true)
-        } else {
-            completion(false)
-        }
+        }.resume()
     }
     
     func loginUser(user: String, password: String, completion: @escaping CompletionHandler) {

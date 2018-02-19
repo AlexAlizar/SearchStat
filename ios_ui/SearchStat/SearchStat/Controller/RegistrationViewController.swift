@@ -12,7 +12,8 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
 
     
     @IBAction func closeBtnPressed(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
+        self.performSegue(withIdentifier: UNWIND, sender: nil)
+        
     }
     
     @IBAction func userPhotoBtn(_ sender: UIButton) {
@@ -37,14 +38,20 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
         guard let email = emailTextField.text , emailTextField.text != "" else {return }
         guard let pass = passwordTextField.text, passwordTextField.text != "" else { return }
         
-        AuthService.instance.registerUser(email: email, password: pass) { (success) in
+        AuthService.instance.registerUser(user: name, email: email, password: pass) { (success) in
             if success {
-                AuthService.instance.loginUser(user: email, password: pass, completion: { (success) in
+                AuthService.instance.loginUser(user: name, password: pass, completion: { (success) in
                     if success {
-                        UserDataService.instance.setUserData(name: name)
-                        self.performSegue(withIdentifier: UNWIND, sender: nil)
-                        NotificationCenter.default.post(name: NOTIF_USER_DID_CHANGED, object: nil)
+                        UserDataService.instance.setUserData(name: AuthService.instance.userName)
+                        DispatchQueue.main.async {
+                            self.performSegue(withIdentifier: UNWIND, sender: nil)
+                            NotificationCenter.default.post(name: NOTIF_USER_DID_CHANGED, object: nil)
+                        }
                         
+                    } else {
+                        let alert = UIAlertController(title: "Error", message: "Communication/Login \n Error", preferredStyle: UIAlertControllerStyle.alert)
+                        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
+                        self.present(alert, animated: true, completion: nil)
                     }
                 })
             }

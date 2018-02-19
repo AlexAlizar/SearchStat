@@ -15,9 +15,9 @@ typealias DetailStatCompletion = (_ Response: DetailStatResponse) -> ()
 
 //URL Constants
 let URL_SCHEME = "http"
-let URL_HOST = "195.110.59.16"
-let URL_PORT = 8081
-let URL_PATH = "/restapi-v3/"
+let URL_HOST = "51.15.55.90"
+let URL_PORT = 8080
+let URL_PATH = "/restapi-v4/"
 
 //let BASE_URL = "http://195.110.59.16:8081/"
 let BASE_URL = "\(URL_SCHEME)://\(URL_HOST):\(URL_PORT)"
@@ -27,6 +27,7 @@ let GENEARAL_STATS_URL = "\(BASE_URLV2)general-statistic&token=<TOKEN>&site=<SIT
 let DAILY_STATS_URL = "\(BASE_URLV2)daily-statistic&person=<PERSON>&date1=<DATE1>&date2=<DATE2>&token=<TOKEN>&site=<SITE>"
 
 let AUTH_URL = "\(BASE_URLV2)auth&"
+let REG_URL = "\(BASE_URLV2)registration&"
 
 
 //Colors

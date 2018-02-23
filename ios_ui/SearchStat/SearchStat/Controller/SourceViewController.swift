@@ -15,6 +15,7 @@ class SourceViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var menuBtn: UIButton!
     @IBOutlet weak var sourceTableView: UITableView!
     
+    @IBOutlet weak var commInd: UIActivityIndicatorView!
     override func viewDidLoad() {
         super.viewDidLoad()
         //MARK: показать меню
@@ -22,6 +23,10 @@ class SourceViewController: UIViewController, UITableViewDelegate, UITableViewDa
         //MARK: Обработчики нашатий для меню
         self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         self.view.addGestureRecognizer(self.revealViewController().tapGestureRecognizer())
+        
+        
+        self.commInd.isHidden = false
+        self.commInd.startAnimating()
         
         MainService.instance.beginInit()
         MainService.instance.delegate = self
@@ -42,33 +47,26 @@ class SourceViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         
         DispatchQueue.main.async {
+            self.commInd.isHidden = true
+            self.commInd.stopAnimating()
             self.sourceTableView.reloadData()
         }
         
     }
     
-//    private func initVC() {
-//        if MainService.instance.siteArray == nil {
-//            MainService.instance.getSites { (result) in
-//                if result {
-//                    self.sitesArray = MainService.instance.siteArray!
-//                    DispatchQueue.main.async {
-//                        self.sourceTableView.reloadData()
-//                    }
-//                } else {
-//                    //ошибка в сервисе используем фейковые данные
-//                    //выводим предупреждение
-//                    self.sitesArray = MainService.instance.siteArray!
-//
-//                    DispatchQueue.main.async {
-//                        self.sourceTableView.reloadData()
-//                    }
-//                }
-//            }
-//        } else {
-//            self.sitesArray = MainService.instance.siteArray!
-//        }
-//    }
+    func initFail(error: String) {
+        //error message
+        let alert = UIAlertController(title: "Error", message: error, preferredStyle: UIAlertControllerStyle.alert)
+        
+        let action = UIAlertAction(title: "Try again", style: .default) { (action) in
+            debugPrint("restarting...")
+            MainService.instance.beginInit()
+        }
+        alert.addAction(action)
+        DispatchQueue.main.async {
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return sitesArray.count
@@ -90,12 +88,7 @@ class SourceViewController: UIViewController, UITableViewDelegate, UITableViewDa
             if let indexPath = sourceTableView.indexPathForSelectedRow {
                 
                 //MARK: Запоминаем выбранный сайт
-                UserDefaults.standard.set(indexPath.row, forKey: SITE_INDEX)
-                
-//                let destVC: TotalStatisticViewController = segue.destination as! TotalStatisticViewController
-//                destVC.initVC()
-                
-                
+                UserDefaults.standard.set(indexPath.row, forKey: SITE_INDEX)        
             }
         }
     }

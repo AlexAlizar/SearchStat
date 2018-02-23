@@ -524,7 +524,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
-                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="Выберите источник" borderStyle="line" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aFd-cc-I5k">
+                                        <textField opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="Выберите источник" borderStyle="line" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aFd-cc-I5k">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                             <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <color key="textColor" red="0.0039215686274509803" green="0.3411764705882353" blue="0.60784313725490191" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -591,6 +591,9 @@
                                 </constraints>
                                 <state key="normal" image="Menu"/>
                             </button>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="fAO-Pf-55I">
+                                <rect key="frame" x="169" y="255" width="37" height="37"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="0.0039215686274509803" green="0.3411764705882353" blue="0.60784313725490191" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -598,16 +601,19 @@
                             <constraint firstItem="CjO-DA-LgG" firstAttribute="bottom" secondItem="4sv-pV-aiQ" secondAttribute="bottom" id="UxP-xm-B11"/>
                             <constraint firstItem="u8k-wi-gy0" firstAttribute="top" secondItem="4sv-pV-aiQ" secondAttribute="top" constant="15" id="VJW-c9-pcr"/>
                             <constraint firstItem="u8k-wi-gy0" firstAttribute="leading" secondItem="4sv-pV-aiQ" secondAttribute="leading" constant="16" id="YF8-Lh-LfC"/>
+                            <constraint firstItem="fAO-Pf-55I" firstAttribute="centerY" secondItem="cSa-2P-WKd" secondAttribute="centerY" constant="-60" id="dRb-2n-je3"/>
                             <constraint firstItem="CjO-DA-LgG" firstAttribute="bottom" secondItem="4sv-pV-aiQ" secondAttribute="bottom" id="eMF-oG-Eue"/>
                             <constraint firstItem="CjO-DA-LgG" firstAttribute="leading" secondItem="4sv-pV-aiQ" secondAttribute="leading" id="eac-Kx-V5D"/>
                             <constraint firstItem="CjO-DA-LgG" firstAttribute="top" secondItem="4sv-pV-aiQ" secondAttribute="top" constant="77" id="evf-Vo-0Yq"/>
                             <constraint firstItem="CjO-DA-LgG" firstAttribute="top" secondItem="4sv-pV-aiQ" secondAttribute="top" constant="77" id="m8O-fD-BKK"/>
+                            <constraint firstItem="fAO-Pf-55I" firstAttribute="centerX" secondItem="cSa-2P-WKd" secondAttribute="centerX" id="ut3-tI-J33"/>
                             <constraint firstItem="CjO-DA-LgG" firstAttribute="trailing" secondItem="4sv-pV-aiQ" secondAttribute="trailing" id="vGh-K5-xgv"/>
                             <constraint firstItem="CjO-DA-LgG" firstAttribute="leading" secondItem="4sv-pV-aiQ" secondAttribute="leading" id="wNq-0l-DGs"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="4sv-pV-aiQ"/>
                     </view>
                     <connections>
+                        <outlet property="commInd" destination="fAO-Pf-55I" id="SeB-p6-6u4"/>
                         <outlet property="menuBtn" destination="u8k-wi-gy0" id="gkL-fY-Xi5"/>
                         <outlet property="sourceTableView" destination="CjO-DA-LgG" id="Cv5-fO-bfS"/>
                         <segue destination="Qtw-Kz-bvB" kind="custom" identifier="backToFirstScreen" customClass="SWRevealViewControllerSeguePushController" id="CMc-o3-Wb1"/>

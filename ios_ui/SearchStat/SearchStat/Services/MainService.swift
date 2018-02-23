@@ -10,6 +10,7 @@ import Foundation
 
 protocol MainServiceDelegate {
     func initCompleated()
+    func initFail(error: String)
 }
 
 class MainService {
@@ -59,12 +60,17 @@ class MainService {
                     self.getGeneralStat(forSite: item, completionHandler: { (generalStatsSucces) in
                         if generalStatsSucces {
                             self.isInitDone()
+                        } else {
+                            self.delegate?.initFail(error: "ERROR: Sites partly done")
                         }
                     })
                 }
                 
             }else {
                 debugPrint("Sites Communication error")
+                self.siteNames?.removeAll()
+                self.delegate?.initFail(error: "ERROR: Sites Communication error")
+                
             }
         }
     }

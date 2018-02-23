@@ -120,7 +120,7 @@ class AuthService {
             if tokenString!.count > 0 {
                 tokenString?.removeLast(2)
                 tokenString?.removeFirst()
-                if tokenString != nil && !(tokenString?.contains("error"))! {
+                if tokenString != nil && !(tokenString?.contains("error"))!  {
                     debugPrint("Authorised token: \(tokenString!)")
                     self.authToke = tokenString!
                     self.userName = lowerCaseUser

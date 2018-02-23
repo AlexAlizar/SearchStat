@@ -45,7 +45,9 @@ class LogInViewController: UIViewController, UITextFieldDelegate{
             } else {
                 let alert = UIAlertController(title: "Error", message: "Communication/Login \n Error", preferredStyle: UIAlertControllerStyle.alert)
                 alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
-                self.present(alert, animated: true, completion: nil)
+                DispatchQueue.main.async {
+                    self.present(alert, animated: true, completion: nil)
+                }
             }
         }
     }

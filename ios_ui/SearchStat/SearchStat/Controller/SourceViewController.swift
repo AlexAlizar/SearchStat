@@ -58,11 +58,18 @@ class SourceViewController: UIViewController, UITableViewDelegate, UITableViewDa
         //error message
         let alert = UIAlertController(title: "Error", message: error, preferredStyle: UIAlertControllerStyle.alert)
         
-        let action = UIAlertAction(title: "Try again", style: .default) { (action) in
+        let actionAgain = UIAlertAction(title: "Try again", style: .default) { (action) in
             debugPrint("restarting...")
             MainService.instance.beginInit()
         }
-        alert.addAction(action)
+        let actionCancel = UIAlertAction(title: "Cancel", style: .default) { (action) in
+            debugPrint("LogOff...")
+            UserDataService.instance.logoutUser()
+            NotificationCenter.default.post(name: NOTIF_USER_DID_CHANGED, object: nil)
+            
+        }
+        alert.addAction(actionAgain)
+        alert.addAction(actionCancel)
         DispatchQueue.main.async {
             self.present(alert, animated: true, completion: nil)
         }

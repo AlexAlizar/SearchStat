@@ -28,7 +28,7 @@ public class AddLinksThread extends Thread {
     public void run() {
         System.out.println("            t1:"+page.getId()+" - ADD LINKS PROCESS STARTED");
 
-        addPageLinksFromSitemap();
+        addPageLinksFromPage();
   //      sessionFactory.close();
 
         System.out.println("            t1:"+page.getId()+" - ADD LINKS PROCESS FINISHED");
@@ -37,9 +37,16 @@ public class AddLinksThread extends Thread {
     /**
      * метод, который добавляет в Pages все найденные ссылки на web-страницы из sitemap-ов
      */
-    private void addPageLinksFromSitemap() {
-        System.out.println("            t1:"+page.getId()+" - SEARCH LINKS FOR SITEMAP");
-        List<String> allLinksFromSitemap = PageParser.getLinkPagesFromSiteMap(page.getUrl());
+    private void addPageLinksFromPage() {
+        List<String> allLinksFromSitemap;
+        System.out.println("            t1:"+page.getId()+" - SEARCH LINKS FOR "+page.getType_page().toUpperCase());
+        if (page.getType_page().equals("sitemap")) {
+            allLinksFromSitemap = PageParser.getLinkPagesFromSiteMap(page.getUrl());
+        }
+        else
+        {
+            allLinksFromSitemap = PageParser.collectLinkOnPage(page);
+        }
         System.out.println("            t1:"+page.getId()+" - FOUND "+allLinksFromSitemap.size());
         dbService.updatePageDate(page);
         Date todayDate = new Date();

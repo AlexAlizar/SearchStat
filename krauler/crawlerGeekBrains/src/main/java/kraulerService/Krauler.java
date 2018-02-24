@@ -40,18 +40,18 @@ public class Krauler extends Thread {
 
         AddLinksThread t2 = null;
         LogWork.logWrite("Start program");
-        System.out.println("t0: Started");
+        LogWork.logWrite("t0: Started", 1);
         addSitePagesWithoutScan();
         List<Page> pages;
-        System.out.println("t0: Update links began");
+        LogWork.logWrite("t0: Update links began", 1);
         updateLinks("sitemap");
         updateLinks("direct");
-        System.out.println("t0: Update links complete");
-        System.out.println("t0: Search pages for analyze...");
+        LogWork.logWrite("t0: Update links complete", 1);
+        LogWork.logWrite("t0: Search pages for analyze...", 1);
         pages = dbService.getNonScannedPages();
 
         int count = pages.size();
-        System.out.println("t0: Found " + count + " pages");
+        LogWork.logWrite("t0: Found " + count + " pages", 1);
         while (count > 0) {
             for (Page page : pages) {
                 String url = page.getUrl();
@@ -72,25 +72,24 @@ public class Krauler extends Thread {
             }
 
             // и еще раз вытаскиваем список неотсканированных страниц
-            System.out.println("t0: Search pages for analyze...");
+            LogWork.logWrite("t0: Search pages for analyze...", 1);
             pages = dbService.getNonScannedPages();
 
             if (pages != null) {
                 count = pages.size();
-                System.out.println("t0: Found " + count + " pages");
+                LogWork.logWrite("t0: Found " + count + " pages", 1);
             } else count = 0;
         }
 
         try {
             if (t2 != null) {
-                System.out.println("t0: Waiting while t1 been complete.");
+                LogWork.logWrite("t0: Waiting while t1 been complete.", 1);
                 t2.join();     // ждем когда закончится вытягивание ссылок с сайтмапа
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.println("Complete all threads successful!");
-        LogWork.logWrite("Complete all threads successful!");
+        LogWork.logWrite("Complete all threads successful!", 1);
         sessionFactory.close();
     }
 
@@ -140,38 +139,7 @@ public class Krauler extends Thread {
         }
     }
 
-    /**
-     * метод, который считает Rank для каждой персоны считает количесвто упоминаний на переданной странице
-     *
-     * @param page
-     */
-//    private void addRanksForPersons(Page page) {
-//        System.out.println("Start old function:"+new Date().toString());
-//        List<Person> persons = dbService.getAllPerson();
-//
-//        for (Person person : persons) {
-//            int rank = 0;
-//
-//            List<Keyword> keywordList = dbService.getKeywordByPerson(person);
-//            String HTMLString = Downloader.download(page.getUrl(),"UTF-8");
-//            if (HTMLString.equals("windows-1251")) {
-//                HTMLString = Downloader.download(page.getUrl(),"windows-1251");
-//            }
-//            for (int i = 0; i < keywordList.size(); i++) {
-//                String keyword = keywordList.get(i).getName();
-//                rank += PageParser.parsePage(HTMLString, keyword);
-//            }
-//            dbService.writeRank(
-//                    person,
-//                    page,
-//                    rank
-//            );
-//        }
-//
-//        dbService.updatePageDate(page);
-//        System.out.println("End old function:"+new Date().toString());
-//        addRanksForPersonsNew(page);
-//    }
+
     private void addRanksForPersons(Page page) {
         Date StartDate = new Date();
         List<Person> persons = dbService.getAllPerson();
@@ -212,8 +180,7 @@ public class Krauler extends Thread {
             dbService.updatePageDate(page);
             Date EndDate = new Date();
 
-            System.out.println("t0: Calculation ranks for " + page.getId() + " complete in " + (EndDate.getTime() - StartDate.getTime()) / 1000 + " sec.");
-            //System.out.println("End new function:"+new Date().toString());
+            LogWork.logWrite("t0: Calculation ranks for " + page.getId() + " complete in " + (EndDate.getTime() - StartDate.getTime()) / 1000 + " sec.", 3);
         }
     }
 

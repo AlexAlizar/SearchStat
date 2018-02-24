@@ -2,6 +2,7 @@ package dbService.dao;
 
 import dbService.dataSets.Page;
 import dbService.dataSets.Site;
+import kraulerService.parsingService.LogWork;
 import org.hibernate.Criteria;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
@@ -39,9 +40,9 @@ public class PageDAO {
 
         if (page == null) {
             if (type_page.equals("link"))
-                System.out.println("            t1:"+url.substring(0, n)+" - INSERT LINK");
+                LogWork.logWrite("            t1:"+url.substring(0, n)+" - INSERT LINK",3);
             else
-                System.out.println("t0:"+url.substring(0, n)+" - INSERT LINK");
+                LogWork.logWrite("t0:"+url.substring(0, n)+" - INSERT LINK",3);
             return (Integer) session.save(new Page(url, site, foundDateTime, lastScanDate, type_page, long_url));
         }
         return page.getId();

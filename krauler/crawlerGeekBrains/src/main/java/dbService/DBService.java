@@ -2,6 +2,7 @@ package dbService;
 
 import dbService.dao.*;
 import dbService.dataSets.*;
+import kraulerService.parsingService.LogWork;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -35,7 +36,7 @@ public class DBService {
             Person person = personDAO.getPersonByName(name);
             if(!(person==null))
             {
-                System.out.println("Такой Person уже есть в БД!");
+                LogWork.logWrite("Такой Person уже есть в БД!", 1);
                 closeSessionAndTransation("commit");
                 return id;
             }
@@ -43,9 +44,9 @@ public class DBService {
             closeSessionAndTransation("commit");
         } catch (HibernateException e) {
             closeSessionAndTransation("rollback");
-            System.err.println("!!!HIBERNATE ERROR APPEARED!!!");
+            LogWork.logWrite("!!!HIBERNATE ERROR APPEARED!!!");
         } catch (NullPointerException e) {
-            System.err.println("something wrong");
+            LogWork.myPrintStackTrace(e);
         }
         finally {
             return id;
@@ -68,9 +69,9 @@ public class DBService {
             closeSessionAndTransation("commit");
         } catch (HibernateException e) {
             closeSessionAndTransation("rollback");
-            System.err.println("!!!HIBERNATE ERROR APPEARED!!!");
+            LogWork.logWrite("!!!HIBERNATE ERROR APPEARED!!!");
         } catch (NullPointerException e) {
-            System.err.println("something wrong");
+            LogWork.myPrintStackTrace(e);
         }
         finally {
             return id;
@@ -91,9 +92,9 @@ public class DBService {
             closeSessionAndTransation("commit");
         } catch (HibernateException e) {
             closeSessionAndTransation("rollback");
-            System.err.println("!!!HIBERNATE ERROR APPEARED!!!");
+            LogWork.logWrite("!!!HIBERNATE ERROR APPEARED!!!");
         } finally {
-            if(person == null) System.out.println("Такого Person не найдено!");
+            if(person == null) LogWork.logWrite("Такого Person не найдено!",1);
             return person;
         }
     }
@@ -114,9 +115,9 @@ public class DBService {
             closeSessionAndTransation("commit");
         } catch (HibernateException e) {
             closeSessionAndTransation("rollback");
-            System.err.println("Попытка найти по имени Персону, которых в БД более одной(например два Vasya и его ищем => ошибка)");
+            LogWork.logWrite("Попытка найти по имени Персону, которых в БД более одной(например два Vasya и его ищем => ошибка)");
         } finally {
-            if(person == null) System.out.println("Такого Person не найдено!");
+            if(person == null) LogWork.logWrite("Такого Person не найдено!", 1);
             return person;
         }
     }
@@ -140,7 +141,7 @@ public class DBService {
             closeSessionAndTransation("commit");
         } catch (HibernateException e) {
             closeSessionAndTransation("rollback");
-            System.err.println("!!!HIBERNATE ERROR APPEARED!!!");
+            LogWork.myPrintStackTrace(e);
         } finally {
             return id;
         }
@@ -155,7 +156,7 @@ public class DBService {
             closeSessionAndTransation("commit");
         } catch (HibernateException e) {
             closeSessionAndTransation("rollback");
-            System.err.println("!!!HIBERNATE ERROR APPEARED!!!");
+            LogWork.myPrintStackTrace(e);
         } finally {
             return id;
         }
@@ -170,7 +171,7 @@ public class DBService {
             closeSessionAndTransation("commit");
         } catch (HibernateException e) {
             closeSessionAndTransation("rollback");
-            System.err.println("!!!HIBERNATE ERROR APPEARED!!!");
+            LogWork.myPrintStackTrace(e);
         } finally {
             return id;
         }
@@ -186,9 +187,9 @@ public class DBService {
             closeSessionAndTransation("commit");
         } catch (HibernateException e) {
             closeSessionAndTransation("rollback");
-            System.err.println("!!!HIBERNATE ERROR APPEARED!!!");
+            LogWork.myPrintStackTrace(e);
         } finally {
-            if(page == null) System.out.println("Такой Page не найдено!");
+            if(page == null) LogWork.logWrite("Такой Page не найдено!", 1);
             return page;
         }
     }
@@ -208,7 +209,7 @@ public class DBService {
             closeSessionAndTransation("commit");
         } catch (HibernateException e) {
             closeSessionAndTransation("rollback");
-            System.err.println("!!!HIBERNATE ERROR APPEARED!!!");
+            LogWork.myPrintStackTrace(e);
         } finally {
             return id;
         }
@@ -225,7 +226,7 @@ public class DBService {
             closeSessionAndTransation("rollback");
             e.printStackTrace();
         } finally {
-            if(site == null) System.out.println("Такого Site не найдено!");
+            if(site == null) LogWork.logWrite("Такого Site не найдено!", 1);
             return site;
         }
     }
@@ -239,7 +240,7 @@ public class DBService {
             closeSessionAndTransation("commit");
         } catch (HibernateException e) {
             closeSessionAndTransation("rollback");
-            System.err.println("!!!HIBERNATE ERROR APPEARED!!!");
+            LogWork.myPrintStackTrace(e);
         } finally {
             return sites;
         }
@@ -254,7 +255,7 @@ public class DBService {
             closeSessionAndTransation("commit");
         } catch (HibernateException e) {
             closeSessionAndTransation("rollback");
-            System.err.println("!!!HIBERNATE ERROR APPEARED!!!");
+            LogWork.myPrintStackTrace(e);
         } finally {
             return sites;
         }
@@ -269,7 +270,7 @@ public class DBService {
             closeSessionAndTransation("commit");
         } catch (HibernateException e) {
             closeSessionAndTransation("rollback");
-            System.err.println("!!!HIBERNATE ERROR APPEARED!!!");
+            LogWork.myPrintStackTrace(e);
         } finally {
             return pages;
         }
@@ -285,7 +286,7 @@ public class DBService {
             closeSessionAndTransation("commit");
         } catch (HibernateException e) {
             closeSessionAndTransation("rollback");
-            System.err.println("!!!HIBERNATE ERROR APPEARED!!!");
+            LogWork.myPrintStackTrace(e);
         }
 
     }
@@ -299,7 +300,7 @@ public class DBService {
             closeSessionAndTransation("commit");
         } catch (HibernateException e) {
             closeSessionAndTransation("rollback");
-            System.err.println("!!!HIBERNATE ERROR APPEARED!!!");
+            LogWork.myPrintStackTrace(e);
         } finally {
             return keywords;
         }
@@ -314,7 +315,7 @@ public class DBService {
             closeSessionAndTransation("commit");
         } catch (HibernateException e) {
             closeSessionAndTransation("rollback");
-            System.err.println("!!!HIBERNATE ERROR APPEARED!!!");
+            LogWork.myPrintStackTrace(e);
         } finally {
             return keywords;
         }
@@ -329,7 +330,7 @@ public class DBService {
             closeSessionAndTransation("commit");
         } catch (HibernateException e) {
             closeSessionAndTransation("rollback");
-            System.err.println("!!!HIBERNATE ERROR APPEARED!!!");
+            LogWork.myPrintStackTrace(e);
         } finally {
             return persons;
         }
@@ -345,7 +346,7 @@ public class DBService {
             closeSessionAndTransation("commit");
         } catch (HibernateException e) {
             closeSessionAndTransation("rollback");
-            System.err.println("!!!HIBERNATE ERROR APPEARED!!!");
+            LogWork.myPrintStackTrace(e);
         } finally {
             return id;
         }

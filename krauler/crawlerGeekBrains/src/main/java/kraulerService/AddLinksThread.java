@@ -3,6 +3,7 @@ package kraulerService;
 import dbService.DBService;
 import dbService.HibernateUtil;
 import dbService.dataSets.Page;
+import kraulerService.parsingService.LogWork;
 import kraulerService.parsingService.PageParser;
 import org.hibernate.SessionFactory;
 
@@ -26,12 +27,12 @@ public class AddLinksThread extends Thread {
 
     @Override
     public void run() {
-        System.out.println("            t1:"+page.getId()+" - ADD LINKS PROCESS STARTED");
+        LogWork.logWrite("            t1:"+page.getId()+" - ADD LINKS PROCESS STARTED", 1);
 
         addPageLinksFromPage();
   //      sessionFactory.close();
 
-        System.out.println("            t1:"+page.getId()+" - ADD LINKS PROCESS FINISHED");
+        LogWork.logWrite("            t1:"+page.getId()+" - ADD LINKS PROCESS FINISHED", 1);
     }
 
     /**
@@ -39,7 +40,7 @@ public class AddLinksThread extends Thread {
      */
     private void addPageLinksFromPage() {
         List<String> allLinksFromSitemap;
-        System.out.println("            t1:"+page.getId()+" - SEARCH LINKS FOR "+page.getType_page().toUpperCase());
+        LogWork.logWrite("            t1:"+page.getId()+" - SEARCH LINKS FOR "+page.getType_page().toUpperCase(), 2);
         if (page.getType_page().equals("sitemap")) {
             allLinksFromSitemap = PageParser.getLinkPagesFromSiteMap(page.getUrl());
         }
@@ -47,7 +48,7 @@ public class AddLinksThread extends Thread {
         {
             allLinksFromSitemap = PageParser.collectLinkOnPage(page);
         }
-        System.out.println("            t1:"+page.getId()+" - FOUND "+allLinksFromSitemap.size());
+        LogWork.logWrite("            t1:"+page.getId()+" - FOUND "+allLinksFromSitemap.size(), 2);
         dbService.updatePageDate(page);
         Date todayDate = new Date();
         for (String link : allLinksFromSitemap) {

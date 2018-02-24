@@ -14,6 +14,7 @@ public class LogWork {
     private static File folderPathLog = new File(pathLog);
     private static String nameLogFile = "SearchStat";
     private static File logFile = new File(pathLog + "/" +nameLogFile + "_" + formatForLogName.format(new Date()) + ".log");
+    private static int logLevel;
 
     /**
      * It checks if the file exists and if it does not exist, it creates.
@@ -36,13 +37,18 @@ public class LogWork {
         return true;
     }
 
+
+    public static void setLogLevel(int logLevel) {
+        LogWork.logLevel = logLevel;
+    }
+
     /**
      * Write message in log file
      * @param logMsg
      */
-    public static void logWrite (String logMsg, int progLogLevel, int userLoglevel) {
+    public static void logWrite (String logMsg, int userLoglevel) {
 
-        if (userLoglevel <= progLogLevel) {
+        if (userLoglevel <= logLevel) {
             // Получаем массив stak trace элементов
             StackTraceElement[] ste = Thread.currentThread().getStackTrace();
 
@@ -72,7 +78,7 @@ public class LogWork {
     }
 
     public static void logWrite (String logMsg) {
-        logWrite(logMsg,0,0);
+        logWrite(logMsg,0);
     }
 
     public static void myPrintStackTrace (Exception e) {

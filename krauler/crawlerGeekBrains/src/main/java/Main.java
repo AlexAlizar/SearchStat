@@ -10,7 +10,7 @@ public class Main {
         //1 - только важные
         //2 - средние по важности
         //3 - все
-        LogWork.setLogLevel(1);
+        LogWork.setLogLevel(2);
         LogWork.logWrite("Start program\n",1);
 
         /*/////////   РАБОТА КЛАССА Krauler //////////////*/

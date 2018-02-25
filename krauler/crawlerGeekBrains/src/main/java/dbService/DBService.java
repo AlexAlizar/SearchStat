@@ -291,6 +291,22 @@ public class DBService {
 
     }
 
+    public void updateRecalcLinks() {
+        List<Page> pages;
+        try {
+            openSessionAndTransation();
+            PageDAO pageDAO = new PageDAO(session);
+            pages = pageDAO.getRecalcLinks();
+            for (Page page : pages)
+                pageDAO.resetPageDate(page);
+            closeSessionAndTransation("commit");
+        } catch (HibernateException e) {
+            closeSessionAndTransation("rollback");
+            LogWork.myPrintStackTrace(e);
+        }
+
+    }
+
     public List<Keyword> getKeywordByPerson(Person person) {
         List<Keyword> keywords = null;
         try {

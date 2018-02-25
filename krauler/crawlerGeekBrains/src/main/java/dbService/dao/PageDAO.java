@@ -100,5 +100,25 @@ public class PageDAO {
         query.executeUpdate();
     }
 
+    public void resetPageDate(Page page) {
+
+        String txtSQL = "UPDATE pages set last_scan_date = null where id = "+page.getId();
+        SQLQuery query = session.createSQLQuery(txtSQL);
+        query.executeUpdate();
+    }
+
+
+    public List<Page> getRecalcLinks() {
+
+        String txtSQL = "select * from pages where id in (" +
+                "select y.id from persons x, pages y where y.type_page = 'link' and (x.id, y.id) not in ("+
+                "select person_id, page_id from person_page_rank)) LIMIT 100";
+
+        SQLQuery query = session.createSQLQuery(txtSQL);
+
+        query.addEntity(Page.class);
+        return query.list();
+    }
+
 
 }

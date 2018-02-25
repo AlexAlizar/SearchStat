@@ -46,6 +46,7 @@ public class Krauler extends Thread {
         LogWork.logWrite("t0: Update links began", 1);
         updateLinks("sitemap");
         updateLinks("direct");
+        updateRecalcLinks();
         LogWork.logWrite("t0: Update links complete", 1);
         LogWork.logWrite("t0: Search pages for analyze...", 1);
         pages = dbService.getNonScannedPages();
@@ -73,6 +74,7 @@ public class Krauler extends Thread {
 
             // и еще раз вытаскиваем список неотсканированных страниц
             LogWork.logWrite("t0: Search pages for analyze...", 1);
+            updateRecalcLinks();
             pages = dbService.getNonScannedPages();
 
             if (pages != null) {
@@ -191,5 +193,12 @@ public class Krauler extends Thread {
      */
     private void updateLinks(String type) {
         dbService.resetOldPages(type);
+    }
+
+    /**
+     * метод, сбрасывает ссылки, которые нужно пересчитать в связи с появлением новых persons
+     */
+    private void updateRecalcLinks() {
+        dbService.updateRecalcLinks();
     }
 }

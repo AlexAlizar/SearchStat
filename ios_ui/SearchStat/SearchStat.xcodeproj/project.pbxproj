@@ -55,6 +55,7 @@
 		FF3B784E1FEAE94E0096CD24 /* MainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3B784D1FEAE94E0096CD24 /* MainService.swift */; };
 		FF3B78501FEB0A300096CD24 /* SourceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3B784F1FEB0A300096CD24 /* SourceCell.swift */; };
 		FF7EDA4A1FE7E7AF00943B25 /* MainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF7EDA491FE7E7AF00943B25 /* MainModel.swift */; };
+		FF8A409C204C8D17008DF0A8 /* AboutVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF8A409B204C8D17008DF0A8 /* AboutVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -130,6 +131,7 @@
 		FF3B784D1FEAE94E0096CD24 /* MainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainService.swift; sourceTree = "<group>"; };
 		FF3B784F1FEB0A300096CD24 /* SourceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceCell.swift; sourceTree = "<group>"; };
 		FF7EDA491FE7E7AF00943B25 /* MainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainModel.swift; sourceTree = "<group>"; };
+		FF8A409B204C8D17008DF0A8 /* AboutVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -265,6 +267,7 @@
 				619590691FF82D0A00FEFA58 /* CalendarVC.swift */,
 				FF39B5A620060A25002AFE40 /* FirstScreenVC.swift */,
 				FF39B5A820060A37002AFE40 /* MenuVC.swift */,
+				FF8A409B204C8D17008DF0A8 /* AboutVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -471,6 +474,7 @@
 				6116549F1FF339ED00D7A5D3 /* FSCalendarCollectionView.m in Sources */,
 				E7509EF21FEE7A4700A5FC56 /* DetailStatisticCell.swift in Sources */,
 				E71F0D4D1FE7E2DB001F311D /* AppDelegate.swift in Sources */,
+				FF8A409C204C8D17008DF0A8 /* AboutVC.swift in Sources */,
 				611654A41FF339ED00D7A5D3 /* FSCalendarWeekdayView.m in Sources */,
 				E72112D41FEA7106004093BA /* RegistrationViewController.swift in Sources */,
 				E71FBDB21FE9680800B3A0B3 /* LogInViewController.swift in Sources */,

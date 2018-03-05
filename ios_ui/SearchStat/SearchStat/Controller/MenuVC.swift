@@ -17,6 +17,7 @@ class MenuVC: UIViewController {
     @IBOutlet weak var myAccountBtn: CustomButton!
     
     //Actions
+    
     @IBAction func exitBtnPressed(_ sender: Any) {
         if AuthService.instance.isLoggedin {
             UserDataService.instance.logoutUser()
@@ -28,7 +29,10 @@ class MenuVC: UIViewController {
 //            settingBtn.isHidden = true
         }
     }
-    @IBAction func prepareForUnwind(segue: UIStoryboardSegue) {}
+    @IBAction func prepareForUnwind(segue: UIStoryboardSegue) {
+        
+    }
+    
     @IBAction func loginBtnPressed(_ sender: Any) {
         if !AuthService.instance.isLoggedin {
             performSegue(withIdentifier: TO_LOGIN, sender: nil)
@@ -42,7 +46,7 @@ class MenuVC: UIViewController {
         //MARK: Ширина Бокового меню
         self.revealViewController().rearViewRevealWidth = self.view.frame.size.width - 60
         menuBtn.isHidden = true
-        settingBtn.isHidden = true
+//        settingBtn.isHidden = true
         exitBtn.isHidden = true
         myAccountBtn.isHidden = true
         

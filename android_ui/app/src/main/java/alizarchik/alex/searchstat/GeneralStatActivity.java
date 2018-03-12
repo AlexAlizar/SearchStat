@@ -24,11 +24,13 @@ import android.widget.Toast;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
 import alizarchik.alex.searchstat.model.GenStatDataItem;
+import alizarchik.alex.searchstat.model.RankComparator;
 import alizarchik.alex.searchstat.model.Site;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -50,7 +52,6 @@ public class GeneralStatActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager mLayoutManager;
     private TextView currentDate;
     private Button buttonSelectSite;
-    private Button buttonShowStatistic;
     private ProgressBar progressBar;
     private ArrayList<String> sites;
     private ArrayList<GenStatDataItem> listGS;
@@ -67,9 +68,7 @@ public class GeneralStatActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         init();
         buttonSelectSite = findViewById(R.id.button_select_site_GS);
-        buttonShowStatistic = findViewById(R.id.button_show_statistic_GS);
         buttonSelectSite.setOnClickListener((v) -> onClick());
-        buttonShowStatistic.setOnClickListener((v) -> onClickShowStat(site));
     }
 
     @Override
@@ -97,7 +96,7 @@ public class GeneralStatActivity extends AppCompatActivity {
         mRecyclerView.addItemDecoration(divider);
         currentDate = findViewById(R.id.tvCurrentDate);
         Date dateNow = new Date();
-        SimpleDateFormat formatForDateNow = new SimpleDateFormat("MMM d, E");
+        SimpleDateFormat formatForDateNow = new SimpleDateFormat("MMMM dd, yyyy hh:mm a");
         currentDate.setText(formatForDateNow.format(dateNow));
     }
 
@@ -122,7 +121,7 @@ public class GeneralStatActivity extends AppCompatActivity {
         Retrofit retrofit;
         try {
             retrofit = new Retrofit.Builder()
-                    .baseUrl("http://195.110.59.16:8081/restapi-v3/?")
+                    .baseUrl("http://51.15.55.90:8080/restapi-v4/?")
                     .client(client)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
@@ -178,6 +177,7 @@ public class GeneralStatActivity extends AppCompatActivity {
                 builder.setItems(sitesArray, (dialogInterface, i) -> {
                     buttonSelectSite.setText(sitesArray[i]);
                     site = sitesArray[i].toString();
+                    onClickShowStat(site);
                 });
                 builder.show();
             }
@@ -197,7 +197,7 @@ public class GeneralStatActivity extends AppCompatActivity {
         Retrofit retrofit;
         try {
             retrofit = new Retrofit.Builder()
-                    .baseUrl("http://195.110.59.16:8081/restapi-v3/?")
+                    .baseUrl("http://51.15.55.90:8080/restapi-v4/?")
                     .client(client)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
@@ -244,6 +244,7 @@ public class GeneralStatActivity extends AppCompatActivity {
                             Log.d(TAG, "response.body() GS name:" + genStatDataItem.getName());
                             Log.d(TAG, "response.body() GS rank:" + genStatDataItem.getRank());
                             listGS.add(genStatDataItem);
+                            Collections.sort(listGS, new RankComparator());
                         }
                     }
                 } else {

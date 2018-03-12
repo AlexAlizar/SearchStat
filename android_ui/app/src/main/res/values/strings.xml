@@ -6,8 +6,8 @@
     <string name="login">Login</string>
     <string name="username">Username</string>
     <string name="detailed_stat">Detailed stat</string>
-    <string name="general_stat">General stat</string>
-    <string name="detail_stat">Detail stat</string>
+    <string name="general_stat">General statistic</string>
+    <string name="detail_stat">Detail statistic</string>
     <string name="name">Name</string>
     <string name="mentions">Mentions</string>
     <string name="person">Person</string>

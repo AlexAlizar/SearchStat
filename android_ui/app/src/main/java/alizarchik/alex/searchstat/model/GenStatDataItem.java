@@ -1,5 +1,7 @@
 package alizarchik.alex.searchstat.model;
 
+import android.support.annotation.NonNull;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 

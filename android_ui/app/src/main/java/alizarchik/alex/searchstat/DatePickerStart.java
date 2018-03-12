@@ -22,6 +22,7 @@ import java.util.Locale;
 public class DatePickerStart extends DialogFragment implements DatePickerDialog.OnDateSetListener {
 
     private String date1;
+    private String monthName;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -32,6 +33,7 @@ public class DatePickerStart extends DialogFragment implements DatePickerDialog.
         int month = c.get(Calendar.MONTH);
         int day = c.get(Calendar.DAY_OF_MONTH);
 
+        monthName = c.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH);
         // создаем DatePickerDialog и возвращаем его
         Dialog picker = new DatePickerDialog(getActivity(), R.style.DialogTheme, this,
                 year, month, day);
@@ -51,9 +53,17 @@ public class DatePickerStart extends DialogFragment implements DatePickerDialog.
     public void onDateSet(android.widget.DatePicker datePicker, int year,
                           int month, int day) {
 
-        Button tv = getActivity().findViewById(R.id.start_date);
-        tv.setText(day + "." + (month + 1) + "." + year);
-        date1 = tv.getText().toString();
+        TextView tv = getActivity().findViewById(R.id.start_date);
+        tv.setText(monthName + " " + day + ", " + year);
+        if (day < 10 & month < 10){
+            date1 = (year + "-0" + (month + 1) + "-0"+ day);
+        }else if (day < 10){
+            date1 = (year + "-" + (month + 1) + "-0"+ day);
+        }else if (month < 10) {
+            date1 = (year + "-0" + (month + 1) + "-" + day);
+        }else {
+            date1 = (year + "-" + (month + 1) + "-" + day);
+        }
         DailyStatActivity dailyStatActivity = (DailyStatActivity)getActivity();
         dailyStatActivity.setDate1(date1);
     }

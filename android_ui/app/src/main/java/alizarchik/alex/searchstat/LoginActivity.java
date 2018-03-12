@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -29,7 +30,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText login;
     private EditText password;
     private Button loginButton;
-    private Button signUpButton;
+    private TextView signUpButton;
     private ProgressBar progressBar;
     public static final String TAG = "MyLogs";
     IRestApi restAPI;
@@ -71,7 +72,7 @@ public class LoginActivity extends AppCompatActivity {
         Retrofit retrofit = null;
         try {
             retrofit = new Retrofit.Builder()
-                    .baseUrl("http://195.110.59.16:8081/restapi-v3/?")
+                    .baseUrl("http://51.15.55.90:8080/restapi-v4/?")
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
             restAPI = retrofit.create(IRestApi.class);

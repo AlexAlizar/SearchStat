@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -50,9 +51,8 @@ public class DailyStatActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager mLayoutManager;
     private Button buttonSelectSite;
     private Button buttonSelectPerson;
-    private Button buttonShowStatistic;
-    private Button startDate;
-    private Button endDate;
+    private TextView startDate;
+    private TextView endDate;
     private ProgressBar progressBar;
     private ArrayList<String> sites;
     private ArrayList<String> persons;
@@ -75,10 +75,9 @@ public class DailyStatActivity extends AppCompatActivity {
         init();
         buttonSelectSite = findViewById(R.id.button_select_site_DS);
         buttonSelectPerson = findViewById(R.id.button_select_person);
-        buttonShowStatistic = findViewById(R.id.button_show_statistic_DS);
         buttonSelectSite.setOnClickListener((v) -> onClickBtnSite());
         buttonSelectPerson.setOnClickListener((v) -> onClickBtnPerson());
-        buttonShowStatistic.setOnClickListener((v)-> onClickShowDailyStat(site, person, date1, date2));
+        //buttonShowStatistic.setOnClickListener((v)-> onClickShowDailyStat(site, person, date1, date2));
 
     }
 
@@ -150,7 +149,7 @@ public class DailyStatActivity extends AppCompatActivity {
         Retrofit retrofit;
         try {
             retrofit = new Retrofit.Builder()
-                    .baseUrl("http://195.110.59.16:8081/restapi-v3/?")
+                    .baseUrl("http://51.15.55.90:8080/restapi-v4/?")
                     .client(client)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
@@ -206,6 +205,7 @@ public class DailyStatActivity extends AppCompatActivity {
                 builder.setItems(sitesArray, (dialogInterface, i) -> {
                     buttonSelectSite.setText(sitesArray[i]);
                     site = sitesArray[i].toString();
+                    onClickShowDailyStat(site, person, date1, date2);
                 });
                 builder.show();
             }
@@ -225,7 +225,7 @@ public class DailyStatActivity extends AppCompatActivity {
         Retrofit retrofit;
         try {
             retrofit = new Retrofit.Builder()
-                    .baseUrl("http://195.110.59.16:8081/restapi-v3/?")
+                    .baseUrl("http://51.15.55.90:8080/restapi-v4/?")
                     .client(client)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
@@ -281,6 +281,7 @@ public class DailyStatActivity extends AppCompatActivity {
                 builder.setItems(sitesArray, (dialogInterface, i) -> {
                     buttonSelectPerson.setText(sitesArray[i]);
                     person = sitesArray[i].toString();
+                    onClickShowDailyStat(site, person, date1, date2);
                 });
                 builder.show();
             }
@@ -300,7 +301,7 @@ public class DailyStatActivity extends AppCompatActivity {
         Retrofit retrofit;
         try {
             retrofit = new Retrofit.Builder()
-                    .baseUrl("http://195.110.59.16:8081/restapi-v3/?")
+                    .baseUrl("http://51.15.55.90:8080/restapi-v4/?")
                     .client(client)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();

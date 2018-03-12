@@ -9,9 +9,13 @@ import android.support.v4.app.DialogFragment;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.Month;
 import java.util.Calendar;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 /**
@@ -21,16 +25,19 @@ import java.util.Locale;
 public class DatePickerEnd extends DialogFragment implements DatePickerDialog.OnDateSetListener {
 
     private String date2;
+    private String monthName;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
         // определяем текущую дату
+
         final Calendar c = Calendar.getInstance();
         int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH);
         int day = c.get(Calendar.DAY_OF_MONTH);
 
+        monthName = c.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH);
         // создаем DatePickerDialog и возвращаем его
         Dialog picker = new DatePickerDialog(getActivity(), R.style.DialogTheme,this,
                 year, month, day);
@@ -50,9 +57,17 @@ public class DatePickerEnd extends DialogFragment implements DatePickerDialog.On
     public void onDateSet(android.widget.DatePicker datePicker, int year,
                           int month, int day) {
 
-        Button tv = getActivity().findViewById(R.id.end_date);
-        tv.setText(day + "." + (month + 1) + "." + year);
-        date2 = tv.getText().toString();
+        TextView tv = getActivity().findViewById(R.id.end_date);
+        tv.setText(monthName + " " + day + ", " + year);
+        if (day < 10 & month < 10){
+            date2 = (year + "-0" + (month + 1) + "-0"+ day);
+        }else if (day < 10){
+            date2 = (year + "-" + (month + 1) + "-0"+ day);
+        }else if (month < 10) {
+            date2 = (year + "-0" + (month + 1) + "-" + day);
+        }else {
+            date2 = (year + "-" + (month + 1) + "-" + day);
+        }
         DailyStatActivity dailyStatActivity = (DailyStatActivity)getActivity();
         dailyStatActivity.setDate2(date2);
     }

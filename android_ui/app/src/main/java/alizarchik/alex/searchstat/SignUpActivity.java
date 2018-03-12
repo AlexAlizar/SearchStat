@@ -75,7 +75,7 @@ public class SignUpActivity extends AppCompatActivity{
         Retrofit retrofit = null;
         try {
             retrofit = new Retrofit.Builder()
-                    .baseUrl("http://195.110.59.16:8081/restapi-v4/?")
+                    .baseUrl("http://51.15.55.90:8080/restapi-v4/?")
                     .client(client)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();

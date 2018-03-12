@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.BarChart;
@@ -39,6 +40,7 @@ public class GraphActivity extends AppCompatActivity {
 
     private PieChart mPieChart;
     private BarChart mBarChart;
+    private TextView titleGraph;
     ArrayList<Integer> colors = new ArrayList<Integer>();
     private ArrayList<GenStatDataItem> listGS;
     private ArrayList<DailyStatisticsModel> listDS;
@@ -49,10 +51,14 @@ public class GraphActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.graph_layout);
         String activity = getIntent().getStringExtra("activity");
+        titleGraph = findViewById(R.id.titleGraph);
         if (activity.equals("general")) {
             general = true;
+            titleGraph.setText("Graph of popularity of politicians by number of mentions");
         } else {
             general = false;
+            titleGraph.setText("Graph of the number of pages with the mention of the policy " +
+                    "from the selected period of time");
         }
         Log.i("TAG", "general = " + general);
         listGS = (ArrayList<GenStatDataItem>) getIntent().getSerializableExtra("dataGeneral");

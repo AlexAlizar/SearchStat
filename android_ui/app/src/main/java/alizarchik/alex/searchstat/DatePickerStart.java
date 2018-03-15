@@ -4,16 +4,14 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.text.DateFormatSymbols;
 import java.util.Calendar;
-
-import java.util.Calendar;
-import java.util.Locale;
 
 /**
  * Created by aoalizarchik.
@@ -22,7 +20,7 @@ import java.util.Locale;
 public class DatePickerStart extends DialogFragment implements DatePickerDialog.OnDateSetListener {
 
     private String date1;
-    private String monthName;
+    public static final String TAG = "MyLogs";
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -33,17 +31,18 @@ public class DatePickerStart extends DialogFragment implements DatePickerDialog.
         int month = c.get(Calendar.MONTH);
         int day = c.get(Calendar.DAY_OF_MONTH);
 
-        monthName = c.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH);
         // создаем DatePickerDialog и возвращаем его
         Dialog picker = new DatePickerDialog(getActivity(), R.style.DialogTheme, this,
                 year, month, day);
         return picker;
+
     }
+
     @Override
     public void onStart() {
         super.onStart();
         // добавляем кастомный текст для кнопки
-        Button nButton =  ((AlertDialog) getDialog())
+        Button nButton = ((AlertDialog) getDialog())
                 .getButton(DialogInterface.BUTTON_POSITIVE);
         nButton.setText(getResources().getString(R.string.ready));
 
@@ -54,17 +53,20 @@ public class DatePickerStart extends DialogFragment implements DatePickerDialog.
                           int month, int day) {
 
         TextView tv = getActivity().findViewById(R.id.start_date);
+        String monthName = new DateFormatSymbols().getMonths()[month];
         tv.setText(monthName + " " + day + ", " + year);
-        if (day < 10 & month < 10){
-            date1 = (year + "-0" + (month + 1) + "-0"+ day);
-        }else if (day < 10){
-            date1 = (year + "-" + (month + 1) + "-0"+ day);
-        }else if (month < 10) {
-            date1 = (year + "-0" + (month + 1) + "-" + day);
-        }else {
-            date1 = (year + "-" + (month + 1) + "-" + day);
+        ++month;
+        if (day < 10 & month < 10) {
+            date1 = (year + "-0" + (month) + "-0" + day);
+        } else if (day < 10) {
+            date1 = (year + "-" + (month) + "-0" + day);
+        } else if (month < 10) {
+            date1 = (year + "-0" + (month) + "-" + day);
+        } else {
+            date1 = (year + "-" + (month) + "-" + day);
         }
-        DailyStatActivity dailyStatActivity = (DailyStatActivity)getActivity();
+        DailyStatActivity dailyStatActivity = (DailyStatActivity) getActivity();
         dailyStatActivity.setDate1(date1);
+
     }
 }

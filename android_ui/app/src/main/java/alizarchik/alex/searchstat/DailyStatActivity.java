@@ -28,7 +28,10 @@ import java.util.Collections;
 import java.util.List;
 
 import alizarchik.alex.searchstat.model.DailyStatisticsModel;
+import alizarchik.alex.searchstat.model.DailyStatisticsState;
 import alizarchik.alex.searchstat.model.GenStatDataItem;
+import alizarchik.alex.searchstat.model.Observed;
+import alizarchik.alex.searchstat.model.Observer;
 import alizarchik.alex.searchstat.model.Person;
 import alizarchik.alex.searchstat.model.Site;
 import okhttp3.OkHttpClient;
@@ -43,7 +46,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Created by Olesia on 10.01.2018.
  */
 
-public class DailyStatActivity extends AppCompatActivity {
+public class DailyStatActivity extends AppCompatActivity implements Observer {
 
     private Toolbar toolbar;
     private RecyclerView mRecyclerView;
@@ -60,6 +63,7 @@ public class DailyStatActivity extends AppCompatActivity {
     private String person;
     private String date1;
     private String date2;
+    private DailyStatisticsState state;
     private ArrayList<DailyStatisticsModel> listDS;
 
     IRestApi restAPI;
@@ -114,16 +118,20 @@ public class DailyStatActivity extends AppCompatActivity {
         listDS = new ArrayList<>();
         sites = new ArrayList<>();
         persons = new ArrayList<>();
+        state = new DailyStatisticsState();
+        state.addObserver(DailyStatActivity.this);
         startDate = findViewById(R.id.start_date);
         startDate.setOnClickListener(view -> {
             DialogFragment dateDialog = new DatePickerStart();
             dateDialog.show(getSupportFragmentManager(), "datePickerStart");
+            state.setState(site, person, date1, date2);
         });
         endDate = findViewById(R.id.end_date);
 
         endDate.setOnClickListener(view -> {
             DialogFragment dateDialog = new DatePickerEnd();
             dateDialog.show(getSupportFragmentManager(), "datePickerEnd");
+            state.setState(site, person, date1, date2);
         });
 
         mRecyclerView = findViewById(R.id.rvDailyStat);
@@ -144,7 +152,7 @@ public class DailyStatActivity extends AppCompatActivity {
 
     public void onClickBtnSite() {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
         OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
         Retrofit retrofit;
         try {
@@ -190,7 +198,7 @@ public class DailyStatActivity extends AppCompatActivity {
                         Site site;
                         for (int i = 0; i < response.body().size(); i++) {
                             site = response.body().get(i);
-                            Log.d(TAG, "response.body() sites:" + site.getSiteName());
+                            //Log.d(TAG, "response.body() sites:" + site.getSiteName());
                             sites.add(site.getSiteName());
                         }
                     }
@@ -205,7 +213,7 @@ public class DailyStatActivity extends AppCompatActivity {
                 builder.setItems(sitesArray, (dialogInterface, i) -> {
                     buttonSelectSite.setText(sitesArray[i]);
                     site = sitesArray[i].toString();
-                    onClickShowDailyStat(site, person, date1, date2);
+                    state.setState(site, person, date1, date2);
                 });
                 builder.show();
             }
@@ -220,7 +228,7 @@ public class DailyStatActivity extends AppCompatActivity {
 
     public void onClickBtnPerson() {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
         OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
         Retrofit retrofit;
         try {
@@ -266,7 +274,7 @@ public class DailyStatActivity extends AppCompatActivity {
                         Person person;
                         for (int i = 0; i < response.body().size(); i++) {
                             person = response.body().get(i);
-                            Log.d(TAG, "response.body() persons:" + person.getName());
+                            //Log.d(TAG, "response.body() persons:" + person.getName());
                             persons.add(person.getName());
                         }
                     }
@@ -281,7 +289,8 @@ public class DailyStatActivity extends AppCompatActivity {
                 builder.setItems(sitesArray, (dialogInterface, i) -> {
                     buttonSelectPerson.setText(sitesArray[i]);
                     person = sitesArray[i].toString();
-                    onClickShowDailyStat(site, person, date1, date2);
+                    state.setState(site, person, date1, date2);
+
                 });
                 builder.show();
             }
@@ -296,7 +305,7 @@ public class DailyStatActivity extends AppCompatActivity {
 
     public void onClickShowDailyStat(String site, String person, String date1, String date2) {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
         OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
         Retrofit retrofit;
         try {
@@ -329,6 +338,7 @@ public class DailyStatActivity extends AppCompatActivity {
             try {
                 progressBar.setVisibility(View.VISIBLE);
                 loadDailyStatistic(call);
+                listDS.clear();
             } catch (IOException e) {
                 e.printStackTrace();
                 Log.d(TAG, "no retrofit: " + e.getMessage());
@@ -348,8 +358,8 @@ public class DailyStatActivity extends AppCompatActivity {
                         DailyStatisticsModel dailyStatisticsModel;
                         for (int i = 0; i < response.body().size(); i++) {
                             dailyStatisticsModel = response.body().get(i);
-                            Log.d(TAG, "response.body() DS date:" + dailyStatisticsModel.getDate());
-                            Log.d(TAG, "response.body() DS page:" + dailyStatisticsModel.getCountOfPages());
+                            //Log.d(TAG, "response.body() DS date:" + dailyStatisticsModel.getDate());
+                            //Log.d(TAG, "response.body() DS page:" + dailyStatisticsModel.getCountOfPages());
                             listDS.add(dailyStatisticsModel);
                         }
                     }
@@ -368,4 +378,8 @@ public class DailyStatActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void handleEvent(String site, String person, String startDate, String endDate) {
+        onClickShowDailyStat(site, person, startDate, endDate);
+    }
 }

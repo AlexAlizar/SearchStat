@@ -16,13 +16,6 @@
     <string name="graphics">Graphics</string>
     <string name="choose_date">Choose date</string>
     <string name="ready">Ready</string>
-
-    <string-array name="sitelist">
-        <item>Site#1</item>
-        <item>Site#2</item>
-        <item>Site#3</item>
-        <item>Site#4</item>
-    </string-array>
     <string name="title_activity_login">LoginActivity</string>
     <string name="email">Email</string>
     <string name="select_a_site">Select a site</string>
@@ -33,5 +26,9 @@
     <string name="show_statistic">Show statistic</string>
     <string name="sign_up">Sign up</string>
     <string name="turn_on_internet">Turn internet ON</string>
+    <string name="no_connection_to_the_server">No connection to the server</string>
     <string name="enter_password_again">Enter the password again</string>
+    <string name="select_site_and_person">Select site and person</string>
+    <string name="graph_general_stat">Graph of popularity of politicians by number of mentions</string>
+    <string name="graph_daily_stat">Graph of the number of pages with the mention of the policy from the selected period of time</string>
 </resources>
